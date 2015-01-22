@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano
 //Stole AddChat from Igor <3 Thanks a ton
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.9</em></a>";//ffdd6f
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.9.1</em></a>";//ffdd6f
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -265,7 +265,7 @@ var style = '<style>\
 		.xbutton: {\
 			padding: 2px 15px;\
 		}\
-		.xbutton:hover, .xbox:hover {\
+		.xbutton:hover, .xbox:hover, #xprequel {\
 			cursor: pointer;\
 		}\
 	</style>';
@@ -320,6 +320,24 @@ if (!hasPerms){$("#xmod").hide();}
 $("#chat-input .chat-input-form").append("<div class='afkIsOn' style='width:7px; height:30px; display:none; background-color:#fef8a0'></div>");
 
 var hasArrow = false;
+$('#xprequel').on('click',	function(){
+	hasArrow  = !hasArrow;
+	$('#xclick .xbox').toggleClass('active');
+	$("#xall").toggleClass('active');
+	if (hasArrow){
+		$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)"});
+		$("#xclick .xbox").animate({left:'173px'});
+		$("#xprequel").animate({left:'0px'});
+		$("#xmain").animate({left:'0px'});
+		$("#xmod").animate({left:'0px'});
+	}else{
+		$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)"});
+		$("#xclick .xbox").animate({left:'0px'});
+		$("#xprequel").animate({left:'-173px'});
+		$("#xmain").animate({left:'-173px'});
+		$("#xmod").animate({left:'-173px'});
+	}
+});
 $('#xclick .xbox').on('click',	function(){
 	hasArrow  = !hasArrow;
 	$('#xclick .xbox').toggleClass('active');
@@ -1085,6 +1103,8 @@ function lookfor(id){
 	});
 }
 
+var wantsHelp = false;
+
 API.on(API.CHAT_COMMAND, function(data){
 	var msg = data;
 	var command = msg.substring(1).split(' ');
@@ -1106,6 +1126,28 @@ API.on(API.CHAT_COMMAND, function(data){
 				Chat shrinking ability (should work)
 				Inline on first line bug
 			*/
+			break;
+
+		case "lrg":
+			bigchat = !bigchat;
+			$("#xbig").toggleClass('active');
+			$("#xbig .icon").toggleClass('active');
+			if (bigchat){
+				$("#room .app-right").animate({width:"399"});
+				$('#chat-input-field').animate({width:"360"});
+				$("#chat-input").animate({width:"380"});
+			}else if (!bigchat){
+				$("#room .app-right").animate({width:"345"});
+				$('#chat-input-field').animate({width:"305"});
+				$("#chat-input").animate({width:"326"});
+			}
+			break;
+
+		case "support":
+			addChat("<br><a style='color:#c2f3bf;'><b>Here's support stuff:</b></a><br><br>\
+					<a style='color: #8bdb85;'>support@plug.dj</a><br>\
+					<a style='color: #8bdb85;' href='https://plug.dj/support'>plug.dj/support</a><br>\
+					<a style='color: #8bdb85;' href='http://support.plug.dj/hc' target='_blank'>support.plug.dj</a><br>","#CCCCCC");
 			break;
 
 		case "timeout":
