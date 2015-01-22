@@ -1,7 +1,7 @@
 if (botWasOn){
 	addChat("<img src='https://i.imgur.com/Z7LDEp0.gif'></img><br><a style='color:#FF0000;font-size:15px;'><b>[WARNING]</b></a><a style='font-size:15px;'> You already had FunBot activated. To update, please refresh and then click bookmark again. Reclicking doesn't work.</a>","#ff7575",true,true);
 }else{
-if (API.getUser().role > 0 && API.getUser().gRole > 0){
+if (API.getUser().role > 0 || API.getUser().gRole > 0){
 
 var botWasOn = true;
 var Funbot = {};
