@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano
 //Stole AddChat from Igor <3 Thanks a ton
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.8</em></a>";//ffdd6f
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.9</em></a>";//ffdd6f
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -412,6 +412,22 @@ $('#history-button').on('click', function(){
 	$("#chat-input").animate({width:"326"});
 });
 $('#playlist-meta').on('click', function(){
+	bigchat = false;
+	$('#xbig').attr('class','xbutton');
+	$("#xbig .icon").attr('class','icon icon-check-blue');
+	$("#room .app-right").animate({width:"345"});
+	$('#chat-input-field').animate({width:"305"});
+	$("#chat-input").animate({width:"326"});
+});
+$('#footer-user .user').on('click', function(){
+	bigchat = false;
+	$('#xbig').attr('class','xbutton');
+	$("#xbig .icon").attr('class','icon icon-check-blue');
+	$("#room .app-right").animate({width:"345"});
+	$('#chat-input-field').animate({width:"305"});
+	$("#chat-input").animate({width:"326"});
+});
+$('#app-menu .community').on('click', function(){
 	bigchat = false;
 	$('#xbig').attr('class','xbutton');
 	$("#xbig .icon").attr('class','icon icon-check-blue');
