@@ -706,14 +706,13 @@ API.on(API.USER_LEAVE, JoinLeave);
 function autojoin() {
 	if (autolock){
 		var dj = API.getDJ();
-		setTimeout(function(){
-			if (API.getWaitListPosition() <= -1 && dj.username != API.getUser().username){
-				API.djJoin();
-			}
-		},300);
+		if (API.getWaitListPosition() <= -1 && dj.username != API.getUser().username){
+			API.djJoin();
+			setTimeout(function(){API.djJoin();},100);
+			setTimeout(function(){API.djJoin();},250);
+		}
 	}
 }
-autojoin();
 API.on(API.ADVANCE, autojoin);
 
 API.on(API.ADVANCE, function(obj){
@@ -728,6 +727,38 @@ API.on(API.ADVANCE, function(obj){
 });
 
 function deleteAll(){
+	if (API.getUser().role >= 2 || API.getUser().gRole != 0){
+		var msgs = document.getElementsByClassName('message');
+		var emotes = document.getElementsByClassName('emote');
+		var mentions = document.getElementsByClassName('mention');
+		for (var i = 0; i < msgs.length; i++) {
+			for (var j = 0; j < msgs[i].classList.length; j++) {
+				if (msgs[i].classList[j].indexOf('message') == 0) {
+					$.ajax({type: 'DELETE', url: '/_/chat/' + msgs[i].getAttribute('data-cid')});
+				}
+			}
+		}
+		for (var i = 0; i < emotes.length; i++) {
+			for (var j = 0; j < emotes[i].classList.length; j++) {
+				if (emotes[i].classList[j].indexOf('emote') == 0) {
+					$.ajax({type: 'DELETE', url: '/_/chat/' + emotes[i].getAttribute('data-cid')});
+				}
+			}
+		}
+		for (var i = 0; i < mentions.length; i++) {
+			for (var j = 0; j < mentions[i].classList.length; j++) {
+				if (mentions[i].classList[j].indexOf('mention') == 0) {
+					$.ajax({type: 'DELETE', url: '/_/chat/' + mentions[i].getAttribute('data-cid')});
+				}
+			}
+		}
+		return l("[Chat cleared]",true);
+	}else{
+		addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
+	}
+}
+
+function deleteSelf(){
 	if (API.getUser().role >= 2 || API.getUser().gRole != 0){
 		var msgs = document.getElementsByClassName('message');
 		var emotes = document.getElementsByClassName('emote');
@@ -1265,6 +1296,10 @@ API.on(API.CHAT_COMMAND, function(data){
 			}else{
 				l("[Command " + command[0] + " denied]",true);
 			};
+			break;
+
+		case "deleteself":
+			deleteSelf();
 			break;
 
 		case "rainbow":
