@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano
 //Stole AddChat from Igor <3 Thanks a ton
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.9.1</em></a>";//ffdd6f
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.1</em></a>";//ffdd6f
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -268,6 +268,18 @@ var style = '<style>\
 		.xbutton:hover, .xbox:hover, #xprequel {\
 			cursor: pointer;\
 		}\
+		#chat-input .afknotifications {\
+			position: absolute;\
+			top: 8px;\
+			right: 4px;\
+			padding: 0 6px;\
+			min-width: 10px;\
+			border-radius: 12px;\
+			background: #db182e;\
+			text-align: center;\
+			font-size: 12px;\
+			cursor: pointer;\
+		}\
 	</style>';
 
 $("#room").append(menu);
@@ -316,8 +328,17 @@ if (API.getUser().gRole != 0 || API.getUser().role != 0){
 	hasPerms = true;
 }
 if (!hasPerms){$("#xmod").hide();}
+var notifyAFK = 0;
 
-$("#chat-input .chat-input-form").append("<div class='afkIsOn' style='width:7px; height:30px; display:none; background-color:#fef8a0'></div>");
+$("#chat-input .chat-input-form").append("\
+	<div class='afkIsOn' style='width:7px; height:30px; display:none; background-color:#fef8a0'>\
+		<span class='afknotifications'>" + notifyAFK + "</span>\
+	</div>");
+if (notifyAFK == 0){
+	$("#chat-input .afknotifications").hide();
+}else if (notifyAFK > 0){
+	$("#chat-input .afknotifications").show();
+}
 
 var hasArrow = false;
 $('#xprequel').on('click',	function(){
@@ -494,9 +515,14 @@ $('#xafk').on('click',		function(){
 	}else{
 		$("#chat-input .afkIsOn").hide();
 		$("#chat-input-field").css({color:'#eee'});
+		notifyAFK = 0;
 	}
 	$(this).toggleClass('active');
 	$("#xafk .icon").toggleClass('active');
+});
+$("#chat-input .afknotifications").on('click',		function(){
+	notifyAFK = 0;
+	$("#chat-input .afknotifications").hide();
 });
 $('#xdel').on('click',		function(){
 	var r = confirm("Delete entire chat on log?");
@@ -622,11 +648,28 @@ API.on(API.CHAT, function(data){
 				coollock = true;
 				setTimeout(function(){coollock = false},60000);
 			}
+			if (afkmsg){
+				notifyAFK++;
+				$("#chat-input .afknotifications").text(notifyAFK);
+			}
 		}
-	}else if (userid != "undefined" && tst != -1 && !coollock && afkmsg){
-		c("[AFK] @" + user + " - " + themessage);
-		coollock = true;
-		setTimeout(function(){coollock = false},60000);
+	}else if (userid != "undefined" && tst != -1){
+		if (!coollock && afkmsg){
+			c("[AFK] @" + user + " - " + themessage);
+			coollock = true;
+			setTimeout(function(){coollock = false},60000);
+		}
+		if (afkmsg){
+			notifyAFK++;
+			$("#chat-input .afknotifications").text(notifyAFK);
+		}
+	}
+	if (afkmsg){
+		if (notifyAFK == 0){
+			$("#chat-input .afknotifications").hide();
+		}else{
+			$("#chat-input .afknotifications").show();
+		}
 	}
 
 		//Bootleg Inline Images//
