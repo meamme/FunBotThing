@@ -403,6 +403,22 @@ $('#xbig').on('click',		function(){
 		$("#chat-input").animate({width:"326"});
 	}
 });
+$('#history-button').on('click', function(){
+	bigchat = false;
+	$('#xbig').attr('class','xbutton');
+	$("#xbig .icon").attr('class','icon icon-check-blue');
+	$("#room .app-right").animate({width:"345"});
+	$('#chat-input-field').animate({width:"305"});
+	$("#chat-input").animate({width:"326"});
+});
+$('#playlist-meta').on('click', function(){
+	bigchat = false;
+	$('#xbig').attr('class','xbutton');
+	$("#xbig .icon").attr('class','icon icon-check-blue');
+	$("#room .app-right").animate({width:"345"});
+	$('#chat-input-field').animate({width:"305"});
+	$("#chat-input").animate({width:"326"});
+});
 $('#xvotes').on('click',		function(){
 	cutevotes = !cutevotes;
 	$(this).toggleClass('active');
@@ -1115,7 +1131,7 @@ API.on(API.CHAT_COMMAND, function(data){
 			c("/me &nbsp;&nbsp;&nbsp;:fire: :fire: :fire: :fire: :fire:");
 			setTimeout(function(){c("/me &nbsp;&nbsp;&nbsp;:fire: :fire: :goat: :fire: :fire:")},250);
 			setTimeout(function(){c("/me &nbsp;&nbsp;&nbsp;:fire: :fire: :fire: :fire: :fire:")},500);
-			setTimeout(function(){c("/me Please, all mighty Gods, accept this sacrifice!")},750);
+			setTimeout(function(){c("/me Please, all mighty Admins, accept this sacrifice!")},750);
 			break;
 
 		case "del":
