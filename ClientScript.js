@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano
 //Stole AddChat from Igor <3 Thanks a ton
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.1</em></a>";//ffdd6f
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.2</em></a>";//ffdd6f
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -516,6 +516,8 @@ $('#xafk').on('click',		function(){
 		$("#chat-input .afkIsOn").hide();
 		$("#chat-input-field").css({color:'#eee'});
 		notifyAFK = 0;
+		$("#chat-input .afknotifications").text(notifyAFK);
+		$("#chat-input .afknotifications").hide();
 	}
 	$(this).toggleClass('active');
 	$("#xafk .icon").toggleClass('active');
