@@ -48,6 +48,19 @@ API.on(API.CHAT_COMMAND, function(data){
 			});
 			break;
 
+		case "deleteself":
+			if (API.getUser().role >= 2 || API.getUser().gRole != 0){
+				for (var i = 0; i < logged.length; i++){
+					$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});
+				}
+				for (var i = 0; i < logged.length; i++){
+					$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});
+				}
+				logged = [];
+			}else{
+				addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
+			}
+
 		case "cmd":
 			addChat("<a style='color:#eb9595;'>__________<br>\
 			<a style='color:#ececec;'>/<b>del</b> + #[Array position (if unsure, go with 0)]<br>\
