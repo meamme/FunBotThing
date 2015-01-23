@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano
 //Stole AddChat from Igor <3 Thanks a ton
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.3</em></a>";//ffdd6f
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.5</em></a>";//ffdd6f
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -114,8 +114,8 @@ var menu = '\
 					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;">AFK</span>\
 				</div>\
-				<input id="xafkenter" style="margin-left:5px; width:100px; background-color:#282c35; color:#eeeeee; border: solid 1px #009cdd;"></input>\
-				<button onclick="afkUpdate()" style="color:#cccccc; background-color:#141414; border: solid 1px #b0b0b0; font-family:' + opensansfnt + '; margin:2px;">&nbsp;Ok&nbsp;</button>\
+				<input id="xafkenter" style="display:none;"></input>\
+				<button id="xafkbutton" onclick="afkUpdate()" style="color:#cccccc; background-color:#141414; border: solid 1px #b0b0b0; font-family:' + opensansfnt + '; margin:2px; display:none;">&nbsp;Ok&nbsp;</button>\
 				<div id="xline" class="xbutton active">\
 					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;">Bootleg Inline</span>\
@@ -217,6 +217,13 @@ var style = '<style>\
 			font-family: "Open Sans", sans-serif;\
 			background-image:url(https://i.imgur.com/fba61u0.png);\
 		}\
+		#xafkenter {\
+			margin-left:5px;\
+			width:100px;\
+			background-color:#282c35;\
+			color:#eeeeee;\
+			border: solid 1px #009cdd;\
+		}\
 		#xmain {\
 			position: absolute;\
 			top: 127px;\
@@ -243,7 +250,7 @@ var style = '<style>\
 		}\
 		#xmod {\
 			position: absolute;\
-			top: 422px;\
+			top: 397px;\
 			padding: 10px;\
 			width: 150px;\
 			background-color: #111317;\
@@ -524,12 +531,18 @@ $('#xafk').on('click',		function(){
 	if (afkmsg){
 		$("#chat-input .afkIsOn").show();
 		$("#chat-input-field").css({color:'#fef8a0'});
+		$("#xafkenter").show();
+		$("#xafkbutton").show();
+		$("#xmod").css({'top':'422px'});
 	}else{
 		$("#chat-input .afkIsOn").hide();
 		$("#chat-input-field").css({color:'#eee'});
 		notifyAFK = 0;
 		$("#chat-input .afknotifications").text(notifyAFK);
 		$("#chat-input .afknotifications").hide();
+		$("#xafkenter").hide();
+		$("#xafkbutton").hide();
+		$("#xmod").css({'top':'397px'});
 	}
 	$(this).toggleClass('active');
 	$("#xafk .icon").toggleClass('active');
@@ -1179,8 +1192,6 @@ API.on(API.CHAT_COMMAND, function(data){
 	switch(command[0].toLowerCase()){
 		case "todo":
 			/*
-				Lockdown (should work)
-				Chat shrinking ability (should work)
 				Inline on first line bug
 			*/
 			break;
