@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano
 //Stole AddChat from Igor <3 Thanks a ton
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.2</em></a>";//ffdd6f
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.3</em></a>";//ffdd6f
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -243,7 +243,7 @@ var style = '<style>\
 		}\
 		#xmod {\
 			position: absolute;\
-			top: 460px;\
+			top: 422px;\
 			padding: 10px;\
 			width: 150px;\
 			background-color: #111317;\
