@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano
 //Stole AddChat from Igor <3 Thanks a ton
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.5</em></a>";//ffdd6f
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.6</em></a>";//ffdd6f
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -1077,13 +1077,37 @@ function lookfor(id){
 		}
 		var jnd = mnt + " " + lk[0] + day +  " " + jin[0] + " at " + lj[0];
 
-//ROLE
+//GROLE
 		if (data.gRole < 3){var g = "<a style='color:#777f92;'>Regular</a> (" + data.gRole + ")";};
 		if (data.gRole == 3){var g = "<a style='color:#89be6c;'>Brand Ambassador</a> (" + data.gRole + ")";};
 		if (data.gRole > 3){var g = "<a style='color:#42a5dc;'>Admin</a> (" + data.gRole + ")";};
 
-//VOTE
+//ROLE
 		var userInfo;
+		for (var i = 0; i < API.getUsers().length; i++){
+			if (API.getUsers()[i].username == data.username){
+				userInfo = API.getUsers()[i];
+			}
+		}
+		if (typeof userInfo != "undefined"){
+			if (userInfo.role == 0){
+				var lr = "<a style='color:#777f92;'>User</a> (0)";
+			}else if (userInfo.role == 1){
+				var lr = "<a style='color:#ac76ff;'>RDJ</a> (1)";
+			}else if (userInfo.role == 2){
+				var lr = "<a style='color:#ac76ff;'>Bouncer</a> (2)";
+			}else if (userInfo.role == 3){
+				var lr = "<a style='color:#ac76ff;'>Manager</a> (3)";
+			}else if (userInfo.role == 4){
+				var lr = "<a style='color:#ac76ff;'>Co-Host</a> (4)";
+			}else if (userInfo.role == 5){
+				var lr = "<a style='color:#ac76ff;'>Host</a> (5)";
+			}
+		}else{
+			var lr = "<a style='color:#777f92;'>Not in the room</a> (0)";
+		}
+
+//VOTE
 		var votestats = "<a style='color:#646b7e;'>Not in the room</a>";
 		var grabstats = "";
 		var votestate;
@@ -1092,7 +1116,6 @@ function lookfor(id){
 			if (API.getUsers()[i].username == data.username){
 				votestate = API.getUsers()[i].vote;
 				grabstate = API.getUsers()[i].grab;
-				userInfo = API.getUsers()[i];
 			}
 		}
 		if (votestate == 1){votestats = "<a style='color:#90ad2f;'>Woot!</a> (1) "}
@@ -1121,6 +1144,7 @@ function lookfor(id){
 		if (data.blurb != null){
 			blurbTrue = data.blurb;
 		}
+
 //FRIEND
 		var isFriend = "";
 		if (typeof userInfo != "undefined" && userInfo.friend == true){
@@ -1145,7 +1169,8 @@ function lookfor(id){
 		<a style='color:#42a5dc;'>Level:</b></a> " + data.level + "<br><b>\
 		<a style='color:#42a5dc;'>Avatar:</b></a> " + data.avatarID + "<br><b>\
 		<a style='color:#42a5dc;'>Status:</b></a> " + stt + "<br><b>\
-		<a style='color:#42a5dc;'>Role:</b></a> " + g + "<br><b>\
+		<a style='color:#42a5dc;'>Role:</b></a> " + lr + "<br><b>\
+		<a style='color:#42a5dc;'>Global Role:</b></a> " + g + "<br><b>\
 		<a style='color:#42a5dc;'>Joined:</b></a> " + jnd + "<br><b>\
 		<a style='color:#42a5dc;'>Badge:</b></a> " + bb + "<br><b>\
 		<a style='color:#42a5dc;'>Friend:</b></a> " + isFriend + "<br><b>\
