@@ -25,7 +25,7 @@ Make a bookmark and replace the URL field with these:
 ###ID Basics:
 
  javascript:(function(){
-   $.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/ID-Bascis.js');
+   $.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/ID-Basics.js');
  }());
 
 ###Percentage on level bar:
