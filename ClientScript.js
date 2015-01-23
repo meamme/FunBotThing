@@ -284,8 +284,6 @@ var style = '<style>\
 
 $("#room").append(menu);
 $("body").prepend(style);
-$("#meh").animate({left:"-1px"});
-$("#woot").animate({left:"1px"});
 $("#room .app-right").animate({width:"399"});
 $("#chat-input-field").animate({width:"360"});
 $("#chat-input").animate({width:"380"});
@@ -295,6 +293,12 @@ $("#woot .top .icon").animate({left:"22"});
 $("#woot .top .label").hide();
 $("#meh .top .icon").animate({left:"20"});
 $("#meh .top .label").hide();
+$('#meh').animate({left:"-1px"});
+$('#woot').animate({left:"1px"});
+$('#dj-button .left .icon').animate({left:"32px"});
+$('#dj-button span').hide();
+$('#dj-button .left').animate({width:"97px"});
+$('#dj-button').animate({width:"130px"});
 $("#search-input-field").attr({"maxlength":256});
 $(".emoji-trollface").replaceWith("<span style='background: url(https://i.imgur.com/osBR8Jj.png); width: 16px; height: 16px;'></span>");
 $("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
