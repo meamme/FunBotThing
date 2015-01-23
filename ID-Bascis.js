@@ -1,3 +1,4 @@
+//This is just for people who have the wrong link ;3
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
 	var a = chat.scrollTop() > chat[0].scrollHeight - chat.height() - 28;
