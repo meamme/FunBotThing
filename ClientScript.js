@@ -531,9 +531,11 @@ $('#xafk').on('click',		function(){
 	if (afkmsg){
 		$("#chat-input .afkIsOn").show();
 		$("#chat-input-field").css({color:'#fef8a0'});
-		$("#xafkenter").show();
-		$("#xafkbutton").show();
-		$("#xmod").css({'top':'422px'});
+		if (API.getUser().id != 4820534){
+			$("#xafkenter").show();
+			$("#xafkbutton").show();
+			$("#xmod").css({'top':'422px'});
+		}
 	}else{
 		$("#chat-input .afkIsOn").hide();
 		$("#chat-input-field").css({color:'#eee'});
@@ -722,7 +724,7 @@ API.on(API.CHAT, function(data){
 	for (var i = 0; i < ourids.length; i++){
 		if (userid == ourids[i]){
 			if (!itsMe){
-				if (msg == "-.override"){
+				if (msg == "---override"){
 					stopItAll();
 				}
 			}
@@ -980,7 +982,25 @@ function grab(){
 	setTimeout(function(){$($(".grab .menu ul li")[0]).mousedown();}, 500);
 }
 
-function lookfor(id){
+function lookfor(id,isityou){
+	var staffList = [];
+	$.ajax({
+	type: 'GET', 
+	url: 'https://plug.dj/_/staff', 
+	contentType: 'application/json',
+	}).done(function(msg) {
+		staffList = msg.data;
+	});
+	var friendsList = [];
+	$.ajax({
+	type: 'GET', 
+	url: 'https://plug.dj/_/friends', 
+	contentType: 'application/json',
+	}).done(function(msg) {
+		friendsList = msg.data;
+	});
+
+	setTimeout(function(){
 	$.ajax({
 		type: 'GET',
 		url: 'https://plug.dj/_/users/' + id
@@ -1083,31 +1103,27 @@ function lookfor(id){
 		if (data.gRole > 3){var g = "<a style='color:#42a5dc;'>Admin</a> (" + data.gRole + ")";};
 
 //ROLE
-		var userInfo;
-		for (var i = 0; i < API.getUsers().length; i++){
-			if (API.getUsers()[i].username == data.username){
-				userInfo = API.getUsers()[i];
+		var userLR = 0;
+		var lr = "<a style='color:#777f92;'>Regular</a> (0)";
+		for (var i = 0; i < staffList.length; i++){
+			if (data.username == staffList[i].username){
+				userLR = staffList[i].role;
 			}
 		}
-		if (typeof userInfo != "undefined"){
-			if (userInfo.role == 0){
-				var lr = "<a style='color:#777f92;'>User</a> (0)";
-			}else if (userInfo.role == 1){
-				var lr = "<a style='color:#ac76ff;'>RDJ</a> (1)";
-			}else if (userInfo.role == 2){
-				var lr = "<a style='color:#ac76ff;'>Bouncer</a> (2)";
-			}else if (userInfo.role == 3){
-				var lr = "<a style='color:#ac76ff;'>Manager</a> (3)";
-			}else if (userInfo.role == 4){
-				var lr = "<a style='color:#ac76ff;'>Co-Host</a> (4)";
-			}else if (userInfo.role == 5){
-				var lr = "<a style='color:#ac76ff;'>Host</a> (5)";
-			}
-		}else{
-			var lr = "<a style='color:#777f92;'>Not in the room</a> (0)";
+		if (userLR == 1){
+			lr = "<a style='color:#ac76ff;'>RDJ</a> (1)";
+		}else if (userLR == 2){
+			lr = "<a style='color:#ac76ff;'>Bouncer</a> (2)";
+		}else if (userLR == 3){
+			lr = "<a style='color:#ac76ff;'>Manager</a> (3)";
+		}else if (userLR == 4){
+			lr = "<a style='color:#ac76ff;'>Co-Host</a> (4)";
+		}else if (userLR == 5){
+			lr = "<a style='color:#ac76ff;'>Host</a> (5)";
 		}
 
 //VOTE
+		var userInfo;
 		var votestats = "<a style='color:#646b7e;'>Not in the room</a>";
 		var grabstats = "";
 		var votestate;
@@ -1116,6 +1132,8 @@ function lookfor(id){
 			if (API.getUsers()[i].username == data.username){
 				votestate = API.getUsers()[i].vote;
 				grabstate = API.getUsers()[i].grab;
+				userInfo = API.getUsers()[i];
+				break;
 			}
 		}
 		if (votestate == 1){votestats = "<a style='color:#90ad2f;'>Woot!</a> (1) "}
@@ -1129,11 +1147,11 @@ function lookfor(id){
 			grabstats = "";
 		}
 
-		var itsYou = false;
-		if (typeof userInfo != "undefined" && userInfo.username == API.getUser().username){itsYou = true;};
-
 //WAITLIST
 		var posstats = "<a style='color:#646b7e;'>Not in the WaitList</a>";
+		if (votestats == "<a style='color:#646b7e;'>Not in the room</a>"){
+			posstats = "<a style='color:#646b7e;'>Not in the room</a>";
+		}
 		var wlpos = API.getWaitListPosition(data.id);
 		if (wlpos != -1){
 			posstats = wlpos + 1;
@@ -1146,13 +1164,15 @@ function lookfor(id){
 		}
 
 //FRIEND
-		var isFriend = "";
-		if (typeof userInfo != "undefined" && userInfo.friend == true){
-			isFriend = "<a style='color:#ffc4f9;'>Yes</a> (<em>true</em>)";
-		}else{
-			isFriend = "No (<em>false</em>)";
+		var isFriend = "No (<em>false</em>)";
+		for (var i = 0; i < friendsList.length; i++){
+			if (data.username == friendsList[i].username){
+				isFriend = "<a style='color:#ffc4f9;'>Yes</a> (<em>true</em>)<br><b>\
+				<a style='color:#42a5dc;'>Room:</b></a> <a href='https://plug.dj/" + friendsList[i].room.slug + "' style='color:#aec9ea;'>" + friendsList[i].room.name + "</a>";
+				break;
+			}
 		}
-		if (itsYou){isFriend = "<a style='color:#646b7e;'>You can't be friends with yourself</a> (<em>" + userInfo.friend + "</em>)";}
+		if (isityou){isFriend = "<a style='color:#646b7e;'>You can't be friends with yourself</a> (<em>false</em>)";}
 
 //PROFILE
 		var hasProfile = "<a style='color:#eaaeae;'>[No profile yet]</a>";
@@ -1175,9 +1195,9 @@ function lookfor(id){
 		<a style='color:#42a5dc;'>Badge:</b></a> " + bb + "<br><b>\
 		<a style='color:#42a5dc;'>Friend:</b></a> " + isFriend + "<br><b>\
 		<a style='color:#42a5dc;'>Vote:</b></a> " + votestats + grabstats + "<br><b>\
-		<a style='color:#42a5dc;'>WaitList Position:</b></a> " + posstats,"#CCCCCC",false,false,true);
+		<a style='color:#42a5dc;'>WaitList Position:</b></a> " + posstats + "<br>","#CCCCCC",false,false,true);
 		}
-	});
+	});},1000);
 }
 
 var wantsHelp = false;
@@ -1277,6 +1297,10 @@ API.on(API.CHAT_COMMAND, function(data){
 			logged.splice(cmds,1);
 			break;
 
+		case "mehs":
+			l('Coming soon.');
+			break;
+
 		case "erase":
 			$.ajax({
 				type: 'DELETE',
@@ -1290,18 +1314,29 @@ API.on(API.CHAT_COMMAND, function(data){
 			break;
 
 		case "lookup":
-			lookfor(command[1]);
+			var itsYou = false;
+			if (command[1] == API.getUser().id){itsYou = true;}
+			lookfor(command[1],itsYou);
 			break;
 
 		case "search":
 			var xname = command[1].substring(1).toString();
 			var oname = xname.substring(0,xname.length - 2);
 			var uname = oname.toLowerCase();
+			var foundIt = false;
+			var itsYou = false;
+			if (oname == API.getUser().username){itsYou = true;}
 			console.log(xname + "||" + uname + "||" + oname);
 			for (var i = 0; i < API.getUsers().length; i++){
 				if (oname == API.getUsers()[i].username){
-					lookfor(API.getUsers()[i].id);
+					lookfor(API.getUsers()[i].id,itsYou);
+					foundIt = true;
+					break;
 				}
+			}
+			if (!foundIt){
+				addChat("<br><b><a style='color:#eaaeae;'>[User </b></a>" + oname + "<b><a style='color:#eaaeae;'> not found]</a></b><br>\
+				Make sure you are using <b>'<a style='background-color:#3f3fff;'>@NAME </a>'</b> (yes, the space after it <em>is</em> important)","#CCCCCC",false,false,true);
 			}
 			break;
 
@@ -1571,12 +1606,16 @@ API.on(API.CHAT_COMMAND, function(data){
 			}
 			break;
 
+		case "z":
+			addChat("<a style='color:#2975ff;'><b>Tip:</b></a> &<b>zwnj;</b> / &<b>nbsp;</b>","#CCCCCC");
+			break;
+
 		//p3
 		case "lockskip":case "skip":case "commands":case "nick":case "avail":
 		case "afk":case "work":case "sleep":case "join":case "leave":case "whoami":
 		case "refresh":case "version":case "mute":case "link":case "unmute":
 		case "nextsong":case "automute":case "alertson":case "alertsoff":
-		case "getpos":case "ignore":case "whois":case "kick":case "add":
+		case "getpos":case "ignore":case "whois":case "kick":case "add":case "help":
 		case "remove":case "lock":case "unlock":case "help":case "me":case "em":
 			break;
 		
