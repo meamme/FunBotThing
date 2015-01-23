@@ -20,7 +20,25 @@ function displayid(){
 	$("#user-rollover .info").append('<div id="Id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "     </div>");
 }
 
-function lookfor(id){
+function lookfor(id,isityou){
+	var staffList = [];
+	$.ajax({
+	type: 'GET', 
+	url: 'https://plug.dj/_/staff', 
+	contentType: 'application/json',
+	}).done(function(msg) {
+			for(var i in msg.data) { staffList.push(msg.data[i]) };
+	});
+	var friendsList = [];
+	$.ajax({
+	type: 'GET', 
+	url: 'https://plug.dj/_/friends', 
+	contentType: 'application/json',
+	}).done(function(msg) {
+			for(var i in msg.data) { friendsList.push(msg.data[i]) };
+	});
+
+	setTimeout(function(){
 	$.ajax({
 		type: 'GET',
 		url: 'https://plug.dj/_/users/' + id
@@ -117,10 +135,30 @@ function lookfor(id){
 		}
 		var jnd = mnt + " " + lk[0] + day +  " " + jin[0] + " at " + lj[0];
 
-//ROLE
+//GROLE
 		if (data.gRole < 3){var g = "<a style='color:#777f92;'>Regular</a> (" + data.gRole + ")";};
 		if (data.gRole == 3){var g = "<a style='color:#89be6c;'>Brand Ambassador</a> (" + data.gRole + ")";};
 		if (data.gRole > 3){var g = "<a style='color:#42a5dc;'>Admin</a> (" + data.gRole + ")";};
+
+//ROLE
+		var userLR = 0;
+		var lr = "<a style='color:#777f92;'>Regular</a> (0)";
+		for (var i = 0; i < staffList.length; i++){
+			if (data.username == staffList[i].username){
+				userLR = staffList[i].role;
+			}
+		}
+		if (userLR == 1){
+			lr = "<a style='color:#ac76ff;'>RDJ</a> (1)";
+		}else if (userLR == 2){
+			lr = "<a style='color:#ac76ff;'>Bouncer</a> (2)";
+		}else if (userLR == 3){
+			lr = "<a style='color:#ac76ff;'>Manager</a> (3)";
+		}else if (userLR == 4){
+			lr = "<a style='color:#ac76ff;'>Co-Host</a> (4)";
+		}else if (userLR == 5){
+			lr = "<a style='color:#ac76ff;'>Host</a> (5)";
+		}
 
 //VOTE
 		var userInfo;
@@ -133,6 +171,7 @@ function lookfor(id){
 				votestate = API.getUsers()[i].vote;
 				grabstate = API.getUsers()[i].grab;
 				userInfo = API.getUsers()[i];
+				break;
 			}
 		}
 		if (votestate == 1){votestats = "<a style='color:#90ad2f;'>Woot!</a> (1) "}
@@ -142,26 +181,35 @@ function lookfor(id){
 		else if (grabstate === false){grabstats = " <a style='color:#646b7e;'>| Didn't grab</a> (<em>false</em>)"}
 
 		if (API.getDJ().username == data.username){
-			votestats = "<a style='color:#646b7e;'>(is currently DJ'ing)</a>";
+			votestats = "<a style='color:#646b7e;'>Is currently DJ'ing</a>";
 			grabstats = "";
 		}
 
-		var itsYou = false;
-		if (typeof userInfo != "undefined" && userInfo.username == API.getUser().username){itsYou = true;};
+//WAITLIST
+		var posstats = "<a style='color:#646b7e;'>Not in the WaitList</a>";
+		if (votestats == "<a style='color:#646b7e;'>Not in the room</a>"){
+			posstats = "<a style='color:#646b7e;'>Not in the room</a>";
+		}
+		var wlpos = API.getWaitListPosition(data.id);
+		if (wlpos != -1){
+			posstats = wlpos + 1;
+		}
 
 //BLURB
 		var blurbTrue = "<a style='color:#eaaeae;'>[None]</a>";
 		if (data.blurb != null){
 			blurbTrue = data.blurb;
 		}
+
 //FRIEND
-		var isFriend = "";
-		if (typeof userInfo != "undefined" && userInfo.friend == true){
-			isFriend = "<a style='color:#ffc4f9;'>Yes</a> (<em>true</em>)";
-		}else{
-			isFriend = "No (<em>false</em>)";
+		var isFriend = "No (<em>false</em>)";
+		for (var i = 0; i < friendsList.length; i++){
+			if (data.username == friendsList[i].username){
+				isFriend = "<a style='color:#ffc4f9;'>Yes</a> (<em>true</em>)";
+				break;
+			}
 		}
-		if (itsYou){isFriend = "<a style='color:#646b7e;'>You can't be friends with yourself</a> (<em>" + userInfo.friend + "</em>)";}
+		if (isityou){isFriend = "<a style='color:#646b7e;'>You can't be friends with yourself</a> (<em>false</em>)";}
 
 //PROFILE
 		var hasProfile = "<a style='color:#eaaeae;'>[No profile yet]</a>";
@@ -178,13 +226,15 @@ function lookfor(id){
 		<a style='color:#42a5dc;'>Level:</b></a> " + data.level + "<br><b>\
 		<a style='color:#42a5dc;'>Avatar:</b></a> " + data.avatarID + "<br><b>\
 		<a style='color:#42a5dc;'>Status:</b></a> " + stt + "<br><b>\
-		<a style='color:#42a5dc;'>Role:</b></a> " + g + "<br><b>\
+		<a style='color:#42a5dc;'>Role:</b></a> " + lr + "<br><b>\
+		<a style='color:#42a5dc;'>Global Role:</b></a> " + g + "<br><b>\
 		<a style='color:#42a5dc;'>Joined:</b></a> " + jnd + "<br><b>\
 		<a style='color:#42a5dc;'>Badge:</b></a> " + bb + "<br><b>\
 		<a style='color:#42a5dc;'>Friend:</b></a> " + isFriend + "<br><b>\
-		<a style='color:#42a5dc;'>Vote:</b></a> " + votestats + grabstats,"#CCCCCC",false,false,true);
+		<a style='color:#42a5dc;'>Vote:</b></a> " + votestats + grabstats + "<br><b>\
+		<a style='color:#42a5dc;'>WaitList Position:</b></a> " + posstats,"#CCCCCC",false,false,true);
 		}
-	});
+	});},700);
 }
 
 function getuid(uname,oname){
@@ -242,18 +292,29 @@ API.on(API.CHAT_COMMAND, function(data){
 			break;
 
 		case "lookup":
-			lookfor(command[1]);
+			var itsYou = false;
+			if (command[1] == API.getUser().id){itsYou = true;}
+			lookfor(command[1],itsYou);
 			break;
 
 		case "search":
 			var xname = command[1].substring(1).toString();
 			var oname = xname.substring(0,xname.length - 2);
 			var uname = oname.toLowerCase();
+			var foundIt = false;
+			var itsYou = false;
+			if (oname == API.getUser().username){itsYou = true;}
 			console.log(xname + "||" + uname + "||" + oname);
 			for (var i = 0; i < API.getUsers().length; i++){
 				if (oname == API.getUsers()[i].username){
-					lookfor(API.getUsers()[i].id);
+					lookfor(API.getUsers()[i].id,itsYou);
+					foundIt = true;
+					break;
 				}
+			}
+			if (!foundIt){
+				addChat("<br><b><a style='color:#eaaeae;'>[User </b></a>" + oname + "<b><a style='color:#eaaeae;'> not found]</a></b><br>\
+				Make sure you are using <b>'<a style='background-color:#3f3fff;'>@NAME </a>'</b> (yes, the space after it <em>is</em> important)","#CCCCCC",false,false,true);
 			}
 			break;
 
