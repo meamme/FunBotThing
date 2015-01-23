@@ -126,7 +126,7 @@ var menu = '\
 				</div>\
 				<div id="xvotes" class="xbutton active">\
 					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">Pretty Votes</span>\
+					<span class="xclickable" style="margin-left:25px;">Fancy Buttons</span>\
 				</div>\
 			</section>\
 			<section id="xmod">\
@@ -163,10 +163,10 @@ var style = '<style>\
 		}\
 		@-webkit-keyframes xanim1 {\
 			from {left: 0px;}\
-			to {left: 173px;}\
+			to {left: 170px;}\
 		}\
 		@-webkit-keyframes xanim2 {\
-			from {left: 173px;}\
+			from {left: 170px;}\
 			to {left: 0px;}\
 		}\
 		@-webkit-keyframes xanim3 {\
@@ -178,12 +178,12 @@ var style = '<style>\
 		}\
 		#xclick {\
 			display: block;\
-			left: 173px;\
+			left: 170px;\
 			-webkit-animation: xanim2 0.5s;\
 		}\
 		#xclick .active {\
 			display: block;\
-			left: 173px;\
+			left: 170px;\
 		}\
 		.xbox {\
 			position: absolute;\
@@ -199,7 +199,7 @@ var style = '<style>\
 			left: 0px;\
 		}\
 		.xbox .active {\
-			left: 173px;\
+			left: 170px;\
 			background-image: url(https://i.imgur.com/k3pe7i8.png);\
 		}\
 		#xall .active {\
@@ -212,19 +212,19 @@ var style = '<style>\
 			padding: 10px;\
 			width: 150px;\
 			background-color: #272B34;\
-			outline: #FFFFFF double;\
+			outline: #000000 solid 1px;\
 			z-index: 10;\
 			font-family: "Open Sans", sans-serif;\
 			background-image:url(https://i.imgur.com/fba61u0.png);\
 		}\
 		#xmain {\
 			position: absolute;\
-			top: 135px;\
+			top: 127px;\
 			padding: 10px;\
 			width: 150px;\
 			height: auto;\
 			background-color: #111317;\
-			outline: #FFFFFF double;\
+			outline: #000000 solid 1px;\
 			z-index: 10;\
 			font-family: "Open Sans", sans-serif;\
 			color: #808691\
@@ -247,7 +247,7 @@ var style = '<style>\
 			padding: 10px;\
 			width: 150px;\
 			background-color: #111317;\
-			outline: #FFFFFF double;\
+			outline: #000000 solid 1px;\
 			z-index: 10;\
 			font-family: "Open Sans", sans-serif;\
 			color: #808691;\
@@ -347,16 +347,16 @@ $('#xprequel').on('click',	function(){
 	$("#xall").toggleClass('active');
 	if (hasArrow){
 		$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)"});
-		$("#xclick .xbox").animate({left:'173px'});
+		$("#xclick .xbox").animate({left:'170px'});
 		$("#xprequel").animate({left:'0px'});
 		$("#xmain").animate({left:'0px'});
 		$("#xmod").animate({left:'0px'});
 	}else{
 		$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)"});
 		$("#xclick .xbox").animate({left:'0px'});
-		$("#xprequel").animate({left:'-173px'});
-		$("#xmain").animate({left:'-173px'});
-		$("#xmod").animate({left:'-173px'});
+		$("#xprequel").animate({left:'-170px'});
+		$("#xmain").animate({left:'-170px'});
+		$("#xmod").animate({left:'-170px'});
 	}
 });
 $('#xclick .xbox').on('click',	function(){
@@ -365,16 +365,16 @@ $('#xclick .xbox').on('click',	function(){
 	$("#xall").toggleClass('active');
 	if (hasArrow){
 		$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)"});
-		$("#xclick .xbox").animate({left:'173px'});
+		$("#xclick .xbox").animate({left:'170px'});
 		$("#xprequel").animate({left:'0px'});
 		$("#xmain").animate({left:'0px'});
 		$("#xmod").animate({left:'0px'});
 	}else{
 		$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)"});
 		$("#xclick .xbox").animate({left:'0px'});
-		$("#xprequel").animate({left:'-173px'});
-		$("#xmain").animate({left:'-173px'});
-		$("#xmod").animate({left:'-173px'});
+		$("#xprequel").animate({left:'-170px'});
+		$("#xmain").animate({left:'-170px'});
+		$("#xmod").animate({left:'-170px'});
 	}
 });
 $("#xclick .xbox").click();
@@ -487,6 +487,10 @@ $('#xvotes').on('click',		function(){
 		$("#meh .top .label").hide();
 		$('#meh').animate({left:"-1px"});
 		$('#woot').animate({left:"1px"});
+		$('#dj-button .left .icon').animate({left:"32px"});
+		$('#dj-button span').hide();
+		$('#dj-button .left').animate({width:"97px"});
+		$('#dj-button').animate({width:"130px"});
 	}else if (!cutevotes){
 		$("#grab .top .icon").animate({left:"0"});
 		$("#grab .top .label").show();
@@ -496,6 +500,10 @@ $('#xvotes').on('click',		function(){
 		$("#meh .top .label").show();
 		$('#meh').animate({left:"0px"});
 		$('#woot').animate({left:"0px"});
+		$('#dj-button .left .icon').animate({left:"22px"});
+		$('#dj-button span').show();
+		$('#dj-button .left').animate({width:"72px"});
+		$('#dj-button').animate({width:"230px"});
 	}
 });
 $('#xmuter').on('click',	function(){
