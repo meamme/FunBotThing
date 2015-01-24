@@ -647,7 +647,7 @@ $("#app-menu .list .votelist").mouseenter(function(){
 $("#app-menu .list .votelist").mouseleave(function(){
 	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');
 });
-var voteslist = [];
+//var voteslist = [];
 //$("#app-menu .list .votelist").on('click',function(){
 //	$("#xvotelist").show();
 //	var thevotelist = '<div id="xvotelist" style="\
@@ -667,7 +667,7 @@ var voteslist = [];
 //		}
 //	}
 //	for (var i = 0; i < voteslist.length; i++){
-		//$("#xvotelist").append('<div class="user"><span class="name" style="margin-right:5px;">' + voteslist[i].name + '</span><span class="vote" style="margin-left:5px;">' + voteslist[i].vote + '</span></div>');
+//		$("#xvotelist").append('<div class="user"><span class="name" style="margin-right:5px;">' + voteslist[i].name + '</span><span class="vote" style="margin-left:5px;">' + voteslist[i].vote + '</span></div>');
 //	}
 //});
 
