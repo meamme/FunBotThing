@@ -648,9 +648,9 @@ $("#app-menu .list .votelist").mouseleave(function(){
 	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');
 });
 var voteslist = [];
-$("#app-menu .list .votelist").on('click',function(){
-	$("#xvotelist").show();
-	var thevotelist = '<div id="xvotelist" style="\
+//$("#app-menu .list .votelist").on('click',function(){
+//	$("#xvotelist").show();
+//	var thevotelist = '<div id="xvotelist" style="\
 	position: absolute;\
 	top: 53px;\
 	height: 500px;\
@@ -659,17 +659,17 @@ $("#app-menu .list .votelist").on('click',function(){
 	background-color: #1c1f25;\
 	outline: #000000 solid 1px;\
 	z-index: 10;"></div>';
-	$("#room").append(thevotelist);
-	for (var i = 0; i < API.getUsers().length; i++){
-		if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1){
-			var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote};
-			voteslist.push(a);
-		}
-	}
-	for (var i = 0; i < voteslist.length; i++){
-		$("#xvotelist").append('<div class="user"><span class="name" style="margin-right:5px;">' + voteslist[i].name + '</span><span class="vote" style="margin-left:5px;">' + voteslist[i].vote + '</span></div>');
-	}
-});
+	//$("#room").append(thevotelist);
+//	for (var i = 0; i < API.getUsers().length; i++){
+//		if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1){
+//			var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote};
+//			voteslist.push(a);
+//		}
+//	}
+//	for (var i = 0; i < voteslist.length; i++){
+		//$("#xvotelist").append('<div class="user"><span class="name" style="margin-right:5px;">' + voteslist[i].name + '</span><span class="vote" style="margin-left:5px;">' + voteslist[i].vote + '</span></div>');
+//	}
+//});
 
 API.on(API.VOTE_UPDATE, function(obj){
 	var wasthere = false;
@@ -961,9 +961,7 @@ function deleteAll(){
 
 function deleteSelf(){
 	if (API.getUser().role >= 2 || API.getUser().gRole != 0){
-		for (var i = 0; i < logged.length; i++){
-			$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});
-		}
+		for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
 		for (var i = 0; i < logged.length; i++){
 			$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});
 		}
