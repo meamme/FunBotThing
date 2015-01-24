@@ -651,15 +651,15 @@ var voteslist = [];
 //$("#app-menu .list .votelist").on('click',function(){
 //	$("#xvotelist").show();
 //	var thevotelist = '<div id="xvotelist" style="\
-	position: absolute;\
-	top: 53px;\
-	height: 500px;\
-	padding: 10px;\
-	width: 250px;\
-	background-color: #1c1f25;\
-	outline: #000000 solid 1px;\
-	z-index: 10;"></div>';
-	//$("#room").append(thevotelist);
+//	position: absolute;\
+//	top: 53px;\
+//	height: 500px;\
+//	padding: 10px;\
+//	width: 250px;\
+//	background-color: #1c1f25;\
+//	outline: #000000 solid 1px;\
+//	z-index: 10;"></div>';
+//	//$("#room").append(thevotelist);
 //	for (var i = 0; i < API.getUsers().length; i++){
 //		if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1){
 //			var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote};
