@@ -315,6 +315,10 @@ $("#chat .disconnect span").css({top:"10px"});
 $("#chat .spinner").hide();
 $("#search-input-field").attr({"maxlength":256});
 //if ($("#chat .disconnect span").text() == "Potato"){$("#chat-input-field").hide();}
+$("#app-menu .list").append('<div class="item votelist clickable">\
+								<i class="icon icon-woot-disabled"></i>\
+								<span>Vote List</span>\
+							</div>');
 
 var autowoot = true;
 var joinmsg = true;
@@ -340,6 +344,7 @@ if (API.getUser().gRole != 0 || API.getUser().role != 0){
 }
 if (!hasPerms){$("#xmod").hide();}
 var notifyAFK = 0;
+var mentioned = [];
 
 $("#chat-input .chat-input-form").append("\
 	<div class='afkIsOn' style='width:7px; height:30px; display:none; background-color:#fef8a0'>\
@@ -469,6 +474,14 @@ $('#playlist-meta').on('click', function(){
 	$('#chat-input-field').animate({width:"305"});
 	$("#chat-input").animate({width:"326"});
 });
+$('#room-bar').on('click', function(){
+	bigchat = false;
+	$('#xbig').attr('class','xbutton');
+	$("#xbig .icon").attr('class','icon icon-check-blue');
+	$("#room .app-right").animate({width:"345"});
+	$('#chat-input-field').animate({width:"305"});
+	$("#chat-input").animate({width:"326"});
+});
 $('#footer-user .user').on('click', function(){
 	bigchat = false;
 	$('#xbig').attr('class','xbutton');
@@ -549,8 +562,12 @@ $('#xafk').on('click',		function(){
 	$(this).toggleClass('active');
 	$("#xafk .icon").toggleClass('active');
 });
-$("#chat-input .afknotifications").on('click',		function(){
+$("#chat-input .afknotifications").on('click', function(){
+	for (var i = 0; i < mentioned.length; i++){
+		addChat(mentioned[i],"#4658b5",false,false,true);
+	}
 	notifyAFK = 0;
+	mentioned = [];
 	$("#chat-input .afknotifications").hide();
 });
 $('#xdel').on('click',		function(){
@@ -624,6 +641,59 @@ function woot(){
 	$('#woot').click();
 }
 
+$("#app-menu .list .votelist").mouseenter(function(){
+	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot');
+});
+$("#app-menu .list .votelist").mouseleave(function(){
+	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');
+});
+var voteslist = [];
+$("#app-menu .list .votelist").on('click',function(){
+	$("#xvotelist").show();
+	var thevotelist = '<div id="xvotelist" style="\
+	position: absolute;\
+	top: 53px;\
+	height: 500px;\
+	padding: 10px;\
+	width: 250px;\
+	background-color: #1c1f25;\
+	outline: #000000 solid 1px;\
+	z-index: 10;"></div>';
+	$("#room").append(thevotelist);
+	for (var i = 0; i < API.getUsers().length; i++){
+		if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1){
+			var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote};
+			voteslist.push(a);
+		}
+	}
+	for (var i = 0; i < voteslist.length; i++){
+		$("#xvotelist").append('<div class="user"><span class="name" style="margin-right:5px;">' + voteslist[i].name + '</span><span class="vote" style="margin-left:5px;">' + voteslist[i].vote + '</span></div>');
+	}
+});
+
+API.on(API.VOTE_UPDATE, function(obj){
+	var wasthere = false;
+	for (var i = 0; i < voteslist.length; i++){
+		if (obj.user.username == voteslist[i].name){
+			voteslist[i].vote = obj.vote;
+			wasthere = true;
+			break;
+		}
+	}
+	if (!wasthere){
+		voteslist.push({name:obj.user.username,vote:obj.vote});
+	}
+});
+
+API.on(API.USER_LEAVE, function(obj){
+	for (var i = 0; i < voteslist.length; i++){
+		if (obj.username == voteslist[i].name){
+			voteslist.splice(i,1);
+			break;
+		}
+	}
+});
+
 API.on(API.GRAB_UPDATE, function(obj){
 	var media = API.getMedia();
 	var d = new Date();
@@ -664,6 +734,13 @@ API.on(API.CHAT, function(data){
 	var me = API.getUser().username;
 	var tst = msg.indexOf('@' + me);
 	var ourids = [3951373,4820534];
+	var d = new Date();
+	var h = d.getHours();
+	var m = d.getMinutes();
+	var s = d.getSeconds();
+	if (h < 10){h = "0" + h;}
+	if (m < 10){m = "0" + m;}
+	if (s < 10){s = "0" + s;}
 	if (userid != "undefined" && me == "Beta Tester"){
 		for (var i = 0; i < tet.length; i++){
 			var zz = msg.toLowerCase().indexOf(tet[i]);
@@ -679,6 +756,7 @@ API.on(API.CHAT, function(data){
 			}
 			if (afkmsg){
 				notifyAFK++;
+				mentioned.push("[" + h + ":" + m + ":" + s + "] " + user + " - " + msg);
 				$("#chat-input .afknotifications").text(notifyAFK);
 			}
 		}
@@ -690,6 +768,7 @@ API.on(API.CHAT, function(data){
 		}
 		if (afkmsg){
 			notifyAFK++;
+			mentioned.push("[" + h + ":" + m + ":" + s + "] " + user + " - " + msg);
 			$("#chat-input .afknotifications").text(notifyAFK);
 		}
 	}
@@ -839,7 +918,7 @@ API.on(API.ADVANCE, autojoin);
 
 API.on(API.ADVANCE, function(obj){
 	if (songup){
-		l("",false);
+		l(" ",false);
 		addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
 				<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b><br>\
 				<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
