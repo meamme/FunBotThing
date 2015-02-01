@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano
 //Stole AddChat from Igor <3 Thanks a ton
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.6</em></a>";//ffdd6f
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.8</em></a>";//ffdd6f
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -127,6 +127,10 @@ var menu = '\
 				<div id="xvotes" class="xbutton active">\
 					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;">Fancy Buttons</span>\
+				</div>\
+				<div id="xpreviews" class="xbutton active">\
+					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
+					<span class="xclickable" style="margin-left:25px;">Fancy Previews</span>\
 				</div>\
 			</section>\
 			<section id="xmod">\
@@ -254,7 +258,7 @@ var style = '<style>\
 		}\
 		#xmod {\
 			position: absolute;\
-			top: 397px;\
+			top: 417px;\
 			padding: 10px;\
 			width: 150px;\
 			background-color: #111317;\
@@ -321,10 +325,9 @@ $("#chat .disconnect span").text("Connection lost");
 $("#chat .disconnect span").css({top:"10px"});
 $("#chat .spinner").hide();
 $("#search-input-field").attr({"maxlength":256});
-//if ($("#chat .disconnect span").text() == "Potato"){$("#chat-input-field").hide();}
 $("#app-menu .list").append('<div class="item votelist clickable">\
 								<i class="icon icon-woot-off"></i>\
-								<span>Vote List</span>\
+								<span>-=[WIP]=-</span>\
 							</div>');
 
 var autowoot = true;
@@ -337,6 +340,7 @@ var autolock = false;
 var cap = false;
 var autograb = false;
 var mutedood = false;
+var dapreview = false;
 var pufflock = false;
 var afkmsg = false;
 var timeskip = true;
@@ -536,6 +540,16 @@ $('#xvotes').on('click',		function(){
 		$('#dj-button span').show();
 		$('#dj-button .left').animate({width:"72px"});
 		$('#dj-button').animate({width:"230px"});
+	}
+});
+$('#xpreviews').on('click',		function(){
+	dapreview = !dapreview;
+	$(this).toggleClass('active');
+	$("#xpreviews .icon").toggleClass('active');
+	if (dapreview){
+		$("#dialog-container").css({left:"0px",top:"0px",width:"79.3%",height:"100%"});
+	}else if (!dapreview){
+		$("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
 	}
 });
 $('#xmuter').on('click',	function(){
