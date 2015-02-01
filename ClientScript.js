@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano
 //Stole AddChat from Igor <3 Thanks a ton
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.8</em></a>";//ffdd6f
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.9</em></a>";//ffdd6f
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -916,7 +916,7 @@ function ujoined(user) {
 		var c = "#c5ffcc";
 	}else{
 		var f = "";
-		var c = "#7774ff";
+		var c = "#74afff";
 	}
 	var d = new Date();
 	var h = d.getHours();
@@ -978,7 +978,7 @@ API.on(API.ADVANCE, autojoin);
 API.on(API.ADVANCE, function(obj){
 	if (songup){
 		l(" ",false);
-		setTimeout(function(){$(".update")[$(this).length-1].remove();},200);
+		setTimeout(function(){$(".update")[$(this).length-1].remove();},500);
 		addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
 				<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b><br>\
 				<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
