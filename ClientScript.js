@@ -149,6 +149,10 @@ var menu = '\
 					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;" title="Deletes any chat from non-staff">Lockdown</span>\
 				</div>\
+				<div id="xspammer" class="xbutton">\
+					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
+					<span class="xclickable" style="margin-left:25px;" title="Deletes spammy words">AntiSpam</span>\
+				</div>\
 			</section>\
 		</div>\
 		</div>\
@@ -287,6 +291,9 @@ var style = '<style>\
 			font-size: 12px;\
 			cursor: pointer;\
 		}\
+		.icon-woot-off {\
+			background-image:url(https://i.imgur.com/liUIR94.png);\
+		}\
 	</style>';
 
 $("#room").append(menu);
@@ -316,7 +323,7 @@ $("#chat .spinner").hide();
 $("#search-input-field").attr({"maxlength":256});
 //if ($("#chat .disconnect span").text() == "Potato"){$("#chat-input-field").hide();}
 $("#app-menu .list").append('<div class="item votelist clickable">\
-								<i class="icon icon-woot-disabled"></i>\
+								<i class="icon icon-woot-off"></i>\
 								<span>Vote List</span>\
 							</div>');
 
@@ -337,6 +344,7 @@ var inlineOn = true;
 var bigchat = true;
 var cutevotes = true;
 var lockdown = false;
+var spamon = false;
 
 var hasPerms = false;
 if (API.getUser().gRole != 0 || API.getUser().role != 0){
@@ -598,6 +606,21 @@ $('#xlockdown').on('click',	function(){
 		addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
 	}
 });
+$('#xspammer').on('click',	function(){ 
+	if (API.getUser().role > 1 || API.getUser().gRole != 0){
+		spamon = !spamon;
+		if (spamon){
+			var ll = "enabled.";
+		}else{
+			var ll = "disabled";
+		}
+		addChat("<b>AntiSpam is now " + ll + "</b>","#FF3333");
+		$(this).toggleClass('active');
+		$("#xspammer .icon").toggleClass('active');
+	}else{
+		addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
+	}
+});
 
 function displayid(){
 	$("#Id_display").remove();
@@ -642,10 +665,10 @@ function woot(){
 }
 
 $("#app-menu .list .votelist").mouseenter(function(){
-	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot');
+	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');
 });
 $("#app-menu .list .votelist").mouseleave(function(){
-	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');
+	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-off');
 });
 //var voteslist = [];
 //$("#app-menu .list .votelist").on('click',function(){
@@ -971,6 +994,7 @@ function deleteSelf(){
 	}
 }
 
+var spam = ["auehuaehaeuhaeuahuae","hsauhsauhsau","kkkkkkkkkkkkkkk","aaaaaaaaaaaaaaa","eeeeeeeeeeeeee","ajajajajajajaj","ด"];
 API.on(API.CHAT, function(data){
 	var msg = data.message;
 	var msgid = data.cid;
@@ -988,6 +1012,16 @@ API.on(API.CHAT, function(data){
 		logcheck.push(argument);
 		messages.push(msgid.toString());
 	};
+	if (spamon){
+		for (var i = 0; i < spam.length; i++){
+			if (msg.toLowerCase().indexOf(spam[i]) != -1){
+				$.ajax({
+					type: 'DELETE',
+					url: '/_/chat/' + msgid
+				});
+			}
+		}
+	}
 	if (userid == API.getUser().id){
 		logged.unshift(msgid);
 		console.log(msgid);
