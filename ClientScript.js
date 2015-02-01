@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano
 //Stole AddChat from Igor <3 Thanks a ton
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.10.9</em></a>";//ffdd6f
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.11</em></a>";//ffdd6f
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -57,10 +57,10 @@ for (var i = 0; i < me.length; i++){
 function stopItAll(){
 	var currentWindow = window.location.href;
 	window.location.assign(currentWindow);
-	alert("Your window was refreshed.")
+	alert("Your window was refreshed.");
 }
 
-var opensansfnt = "'Open Sans' sans-serif"
+var opensansfnt = "'Open Sans' sans-serif";
 
 var messages = [];
 var logcheck = [];
@@ -325,10 +325,7 @@ $("#chat .disconnect span").text("Connection lost");
 $("#chat .disconnect span").css({top:"10px"});
 $("#chat .spinner").hide();
 $("#search-input-field").attr({"maxlength":256});
-$("#app-menu .list").append('<div class="item votelist clickable">\
-								<i class="icon icon-woot-off"></i>\
-								<span>Vote List (WIP)</span>\
-							</div>');
+$("#app-menu .list").append('<div class="item votelist clickable"><i class="icon icon-woot-off"></i><span>Vote List (WIP)</span></div>');
 
 var autowoot = true;
 var joinmsg = true;
@@ -349,6 +346,20 @@ var bigchat = true;
 var cutevotes = true;
 var lockdown = false;
 var spamon = false;
+
+function safetyFirst(){
+	if (API.getUsers().length > 250){
+		joinmsg = false;
+		grabmsg = false;
+		mehmsg = false;
+		inlineOn = false;
+		addChat("<b>This is a big room; Settings were set to use less of your pc just for your own safety. It may still lag you. Hehe.</b><br>Also, sorry, but expect bugs. c:","#FF3333");
+		c('/cap 1');
+	}else{
+		c('/cap 10');
+	}
+}
+safetyFirst();
 
 var hasPerms = false;
 if (API.getUser().gRole != 0 || API.getUser().role != 0){
@@ -685,27 +696,60 @@ $("#app-menu .list .votelist").mouseleave(function(){
 	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-off');
 });
 var voteslist = [];
-var thevotelist = '<div id="xvotelist" style="\
-position: absolute;\
-top: 53px;\
-height: 75%;\
-padding: 10px;\
-width: 250px;\
-display: none;\
-background-color: #1c1f25;\
-outline: #000000 solid 1px;\
-overflow-x: hidden;\
-overflow-y: auto;\
-z-index: 10;">\
-<div id="xmehlist"></div>\
-<div id="xwootlist"></div>\
+var thevotelist = '\
+<div id="xvotelist" style="\
+		position: absolute;\
+		top: 53px;\
+		height: 68%;\
+		left: 100%;\
+		width: 250px;\
+		display: none;\
+		background-color: #111317;\
+		outline: #000000 solid 1px;\
+		overflow-x: hidden;\
+		overflow-y: auto;\
+		z-index: 1;">\
+	<div id="xlistprequel" style="\
+		position: absolute;\
+		height: 12%;\
+		width: 100%;\
+		background-color: #1c1f25;\
+		outline: #000000 solid 1px;\
+		cursor: pointer;">\
+			<center><br><span style="margin-top:10px;">Might be laggy on full rooms.</span></center>\
+	</div>\
+	<div id="xlist" style="\
+		position: absolute;\
+		top: 13%;\">\
+		<div id="xmehlist"></div>\
+		<div id="xwootlist"></div>\
+	</div>\
 </div>';
+$("#xvotelist").css({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
 $("#room").append(thevotelist);
 var voteIsOn = false;
-$("#app-menu .list .votelist").on('click',function(){
+
+function foldList(){
+	$("#xvotelist").animate({left:"100%"});
+	$("#xvotelist").css({"z-index":"1"});
+	setTimeout(function(){
+		$("#xvotelist .user").remove();
+		voteslist = [];
+		$("#xvotelist").hide();
+	},300);
+}
+function unfoldList(){
+	$("#xvotelist").show();
+	$("#xvotelist").animate({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
+	setTimeout(function(){
+		$("#xvotelist").css({"z-index":"9"});
+	},300);
+}
+
+$("#xlistprequel").on('click',function(){
 	voteIsOn = !voteIsOn;
 	if (voteIsOn){
-		$("#xvotelist").show();
+		unfoldList();
 		for (var i = 0; i < API.getUsers().length; i++){
 			if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1){
 				var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote};
@@ -716,44 +760,74 @@ $("#app-menu .list .votelist").on('click',function(){
 			appendPerson(voteslist[i].name,voteslist[i].vote);
 		}
 	}else{
-		$("#xvotelist .user").remove();
-		voteslist = [];
-		$("#xvotelist").hide();
+		foldList();
 	}
 });
 
-function appendPerson(name,vote){
+$("#app-menu .list .votelist").on('click',function(){
+	voteIsOn = !voteIsOn;
+	if (voteIsOn){
+		unfoldList();
+		for (var i = 0; i < API.getUsers().length; i++){
+			if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1){
+				var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote};
+				voteslist.push(a);
+			}
+		}
+		for (var i = 0; i < voteslist.length; i++){
+			appendPerson(voteslist[i].name,voteslist[i].vote);
+		}
+	}else{
+		foldList();
+	}
+});
+
+function appendPerson(name,vote,grab){
 	if (vote == 1){
-		$("#xwootlist").append('<div class="user"><i class="icon icon-woot" style="margin-top:-5px;"></i><span class="name" style="margin-left:35px; color:#90ad2f;">' + name + '</span></div>');
+		if (!grab){
+			$("#xwootlist").append('<div class="user"><i class="icon icon-woot" style="margin-top:-5px;"></i><span class="name" style="margin-left:35px; color:#90ad2f; cursor: pointer;">' + name + '</span></div>');
+		}else if (grab){
+			$("#xwootlist").append('<div class="user"><i class="icon icon-grab" style="margin-top:-5px;"></i><i class="icon icon-woot" style="margin-top:-5px; margin-left:17px;"></i><span class="name" style="margin-left:43px; color:#90ad2f; cursor: pointer;">' + name + '</span></div>');
+		}
 	}else if (vote == -1){
-		$("#xmehlist").append('<div class="user"><i class="icon icon-meh" style="margin-top:-5px;"></i><span class="name" style="margin-left:35px; color:#c42e3b;">' + name + '</span></div>');
+		if (!grab){
+			$("#xmehlist").append('<div class="user"><i class="icon icon-meh" style="margin-top:-5px;"></i><span class="name" style="margin-left:35px; color:#c42e3b; cursor: pointer;">' + name + '</span></div>');
+		}else if (grab){
+			$("#xmehlist").append('<div class="user"><i class="icon icon-grab" style="margin-top:-5px;"></i><i class="icon icon-meh" style="margin-top:-5px;margin-left:17px;"></i><span class="name" style="margin-left:43px; color:#c42e3b; cursor: pointer;">' + name + '</span></div>');
+		}
 	}
 }
 
-API.on(API.VOTE_UPDATE, function(obj){
+function updateList(){
+	if (voteIsOn){$("#xvotelist").animate({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});};
 	$("#xvotelist .user").remove();
 	voteslist = [];
 	for (var i = 0; i < API.getUsers().length; i++){
-		if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1){
-			var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote};
+		if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1 || API.getUsers()[i].grab == true){
+			var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote,grab:API.getUsers()[i].grab};
 			voteslist.push(a);
 		}
 	}
 	for (var i = 0; i < voteslist.length; i++){
-		appendPerson(voteslist[i].name,voteslist[i].vote);
+		appendPerson(voteslist[i].name,voteslist[i].vote,voteslist[i].grab);
 	}
+	for (var i = 0; i < voteslist.length; i++){
+		$($("#xvotelist .user .name")[i]).on('click',function(){
+			$('#chat-input-field').val("@" + $(this).text() + " " + $('#chat-input-field').val());
+		})
+	}
+}
+
+API.on(API.VOTE_UPDATE, function(obj){
+	updateList();
 });
 
 API.on(API.USER_LEAVE, function(obj){
-	for (var i = 0; i < voteslist.length; i++){
-		if (obj.username == voteslist[i].name){
-			voteslist.splice(i,1);
-			break;
-		}
-	}
+	updateList();
 });
 
 API.on(API.GRAB_UPDATE, function(obj){
+	updateList();
 	var media = API.getMedia();
 	var d = new Date();
 	var h = d.getHours();
@@ -949,7 +1023,6 @@ function uleft(user){
 API.on(API.USER_JOIN, ujoined);
 API.on(API.USER_LEAVE, uleft);
 
-c('/cap 10');
 function JoinLeave(obj){
 	if (cap){
 		if (obj.role > 0);{
@@ -978,7 +1051,7 @@ API.on(API.ADVANCE, autojoin);
 API.on(API.ADVANCE, function(obj){
 	if (songup){
 		l(" ",false);
-		setTimeout(function(){$(".update")[$(this).length-1].remove();},500);
+		setTimeout(function(){$(".update")[$(this).length-1].remove();},750);
 		addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
 				<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b><br>\
 				<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
