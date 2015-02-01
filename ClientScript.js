@@ -12,15 +12,15 @@ function addChat(text, color, state, hasBottom, isNotCenter) {
 	}
 
 	if (isNotCenter){
-		chat.append("<div class='update betabot-update' style='background-color:#0a0a0a;'><div class='text-margin' style='margin-left: 10px;'><span class='betabot-text' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></div></div>");
+		chat.append("<div class='betabot-update' style='background-color:#0a0a0a;'><div class='text-margin' style='margin-left: 10px;'><span class='betabot-text' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></div></div>");
 	}else{
 		if (hasBottom){
-			chat.append("<div class='update betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; border-bottom: double 6px " + color + "'><center><span class='betabot-text' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
+			chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; border-bottom: double 6px " + color + "'><center><span class='betabot-text' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
 		}else{
 			if (state){
-				chat.append("<div class='update betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; margin-top:5px;margin-bottom:5px;'><center><span class='betabot-text' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></center></div>");
+				chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; margin-top:5px;margin-bottom:5px;'><center><span class='betabot-text' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></center></div>");
 			}else{
-				chat.append("<div class='update betabot-update' style='background-color:#0a0a0a; margin-top:5px;margin-bottom:5px;'><center><span class='betabot-text' style='color: " + color + ";'>" + text + "<br></span></center></div>");
+				chat.append("<div class='betabot-update' style='background-color:#0a0a0a; margin-top:5px;margin-bottom:5px;'><center><span class='betabot-text' style='color: " + color + ";'>" + text + "<br></span></center></div>");
 			}
 		}
 	}
@@ -327,7 +327,7 @@ $("#chat .spinner").hide();
 $("#search-input-field").attr({"maxlength":256});
 $("#app-menu .list").append('<div class="item votelist clickable">\
 								<i class="icon icon-woot-off"></i>\
-								<span>-=[WIP]=-</span>\
+								<span>Vote List (WIP)</span>\
 							</div>');
 
 var autowoot = true;
@@ -684,52 +684,74 @@ $("#app-menu .list .votelist").mouseenter(function(){
 $("#app-menu .list .votelist").mouseleave(function(){
 	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-off');
 });
-//var voteslist = [];
-//$("#app-menu .list .votelist").on('click',function(){
-//	$("#xvotelist").show();
-//	var thevotelist = '<div id="xvotelist" style="\
-//	position: absolute;\
-//	top: 53px;\
-//	height: 500px;\
-//	padding: 10px;\
-//	width: 250px;\
-//	background-color: #1c1f25;\
-//	outline: #000000 solid 1px;\
-//	z-index: 10;"></div>';
-//	//$("#room").append(thevotelist);
-//	for (var i = 0; i < API.getUsers().length; i++){
-//		if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1){
-//			var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote};
-//			voteslist.push(a);
-//		}
-//	}
-//	for (var i = 0; i < voteslist.length; i++){
-		//$("#xvotelist").append('<div class="user"><span class="name" style="margin-right:5px;">' + voteslist[i].name + '</span><span class="vote" style="margin-left:5px;">' + voteslist[i].vote + '</span></div>');
-//	}
-//});
-//
-//API.on(API.VOTE_UPDATE, function(obj){
-//	var wasthere = false;
-//	for (var i = 0; i < voteslist.length; i++){
-		//if (obj.user.username == voteslist[i].name){
-//			voteslist[i].vote = obj.vote;
-			//wasthere = true;
-			//break;
-		//}
-	//}
-	//if (!wasthere){
-//		voteslist.push({name:obj.user.username,vote:obj.vote});
-//	}
-//});
+var voteslist = [];
+var thevotelist = '<div id="xvotelist" style="\
+position: absolute;\
+top: 53px;\
+height: 75%;\
+padding: 10px;\
+width: 250px;\
+display: none;\
+background-color: #1c1f25;\
+outline: #000000 solid 1px;\
+overflow-x: hidden;\
+overflow-y: auto;\
+z-index: 10;">\
+<div id="xmehlist"></div>\
+<div id="xwootlist"></div>\
+</div>';
+$("#room").append(thevotelist);
+var voteIsOn = false;
+$("#app-menu .list .votelist").on('click',function(){
+	voteIsOn = !voteIsOn;
+	if (voteIsOn){
+		$("#xvotelist").show();
+		for (var i = 0; i < API.getUsers().length; i++){
+			if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1){
+				var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote};
+				voteslist.push(a);
+			}
+		}
+		for (var i = 0; i < voteslist.length; i++){
+			appendPerson(voteslist[i].name,voteslist[i].vote);
+		}
+	}else{
+		$("#xvotelist .user").remove();
+		voteslist = [];
+		$("#xvotelist").hide();
+	}
+});
 
-//API.on(API.USER_LEAVE, function(obj){
-//	for (var i = 0; i < voteslist.length; i++){
-		//if (obj.username == voteslist[i].name){
-//			voteslist.splice(i,1);
-			//break;
-		//}
-	//}
-//});
+function appendPerson(name,vote){
+	if (vote == 1){
+		$("#xwootlist").append('<div class="user"><i class="icon icon-woot" style="margin-top:-5px;"></i><span class="name" style="margin-left:35px; color:#90ad2f;">' + name + '</span></div>');
+	}else if (vote == -1){
+		$("#xmehlist").append('<div class="user"><i class="icon icon-meh" style="margin-top:-5px;"></i><span class="name" style="margin-left:35px; color:#c42e3b;">' + name + '</span></div>');
+	}
+}
+
+API.on(API.VOTE_UPDATE, function(obj){
+	$("#xvotelist .user").remove();
+	voteslist = [];
+	for (var i = 0; i < API.getUsers().length; i++){
+		if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1){
+			var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote};
+			voteslist.push(a);
+		}
+	}
+	for (var i = 0; i < voteslist.length; i++){
+		appendPerson(voteslist[i].name,voteslist[i].vote);
+	}
+});
+
+API.on(API.USER_LEAVE, function(obj){
+	for (var i = 0; i < voteslist.length; i++){
+		if (obj.username == voteslist[i].name){
+			voteslist.splice(i,1);
+			break;
+		}
+	}
+});
 
 API.on(API.GRAB_UPDATE, function(obj){
 	var media = API.getMedia();
@@ -956,6 +978,7 @@ API.on(API.ADVANCE, autojoin);
 API.on(API.ADVANCE, function(obj){
 	if (songup){
 		l(" ",false);
+		setTimeout(function(){$(".update")[$(this).length-1].remove();},200);
 		addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
 				<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b><br>\
 				<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
@@ -1155,6 +1178,14 @@ function lookfor(id,isityou){
 			case "ba":			var bb = "Brand Ambassador (" + data.badge + ")";break;
 			case "admin":		var bb = "Admin Badge (" + data.badge + ")";break;
 			case "plot":		var bb = "Translator Badge (" + data.badge + ")";break;
+			case "raveset":		var bb = "Rave Badge (" + data.badge + ")";break;
+			case "robotset":	var bb = "Robot Badge (" + data.badge + ")";break;
+			case "zooset":		var bb = "Zoo Badge (" + data.badge + ")";break;
+			case "80sset":		var bb = "80's Badge (" + data.badge + ")";break;
+			case "rockset":		var bb = "Rock Badge (" + data.badge + ")";break;
+			case "2014hwset":	var bb = "Halloween Badge (" + data.badge + ")";break;
+			case "hiphopset":	var bb = "HipHop Badge (" + data.badge + ")";break;
+			case "countryset":	var bb = "Country Badge (" + data.badge + ")";break;
 			case "winter01":	var bb = "Ski Boot (" + data.badge + ")";break;
 			case "winter02":	var bb = "Snowman Badge (" + data.badge + ")";break;
 			case "winter03":	var bb = "Snowflake Badge (" + data.badge + ")";break;
@@ -1169,6 +1200,9 @@ function lookfor(id,isityou){
 			case "music02":		var bb = "Musical Keyboard (" + data.badge + ")";break;
 			case "music03":		var bb = "Compact Cassette (" + data.badge + ")";break;
 			case "music04":		var bb = "Disco Ball (" + data.badge + ")";break;
+			case "music05":		var bb = "Glowsticks Badge (" + data.badge + ")";break;
+			case "music06":		var bb = "Ferris Wheel (" + data.badge + ")";break;
+			case "music07":		var bb = "Baloons Badge (" + data.badge + ")";break;
 			case "food01":		var bb = "Pizza Badge (" + data.badge + ")";break;
 			case "food02":		var bb = "Ice Cream Badge (" + data.badge + ")";break;
 			case "food03":		var bb = "Drink Badge (" + data.badge + ")";break;
@@ -1176,12 +1210,16 @@ function lookfor(id,isityou){
 			case "food05":		var bb = "Sushi Badge (" + data.badge + ")";break;
 			case "food06":		var bb = "Hamburguer Badge (" + data.badge + ")";break;
 			case "food07":		var bb = "Fries Badge (" + data.badge + ")";break;
+			case "food08":		var bb = "Coffee Badge (" + data.badge + ")";break;
 			case "animals01":	var bb = "Wolf Badge (" + data.badge + ")";break;
 			case "animals02":	var bb = "Cat Badge (" + data.badge + ")";break;
 			case "animals03":	var bb = "Chicken Badge (" + data.badge + ")";break;
 			case "animals04":	var bb = "Boxer Badge (" + data.badge + ")";break;
 			case "style01":		var bb = "Shoe Badge (" + data.badge + ")";break;
 			case "style02":		var bb = "Joystick Badge (" + data.badge + ")";break;
+			case "style03":		var bb = "Cap Badge (" + data.badge + ")";break;
+			case "style04":		var bb = "Funky Glasses Badge (" + data.badge + ")";break;
+			case "style05":		var bb = "Necklace Badge (" + data.badge + ")";break;
 			case "tiki01":		var bb = "Fat Tiki Mask (" + data.badge + ")";break;
 			case "tiki02":		var bb = "Slim Tiki Mask (" + data.badge + ")";break;
 			case "tiki03":		var bb = "Green Tree (" + data.badge + ")";break;
@@ -1746,26 +1784,37 @@ API.on(API.CHAT_COMMAND, function(data){
 		
 		case "cmds":
 		case "cmd":
-			addChat("<br><a style='color:#7174ff;'><b>------=[ Mod Commands ]=------</b></a><br><br>\
-					<a style='color:#ffffff;'><b>/id @</b><em>NAME</em></a><br>\
-					<a style='color:#CCCCCC;'>Returns the ID of that user</a><br><br>\
-					<a style='color:#ffffff;'><b>/lookup </b><em>ID</em></a><br>\
-					<a style='color:#CCCCCC;'>Returns info about specified user</a><br><br>\
-					<a style='color:#ffffff;'><b>/search @</b><em>NAME</em></a><br>\
-					<a style='color:#CCCCCC;'>Returns info about specified user</a><br><br>\
-					<a style='color:#ffffff;'><b>/deleteall</b></a><br>\
-					<a style='color:#CCCCCC;'>Deletes all chat since joining</a><br><br>\
-					<a style='color:#ffffff;'><b>/del </b><em>MSG#</em></a><br>\
-					<a style='color:#CCCCCC;'>Deletes message from you, using Array position</a><br><br>\
-					<a style='color:#ffffff;'><b>/erase </b><em>MSGID</em></a><br>\
-					<a style='color:#CCCCCC;'>Deletes message with specified ID<br>(regardless of it being sent before or after you joined)</a><br><br>\
-					<a style='color:#e6ff99;'><b>/readd</b></a><br>\
-					<a style='color:#e6ff99;'>Skips > Puts in WL > Moves to 1st<br>BUGGED</a><br><br>\
-					<a style='color:#e6ff99;'><b>/swap @</b><em>NAME</em> <b>@</b><em>NAME</em></a><br>\
-					<a style='color:#e6ff99;'>Swaps two people in the WaitList<br>BUGGED</a><br><br>\
-					<a style='color:#ffaaaa;'><b>/ban </b><em>ID</em></a><br>\
-					<a style='color:#CCCCCC;'>Permabans an user by its ID</a><br><br>\
-					<a style='color:#7174ff;'><b>------=[ Mod Commands ]=------</b></a><br>","#CCCCCC");
+			if (hasPerms){
+				addChat("<br><a style='color:#7174ff;'><b>------=[ Mod Commands ]=------</b></a><br><br>\
+						<a style='color:#ffffff;'><b>/id @</b><em>NAME</em></a><br>\
+						<a style='color:#CCCCCC;'>Returns the ID of that user</a><br><br>\
+						<a style='color:#ffffff;'><b>/lookup </b><em>ID</em></a><br>\
+						<a style='color:#CCCCCC;'>Returns info about specified user</a><br><br>\
+						<a style='color:#ffffff;'><b>/search @</b><em>NAME</em></a><br>\
+						<a style='color:#CCCCCC;'>Returns info about specified user</a><br><br>\
+						<a style='color:#ffffff;'><b>/deleteall</b></a><br>\
+						<a style='color:#CCCCCC;'>Deletes all chat since joining</a><br><br>\
+						<a style='color:#ffffff;'><b>/del </b><em>MSG#</em></a><br>\
+						<a style='color:#CCCCCC;'>Deletes message from you, using Array position</a><br><br>\
+						<a style='color:#ffffff;'><b>/erase </b><em>MSGID</em></a><br>\
+						<a style='color:#CCCCCC;'>Deletes message with specified ID<br>(regardless of it being sent before or after you joined)</a><br><br>\
+						<a style='color:#e6ff99;'><b>/readd</b></a><br>\
+						<a style='color:#e6ff99;'>Skips > Puts in WL > Moves to 1st<br>BUGGED</a><br><br>\
+						<a style='color:#e6ff99;'><b>/swap @</b><em>NAME</em> <b>@</b><em>NAME</em></a><br>\
+						<a style='color:#e6ff99;'>Swaps two people in the WaitList<br>BUGGED</a><br><br>\
+						<a style='color:#ffaaaa;'><b>/ban </b><em>ID</em></a><br>\
+						<a style='color:#CCCCCC;'>Permabans an user by its ID</a><br><br>\
+						<a style='color:#7174ff;'><b>------=[ Mod Commands ]=------</b></a><br>","#CCCCCC");
+			}else{
+				addChat("<br><a style='color:#71ffb0;'><b>------=[ Commands ]=------</b></a><br><br>\
+						<a style='color:#ffffff;'><b>/id @</b><em>NAME</em></a><br>\
+						<a style='color:#CCCCCC;'>Returns the ID of that user</a><br><br>\
+						<a style='color:#ffffff;'><b>/lookup </b><em>ID</em></a><br>\
+						<a style='color:#CCCCCC;'>Returns info about specified user</a><br><br>\
+						<a style='color:#ffffff;'><b>/search @</b><em>NAME</em></a><br>\
+						<a style='color:#CCCCCC;'>Returns info about specified user</a><br><br>\
+						<a style='color:#71ffb0;'><b>------=[ Commands ]=------</b></a><br>","#CCCCCC");
+			}
 			break;
 
 		default:
