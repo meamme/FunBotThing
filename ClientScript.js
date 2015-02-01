@@ -667,32 +667,32 @@ $("#app-menu .list .votelist").mouseleave(function(){
 //		}
 //	}
 //	for (var i = 0; i < voteslist.length; i++){
-//		$("#xvotelist").append('<div class="user"><span class="name" style="margin-right:5px;">' + voteslist[i].name + '</span><span class="vote" style="margin-left:5px;">' + voteslist[i].vote + '</span></div>');
+		//$("#xvotelist").append('<div class="user"><span class="name" style="margin-right:5px;">' + voteslist[i].name + '</span><span class="vote" style="margin-left:5px;">' + voteslist[i].vote + '</span></div>');
+//	}
+//});
+//
+//API.on(API.VOTE_UPDATE, function(obj){
+//	var wasthere = false;
+//	for (var i = 0; i < voteslist.length; i++){
+		//if (obj.user.username == voteslist[i].name){
+//			voteslist[i].vote = obj.vote;
+			//wasthere = true;
+			//break;
+		//}
+	//}
+	//if (!wasthere){
+//		voteslist.push({name:obj.user.username,vote:obj.vote});
 //	}
 //});
 
-API.on(API.VOTE_UPDATE, function(obj){
-	var wasthere = false;
-	for (var i = 0; i < voteslist.length; i++){
-		if (obj.user.username == voteslist[i].name){
-			voteslist[i].vote = obj.vote;
-			wasthere = true;
-			break;
-		}
-	}
-	if (!wasthere){
-		voteslist.push({name:obj.user.username,vote:obj.vote});
-	}
-});
-
-API.on(API.USER_LEAVE, function(obj){
-	for (var i = 0; i < voteslist.length; i++){
-		if (obj.username == voteslist[i].name){
-			voteslist.splice(i,1);
-			break;
-		}
-	}
-});
+//API.on(API.USER_LEAVE, function(obj){
+//	for (var i = 0; i < voteslist.length; i++){
+		//if (obj.username == voteslist[i].name){
+//			voteslist.splice(i,1);
+			//break;
+		//}
+	//}
+//});
 
 API.on(API.GRAB_UPDATE, function(obj){
 	var media = API.getMedia();
