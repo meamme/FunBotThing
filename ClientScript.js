@@ -48,7 +48,6 @@ else{off = 0;on = 1;};
 
 var itsMe = false;
 var me = [3951373,4820534];
-var vip = ["Beta Tester","T 98","CatSnore","Kwiztech"];
 for (var i = 0; i < me.length; i++){
 	if (API.getUser().id == me[i]){
 		itsMe = true;
@@ -688,29 +687,27 @@ function displayid(){
 	if (t == "undefined"){t = "0000000"}
 	$('#user-rollover .meta .joined').css({top:"64px"});
 	$("#user-rollover .info").append('<div id="id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
-	for (var i = 0; i < vip.length; i++){
-		if (e == vip[i]){
-			$("#iwannalookcool").show();
-			$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
-			$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
-			break;
-		}else if (e == "LeDCV" || e == "Wumbology" || e == "Glitch Hopper"){
-			$("#iwannalookcool").show();
-			$('#user-rollover .meta').css({'background':'right linear-gradient(#faceff 10%, #f38fff 85%)'});
-			$('#user-rollover .label').text("❤✿❤✿❤");
-			$('#user-rollover .value').hide();
-			$('#user-rollover .background').css({'background':'rgb(234, 137, 255)'});
-			$("#user-rollover .username").css({color:'#2b2b2b'});
-			break;
-		}else{
-			$("#iwannalookcool").hide();
-			$('#user-rollover .meta').css({'background':'#282C35'});
-			$('#user-rollover .label').text("Level");
-			$('#user-rollover .value').show();
-			$('#user-rollover .background').css({'background':'#282c35'});
-			$("#user-rollover .username").css({color:'#eee'});
-			break;
-		}
+	if ("Beta Tester" || e == "T98" || e == "CatSnore" || e == "Kwiztech"){
+		$("#iwannalookcool").show();
+		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
+		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
+		break;
+	}else if (e == "LeDCV" || e == "Wumbology" || e == "Glitch Hopper"){
+		$("#iwannalookcool").show();
+		$('#user-rollover .meta').css({'background':'right linear-gradient(#faceff 10%, #f38fff 85%)'});
+		$('#user-rollover .label').text("❤✿❤✿❤");
+		$('#user-rollover .value').hide();
+		$('#user-rollover .background').css({'background':'rgb(234, 137, 255)'});
+		$("#user-rollover .username").css({color:'#2b2b2b'});
+		break;
+	}else{
+		$("#iwannalookcool").hide();
+		$('#user-rollover .meta').css({'background':'#282C35'});
+		$('#user-rollover .label').text("Level");
+		$('#user-rollover .value').show();
+		$('#user-rollover .background').css({'background':'#282c35'});
+		$("#user-rollover .username").css({color:'#eee'});
+		break;
 	}
 }
 
@@ -963,7 +960,7 @@ API.on(API.CHAT, function(data){
 			$("#chat-input .afknotifications").show();
 		}
 	}
-
+	var vip = ["Beta Tester","CatSnore","T98","Kwiztech"];
 	for (var i = 0; i < vip.length; i++){
 		if (user == vip[i] && user != "Beta Tester"){
 			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
@@ -1889,6 +1886,7 @@ API.on(API.CHAT_COMMAND, function(data){
 
 		case "ban":
 		case "b":
+		case "pb":
 			$.ajax({
 				type: 'POST', 
 				url: 'https://plug.dj/_/bans/add', 
@@ -1899,12 +1897,61 @@ API.on(API.CHAT_COMMAND, function(data){
 			});
 			break;
 
+		case "dayban":
+		case "dban":
+		case "db":
+			$.ajax({
+				type: 'POST', 
+				url: 'https://plug.dj/_/bans/add', 
+				contentType: 'application/json',
+				data: '{"userID":' + command[1] + ',"reason":1,"duration":"d"}'
+				}).done(function(msg) {
+						console.log(msg);
+			});
+			break;
+
+		case "hourban":
+		case "hban":
+		case "hb":
+			$.ajax({
+				type: 'POST', 
+				url: 'https://plug.dj/_/bans/add', 
+				contentType: 'application/json',
+				data: '{"userID":' + command[1] + ',"reason":1,"duration":"h"}'
+				}).done(function(msg) {
+						console.log(msg);
+			});
+			break;
+
 		case "m":
+		case "ml":
 			$.ajax({
 				type: 'POST', 
 				url: 'https://plug.dj/_/mutes', 
 				contentType: 'application/json',
 				data: '{"userID":' + command[1] + ',"reason":1,"duration":"l"}'
+				}).done(function(msg) {
+						console.log(msg);
+			});
+			break;
+
+		case "mm":
+			$.ajax({
+				type: 'POST', 
+				url: 'https://plug.dj/_/mutes', 
+				contentType: 'application/json',
+				data: '{"userID":' + command[1] + ',"reason":1,"duration":"m"}'
+				}).done(function(msg) {
+						console.log(msg);
+			});
+			break;
+
+		case "ms":
+			$.ajax({
+				type: 'POST', 
+				url: 'https://plug.dj/_/mutes', 
+				contentType: 'application/json',
+				data: '{"userID":' + command[1] + ',"reason":1,"duration":"s"}'
 				}).done(function(msg) {
 						console.log(msg);
 			});
