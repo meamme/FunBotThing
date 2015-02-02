@@ -1536,7 +1536,11 @@ API.on(API.CHAT_COMMAND, function(data){
 			break;
 
 		case "mehs":
-			l('Coming soon.');
+		case "woots":
+		case "votes":
+		case "updatevotes":
+		case "updatelist":
+				updateList();
 			break;
 
 		case "erase":
