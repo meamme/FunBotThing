@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano
 //Stole AddChat from Igor <3 Thanks a ton
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.11</em></a>";//ffdd6f
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.11.1</em></a>";
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -32,9 +32,9 @@ function addChat(text, color, state, hasBottom, isNotCenter) {
 		chat.children().first().remove();
 	}
 }
-
+//ffdd6f
 if (betaWasOn){
-	addChat("<img src='https://i.imgur.com/Z7LDEp0.gif'></img><br><a style='color:#FF0000;font-size:15px;'><b>[WARNING]</b></a><a style='font-size:15px;'> You already had BetaBot activated. To update, please refresh and then click bookmark again. Reclicking doesn't work.</a>","#ff7575",true,true);
+	addChat("<img src='https://i.imgur.com/Z7LDEp0.gif'></img><br><a style='color:#FF0000;font-size:15px;'><b>[WARNING]</b></a><a style='font-size:15px;'> You already had BCS activated. To update, please refresh and then click bookmark again. Reclicking doesn't work.</a>","#ff7575",true,true);
 }else{
 
 addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + betaV,"#ececec",true,true);
@@ -590,7 +590,7 @@ $('#xafk').on('click',		function(){
 		$("#chat-input .afknotifications").hide();
 		$("#xafkenter").hide();
 		$("#xafkbutton").hide();
-		$("#xmod").css({'top':'397px'});
+		$("#xmod").css({'top':'417px'});
 	}
 	$(this).toggleClass('active');
 	$("#xafk .icon").toggleClass('active');
@@ -599,6 +599,7 @@ $("#chat-input .afknotifications").on('click', function(){
 	for (var i = 0; i < mentioned.length; i++){
 		addChat(mentioned[i],"#4658b5",false,false,true);
 	}
+	addChat("<br>");
 	notifyAFK = 0;
 	mentioned = [];
 	$("#chat-input .afknotifications").hide();
@@ -813,7 +814,7 @@ function updateList(){
 	}
 	for (var i = 0; i < voteslist.length; i++){
 		$($("#xvotelist .user .name")[i]).on('click',function(){
-			$('#chat-input-field').val("@" + $(this).text() + " " + $('#chat-input-field').val());
+			$('#chat-input-field').val($('#chat-input-field').val() + "@" + $(this).text() + " ");
 		})
 	}
 }
@@ -1051,7 +1052,7 @@ API.on(API.ADVANCE, autojoin);
 API.on(API.ADVANCE, function(obj){
 	if (songup){
 		l(" ",false);
-		setTimeout(function(){$(".update")[$(this).length-1].remove();},750);
+		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
 		addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
 				<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b><br>\
 				<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
@@ -1454,9 +1455,10 @@ API.on(API.CHAT_COMMAND, function(data){
 
 	switch(command[0].toLowerCase()){
 		case "todo":
-			/*
-				Inline on first line bug
-			*/
+			addChat("<br><a style='color:#c2f3bf;'><b>Todo list:</b></a><br><br>\
+					<a style='color: #8bdb85;'>⊱ Fix inline images bug</a><br>\
+					<a style='color: #8bdb85;'>⊱ Have WL position on vote list (cuz why not)</a><br>\
+					<a style='color: #8bdb85;'>⊱ Make vote list prettier ;D</a><br>","#CCCCCC",false,false,true);
 			break;
 
 		case "lrg":
@@ -1818,11 +1820,23 @@ API.on(API.CHAT_COMMAND, function(data){
 			break;
 
 		case "ban":
+		case "b":
 			$.ajax({
 				type: 'POST', 
 				url: 'https://plug.dj/_/bans/add', 
 				contentType: 'application/json',
 				data: '{"userID":' + command[1] + ',"reason":1,"duration":"f"}'
+				}).done(function(msg) {
+						console.log(msg);
+			});
+			break;
+
+		case "m":
+			$.ajax({
+				type: 'POST', 
+				url: 'https://plug.dj/_/mutes', 
+				contentType: 'application/json',
+				data: '{"userID":' + command[1] + ',"reason":1,"duration":"l"}'
 				}).done(function(msg) {
 						console.log(msg);
 			});
