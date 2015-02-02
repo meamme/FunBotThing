@@ -648,7 +648,16 @@ $('#xspammer').on('click',	function(){
 	}
 });
 
-$("#user-rollover .meta").append('<div id="iwannalookcool" style="background-image:url(https://i.imgur.com/x1DEgOD.png); position:absolute; top: 45%; left: 81%; color:#b6f6ff; font-size: 11px; font-family: ' + opensansfnt + ', sans-serif; width:49px; height:49px; display:none;"></div>');
+function attemptappend(){
+	if ($("#iwannalookcool").text() == ""){
+		$("#user-rollover .meta").append('<div id="iwannalookcool" style="background-image:url(https://i.imgur.com/x1DEgOD.png); position:absolute; top: 45%; left: 81%; color:#b6f6ff; font-size: 11px; font-family: ' + opensansfnt + ', sans-serif; width:49px; height:49px; display:none;"> </div>');
+		setTimeout(function(){attemptappend();},250);
+	}else if ($("#iwannalookcool").text() == " "){
+		console.log('Appended.');
+	}
+}
+attemptappend();
+
 function displayid(){
 	$("#id_display").remove();
 	var e = $("#user-rollover .username").text();
