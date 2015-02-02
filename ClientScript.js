@@ -648,8 +648,9 @@ $('#xspammer').on('click',	function(){
 	}
 });
 
+$("#user-rollover .meta").append('<div id="iwannalookcool" style="background-image:url(https://i.imgur.com/x1DEgOD.png); position:absolute; top: 45%; left: 81%; color:#b6f6ff; font-size: 11px; font-family: ' + opensansfnt + ', sans-serif; width:49px; height:49px; display:none;"></div>');
 function displayid(){
-	$("#Id_display").remove();
+	$("#id_display").remove();
 	var e = $("#user-rollover .username").text();
 	var t;
 	var n = API.getUsers();
@@ -661,7 +662,14 @@ function displayid(){
 	var a = "Open Sans";
 	if (t == "undefined"){t = "0000000"}
 	$('#user-rollover .meta .joined').css({top:"64px"});
-	$("#user-rollover .info").append('<div id="Id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "     </div>");
+	$("#user-rollover .info").append('<div id="id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
+	if (e == "Beta Tester"){
+		$("#iwannalookcool").show();
+		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
+	}else{
+		$("#iwannalookcool").hide();
+		$('#user-rollover .meta').css({'background':'#282C35'});
+	}
 }
 
 $("#chat-messages").click(displayid);
