@@ -299,6 +299,16 @@ var style = '<style>\
 		.icon-woot-off {\
 			background-image:url(https://i.imgur.com/liUIR94.png);\
 		}\
+		.icon-chat-bcs {\
+			height:15px;\
+			width:15px;\
+			background-image:url(https://i.imgur.com/pSJVANr.png);\
+		}\
+		.icon-chat-bcs2 {\
+			height:15px;\
+			width:15px;\
+			background-image:url(https://i.imgur.com/GG4jPsR.png);\
+		}\
 	</style>';
 
 $("#room").append(menu);
@@ -944,6 +954,16 @@ API.on(API.CHAT, function(data){
 			$("#chat-input .afknotifications").hide();
 		}else{
 			$("#chat-input .afknotifications").show();
+		}
+	}
+
+	for (var i = 0; i < vip.length; i++){
+		if (user == vip[i] && user != "Beta Tester"){
+			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
+			break;
+		}else if (user == "Beta Tester"){
+			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs2'></i>");
+			break;
 		}
 	}
 
