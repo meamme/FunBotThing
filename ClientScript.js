@@ -697,11 +697,16 @@ function displayid(){
 	if (t == "undefined"){t = "0000000"}
 	$('#user-rollover .meta .joined').css({top:"64px"});
 	$("#user-rollover .info").append('<div id="id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
-	if (e == "Beta Tester" || e == "T98" || e == "CatSnore" || e == "Kwiztech" || e == "LeDCV" || e == "Wumbology" || e == "Glitch Hopper"){
+	if (e == "Beta Tester" || e == "T98" || e == "CatSnore"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
 		$("#user-rollover .username").css({color:'rgb(0, 190, 232)'});
+	}else if (e == "Kwiztech" || e == "LeDCV" || e == "Wumbology" || e == "Glitch Hopper" || e == "Newcool"){
+		$("#iwannalookcool").show();
+		$('#user-rollover .meta').css({'background':'linear-gradient(rgb(4, 52, 32) 10%, rgb(23, 31, 26) 85%) 100% 50%'});
+		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
+		$("#user-rollover .username").css({color:'rgb(0, 215, 76)'});
 	}else{
 		$("#iwannalookcool").hide();
 		$('#user-rollover .meta').css({'background':'#282C35'});
@@ -887,7 +892,7 @@ API.on(API.GRAB_UPDATE, function(obj){
 	if (h < 10){h = "0" + h;}
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
-	if (grabmsg){addChat("" + obj.user.username + " (ID " + obj.user.id + ") grabbed <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#c5e0ff");};
+	if (grabmsg){addChat("<i class='icon icon-grab' style='left:-5px;'></i> " + obj.user.username + " (ID " + obj.user.id + ") grabbed <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#c5e0ff");};
 });
 
 var blunq = new Audio();
@@ -972,6 +977,10 @@ API.on(API.CHAT, function(data){
 	}else if (user == "EDMC"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").css({color:'#0097cd'});
+	}else if (user == "Newcool"){
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").css({color:'#0097cd'});
 	}else if (user == "Roms Kidd"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
