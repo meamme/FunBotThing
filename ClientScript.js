@@ -309,6 +309,11 @@ var style = '<style>\
 			width:15px;\
 			background-image:url(https://i.imgur.com/GG4jPsR.png);\
 		}\
+		.icon-chat-bcs3 {\
+			height:15px;\
+			width:15px;\
+			background-image:url(https://i.imgur.com/6Mb4SyQ.png);\
+		}\
 	</style>';
 
 $("#room").append(menu);
@@ -963,6 +968,9 @@ API.on(API.CHAT, function(data){
 			break;
 		}else if (user == "Beta Tester"){
 			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs2'></i>");
+			break;
+		}else if (user == "LeDCV" || user == "Wumbology" || user == "Glitch Hopper"){
+			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs3'></i>");
 			break;
 		}
 	}
