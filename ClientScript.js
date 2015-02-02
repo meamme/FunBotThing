@@ -314,6 +314,11 @@ var style = '<style>\
 			width:15px;\
 			background-image:url(https://i.imgur.com/6Mb4SyQ.png);\
 		}\
+		.icon-chat-baS {\
+			height:15px;\
+			width:15px;\
+			background-image:url(https://i.imgur.com/RQOpxNm.png);\
+		}\
 	</style>';
 
 $("#room").append(menu);
@@ -973,10 +978,31 @@ API.on(API.CHAT, function(data){
 			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
 			break;
 		}else if (user == "Beta Tester"){
+			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs2'></i>");
 			break;
-		}else if (user == "LeDCV" || user == "Wumbology" || user == "Glitch Hopper"){
+		}else if (user == "LeDCV" || user == "Wumbology"){
 			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs3'></i>");
+			break;
+		}else if (user == "Zuchku" || user == "81supernova" || user == "EDMC"){
+			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
+			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+			$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").css({color:'#0097cd'});
+			break;
+		}else if (user == "Roms Kidd"){
+			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
+			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+			$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").text('');
+			$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").append('\
+				<a style="color:#d40000">R</a>\
+				<a style="color:#d49b00">o</a>\
+				<a style="color:#78d400">m</a>\
+				<a style="color:#00d437">s</a>\
+				<a style="color:#000000"> </a>\
+				<a style="color:#00a5d4">K</a>\
+				<a style="color:#0f00d4">i</a>\
+				<a style="color:#d100d4">d</a>\
+				<a style="color:#d40064">d</a>'); //WTF AM I DOING
 			break;
 		}
 	}
@@ -1320,6 +1346,7 @@ function lookfor(id,isityou){
 			case "ba":			var bb = "Brand Ambassador (" + data.badge + ")";break;
 			case "admin":		var bb = "Admin Badge (" + data.badge + ")";break;
 			case "plot":		var bb = "Translator Badge (" + data.badge + ")";break;
+			case "2014wbb":		var bb = "Winter Badge (" + data.badge + ")";break;
 			case "raveset":		var bb = "Rave Badge (" + data.badge + ")";break;
 			case "robotset":	var bb = "Robot Badge (" + data.badge + ")";break;
 			case "zooset":		var bb = "Zoo Badge (" + data.badge + ")";break;
@@ -1505,7 +1532,27 @@ function lookfor(id,isityou){
 	});},1000);
 }
 
-var wantsHelp = false;
+function dropHammer(tag,userid,dur){
+	if (tag == "b"){
+		$.ajax({
+			type: 'POST', 
+			url: 'https://plug.dj/_/bans/add', 
+			contentType: 'application/json',
+			data: '{"userID":' + userid + ',"reason":1,"duration"' + dur + '}'
+		}).done(function(msg) {
+			console.log(msg);
+		});
+	}else if (tag == "m"){
+		$.ajax({
+			type: 'POST',
+			url: 'https://plug.dj/_/mutes',
+			contentType: 'application/json',
+			data: '{"userID":' + userid + ',"reason":1,"duration":' + dur + '}'
+		}).done(function(msg) {
+			console.log(msg);
+		});
+	}
+}
 
 API.on(API.CHAT_COMMAND, function(data){
 	var msg = data;
@@ -1894,74 +1941,35 @@ API.on(API.CHAT_COMMAND, function(data){
 		case "ban":
 		case "b":
 		case "pb":
-			$.ajax({
-				type: 'POST', 
-				url: 'https://plug.dj/_/bans/add', 
-				contentType: 'application/json',
-				data: '{"userID":' + command[1] + ',"reason":1,"duration":"f"}'
-				}).done(function(msg) {
-						console.log(msg);
-			});
+			dropHammer("b",command[1],"f");
 			break;
 
 		case "dayban":
 		case "dban":
 		case "db":
-			$.ajax({
-				type: 'POST', 
-				url: 'https://plug.dj/_/bans/add', 
-				contentType: 'application/json',
-				data: '{"userID":' + command[1] + ',"reason":1,"duration":"d"}'
-				}).done(function(msg) {
-						console.log(msg);
-			});
+			dropHammer("b",command[1],"d");
 			break;
 
 		case "hourban":
 		case "hban":
 		case "hb":
-			$.ajax({
-				type: 'POST', 
-				url: 'https://plug.dj/_/bans/add', 
-				contentType: 'application/json',
-				data: '{"userID":' + command[1] + ',"reason":1,"duration":"h"}'
-				}).done(function(msg) {
-						console.log(msg);
-			});
+			dropHammer("b",command[1],"h");
 			break;
 
 		case "m":
 		case "ml":
-			$.ajax({
-				type: 'POST', 
-				url: 'https://plug.dj/_/mutes', 
-				contentType: 'application/json',
-				data: '{"userID":' + command[1] + ',"reason":1,"duration":"l"}'
-				}).done(function(msg) {
-						console.log(msg);
-			});
+		case "lmute":
+			dropHammer("m",command[1],"l");
 			break;
 
 		case "mm":
-			$.ajax({
-				type: 'POST', 
-				url: 'https://plug.dj/_/mutes', 
-				contentType: 'application/json',
-				data: '{"userID":' + command[1] + ',"reason":1,"duration":"m"}'
-				}).done(function(msg) {
-						console.log(msg);
-			});
+		case "mmute":
+			dropHammer("m",command[1],"m");
 			break;
 
 		case "ms":
-			$.ajax({
-				type: 'POST', 
-				url: 'https://plug.dj/_/mutes', 
-				contentType: 'application/json',
-				data: '{"userID":' + command[1] + ',"reason":1,"duration":"s"}'
-				}).done(function(msg) {
-						console.log(msg);
-			});
+		case "smute":
+			dropHammer("m",command[1],"s");
 			break;
 
 		case "lockdown":
