@@ -38,7 +38,6 @@ if (betaWasOn){
 }else{
 
 addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + betaV,"#ececec",true,true);
-addChat("<br>We just hit <a style='color:#99ffd7;'><b>2.000</b></a> lines of code! :D How awesome is that?!<br>","#ececec",true,true);
 
 var betaWasOn = true;
 var u = API.getUser().username;
@@ -715,6 +714,7 @@ function displayid(){
 }
 
 $("#chat-messages").click(displayid);
+$("#user-lists").click(displayid);
 $("#dj-canvas").mousemove(displayid);
 $("#audience-canvas").mousemove(displayid);
 
@@ -972,39 +972,44 @@ API.on(API.CHAT, function(data){
 			$("#chat-input .afknotifications").show();
 		}
 	}
-	var vip = ["Beta Tester","CatSnore","T98","Kwiztech"];
-	for (var i = 0; i < vip.length; i++){
-		if (user == vip[i] && user != "Beta Tester"){
-			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
-			break;
-		}else if (user == "Beta Tester"){
-			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
-			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs2'></i>");
-			break;
-		}else if (user == "LeDCV" || user == "Wumbology"){
-			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs3'></i>");
-			break;
-		}else if (user == "Zuchku" || user == "81supernova" || user == "EDMC"){
-			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
-			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
-			$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").css({color:'#0097cd'});
-			break;
-		}else if (user == "Roms Kidd"){
-			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
-			$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
-			$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").text('');
-			$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").append('\
-				<a style="color:#d40000">R</a>\
-				<a style="color:#d49b00">o</a>\
-				<a style="color:#78d400">m</a>\
-				<a style="color:#00d437">s</a>\
-				<a style="color:#000000"> </a>\
-				<a style="color:#00a5d4">K</a>\
-				<a style="color:#0f00d4">i</a>\
-				<a style="color:#d100d4">d</a>\
-				<a style="color:#d40064">d</a>'); //WTF AM I DOING
-			break;
-		}
+	if (user == "CatSnore" || user == "T98"){
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
+	}else if (user == "Beta Tester"){
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs2'></i>");
+	}else if (user == "LeDCV" || user == "Wumbology"){
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs3'></i>");
+	}else if (user == "81supernova" || user == "EDMC"){
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").css({color:'#0097cd'});
+	}else if (user == "Roms Kidd"){
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").text('');
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").append('\
+			<a style="color:#d40000">R</a>\
+			<a style="color:#d49b00">o</a>\
+			<a style="color:#78d400">m</a>\
+			<a style="color:#00d437">s</a>\
+			<a style="color:#000000"> </a>\
+			<a style="color:#00a5d4">K</a>\
+			<a style="color:#0f00d4">i</a>\
+			<a style="color:#d100d4">d</a>\
+			<a style="color:#d40064">d</a>'); //WTF AM I DOING
+	}else if (user == "Zuchku"){
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").text('');
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").append('\
+			<a style="color:#d40000">Z</a>\
+			<a style="color:#d49b00">u</a>\
+			<a style="color:#78d400">c</a>\
+			<a style="color:#00d437">h</a>\
+			<a style="color:#00a5d4">k</a>\
+			<a style="color:#0f00d4">u</a>'); //This is outta control.
 	}
 
 		//Bootleg Inline Images//
