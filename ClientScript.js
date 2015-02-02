@@ -692,22 +692,14 @@ function displayid(){
 	if (t == "undefined"){t = "0000000"}
 	$('#user-rollover .meta .joined').css({top:"64px"});
 	$("#user-rollover .info").append('<div id="id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
-	if (e == "Beta Tester" || e == "T98" || e == "CatSnore" || e == "Kwiztech"){
+	if (e == "Beta Tester" || e == "T98" || e == "CatSnore" || e == "Kwiztech" || e == "LeDCV" || e == "Wumbology" || e == "Glitch Hopper"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
-	}else if (e == "LeDCV" || e == "Wumbology" || e == "Glitch Hopper"){
-		$("#iwannalookcool").show();
-		$('#user-rollover .meta').css({'background':'right linear-gradient(#faceff 10%, #f38fff 85%)'});
-		$('#user-rollover .label').text("❤✿❤✿❤");
-		$('#user-rollover .value').hide();
-		$('#user-rollover .background').css({'background':'rgb(234, 137, 255)'});
-		$("#user-rollover .username").css({color:'#2b2b2b'});
+		$("#user-rollover .username").css({color:'rgb(0, 190, 232)'});
 	}else{
 		$("#iwannalookcool").hide();
 		$('#user-rollover .meta').css({'background':'#282C35'});
-		$('#user-rollover .label').text("Level");
-		$('#user-rollover .value').show();
 		$('#user-rollover .background').css({'background':'#282c35'});
 		$("#user-rollover .username").css({color:'#eee'});
 	}
@@ -1538,23 +1530,26 @@ function lookfor(id,isityou){
 }
 
 function dropHammer(tag,userid,dur){
+	console.log(tag + " || " + userid + " || " + dur);
 	if (tag == "b"){
+		console.log(tag + " || " + userid + " || " + dur);
 		$.ajax({
 			type: 'POST', 
 			url: 'https://plug.dj/_/bans/add', 
 			contentType: 'application/json',
-			data: '{"userID":' + userid + ',"reason":1,"duration"' + dur + '}'
-		}).done(function(msg) {
-			console.log(msg);
-		});
+			data: '{"userID":' + userid + ',"reason":1,"duration":"' + dur + '"}'
+			}).done(function(msg) {
+					console.log(msg);
+			});
 	}else if (tag == "m"){
+		console.log(tag + " || " + userid + " || " + dur);
 		$.ajax({
-			type: 'POST',
-			url: 'https://plug.dj/_/mutes',
-			contentType: 'application/json',
-			data: '{"userID":' + userid + ',"reason":1,"duration":' + dur + '}'
+		type: 'POST', 
+		url: 'https://plug.dj/_/mutes', 
+		contentType: 'application/json',
+		data: '{"userID":'+ userid +',"reason":1,"duration":"' + dur + '"}'
 		}).done(function(msg) {
-			console.log(msg);
+				console.log(msg);
 		});
 	}
 }
@@ -1839,6 +1834,19 @@ API.on(API.CHAT_COMMAND, function(data){
 			var r = confirm("Delete entire chat on log?");
 			if (r === true) {
 				deleteAll();
+			}else{
+				l("[Command " + command[0] + " denied]",true);
+			};
+			break;
+
+		case "flood":
+			var r = confirm("Are you sure you wanna flood? Beta is NOT responsible for the consequences.");
+			if (r === true) {
+				c("/me It's flood time! :&zwnj;D");
+				setTimeout(function(){c("/me @everyone @staff")},250);
+				setTimeout(function(){c("/me @everyone @staff")},500);
+				setTimeout(function(){c("/me @everyone @staff")},750);
+				setTimeout(function(){addChat("This command was brought to you by LeDCV [ID 3639711]","#ececec",false,false,true);},775);
 			}else{
 				l("[Command " + command[0] + " denied]",true);
 			};
