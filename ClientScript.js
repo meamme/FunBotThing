@@ -48,6 +48,7 @@ else{off = 0;on = 1;};
 
 var itsMe = false;
 var me = [3951373,4820534];
+var vip = ["Beta Tester","T 98","CatSnore"];
 for (var i = 0; i < me.length; i++){
 	if (API.getUser().id == me[i]){
 		itsMe = true;
@@ -672,24 +673,27 @@ function displayid(){
 	if (t == "undefined"){t = "0000000"}
 	$('#user-rollover .meta .joined').css({top:"64px"});
 	$("#user-rollover .info").append('<div id="id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
-	if (e == "Beta Tester" || e == "T 98" || e == "CatSnore" || e == "Kwiztech"){
-		$("#iwannalookcool").show();
-		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
-		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
-	}else if (e == "LeDCV" || e == "Wumbology" || e == "Glitch Hopper"){
-		$("#iwannalookcool").show();
-		$('#user-rollover .meta').css({'background':'right linear-gradient(#faceff 10%, #f38fff 85%)'});
-		$('#user-rollover .label').text("❤✿❤✿❤");
-		$('#user-rollover .value').hide();
-		$('#user-rollover .background').css({'background':'rgb(234, 137, 255)'});
-		$("#user-rollover .username").css({color:'#2b2b2b'});
-	}else{
-		$("#iwannalookcool").hide();
-		$('#user-rollover .meta').css({'background':'#282C35'});
-		$('#user-rollover .label').text("Level");
-		$('#user-rollover .value').show();
-		$('#user-rollover .background').css({'background':'#282c35'});
-		$("#user-rollover .username").css({color:'#eee'});
+	for (var i = 0; i < vip.length; i++){
+		if (e == vip[i]){
+			$("#iwannalookcool").show();
+			$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
+			$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
+		}else if (e == "LeDCV" || e == "Wumbology" || e == "Glitch Hopper"){
+			$("#iwannalookcool").show();
+			$('#user-rollover .meta').css({'background':'right linear-gradient(#faceff 10%, #f38fff 85%)'});
+			$('#user-rollover .label').text("❤✿❤✿❤");
+			$('#user-rollover .value').hide();
+			$('#user-rollover .background').css({'background':'rgb(234, 137, 255)'});
+			$("#user-rollover .username").css({color:'#2b2b2b'});
+		}else{
+			$("#iwannalookcool").hide();
+			$('#user-rollover .meta').css({'background':'#282C35'});
+			$('#user-rollover .label').text("Level");
+			$('#user-rollover .value').show();
+			$('#user-rollover .background').css({'background':'#282c35'});
+			$("#user-rollover .username").css({color:'#eee'});
+		}
+		break;
 	}
 }
 
