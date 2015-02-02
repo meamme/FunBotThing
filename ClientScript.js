@@ -717,7 +717,7 @@ var thevotelist = '\
 		background-color: #1c1f25;\
 		outline: #000000 solid 1px;\
 		cursor: pointer;">\
-			<center><br><span style="margin-top:10px;">Might be laggy on full rooms.</span></center>\
+			<center><br><span style="margin-top:10px;">I got nothing to write here though :l</span></center>\
 	</div>\
 	<div id="xlist" style="\
 		position: absolute;\
@@ -1052,6 +1052,7 @@ API.on(API.ADVANCE, autojoin);
 API.on(API.ADVANCE, function(obj){
 	if (songup){
 		l(" ",false);
+		setTimeout(function(){$(".update")[$(this).length-1].remove();},250);
 		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
 		addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
 				<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b><br>\
