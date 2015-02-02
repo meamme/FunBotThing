@@ -37,7 +37,7 @@ API.on(API.CHAT, function(data){
 	}else if (user == "LeDCV" || user == "Wumbology"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs3'></i>");
-	}else if (user == "Zuchku" || user == "81supernova" || user == "EDMC"){
+	}else if (user == "81supernova" || user == "EDMC"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").css({color:'#0097cd'});
@@ -55,6 +55,17 @@ API.on(API.CHAT, function(data){
 			<a style="color:#0f00d4">i</a>\
 			<a style="color:#d100d4">d</a>\
 			<a style="color:#d40064">d</a>'); //WTF AM I DOING
+	}else if (user == "Zuchku"){
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").text('');
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").append('\
+			<a style="color:#d40000">Z</a>\
+			<a style="color:#d49b00">u</a>\
+			<a style="color:#78d400">c</a>\
+			<a style="color:#00d437">h</a>\
+			<a style="color:#00a5d4">k</a>\
+			<a style="color:#0f00d4">u</a>'); //This is outta control.
 	}
 });
 
