@@ -963,15 +963,12 @@ API.on(API.CHAT, function(data){
 			$("#chat-input .afknotifications").show();
 		}
 	}
-	if (user == "CatSnore" || user == "T98"){
+	if (user == "CatSnore" || user == "T98" || user == "LeDCV" || user == "Wumbology" || user == "Kwiztech"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
 	}else if (user == "Beta Tester"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs2'></i>");
-	}else if (user == "LeDCV" || user == "Wumbology"){
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs3'></i>");
 	}else if (user == "81supernova" || user == "EDMC"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
