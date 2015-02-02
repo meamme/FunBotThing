@@ -1112,8 +1112,11 @@ function ujoined(user) {
 	if (h < 10){h = "0" + h;}
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
-	if (user.level > 1 && joinmsg){addChat("<i class='icon icon-chat-enter' style='left:12px;'></i> " + f + user.username + " (ID " + user.id + ") joined <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>",c);};
-	if (user.level == 1 && joinmsg){addChat("<i class='icon icon-chat-enter' style='left:12px;'></i> " + f + user.username + " (ID " + user.id + ") joined (Lvl 1) <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#fef8a0");};
+	var thename = user.username;
+	if (user.username.indexOf("<") != -1){thename = user.username.replace("<","&lt;")}
+	if (user.username.indexOf(">") != -1){thename = user.username.replace(">","&gt;")}
+	if (user.level > 1 && joinmsg){addChat("<i class='icon icon-chat-enter' style='left:12px;'></i> " + f + thename + " (ID " + user.id + ") joined <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>",c);};
+	if (user.level == 1 && joinmsg){addChat("<i class='icon icon-chat-enter' style='left:12px;'></i> " + f + thename + " (ID " + user.id + ") joined (Lvl 1) <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#fef8a0");};
 };
 
 function uleft(user){
