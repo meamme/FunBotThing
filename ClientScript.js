@@ -32,6 +32,7 @@ function addChat(text, color, state, hasBottom, isNotCenter) {
 		chat.children().first().remove();
 	}
 }
+
 //ffdd6f
 if (betaWasOn){
 	addChat("<img src='https://i.imgur.com/Z7LDEp0.gif'></img><br><a style='color:#FF0000;font-size:15px;'><b>[WARNING]</b></a><a style='font-size:15px;'> You already had BCS activated. To update, please refresh and then click bookmark again. Reclicking doesn't work.</a>","#ff7575",true,true);
@@ -53,6 +54,10 @@ for (var i = 0; i < me.length; i++){
 		itsMe = true;
 	};
 }
+
+function c(msg){API.sendChat(msg);}
+function l(msg,state){API.chatLog(msg,state);}
+function woot(){$('#woot').click();}
 
 function stopItAll(){
 	var currentWindow = window.location.href;
@@ -725,12 +730,6 @@ $("#footer-user .bar").mouseleave(function(){
 	$("#footer-user .percentage").show();
 });
 API.on(API.ADVANCE,displayLvl);
-
-function c(msg){API.sendChat(msg);}
-function l(msg,state){API.chatLog(msg,state);}
-function woot(){
-	$('#woot').click();
-}
 
 $("#app-menu .list .votelist").mouseenter(function(){
 	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');
