@@ -48,7 +48,7 @@ else{off = 0;on = 1;};
 
 var itsMe = false;
 var me = [3951373,4820534];
-var vip = ["Beta Tester","T 98","CatSnore"];
+var vip = ["Beta Tester","T 98","CatSnore","Kwiztech"];
 for (var i = 0; i < me.length; i++){
 	if (API.getUser().id == me[i]){
 		itsMe = true;
