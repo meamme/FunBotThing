@@ -38,6 +38,7 @@ if (betaWasOn){
 }else{
 
 addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + betaV,"#ececec",true,true);
+addChat("<br>We just hit <a style='color:#99ffd7;'><b>2.000</b></a> lines of code! :D How awesome is that?!<br>","#ececec",true,true);
 
 var betaWasOn = true;
 var u = API.getUser().username;
@@ -687,11 +688,10 @@ function displayid(){
 	if (t == "undefined"){t = "0000000"}
 	$('#user-rollover .meta .joined').css({top:"64px"});
 	$("#user-rollover .info").append('<div id="id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
-	if ("Beta Tester" || e == "T98" || e == "CatSnore" || e == "Kwiztech"){
+	if (e == "Beta Tester" || e == "T98" || e == "CatSnore" || e == "Kwiztech"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
-		break;
 	}else if (e == "LeDCV" || e == "Wumbology" || e == "Glitch Hopper"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#faceff 10%, #f38fff 85%)'});
@@ -699,7 +699,6 @@ function displayid(){
 		$('#user-rollover .value').hide();
 		$('#user-rollover .background').css({'background':'rgb(234, 137, 255)'});
 		$("#user-rollover .username").css({color:'#2b2b2b'});
-		break;
 	}else{
 		$("#iwannalookcool").hide();
 		$('#user-rollover .meta').css({'background':'#282C35'});
@@ -707,7 +706,6 @@ function displayid(){
 		$('#user-rollover .value').show();
 		$('#user-rollover .background').css({'background':'#282c35'});
 		$("#user-rollover .username").css({color:'#eee'});
-		break;
 	}
 }
 
@@ -864,6 +862,11 @@ function updateList(){
 			$('#chat-input-field').val($('#chat-input-field').val() + "@" + $(this).text() + " ");
 		})
 	}
+	if (voteslist.length == 0){
+		$("#xlistprequel span").text("It's lonely in here");
+	}else{
+		$("#xlistprequel span").text("I got nothing to write here though :l");
+	}
 }
 
 API.on(API.VOTE_UPDATE, function(obj){
@@ -871,6 +874,10 @@ API.on(API.VOTE_UPDATE, function(obj){
 });
 
 API.on(API.USER_LEAVE, function(obj){
+	updateList();
+});
+
+API.on(API.ADVANCE, function(obj){
 	updateList();
 });
 
