@@ -971,9 +971,11 @@ API.on(API.CHAT, function(data){
 	if (user == "CatSnore" || user == "T98" || user == "LeDCV" || user == "Wumbology" || user == "Kwiztech"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").css({color:'#0097cd'});
 	}else if (user == "Beta Tester"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs2'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").css({color:'#0097cd'});
 	}else if (user == "EDMC"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
@@ -981,7 +983,6 @@ API.on(API.CHAT, function(data){
 	}else if (user == "Newcool"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").css({color:'#0097cd'});
 	}else if (user == "Roms Kidd"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
