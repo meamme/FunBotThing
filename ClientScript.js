@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano
 //Stole AddChat from Igor <3 Thanks a ton
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.11.1</em></a>";
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.11.1.1</em></a>";
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -313,15 +313,20 @@ var style = '<style>\
 			width:15px;\
 			background-image:url(https://i.imgur.com/GG4jPsR.png);\
 		}\
-		.icon-chat-bcs3 {\
-			height:15px;\
-			width:15px;\
-			background-image:url(https://i.imgur.com/6Mb4SyQ.png);\
-		}\
 		.icon-chat-baS {\
 			height:15px;\
 			width:15px;\
 			background-image:url(https://i.imgur.com/RQOpxNm.png);\
+		}\
+		.icon-chat-enter {\
+			height:15px;\
+			width:15px;\
+			background-image:url(https://i.imgur.com/lF5EhMq.png);\
+		}\
+		.icon-chat-leave {\
+			height:15px;\
+			width:15px;\
+			background-image:url(https://i.imgur.com/hF5Y9ye.png);\
 		}\
 	</style>';
 
@@ -892,7 +897,7 @@ API.on(API.GRAB_UPDATE, function(obj){
 	if (h < 10){h = "0" + h;}
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
-	if (grabmsg){addChat("<i class='icon icon-grab' style='left:-5px;'></i> " + obj.user.username + " (ID " + obj.user.id + ") grabbed <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#c5e0ff");};
+	if (grabmsg){addChat("<i class='icon icon-grab' style='left:5px;'></i> " + obj.user.username + " (ID " + obj.user.id + ") grabbed <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#c5e0ff");};
 });
 
 var blunq = new Audio();
@@ -968,21 +973,16 @@ API.on(API.CHAT, function(data){
 			$("#chat-input .afknotifications").show();
 		}
 	}
-	if (user == "CatSnore" || user == "T98" || user == "LeDCV" || user == "Wumbology" || user == "Kwiztech"){
+	if (user == "CatSnore" || user == "T98" || user == "LeDCV" || user == "Wumbology" || user == "Kwiztech" || user == "Newcool"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").css({color:'#0097cd'});
 	}else if (user == "Beta Tester"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs2'></i>");
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").css({color:'#0097cd'});
 	}else if (user == "EDMC"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").css({color:'#0097cd'});
-	}else if (user == "Newcool"){
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
 	}else if (user == "Roms Kidd"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
@@ -1066,7 +1066,7 @@ API.on(API.VOTE_UPDATE, function(obj){
 		if (h < 10){h = "0" + h;}
 		if (m < 10){m = "0" + m;}
 		if (s < 10){s = "0" + s;}
-		if (mehmsg){addChat("" + obj.user.username + " (ID " + obj.user.id + ") meh'ed this <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#ff8585");};
+		if (mehmsg){addChat("<i class='icon icon-meh' style='left:5px;'></i> " + obj.user.username + " (ID " + obj.user.id + ") meh'ed this <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#ff8585");};
 	}
 });
 
@@ -1112,8 +1112,8 @@ function ujoined(user) {
 	if (h < 10){h = "0" + h;}
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
-	if (user.level > 1 && joinmsg){addChat(f + user.username + " (ID " + user.id + ") joined <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>",c);};
-	if (user.level == 1 && joinmsg){addChat(f + user.username + " (ID " + user.id + ") joined (Lvl 1) <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#fef8a0");};
+	if (user.level > 1 && joinmsg){addChat("<i class='icon icon-chat-enter' style='left:12px;'></i> " + f + user.username + " (ID " + user.id + ") joined <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>",c);};
+	if (user.level == 1 && joinmsg){addChat("<i class='icon icon-chat-enter' style='left:12px;'></i> " + f + user.username + " (ID " + user.id + ") joined (Lvl 1) <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#fef8a0");};
 };
 
 function uleft(user){
@@ -1131,7 +1131,7 @@ function uleft(user){
 	if (h < 10){h = "0" + h;}
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
-	if (joinmsg){addChat(f + user.username + " (ID " + user.id + ") left <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>",c);};
+	if (joinmsg){addChat("<i class='icon icon-chat-leave' style='left:12px;'></i> " + f + user.username + " (ID " + user.id + ") left <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>",c);};
 };
 API.on(API.USER_JOIN, ujoined);
 API.on(API.USER_LEAVE, uleft);
