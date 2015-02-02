@@ -675,9 +675,11 @@ function displayid(){
 	if (e == "Beta Tester"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
+		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
 	}else{
 		$("#iwannalookcool").hide();
 		$('#user-rollover .meta').css({'background':'#282C35'});
+		$('#user-rollover .background').css({'background':'#282c35'});
 	}
 }
 
