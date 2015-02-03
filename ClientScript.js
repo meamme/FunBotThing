@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano
 //Stole AddChat from Igor <3 Thanks a ton
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.11.1.1</em></a>";
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.11.1.1.1</em></a>";
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -41,7 +41,22 @@ if (betaWasOn){
 addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + betaV,"#ececec",true,true);
 
 var betaWasOn = true;
-var u = API.getUser().username;
+
+var blunq = new Audio();
+blunq.src = "https://cdn.plug.dj/_/static/sfx/badoop.801a12ca13864e90203193b2c83c019c03a447d1.mp3";
+blunq.load();
+
+var d = new Date();
+var h = d.getDay();
+var m = d.getMonth();
+if (h + " / " + m == "12 / 1"){
+	addChat("<b>TODAY IS VITAL'S BDAY</b>","#ff0000");
+	addChat("<b>TODAY IS VITAL'S BDAY</b>","#ff0000");
+	addChat("<b>TODAY IS VITAL'S BDAY</b>","#ff0000");
+	addChat("<b>TODAY IS VITAL'S BDAY</b>","#ff0000");
+	addChat("<b>TODAY IS VITAL'S BDAY</b>","#ff0000");
+	blunq.play();
+}
 
 var off;var on;
 if (API.getUser().role == 0){off = 1;on = 0;}
@@ -906,10 +921,6 @@ API.on(API.GRAB_UPDATE, function(obj){
 	if (grabmsg){addChat("<i class='icon icon-grab' style='left:5px;'></i> " + obj.user.username + " (ID " + obj.user.id + ") grabbed <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#c5e0ff");};
 });
 
-var blunq = new Audio();
-blunq.src = "https://cdn.plug.dj/_/static/sfx/badoop.801a12ca13864e90203193b2c83c019c03a447d1.mp3";
-blunq.load();
-
 var coollock = false;
 tet = ["beta","beta tester"];
 
@@ -1423,7 +1434,7 @@ function lookfor(id,isityou){
 			case "tiki04":		var bb = "Purple Tree (" + data.badge + ")";break;
 			default:
 				if (data.badge == null){
-					var bb = "<a style='color:#eaaeae;'>[None]</a>";
+					var bb = "None (<a style='color:#b8e0ff;'><em>null</em></a>)";
 				}else{
 					var bb = data.badge;
 				}
