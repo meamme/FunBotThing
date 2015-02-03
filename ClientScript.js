@@ -990,7 +990,7 @@ API.on(API.CHAT, function(data){
 			$("#chat-input .afknotifications").show();
 		}
 	}
-	if (user == "CatSnore" || user == "T98" || user == "LeDCV" || user == "Wumbology" || user == "Kwiztech" || user == "Newcool"  || e == "Legend"){
+	if (user == "CatSnore" || user == "T98" || user == "LeDCV" || user == "Wumbology" || user == "Kwiztech" || user == "Newcool"  || user == "Legend"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
 	}else if (user == "Beta Tester"){
