@@ -761,14 +761,24 @@ var thevotelist = '\
 		overflow-x: hidden;\
 		overflow-y: auto;\
 		z-index: 1;">\
+	<div id="xlistrefresh" style="\
+		position: absolute;\
+		height: 47px;\
+		width: 50%;\
+		background-color: #0A0A0A;\
+		outline: #1C1F25 solid 1px;\
+		cursor: pointer;">\
+			<i class="icon icon-refresh-video" style="margin-left:39%;margin-top:7%;"></i>\
+	</div>\
 	<div id="xlistprequel" style="\
 		position: absolute;\
-		height: 12%;\
-		width: 100%;\
-		background-color: #1c1f25;\
-		outline: #000000 solid 1px;\
+		height: 47px;\
+		width: 50%;\
+		left: 50%;\
+		background-color: #0A0A0A;\
+		outline: #1C1F25 solid 1px;\
 		cursor: pointer;">\
-			<center><br><span style="margin-top:10px;">I got nothing to write here though :l</span></center>\
+			<i class="icon icon-arrow-right" style="margin-left:39%;margin-top:7%;"></i>\
 	</div>\
 	<div id="xlist" style="\
 		position: absolute;\
@@ -815,6 +825,7 @@ $("#xlistprequel").on('click',function(){
 		foldList();
 	}
 });
+$("#xlistrefresh").on('click',function(){updateList();});
 
 $("#app-menu .list .votelist").on('click',function(){
 	voteIsOn = !voteIsOn;
@@ -867,11 +878,6 @@ function updateList(){
 		$($("#xvotelist .user .name")[i]).on('click',function(){
 			$('#chat-input-field').val($('#chat-input-field').val() + "@" + $(this).text() + " ");
 		})
-	}
-	if (voteslist.length == 0){
-		$("#xlistprequel span").text("It's lonely in here");
-	}else{
-		$("#xlistprequel span").text("I got nothing to write here though :l");
 	}
 }
 
