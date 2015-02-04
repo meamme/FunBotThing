@@ -6,10 +6,9 @@ var bcs = {
 	resetAll:function(){
 			API.off();
 			bcs = "";
-			$.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/ClientScript.js');
+			$.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/m8dontmindthis.js');
 		},
 	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.11.2</em></a>",
-	wasOn:true,
 	attemptRefresh:false,
 	addChat:function(text, color, state, hasBottom, isNotCenter) {
 			var chat = $('#chat-messages');var a = chat.scrollTop() > chat[0].scrollHeight - chat.height() - 28;
@@ -32,7 +31,7 @@ var bcs = {
 		}
 }
 
-if (bcs.wasOn){
+if (betaWasOn){
 	//bcs.addChat("<img src='https://i.imgur.com/Z7LDEp0.gif'></img><br><a style='color:#FF0000;font-size:15px;'><b>[WARNING]</b></a><a style='font-size:15px;'> You already had BCS activated. To update, please refresh and then click bookmark again. Reclicking doesn't work.</a>","#ff7575",true,true);
 	bcs.addChat("<i class='icon icon-chat-bcs' style='left:5px;'></i> It seems like you would you like to restart BCS.<br><a style='color:#ff7575'> Restarting it <b>may turn off other scripts</b></a>.","#ccc",true,false);
 	bcs.addChat("<br><b><a style='color:#42a5dc;'>/yes</b></a>, restart BCS, who cares about other scripts!<br><b>\
@@ -42,7 +41,7 @@ if (bcs.wasOn){
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
 
-bcs.wasOn = true;
+betaWasOn = true;
 bcs.attemptRefresh = false;
 
 var blunq = new Audio();
