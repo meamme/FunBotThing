@@ -284,11 +284,12 @@ var bcs = {
 	},
 	turnOff: function(){
 		API.off(API.CHAT, chatStuff);
-		API.off(API.ADVANCE,displayLvl);
-		API.off(API.VOTE_UPDATE, updateList)
-		API.off(API.USER_LEAVE, updateList);
-		API.off(API.ADVANCE, updateList);
+		API.off(API.VOTE_UPDATE, voteStuff);
 		API.off(API.GRAB_UPDATE, grabStuff);
+		API.off(API.USER_JOIN, joinStuff);
+		API.off(API.ADVANCE, advanceStuff);
+		API.off(API.USER_LEAVE, leaveStuff);
+		API.off(API.CHAT_COMMAND, commandStuff);
 		$('#xprequel').off();
 		$('#xclick .xbox').off();
 		$('#xjoinmsg').off();
