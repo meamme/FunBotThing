@@ -1,7 +1,7 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
 //Initial CSS help from Marciano (https://plug.dj/@/marciano)
 //Stole AddChat from Igor <3 Thanks a ton (https://plug.dj/@/igor)
-var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.11.1.1.1</em></a>";
+var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.11.2</em></a>";
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
 	var chat = $('#chat-messages');
@@ -12,15 +12,15 @@ function addChat(text, color, state, hasBottom, isNotCenter) {
 	}
 
 	if (isNotCenter){
-		chat.append("<div class='cm message betabot-update' style='background-color:#0a0a0a;'><div class='text-margin' style='margin-left: 10px;'><span class='text cid-undefined' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></div></div>");
+		chat.append("<div class='betabot-update' style='background-color:#0a0a0a;'><div class='text-margin' style='margin-left: 10px;'><span class='betatext' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></div></div>");
 	}else{
 		if (hasBottom){
-			chat.append("<div class='cm message betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; border-bottom: double 6px " + color + "'><center><span class='text cid-undefined'' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
+			chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; border-bottom: double 6px " + color + "'><center><span class='betatext'' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
 		}else{
 			if (state){
-				chat.append("<div class='cm message betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; margin-top:5px;margin-bottom:5px;'><center><span class='text cid-undefined'' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></center></div>");
+				chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; margin-top:5px;margin-bottom:5px;'><center><span class='betatext'' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></center></div>");
 			}else{
-				chat.append("<div class='cm message betabot-update' style='background-color:#0a0a0a; margin-top:5px;margin-bottom:5px;'><center><span class='text cid-undefined' style='color: " + color + ";'>" + text + "<br></span></center></div>");
+				chat.append("<div class='betabot-update' style='background-color:#0a0a0a; margin-top:5px;margin-bottom:5px;'><center><span class='betatext' style='color: " + color + ";'>" + text + "<br></span></center></div>");
 			}
 		}
 	}
@@ -378,6 +378,8 @@ $("#chat .disconnect span").css({top:"10px"});
 $("#chat .spinner").hide();
 $("#search-input-field").attr({"maxlength":256});
 $("#app-menu .list").append('<div class="item votelist clickable"><i class="icon icon-woot-off"></i><span>Vote List (WIP)</span></div>');
+$("#footer-user .bar").css({'border-radius':'10px 10px'});
+$("#footer-user .progress").css({'border-radius':'10px 10px'});
 
 var autowoot = true;
 var joinmsg = true;
@@ -651,7 +653,6 @@ $("#chat-input .afknotifications").on('click', function(){
 	for (var i = 0; i < mentioned.length; i++){
 		addChat(mentioned[i],"#4658b5",false,false,true);
 	}
-	addChat("<br>");
 	notifyAFK = 0;
 	mentioned = [];
 	$("#chat-input .afknotifications").hide();
@@ -751,7 +752,7 @@ $("#audience-canvas").mousemove(displayid);
 function displayLvl(){
 	$("#footer-user .percentage").remove();
 	var lvl = $("#footer-user .progress").attr('style');
-	var lvlPc = lvl.substring(6,lvl.length - 1);
+	var lvlPc = lvl.substring(6,lvl.indexOf('%') + 1);
 	$("#footer-user .progress").append('<div class="percentage" style="font-size: 10px; position:block; margin-left:50px; margin-top:-1px"><b>' + lvlPc + '</b></div>');
 }
 displayLvl();
