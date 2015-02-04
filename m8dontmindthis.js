@@ -2101,7 +2101,7 @@ function commandStuff(data){
 			bcs.addChat("Command <a style='color:#c4c4c4;'>" + command[0] + "</a> is not a command!","#fea6a6");
 			break;
 	};
-});
+}
 
 function APIon(){
 	API.on(API.CHAT, chatStuff);
