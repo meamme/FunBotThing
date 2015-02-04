@@ -6,6 +6,7 @@ var bcs = {
 	resetAll:function(){
 			API.off();
 			bcs = {};
+			betaWasOn = false;
 			$.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/m8dontmindthis.js');
 		},
 	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.11.2</em></a>",
