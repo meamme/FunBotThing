@@ -4,7 +4,9 @@
 
 var bcs = {
 	resetAll:function(){
-			API.off();
+			APIoff();
+			$("#app-menu .list .votelist").remove();
+			$("#xtheone").remove();
 			bcs = {};
 			betaWasOn = false;
 			$.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/m8dontmindthis.js');
@@ -39,6 +41,8 @@ if (betaWasOn){
 		<a style='color:#42a5dc;'>/no</b></a>, continue using this version of BCS<br><br>","#ccc",false,false,true);
 	bcs.attemptRefresh = true;
 }else{
+
+APIon();
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
 
@@ -909,19 +913,7 @@ function updateList(){
 	}
 }
 
-API.on(API.VOTE_UPDATE, function(obj){
-	updateList();
-});
-
-API.on(API.USER_LEAVE, function(obj){
-	updateList();
-});
-
-API.on(API.ADVANCE, function(obj){
-	updateList();
-});
-
-API.on(API.GRAB_UPDATE, function(obj){
+function grabStuff(obj){
 	updateList();
 	var media = API.getMedia();
 	var d = new Date();
@@ -932,7 +924,7 @@ API.on(API.GRAB_UPDATE, function(obj){
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
 	if (grabmsg){bcs.addChat("<i class='icon icon-grab' style='left:5px;'></i> " + obj.user.username + " (ID " + obj.user.id + ") grabbed <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#c5e0ff");};
-});
+}
 
 var coollock = false;
 tet = ["beta","beta tester"];
@@ -950,9 +942,10 @@ function afkUpdate(){
 	bcs.addChat("AFK message set to <b>" + themessage + "</b>","#CCCCCC");
 }
 
-API.on(API.CHAT, function(data){
+var spam = ["auehuaehaeuhaeuahuae","hsauhsauhsau","kkkkkkkkkkkkkkk","aaaaaaaaaaaaaaa","eeeeeeeeeeeeee","ajajajajajajaj","ด"];
+function chatStuff(data){
 	var msg = data.message;
-	var msgID = data.cid;
+	var msgid = data.cid;
 	var user = data.un;
 	var userid = data.uid;
 	var me = API.getUser().username;
@@ -965,6 +958,7 @@ API.on(API.CHAT, function(data){
 	if (h < 10){h = "0" + h;}
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
+	var argument = "[" + h + ":" + m + ":" + s + "] [" + msgid + "] [" + userid + "] [" + user + "]		- " + msg;
 	if (userid != "undefined" && me == "Beta Tester"){
 		for (var i = 0; i < tet.length; i++){
 			var zz = msg.toLowerCase().indexOf(tet[i]);
@@ -1004,20 +998,20 @@ API.on(API.CHAT, function(data){
 		}
 	}
 	if (user == "CatSnore" || user == "T98" || user == "LeDCV" || user == "Wumbology" || user == "Kwiztech" || user == "Newcool"  || user == "Legend"){
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
 	}else if (user == "Beta Tester"){
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs2'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-bcs2'></i>");
 	}else if (user == "EDMC"){
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").css({color:'#0097cd'});
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").css({color:'#0097cd'});
 	}else if (user == "Roms Kidd"){
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").text('');
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").append('\
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").text('');
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
 			<a style="color:#d40000">R</a>\
 			<a style="color:#d49b00">o</a>\
 			<a style="color:#78d400">m</a>\
@@ -1028,10 +1022,10 @@ API.on(API.CHAT, function(data){
 			<a style="color:#d100d4">d</a>\
 			<a style="color:#d40064">d</a>');
 	}else if (user == "Zuchku"){
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").text('');
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").append('\
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").text('');
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
 			<a style="color:#d40000">Z</a>\
 			<a style="color:#d49b00">u</a>\
 			<a style="color:#78d400">c</a>\
@@ -1039,10 +1033,10 @@ API.on(API.CHAT, function(data){
 			<a style="color:#00a5d4">k</a>\
 			<a style="color:#0f00d4">u</a>');
 	}else if (user == "81supernova"){
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").text('');
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .un").append('\
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").text('');
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
 			<a style="color:#d40000">8</a>\
 			<a style="color:#d49b00">1</a>\
 			<a style="color:#78d400">s</a>\
@@ -1070,7 +1064,7 @@ API.on(API.CHAT, function(data){
 					}
 					jp = jp + 5;
 					var picLink = hts.slice(ht,jp);
-					$("#chat-messages > .cm[data-cid='" + msgID + "']").append("<center><img style='margin:10px; max-width:335px' src='" + picLink + "'></img></center>");
+					$("#chat-messages > .cm[data-cid='" + msgid + "']").append("<center><img style='margin:10px; max-width:335px' src='" + picLink + "'></img></center>");
 				}
 				setTimeout(function(){$("#chat-messages").scrollTop(50000)},3000);
 			}
@@ -1085,186 +1079,6 @@ API.on(API.CHAT, function(data){
 			}
 		};
 	}
-});
-
-API.on(API.VOTE_UPDATE, function(obj){
-	if (obj.vote == -1){
-		var d = new Date();
-		var h = d.getHours();
-		var m = d.getMinutes();
-		var s = d.getSeconds();
-		if (h < 10){h = "0" + h;}
-		if (m < 10){m = "0" + m;}
-		if (s < 10){s = "0" + s;}
-		if (mehmsg){bcs.addChat("<i class='icon icon-meh' style='left:5px;'></i> " + obj.user.username + " (ID " + obj.user.id + ") meh'ed this <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#ff8585");};
-	}
-});
-
-API.on(API.ADVANCE, function(){
-	if (autograb){
-		grab();
-	}
-	if (autowoot){
-		setTimeout(woot,5000);
-	}
-	if (timeskip){
-		if (hasPerms){
-			if (API.getMedia().duration > 480){
-				blunq.play();
-				bcs.addChat("<b>Song is over 8 minutes</b>","#ff3535",true);
-			}
-		}
-	}
-});
-
-var save;
-API.on(API.USER_JOIN, function(user){
-	if (mutedood){
-		if (user.level == 1){
-			API.moderateMuteUser(user.id,1,API.MUTE.SHORT);
-			save = user.id;
-		}
-	}
-});
-
-function ujoined(user) {
-	if (user.friend){
-		var f = "Your friend ";
-		var c = "#c5ffcc";
-	}else{
-		var f = "";
-		var c = "#74afff";
-	}
-	var d = new Date();
-	var h = d.getHours();
-	var m = d.getMinutes();
-	var s = d.getSeconds();
-	if (h < 10){h = "0" + h;}
-	if (m < 10){m = "0" + m;}
-	if (s < 10){s = "0" + s;}
-	var thename = user.username;
-	if (user.username.indexOf("<") != -1){thename = user.username.replace("<","&lt;")}
-	if (user.username.indexOf(">") != -1){thename = user.username.replace(">","&gt;")}
-	if (user.level > 1 && joinmsg){bcs.addChat("<i class='icon icon-chat-enter' style='left:12px;'></i> " + f + thename + " (ID " + user.id + ") joined <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>",c);};
-	if (user.level == 1 && joinmsg){bcs.addChat("<i class='icon icon-chat-enter' style='left:12px;'></i> " + f + thename + " (ID " + user.id + ") joined (Lvl 1) <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#fef8a0");};
-};
-
-function uleft(user){
-	if (user.friend){
-		var f = "Your friend ";
-		var c = "#c5ffcc";
-	}else{
-		var f = "";
-		var c = "#7774ff";
-	}
-	var d = new Date();
-	var h = d.getHours();
-	var m = d.getMinutes();
-	var s = d.getSeconds();
-	if (h < 10){h = "0" + h;}
-	if (m < 10){m = "0" + m;}
-	if (s < 10){s = "0" + s;}
-	if (joinmsg){bcs.addChat("<i class='icon icon-chat-leave' style='left:12px;'></i> " + f + user.username + " (ID " + user.id + ") left <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>",c);};
-};
-API.on(API.USER_JOIN, ujoined);
-API.on(API.USER_LEAVE, uleft);
-
-function JoinLeave(obj){
-	if (cap){
-		if (obj.role > 0);{
-			l(obs.username + " - " + obj.role);
-			var thiscap = API.getStaff().length;
-			c('/cap ' + thiscap);
-			bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
-		}
-	}
-}
-API.on(API.USER_JOIN, JoinLeave);
-API.on(API.USER_LEAVE, JoinLeave);
-
-function autojoin() {
-	if (autolock){
-		var dj = API.getDJ();
-		if (API.getWaitListPosition() <= -1 && dj.username != API.getUser().username){
-			API.djJoin();
-			setTimeout(function(){API.djJoin();},100);
-			setTimeout(function(){API.djJoin();},250);
-		}
-	}
-}
-API.on(API.ADVANCE, autojoin);
-
-API.on(API.ADVANCE, function(obj){
-	if (songup){
-		l(" ",false);
-		setTimeout(function(){$(".update")[$(this).length-1].remove();},250);
-		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
-		bcs.addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
-				<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b><br>\
-				<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
-				<a style='color:#e6ff99;'><b>Author:</b></a> " + obj.media.author + "<br>\
-				<a style='color:#e6ff99;'><b>Current DJ:</b></a> " + obj.dj.username + " (ID " + obj.dj.id + ")<br>","#ececec",true);
-	}
-});
-
-function deleteAll(){
-	if (API.getUser().role >= 2 || API.getUser().gRole != 0){
-		var msgs = document.getElementsByClassName('message');
-		var emotes = document.getElementsByClassName('emote');
-		var mentions = document.getElementsByClassName('mention');
-		for (var i = 0; i < msgs.length; i++) {
-			for (var j = 0; j < msgs[i].classList.length; j++) {
-				if (msgs[i].classList[j].indexOf('message') == 0) {
-					$.ajax({type: 'DELETE', url: '/_/chat/' + msgs[i].getAttribute('data-cid')});
-				}
-			}
-		}
-		for (var i = 0; i < emotes.length; i++) {
-			for (var j = 0; j < emotes[i].classList.length; j++) {
-				if (emotes[i].classList[j].indexOf('emote') == 0) {
-					$.ajax({type: 'DELETE', url: '/_/chat/' + emotes[i].getAttribute('data-cid')});
-				}
-			}
-		}
-		for (var i = 0; i < mentions.length; i++) {
-			for (var j = 0; j < mentions[i].classList.length; j++) {
-				if (mentions[i].classList[j].indexOf('mention') == 0) {
-					$.ajax({type: 'DELETE', url: '/_/chat/' + mentions[i].getAttribute('data-cid')});
-				}
-			}
-		}
-		return l("[Chat cleared]",true);
-	}else{
-		bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
-	}
-}
-
-function deleteSelf(){
-	if (API.getUser().role >= 2 || API.getUser().gRole != 0){
-		for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
-		for (var i = 0; i < logged.length; i++){
-			$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});
-		}
-		logged = [];
-	}else{
-		bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
-	}
-}
-
-var spam = ["auehuaehaeuhaeuahuae","hsauhsauhsau","kkkkkkkkkkkkkkk","aaaaaaaaaaaaaaa","eeeeeeeeeeeeee","ajajajajajajaj","ด"];
-API.on(API.CHAT, function(data){
-	var msg = data.message;
-	var msgid = data.cid;
-	var user = data.un;
-	var userid = data.uid;
-	var d = new Date();
-	var h = d.getHours();
-	var m = d.getMinutes();
-	var s = d.getSeconds();
-	if (h < 10){h = "0" + h;}
-	if (m < 10){m = "0" + m;}
-	if (s < 10){s = "0" + s;}
-	var argument = "[" + h + ":" + m + ":" + s + "] [" + msgid + "] [" + userid + "] [" + user + "]		- " + msg;
 	if (typeof user != "undefined"){
 		logcheck.push(argument);
 		messages.push(msgid.toString());
@@ -1330,7 +1144,165 @@ API.on(API.CHAT, function(data){
 			}
 		}
 	}
-});
+}
+
+function voteStuff(obj){
+	updateList();
+	if (obj.vote == -1){
+		var d = new Date();
+		var h = d.getHours();
+		var m = d.getMinutes();
+		var s = d.getSeconds();
+		if (h < 10){h = "0" + h;}
+		if (m < 10){m = "0" + m;}
+		if (s < 10){s = "0" + s;}
+		if (mehmsg){bcs.addChat("<i class='icon icon-meh' style='left:5px;'></i> " + obj.user.username + " (ID " + obj.user.id + ") meh'ed this <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#ff8585");};
+	}
+}
+
+function advanceStuff(obj){
+	updateList();
+	if (autograb){
+		grab();
+	}
+	if (autowoot){
+		setTimeout(woot,5000);
+	}
+	if (timeskip){
+		if (hasPerms){
+			if (API.getMedia().duration > 480){
+				blunq.play();
+				bcs.addChat("<b>Song is over 8 minutes</b>","#ff3535",true);
+			}
+		}
+	}
+	if (autolock){
+		var dj = API.getDJ();
+		if (API.getWaitListPosition() <= -1 && dj.username != API.getUser().username){
+			API.djJoin();
+			setTimeout(function(){API.djJoin();},100);
+			setTimeout(function(){API.djJoin();},250);
+		}
+	}
+	if (songup){
+		l(" ",false);
+		setTimeout(function(){$(".update")[$(this).length-1].remove();},250);
+		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
+		bcs.addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
+				<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b><br>\
+				<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
+				<a style='color:#e6ff99;'><b>Author:</b></a> " + obj.media.author + "<br>\
+				<a style='color:#e6ff99;'><b>Current DJ:</b></a> " + obj.dj.username + " (ID " + obj.dj.id + ")<br>","#ececec",true);
+	}
+}
+
+function leaveStuff(user){
+	updateList();
+	if (user.friend){
+		var f = "Your friend ";
+		var c = "#c5ffcc";
+	}else{
+		var f = "";
+		var c = "#7774ff";
+	}
+	var d = new Date();
+	var h = d.getHours();
+	var m = d.getMinutes();
+	var s = d.getSeconds();
+	if (h < 10){h = "0" + h;}
+	if (m < 10){m = "0" + m;}
+	if (s < 10){s = "0" + s;}
+	if (joinmsg){bcs.addChat("<i class='icon icon-chat-leave' style='left:12px;'></i> " + f + user.username + " (ID " + user.id + ") left <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>",c);};
+	if (cap){
+		if (user.role > 0);{
+			l(user.username + " - " + user.role);
+			var thiscap = API.getStaff().length;
+			c('/cap ' + thiscap);
+			bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
+		}
+	}
+};
+
+var save;
+function joinStuff(user){
+	if (mutedood){
+		if (user.level == 1){
+			API.moderateMuteUser(user.id,1,API.MUTE.SHORT);
+			save = user.id;
+		}
+	}
+	if (user.friend){
+		var f = "Your friend ";
+		var c = "#c5ffcc";
+	}else{
+		var f = "";
+		var c = "#74afff";
+	}
+	var d = new Date();
+	var h = d.getHours();
+	var m = d.getMinutes();
+	var s = d.getSeconds();
+	if (h < 10){h = "0" + h;}
+	if (m < 10){m = "0" + m;}
+	if (s < 10){s = "0" + s;}
+	var thename = user.username;
+	if (user.username.indexOf("<") != -1){thename = user.username.replace("<","&lt;")}
+	if (user.username.indexOf(">") != -1){thename = user.username.replace(">","&gt;")}
+	if (user.level > 1 && joinmsg){bcs.addChat("<i class='icon icon-chat-enter' style='left:12px;'></i> " + f + thename + " (ID " + user.id + ") joined <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>",c);};
+	if (user.level == 1 && joinmsg){bcs.addChat("<i class='icon icon-chat-enter' style='left:12px;'></i> " + f + thename + " (ID " + user.id + ") joined (Lvl 1) <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#fef8a0");};
+	if (cap){
+		if (user.role > 0);{
+			l(user.username + " - " + user.role);
+			var thiscap = API.getStaff().length;
+			c('/cap ' + thiscap);
+			bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
+		}
+	}
+}
+
+function deleteAll(){
+	if (API.getUser().role >= 2 || API.getUser().gRole != 0){
+		var msgs = document.getElementsByClassName('message');
+		var emotes = document.getElementsByClassName('emote');
+		var mentions = document.getElementsByClassName('mention');
+		for (var i = 0; i < msgs.length; i++) {
+			for (var j = 0; j < msgs[i].classList.length; j++) {
+				if (msgs[i].classList[j].indexOf('message') == 0) {
+					$.ajax({type: 'DELETE', url: '/_/chat/' + msgs[i].getAttribute('data-cid')});
+				}
+			}
+		}
+		for (var i = 0; i < emotes.length; i++) {
+			for (var j = 0; j < emotes[i].classList.length; j++) {
+				if (emotes[i].classList[j].indexOf('emote') == 0) {
+					$.ajax({type: 'DELETE', url: '/_/chat/' + emotes[i].getAttribute('data-cid')});
+				}
+			}
+		}
+		for (var i = 0; i < mentions.length; i++) {
+			for (var j = 0; j < mentions[i].classList.length; j++) {
+				if (mentions[i].classList[j].indexOf('mention') == 0) {
+					$.ajax({type: 'DELETE', url: '/_/chat/' + mentions[i].getAttribute('data-cid')});
+				}
+			}
+		}
+		return l("[Chat cleared]",true);
+	}else{
+		bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
+	}
+}
+
+function deleteSelf(){
+	if (API.getUser().role >= 2 || API.getUser().gRole != 0){
+		for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
+		for (var i = 0; i < logged.length; i++){
+			$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});
+		}
+		logged = [];
+	}else{
+		bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
+	}
+}
 
 function getuid(uname,oname){
 	var toggle = false;
@@ -1614,7 +1586,7 @@ function dropHammer(tag,userid,dur){
 	}
 }
 
-API.on(API.CHAT_COMMAND, function(data){
+function commandStuff(data){
 	var msg = data;
 	var command = msg.substring(1).split(' ');
 	if(typeof command[2] != "undefined"){
@@ -2130,4 +2102,22 @@ API.on(API.CHAT_COMMAND, function(data){
 			break;
 	};
 });
+
+function APIon(){
+	API.on(API.CHAT, chatStuff);
+	API.on(API.VOTE_UPDATE, voteStuff);
+	API.on(API.GRAB_UPDATE, grabStuff);
+	API.on(API.USER_JOIN, joinStuff);
+	API.on(API.ADVANCE, advanceStuff);
+	API.on(API.USER_LEAVE, leaveStuff);
+	API.on(API.CHAT_COMMAND, commandStuff);
+}
+
+function APIoff(){
+	API.off(API.ADVANCE,displayLvl);
+	API.off(API.VOTE_UPDATE, updateList)
+	API.off(API.USER_LEAVE, updateList);
+	API.off(API.ADVANCE, updateList);
+	API.off(API.GRAB_UPDATE, grabStuff);
+}
 }
