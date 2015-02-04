@@ -11,7 +11,7 @@ var bcs = {
 			betaWasOn = false;
 			$.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/m8dontmindthis.js');
 		},
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.11.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.11.2.1</em></a>",
 	attemptRefresh:false,
 	addChat:function(text, color, state, hasBottom, isNotCenter) {
 			var chat = $('#chat-messages');var a = chat.scrollTop() > chat[0].scrollHeight - chat.height() - 28;
