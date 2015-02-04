@@ -305,6 +305,46 @@ var bcs = {
 		$('#xsongup').off();
 		$('#xline').off();
 		$('#xbig').off();
+		function chatShrink(){
+			bigchat = false;
+			$('#xbig').attr('class','xbutton');
+			$("#xbig .icon").attr('class','icon icon-check-blue');
+			$("#room .app-right").animate({width:"345"});
+			$('#chat-input-field').animate({width:"305"});
+			$("#chat-input").animate({width:"326"});
+		}
+		function cuteVoting(){
+			cutevotes = !cutevotes;
+			$(this).toggleClass('active');
+			$("#xvotes .icon").toggleClass('active');
+			if (cutevotes){
+				$("#grab .top .icon").animate({left:"22"});
+				$("#grab .top .label").hide();
+				$("#woot .top .icon").animate({left:"22"});
+				$("#woot .top .label").hide();
+				$("#meh .top .icon").animate({left:"20"});
+				$("#meh .top .label").hide();
+				$('#meh').animate({left:"-1px"});
+				$('#woot').animate({left:"1px"});
+				$('#dj-button .left .icon').animate({left:"32px"});
+				$('#dj-button span').hide();
+				$('#dj-button .left').animate({width:"97px"});
+				$('#dj-button').animate({width:"130px"});
+			}else if (!cutevotes){
+				$("#grab .top .icon").animate({left:"0"});
+				$("#grab .top .label").show();
+				$("#woot .top .icon").animate({left:"0"});
+				$("#woot .top .label").show();
+				$("#meh .top .icon").animate({left:"0"});
+				$("#meh .top .label").show();
+				$('#meh').animate({left:"0px"});
+				$('#woot').animate({left:"0px"});
+				$('#dj-button .left .icon').animate({left:"22px"});
+				$('#dj-button span').show();
+				$('#dj-button .left').animate({width:"72px"});
+				$('#dj-button').animate({width:"230px"});
+			}
+		}
 		$('#history-button').off('click', chatShrink);
 		$('#playlist-meta').off('click', chatShrink);
 		$('#room-bar').off('click', chatShrink);
