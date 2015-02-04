@@ -5,7 +5,7 @@
 var bcs = {
 	resetAll:function(){
 			API.off();
-			bcs = "";
+			bcs = {};
 			$.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/m8dontmindthis.js');
 		},
 	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.11.2</em></a>",
@@ -41,7 +41,7 @@ if (betaWasOn){
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
 
-betaWasOn = true;
+var betaWasOn = true;
 bcs.attemptRefresh = false;
 
 var blunq = new Audio();
@@ -1632,6 +1632,7 @@ API.on(API.CHAT_COMMAND, function(data){
 			bcs.addChat("<br><a style='color:#c2f3bf;'><b>Todo list:</b></a><br><br>\
 					<a style='color: #8bdb85;'>⊱ Fix inline images bug</a><br>\
 					<a style='color: #8bdb85;'>⊱ Have WL position on vote list (cuz why not)</a><br>\
+					<a style='color: #8bdb85;'>⊱ Force skip at the end of songs (cuz why not)</a><br>\
 					<a style='color: #8bdb85;'>⊱ Make vote list prettier ;D</a><br>","#CCCCCC",false,false,true);
 			break;
 
