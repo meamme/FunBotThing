@@ -722,7 +722,7 @@ function displayid(){
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
 		$("#user-rollover .username").css({color:'rgb(0, 190, 232)'});
-	}else if (e == "Kwiztech" || e == "LeDCV" || e == "Wumbology" || e == "Glitch Hopper" || e == "Newcool"  || e == "Legend"){
+	}else if (e == "Kwiztech" || e == "LeDCV" || e == "Wumbology" || e == "Newcool"  || e == "Legend"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'linear-gradient(rgb(4, 52, 32) 10%, rgb(23, 31, 26) 85%) 100% 50%'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
