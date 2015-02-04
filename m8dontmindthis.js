@@ -4,7 +4,7 @@
 
 var bcs = {
 	resetAll:function(){
-			APIoff();
+			bcs.turnOff();
 			$("#app-menu .list .votelist").remove();
 			$("#xtheone").remove();
 			bcs = {};
@@ -31,7 +31,297 @@ var bcs = {
 			}
 			if (a){$('#chat-messages').scrollTop(50000);}
 			if (chat.children().length >= 512){chat.children().first().remove();}
+		},
+	turnOn: function(){
+		API.on(API.CHAT, chatStuff);
+		API.on(API.VOTE_UPDATE, voteStuff);
+		API.on(API.GRAB_UPDATE, grabStuff);
+		API.on(API.USER_JOIN, joinStuff);
+		API.on(API.ADVANCE, advanceStuff);
+		API.on(API.USER_LEAVE, leaveStuff);
+		API.on(API.CHAT_COMMAND, commandStuff);
+		var hasArrow = false;
+		$('#xprequel').on('click',	function(){
+			hasArrow  = !hasArrow;
+			$('#xclick .xbox').toggleClass('active');
+			$("#xall").toggleClass('active');
+			if (hasArrow){
+				$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)"});
+				$("#xclick .xbox").animate({left:'170px'});
+				$("#xprequel").animate({left:'0px'});
+				$("#xmain").animate({left:'0px'});
+				$("#xmod").animate({left:'0px'});
+			}else{
+				$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)"});
+				$("#xclick .xbox").animate({left:'0px'});
+				$("#xprequel").animate({left:'-170px'});
+				$("#xmain").animate({left:'-170px'});
+				$("#xmod").animate({left:'-170px'});
+			}
+		});
+
+		$('#xclick .xbox').on('click',	function(){
+			hasArrow  = !hasArrow;
+			$('#xclick .xbox').toggleClass('active');
+			$("#xall").toggleClass('active');
+			if (hasArrow){
+				$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)"});
+				$("#xclick .xbox").animate({left:'170px'});
+				$("#xprequel").animate({left:'0px'});
+				$("#xmain").animate({left:'0px'});
+				$("#xmod").animate({left:'0px'});
+			}else{
+				$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)"});
+				$("#xclick .xbox").animate({left:'0px'});
+				$("#xprequel").animate({left:'-170px'});
+				$("#xmain").animate({left:'-170px'});
+				$("#xmod").animate({left:'-170px'});
+			}
+		});
+		$("#xclick .xbox").click();
+
+		$('#xjoinmsg').on('click',	function(){
+			joinmsg = !joinmsg;
+			$(this).toggleClass('active');
+			$("#xjoinmsg .icon").toggleClass('active');
+		});
+		$('#xgrabmsg').on('click',	function(){
+			grabmsg = !grabmsg;
+			$(this).toggleClass('active');
+			$("#xgrabmsg .icon").toggleClass('active');
+		});
+		$('#xmehmsg').on('click',	function(){
+			mehmsg = !mehmsg;
+			$(this).toggleClass('active');
+			$("#xmehmsg .icon").toggleClass('active');
+		});
+		$('#xautocap').on('click',	function(){ 
+			cap = !cap;
+			$(this).toggleClass('active');
+			$("#xautocap .icon").toggleClass('active');
+			if (cap){
+				var thiscap = API.getStaff().length;
+				bcs.c('/cap ' + thiscap);
+				bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
+			}
+		});
+		$('#xautograb').on('click',	function(){
+			autograb = !autograb;
+			$(this).toggleClass('active');
+			$("#xautograb .icon").toggleClass('active');
+		});
+		$('#xautojoin').on('click',	function(){
+			autolock = !autolock;
+			$(this).toggleClass('active');
+			$("#xautojoin .icon").toggleClass('active');
+		});
+		$('#xautowoot').on('click',	function(){
+			autowoot = !autowoot;
+			$(this).toggleClass('active');
+			$("#xautowoot .icon").toggleClass('active');
+		});
+		$('#xsongup').on('click',	function(){
+			songup = !songup;
+			$(this).toggleClass('active');
+			$("#xsongup .icon").toggleClass('active');
+		});
+		$('#xline').on('click',		function(){
+			inlineOn = !inlineOn;
+			$(this).toggleClass('active');
+			$("#xline .icon").toggleClass('active');
+		});
+		$('#xbig').on('click',		function(){
+			bigchat = !bigchat;
+			$(this).toggleClass('active');
+			$("#xbig .icon").toggleClass('active');
+			if (bigchat){
+				$("#room .app-right").animate({width:"399"});
+				$('#chat-input-field').animate({width:"360"});
+				$("#chat-input").animate({width:"380"});
+			}else if (!bigchat){
+				$("#room .app-right").animate({width:"345"});
+				$('#chat-input-field').animate({width:"305"});
+				$("#chat-input").animate({width:"326"});
+			}
+		});
+
+		function chatShrink(){
+			bigchat = false;
+			$('#xbig').attr('class','xbutton');
+			$("#xbig .icon").attr('class','icon icon-check-blue');
+			$("#room .app-right").animate({width:"345"});
+			$('#chat-input-field').animate({width:"305"});
+			$("#chat-input").animate({width:"326"});
 		}
+		$('#playlist-meta').on('click', chatShrink);
+		$('#history-button').on('click', chatShrink);
+		$('#room-bar').on('click', chatShrink);
+		$('#footer-user .user').on('click', chatShrink);
+		$('#app-menu .community').on('click', chatShrink);
+
+		function cuteVoting(){
+			cutevotes = !cutevotes;
+			$(this).toggleClass('active');
+			$("#xvotes .icon").toggleClass('active');
+			if (cutevotes){
+				$("#grab .top .icon").animate({left:"22"});
+				$("#grab .top .label").hide();
+				$("#woot .top .icon").animate({left:"22"});
+				$("#woot .top .label").hide();
+				$("#meh .top .icon").animate({left:"20"});
+				$("#meh .top .label").hide();
+				$('#meh').animate({left:"-1px"});
+				$('#woot').animate({left:"1px"});
+				$('#dj-button .left .icon').animate({left:"32px"});
+				$('#dj-button span').hide();
+				$('#dj-button .left').animate({width:"97px"});
+				$('#dj-button').animate({width:"130px"});
+			}else if (!cutevotes){
+				$("#grab .top .icon").animate({left:"0"});
+				$("#grab .top .label").show();
+				$("#woot .top .icon").animate({left:"0"});
+				$("#woot .top .label").show();
+				$("#meh .top .icon").animate({left:"0"});
+				$("#meh .top .label").show();
+				$('#meh').animate({left:"0px"});
+				$('#woot').animate({left:"0px"});
+				$('#dj-button .left .icon').animate({left:"22px"});
+				$('#dj-button span').show();
+				$('#dj-button .left').animate({width:"72px"});
+				$('#dj-button').animate({width:"230px"});
+			}
+		}
+		$('#xvotes').on('click', cuteVoting);
+
+		$('#xpreviews').on('click',		function(){
+			dapreview = !dapreview;
+			$(this).toggleClass('active');
+			$("#xpreviews .icon").toggleClass('active');
+			if (dapreview){
+				$("#dialog-container").css({left:"0px",top:"0px",width:"79.3%",height:"100%"});
+			}else if (!dapreview){
+				$("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
+			}
+		});
+		$('#xmuter').on('click',	function(){
+			if (API.getUser().role > 1 || API.getUser().gRole > 0){
+				mutedood = !mutedood;
+				$(this).toggleClass('active');
+				$("#xmuter .icon").toggleClass('active');
+			}else{
+				bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
+			}
+		});
+		$('#xafk').on('click',		function(){
+			afkmsg = !afkmsg;
+			if (afkmsg){
+				$("#chat-input .afkIsOn").show();
+				$("#chat-input-field").css({color:'#fef8a0'});
+				if (API.getUser().id != 4820534){
+					$("#xafkenter").show();
+					$("#xafkbutton").show();
+					$("#xmod").css({'top':'422px'});
+				}
+			}else{
+				$("#chat-input .afkIsOn").hide();
+				$("#chat-input-field").css({color:'#eee'});
+				notifyAFK = 0;
+				$("#chat-input .afknotifications").text(notifyAFK);
+				$("#chat-input .afknotifications").hide();
+				$("#xafkenter").hide();
+				$("#xafkbutton").hide();
+				$("#xmod").css({'top':'417px'});
+			}
+			$(this).toggleClass('active');
+			$("#xafk .icon").toggleClass('active');
+		});
+		$("#chat-input .afknotifications").on('click', function(){
+			for (var i = 0; i < mentioned.length; i++){
+				bcs.addChat(mentioned[i],"#4658b5",false,false,true);
+			}
+			notifyAFK = 0;
+			mentioned = [];
+			$("#chat-input .afknotifications").hide();
+		});
+		$('#xdel').on('click',		function(){
+			var r = confirm("Delete entire chat on log?");
+			if (r === true) {
+				deleteAll();
+			}else{
+				bcs.l("[Command DELETEALL denied]",true);
+			};
+		});
+		$('#xtimeskip').on('click',	function(){
+			timeskip = !timeskip;
+			$(this).toggleClass('active');
+			$("#xtimeskip .icon").toggleClass('active');
+		});
+		$('#xlockdown').on('click',	function(){
+			if (API.getUser().role > 1 || API.getUser().gRole != 0){
+				lockdown = !lockdown;
+				if (lockdown){
+					var ll = "enabled. Only staff may chat.";
+				}else{
+					var ll = "disabled";
+				}
+				bcs.addChat("<b>Lockdown is now " + ll + "</b>","#FF3333");
+				$(this).toggleClass('active');
+				$("#xlockdown .icon").toggleClass('active');
+			}else{
+				bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
+			}
+		});
+		$('#xspammer').on('click',	function(){ 
+			if (API.getUser().role > 1 || API.getUser().gRole != 0){
+				spamon = !spamon;
+				if (spamon){
+					var ll = "enabled.";
+				}else{
+					var ll = "disabled";
+				}
+				bcs.addChat("<b>AntiSpam is now " + ll + "</b>","#FF3333");
+				$(this).toggleClass('active');
+				$("#xspammer .icon").toggleClass('active');
+			}else{
+				bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
+			}
+		});
+	},
+	turnOff: function(){
+		API.off(API.ADVANCE,displayLvl);
+		API.off(API.VOTE_UPDATE, updateList)
+		API.off(API.USER_LEAVE, updateList);
+		API.off(API.ADVANCE, updateList);
+		API.off(API.GRAB_UPDATE, grabStuff);
+		$('#xprequel').off();
+		$('#xclick .xbox').off();
+		$('#xjoinmsg').off();
+		$('#xgrabmsg').off();
+		$('#xmehmsg').off();
+		$('#xautocap').off();
+		$('#xautograb').off();
+		$('#xautojoin').off();
+		$('#xautowoot').off();
+		$('#xsongup').off();
+		$('#xline').off();
+		$('#xbig').off();
+		$('#history-button').off('click', chatShrink);
+		$('#playlist-meta').off('click', chatShrink);
+		$('#room-bar').off('click', chatShrink);
+		$('#footer-user .user').off('click',chatShrink);
+		$('#app-menu .community').off('click', chatShrink);
+		$('#xvotes').off('click', cuteVoting);
+		$('#xpreviews').off();
+		$('#xmuter').off();
+		$('#xafk').off();
+		$("#chat-input .afknotifications").off();
+		$('#xdel').off();
+		$('#xtimeskip').off();
+		$('#xlockdown').off();
+		$('#xspammer').off();
+	},
+	c: function(msg){API.sendChat(msg);},
+	l: function(msg,state){API.chatLog(msg,state);}
 }
 
 if (betaWasOn){
@@ -41,8 +331,6 @@ if (betaWasOn){
 		<a style='color:#42a5dc;'>/no</b></a>, continue using this version of BCS<br><br>","#ccc",false,false,true);
 	bcs.attemptRefresh = true;
 }else{
-
-APIon();
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
 
@@ -65,10 +353,6 @@ if (h + " / " + m == "12 / 1"){
 	blunq.play();
 }
 
-var off;var on;
-if (API.getUser().role == 0){off = 1;on = 0;}
-else{off = 0;on = 1;};
-
 var itsMe = false;
 var me = [3951373,4820534];
 for (var i = 0; i < me.length; i++){
@@ -77,8 +361,6 @@ for (var i = 0; i < me.length; i++){
 	};
 }
 
-function c(msg){API.sendChat(msg);}
-function l(msg,state){API.chatLog(msg,state);}
 function woot(){$('#woot').click();}
 
 function stopItAll(){
@@ -417,9 +699,9 @@ function safetyFirst(){
 		mehmsg = false;
 		inlineOn = false;
 		bcs.addChat("<b>This is a big room; Settings were set to use less of your pc just for your own safety. It may still lag you. Hehe.</b><br>Also, sorry, but expect bugs. c:","#FF3333");
-		c('/cap 1');
+		bcs.c('/cap 1');
 	}else{
-		c('/cap 10');
+		bcs.c('/cap 10');
 	}
 }
 safetyFirst();
@@ -441,274 +723,6 @@ if (notifyAFK == 0){
 }else if (notifyAFK > 0){
 	$("#chat-input .afknotifications").show();
 }
-
-var hasArrow = false;
-$('#xprequel').on('click',	function(){
-	hasArrow  = !hasArrow;
-	$('#xclick .xbox').toggleClass('active');
-	$("#xall").toggleClass('active');
-	if (hasArrow){
-		$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)"});
-		$("#xclick .xbox").animate({left:'170px'});
-		$("#xprequel").animate({left:'0px'});
-		$("#xmain").animate({left:'0px'});
-		$("#xmod").animate({left:'0px'});
-	}else{
-		$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)"});
-		$("#xclick .xbox").animate({left:'0px'});
-		$("#xprequel").animate({left:'-170px'});
-		$("#xmain").animate({left:'-170px'});
-		$("#xmod").animate({left:'-170px'});
-	}
-});
-$('#xclick .xbox').on('click',	function(){
-	hasArrow  = !hasArrow;
-	$('#xclick .xbox').toggleClass('active');
-	$("#xall").toggleClass('active');
-	if (hasArrow){
-		$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)"});
-		$("#xclick .xbox").animate({left:'170px'});
-		$("#xprequel").animate({left:'0px'});
-		$("#xmain").animate({left:'0px'});
-		$("#xmod").animate({left:'0px'});
-	}else{
-		$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)"});
-		$("#xclick .xbox").animate({left:'0px'});
-		$("#xprequel").animate({left:'-170px'});
-		$("#xmain").animate({left:'-170px'});
-		$("#xmod").animate({left:'-170px'});
-	}
-});
-$("#xclick .xbox").click();
-$('#xjoinmsg').on('click',	function(){
-	joinmsg = !joinmsg;
-	$(this).toggleClass('active');
-	$("#xjoinmsg .icon").toggleClass('active');
-});
-$('#xgrabmsg').on('click',	function(){
-	grabmsg = !grabmsg;
-	$(this).toggleClass('active');
-	$("#xgrabmsg .icon").toggleClass('active');
-});
-$('#xmehmsg').on('click',	function(){
-	mehmsg = !mehmsg;
-	$(this).toggleClass('active');
-	$("#xmehmsg .icon").toggleClass('active');
-});
-$('#xautocap').on('click',	function(){ 
-	cap = !cap;
-	$(this).toggleClass('active');
-	$("#xautocap .icon").toggleClass('active');
-	if (cap){
-		var thiscap = API.getStaff().length;
-		c('/cap ' + thiscap);
-		bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
-	}
-});
-$('#xautograb').on('click',	function(){
-	autograb = !autograb;
-	$(this).toggleClass('active');
-	$("#xautograb .icon").toggleClass('active');
-});
-$('#xautojoin').on('click',	function(){
-	autolock = !autolock;
-	$(this).toggleClass('active');
-	$("#xautojoin .icon").toggleClass('active');
-});
-$('#xautowoot').on('click',	function(){
-	autowoot = !autowoot;
-	$(this).toggleClass('active');
-	$("#xautowoot .icon").toggleClass('active');
-});
-$('#xsongup').on('click',	function(){
-	songup = !songup;
-	$(this).toggleClass('active');
-	$("#xsongup .icon").toggleClass('active');
-});
-$('#xline').on('click',		function(){
-	inlineOn = !inlineOn;
-	$(this).toggleClass('active');
-	$("#xline .icon").toggleClass('active');
-});
-$('#xbig').on('click',		function(){
-	bigchat = !bigchat;
-	$(this).toggleClass('active');
-	$("#xbig .icon").toggleClass('active');
-	if (bigchat){
-		$("#room .app-right").animate({width:"399"});
-		$('#chat-input-field').animate({width:"360"});
-		$("#chat-input").animate({width:"380"});
-	}else if (!bigchat){
-		$("#room .app-right").animate({width:"345"});
-		$('#chat-input-field').animate({width:"305"});
-		$("#chat-input").animate({width:"326"});
-	}
-});
-$('#history-button').on('click', function(){
-	bigchat = false;
-	$('#xbig').attr('class','xbutton');
-	$("#xbig .icon").attr('class','icon icon-check-blue');
-	$("#room .app-right").animate({width:"345"});
-	$('#chat-input-field').animate({width:"305"});
-	$("#chat-input").animate({width:"326"});
-});
-$('#playlist-meta').on('click', function(){
-	bigchat = false;
-	$('#xbig').attr('class','xbutton');
-	$("#xbig .icon").attr('class','icon icon-check-blue');
-	$("#room .app-right").animate({width:"345"});
-	$('#chat-input-field').animate({width:"305"});
-	$("#chat-input").animate({width:"326"});
-});
-$('#room-bar').on('click', function(){
-	bigchat = false;
-	$('#xbig').attr('class','xbutton');
-	$("#xbig .icon").attr('class','icon icon-check-blue');
-	$("#room .app-right").animate({width:"345"});
-	$('#chat-input-field').animate({width:"305"});
-	$("#chat-input").animate({width:"326"});
-});
-$('#footer-user .user').on('click', function(){
-	bigchat = false;
-	$('#xbig').attr('class','xbutton');
-	$("#xbig .icon").attr('class','icon icon-check-blue');
-	$("#room .app-right").animate({width:"345"});
-	$('#chat-input-field').animate({width:"305"});
-	$("#chat-input").animate({width:"326"});
-});
-$('#app-menu .community').on('click', function(){
-	bigchat = false;
-	$('#xbig').attr('class','xbutton');
-	$("#xbig .icon").attr('class','icon icon-check-blue');
-	$("#room .app-right").animate({width:"345"});
-	$('#chat-input-field').animate({width:"305"});
-	$("#chat-input").animate({width:"326"});
-});
-$('#xvotes').on('click',		function(){
-	cutevotes = !cutevotes;
-	$(this).toggleClass('active');
-	$("#xvotes .icon").toggleClass('active');
-	if (cutevotes){
-		$("#grab .top .icon").animate({left:"22"});
-		$("#grab .top .label").hide();
-		$("#woot .top .icon").animate({left:"22"});
-		$("#woot .top .label").hide();
-		$("#meh .top .icon").animate({left:"20"});
-		$("#meh .top .label").hide();
-		$('#meh').animate({left:"-1px"});
-		$('#woot').animate({left:"1px"});
-		$('#dj-button .left .icon').animate({left:"32px"});
-		$('#dj-button span').hide();
-		$('#dj-button .left').animate({width:"97px"});
-		$('#dj-button').animate({width:"130px"});
-	}else if (!cutevotes){
-		$("#grab .top .icon").animate({left:"0"});
-		$("#grab .top .label").show();
-		$("#woot .top .icon").animate({left:"0"});
-		$("#woot .top .label").show();
-		$("#meh .top .icon").animate({left:"0"});
-		$("#meh .top .label").show();
-		$('#meh').animate({left:"0px"});
-		$('#woot').animate({left:"0px"});
-		$('#dj-button .left .icon').animate({left:"22px"});
-		$('#dj-button span').show();
-		$('#dj-button .left').animate({width:"72px"});
-		$('#dj-button').animate({width:"230px"});
-	}
-});
-$('#xpreviews').on('click',		function(){
-	dapreview = !dapreview;
-	$(this).toggleClass('active');
-	$("#xpreviews .icon").toggleClass('active');
-	if (dapreview){
-		$("#dialog-container").css({left:"0px",top:"0px",width:"79.3%",height:"100%"});
-	}else if (!dapreview){
-		$("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
-	}
-});
-$('#xmuter').on('click',	function(){
-	if (API.getUser().role > 1 || API.getUser().gRole > 0){
-		mutedood = !mutedood;
-		$(this).toggleClass('active');
-		$("#xmuter .icon").toggleClass('active');
-	}else{
-		bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
-	}
-});
-$('#xafk').on('click',		function(){
-	afkmsg = !afkmsg;
-	if (afkmsg){
-		$("#chat-input .afkIsOn").show();
-		$("#chat-input-field").css({color:'#fef8a0'});
-		if (API.getUser().id != 4820534){
-			$("#xafkenter").show();
-			$("#xafkbutton").show();
-			$("#xmod").css({'top':'422px'});
-		}
-	}else{
-		$("#chat-input .afkIsOn").hide();
-		$("#chat-input-field").css({color:'#eee'});
-		notifyAFK = 0;
-		$("#chat-input .afknotifications").text(notifyAFK);
-		$("#chat-input .afknotifications").hide();
-		$("#xafkenter").hide();
-		$("#xafkbutton").hide();
-		$("#xmod").css({'top':'417px'});
-	}
-	$(this).toggleClass('active');
-	$("#xafk .icon").toggleClass('active');
-});
-$("#chat-input .afknotifications").on('click', function(){
-	for (var i = 0; i < mentioned.length; i++){
-		bcs.addChat(mentioned[i],"#4658b5",false,false,true);
-	}
-	notifyAFK = 0;
-	mentioned = [];
-	$("#chat-input .afknotifications").hide();
-});
-$('#xdel').on('click',		function(){
-	var r = confirm("Delete entire chat on log?");
-	if (r === true) {
-		deleteAll();
-	}else{
-		l("[Command DELETEALL denied]",true);
-	};
-});
-$('#xtimeskip').on('click',	function(){
-	timeskip = !timeskip;
-	$(this).toggleClass('active');
-	$("#xtimeskip .icon").toggleClass('active');
-});
-$('#xlockdown').on('click',	function(){ 
-	if (API.getUser().role > 1 || API.getUser().gRole != 0){
-		lockdown = !lockdown;
-		if (lockdown){
-			var ll = "enabled. Only staff may chat.";
-		}else{
-			var ll = "disabled";
-		}
-		bcs.addChat("<b>Lockdown is now " + ll + "</b>","#FF3333");
-		$(this).toggleClass('active');
-		$("#xlockdown .icon").toggleClass('active');
-	}else{
-		bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
-	}
-});
-$('#xspammer').on('click',	function(){ 
-	if (API.getUser().role > 1 || API.getUser().gRole != 0){
-		spamon = !spamon;
-		if (spamon){
-			var ll = "enabled.";
-		}else{
-			var ll = "disabled";
-		}
-		bcs.addChat("<b>AntiSpam is now " + ll + "</b>","#FF3333");
-		$(this).toggleClass('active');
-		$("#xspammer .icon").toggleClass('active');
-	}else{
-		bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
-	}
-});
 
 function attemptappend(){
 	if ($("#iwannalookcool").text() == ""){
@@ -932,7 +946,7 @@ tet = ["beta","beta tester"];
 if (localStorage.getItem('leMessage')){
 	themessage = localStorage.getItem('leMessage');
 }else{
-	themessage = "I'm away from keyboard."
+	themessage = "I'm away from keyboard.";
 }
 
 function afkUpdate(){
@@ -968,7 +982,7 @@ function chatStuff(data){
 		}
 		if (tst != -1){
 			if (!coollock && afkmsg){
-				c('[AFK] @' + user + ' "Beta is busy right now", says Beta, explaining the situation');
+				bcs.c('[AFK] @' + user + ' "Beta is busy right now", says Beta, explaining the situation');
 				coollock = true;
 				setTimeout(function(){coollock = false},60000);
 			}
@@ -980,7 +994,7 @@ function chatStuff(data){
 		}
 	}else if (userid != "undefined" && tst != -1){
 		if (!coollock && afkmsg){
-			c("[AFK] @" + user + " - " + themessage);
+			bcs.c("[AFK] @" + user + " - " + themessage);
 			coollock = true;
 			setTimeout(function(){coollock = false},60000);
 		}
@@ -1115,11 +1129,11 @@ function chatStuff(data){
 							|| typeof puff[1] == "undefined"){
 								//bcs.addChat("Like wtf how'd you get Steven to say hi","#AA3333");
 								if (user == "THe Puff"){
-									c("Heya shmoobey butt! - Credits to 'THe Puff' for suggesting a sentence. (C) 2014 All Rights Reserved | Protected by Creative Commons 4.0");
+									bcs.c("Heya shmoobey butt! - Credits to 'THe Puff' for suggesting a sentence. (C) 2014 All Rights Reserved | Protected by Creative Commons 4.0");
 									lockPuff = true;
 									setTimeout(function(){lockPuff = false;},3000);
 								}else if (user == "Epiphainein"){
-									c("Hey Pippy!");
+									bcs.c("Hey Pippy!");
 									lockPuff = true;
 									setTimeout(function(){lockPuff = false;},3000);
 								}
@@ -1185,7 +1199,7 @@ function advanceStuff(obj){
 		}
 	}
 	if (songup){
-		l(" ",false);
+		bcs.l(" ",false);
 		setTimeout(function(){$(".update")[$(this).length-1].remove();},250);
 		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
 		bcs.addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
@@ -1215,9 +1229,9 @@ function leaveStuff(user){
 	if (joinmsg){bcs.addChat("<i class='icon icon-chat-leave' style='left:12px;'></i> " + f + user.username + " (ID " + user.id + ") left <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>",c);};
 	if (cap){
 		if (user.role > 0);{
-			l(user.username + " - " + user.role);
+			bcs.l(user.username + " - " + user.role);
 			var thiscap = API.getStaff().length;
-			c('/cap ' + thiscap);
+			bcs.c('/cap ' + thiscap);
 			bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
 		}
 	}
@@ -1252,9 +1266,9 @@ function joinStuff(user){
 	if (user.level == 1 && joinmsg){bcs.addChat("<i class='icon icon-chat-enter' style='left:12px;'></i> " + f + thename + " (ID " + user.id + ") joined (Lvl 1) <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#fef8a0");};
 	if (cap){
 		if (user.role > 0);{
-			l(user.username + " - " + user.role);
+			bcs.l(user.username + " - " + user.role);
 			var thiscap = API.getStaff().length;
-			c('/cap ' + thiscap);
+			bcs.c('/cap ' + thiscap);
 			bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
 		}
 	}
@@ -1286,7 +1300,7 @@ function deleteAll(){
 				}
 			}
 		}
-		return l("[Chat cleared]",true);
+		return bcs.l("[Chat cleared]",true);
 	}else{
 		bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
 	}
@@ -1667,10 +1681,10 @@ function commandStuff(data){
 
 		case "sacrifice":
 		case "offering":
-			c("/me &nbsp;&nbsp;&nbsp;:fire: :fire: :fire: :fire: :fire:");
-			setTimeout(function(){c("/me &nbsp;&nbsp;&nbsp;:fire: :fire: :goat: :fire: :fire:")},250);
-			setTimeout(function(){c("/me &nbsp;&nbsp;&nbsp;:fire: :fire: :fire: :fire: :fire:")},500);
-			setTimeout(function(){c("/me Please, all mighty Admins, accept this sacrifice!")},750);
+			bcs.c("/me &nbsp;&nbsp;&nbsp;:fire: :fire: :fire: :fire: :fire:");
+			setTimeout(function(){bcs.c("/me &nbsp;&nbsp;&nbsp;:fire: :fire: :goat: :fire: :fire:")},250);
+			setTimeout(function(){bcs.c("/me &nbsp;&nbsp;&nbsp;:fire: :fire: :fire: :fire: :fire:")},500);
+			setTimeout(function(){bcs.c("/me Please, all mighty Admins, accept this sacrifice!")},750);
 			break;
 
 		case "del":
@@ -1731,9 +1745,9 @@ function commandStuff(data){
 			break;
 
 		case "showoff":
-			c("/me :fire: :star2: :fire: :boom: :fire: :boom: :fire: :star2: :fire:");
-			setTimeout(function(){c("/me &nbsp;&nbsp;~A wild me appears~");},250);
-			setTimeout(function(){c("/me :fire: :star2: :fire: :boom: :boom: :fire: :fire: :star2: :fire:");},500);
+			bcs.c("/me :fire: :star2: :fire: :boom: :fire: :boom: :fire: :star2: :fire:");
+			setTimeout(function(){bcs.c("/me &nbsp;&nbsp;~A wild me appears~");},250);
+			setTimeout(function(){bcs.c("/me :fire: :star2: :fire: :boom: :boom: :fire: :fire: :star2: :fire:");},500);
 			break;
 
 		case "cya":
@@ -1741,15 +1755,15 @@ function commandStuff(data){
 			break;
 
 		case "shrug":
-			c(command[1] + " ¯\\_(ツ)_/¯");
+			bcs.c(command[1] + " ¯\\_(ツ)_/¯");
 			break;
 
 		case "quote":
-			c("/me ❝ " + command[1] + " ❞");
+			bcs.c("/me ❝ " + command[1] + " ❞");
 			break;
 
 		case "sing":
-			c("/me ♪ " + command[1] + " ♫");
+			bcs.c("/me ♪ " + command[1] + " ♫");
 			break;
 
 		case "getid":
@@ -1811,7 +1825,7 @@ function commandStuff(data){
 			if (cap){
 				bcs.addChat('AutoCap on',"#ececec");
 				var thiscap = API.getStaff().length;
-				c('/cap ' + thiscap);
+				bcs.c('/cap ' + thiscap);
 				bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
 			}else if (!cap){
 				bcs.addChat('AutoCap off',"#ececec");
@@ -1868,20 +1882,20 @@ function commandStuff(data){
 			if (r === true) {
 				deleteAll();
 			}else{
-				l("[Command " + command[0] + " denied]",true);
+				bcs.l("[Command " + command[0] + " denied]",true);
 			};
 			break;
 
 		case "flood":
 			var r = confirm("Are you sure you wanna flood? Beta is NOT responsible for the consequences.");
 			if (r === true) {
-				c("/me It's flood time! :&zwnj;D");
-				setTimeout(function(){c("/me @everyone @staff")},250);
-				setTimeout(function(){c("/me @everyone @staff")},500);
-				setTimeout(function(){c("/me @everyone @staff")},750);
+				bcs.c("/me It's flood time! :&zwnj;D");
+				setTimeout(function(){bcs.c("/me @everyone @staff")},250);
+				setTimeout(function(){bcs.c("/me @everyone @staff")},500);
+				setTimeout(function(){bcs.c("/me @everyone @staff")},750);
 				setTimeout(function(){bcs.addChat("This command was brought to you by LeDCV [ID 3639711]","#ececec",false,false,true);},775);
 			}else{
-				l("[Command " + command[0] + " denied]",true);
+				bcs.l("[Command " + command[0] + " denied]",true);
 			};
 			break;
 
@@ -1892,11 +1906,11 @@ function commandStuff(data){
 		case "rainbow":
 		case "rainbows":
 		case "hearts":
-			c(":heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart:");
-			setTimeout(function(){c(":purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart:")},250);
-			setTimeout(function(){c(":blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart:")},500);
-			setTimeout(function(){c(":green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart:")},750);
-			setTimeout(function(){c(":yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart:")},1000);
+			bcs.c(":heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart:");
+			setTimeout(function(){bcs.c(":purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart:")},250);
+			setTimeout(function(){bcs.c(":blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart:")},500);
+			setTimeout(function(){bcs.c(":green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart:")},750);
+			setTimeout(function(){bcs.c(":yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart:")},1000);
 			break;
 
 		case "msgs":
@@ -2102,23 +2116,5 @@ function commandStuff(data){
 			break;
 	};
 }
-
-function APIon(){
-	API.on(API.CHAT, chatStuff);
-	API.on(API.VOTE_UPDATE, voteStuff);
-	API.on(API.GRAB_UPDATE, grabStuff);
-	API.on(API.USER_JOIN, joinStuff);
-	API.on(API.ADVANCE, advanceStuff);
-	API.on(API.USER_LEAVE, leaveStuff);
-	API.on(API.CHAT_COMMAND, commandStuff);
-}
-
-function APIoff(){
-	API.off(API.ADVANCE,displayLvl);
-	API.off(API.VOTE_UPDATE, updateList)
-	API.off(API.USER_LEAVE, updateList);
-	API.off(API.ADVANCE, updateList);
-	API.off(API.GRAB_UPDATE, grabStuff);
-}
-
+bcs.turnOn();
 }
