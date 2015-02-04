@@ -1,6 +1,6 @@
 //99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
-//Initial CSS help from Marciano
-//Stole AddChat from Igor <3 Thanks a ton
+//Initial CSS help from Marciano (https://plug.dj/@/marciano)
+//Stole AddChat from Igor <3 Thanks a ton (https://plug.dj/@/igor)
 var betaV = "<a style='color:#ccc; font-size:10px'><em>Beta v0.11.1.1.1</em></a>";
 
 function addChat(text, color, state, hasBottom, isNotCenter) {
@@ -12,15 +12,15 @@ function addChat(text, color, state, hasBottom, isNotCenter) {
 	}
 
 	if (isNotCenter){
-		chat.append("<div class='betabot-update' style='background-color:#0a0a0a;'><div class='text-margin' style='margin-left: 10px;'><span class='betabot-text' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></div></div>");
+		chat.append("<div class='cm message betabot-update' style='background-color:#0a0a0a;'><div class='text-margin' style='margin-left: 10px;'><span class='text cid-undefined' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></div></div>");
 	}else{
 		if (hasBottom){
-			chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; border-bottom: double 6px " + color + "'><center><span class='betabot-text' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
+			chat.append("<div class='cm message betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; border-bottom: double 6px " + color + "'><center><span class='text cid-undefined'' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
 		}else{
 			if (state){
-				chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; margin-top:5px;margin-bottom:5px;'><center><span class='betabot-text' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></center></div>");
+				chat.append("<div class='cm message betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; margin-top:5px;margin-bottom:5px;'><center><span class='text cid-undefined'' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></center></div>");
 			}else{
-				chat.append("<div class='betabot-update' style='background-color:#0a0a0a; margin-top:5px;margin-bottom:5px;'><center><span class='betabot-text' style='color: " + color + ";'>" + text + "<br></span></center></div>");
+				chat.append("<div class='cm message betabot-update' style='background-color:#0a0a0a; margin-top:5px;margin-bottom:5px;'><center><span class='text cid-undefined' style='color: " + color + ";'>" + text + "<br></span></center></div>");
 			}
 		}
 	}
@@ -342,6 +342,13 @@ var style = '<style>\
 			height:15px;\
 			width:15px;\
 			background-image:url(https://i.imgur.com/hF5Y9ye.png);\
+		}\
+		.betabot-update {\
+			position:relative;\
+			clear:left;\
+			min-height:46px px;\
+			width:100px %;\
+			word-wrap:break 0;\
 		}\
 	</style>';
 
@@ -1513,8 +1520,13 @@ function lookfor(id,isityou){
 		if (grabstate === true){grabstats = "| <a style='color:#aa74ff;'>Grabbed!</a> (<em>true</em>)"}
 		else if (grabstate === false){grabstats = " <a style='color:#646b7e;'>| Didn't grab</a> (<em>false</em>)"}
 
-		if (API.getDJ().username == data.username){
-			votestats = "<a style='color:#646b7e;'>Is currently DJ'ing</a>";
+		if (API.getDJ() != undefined){
+			if (API.getDJ().username == data.username){
+				votestats = "<a style='color:#646b7e;'>Is currently DJ'ing</a>";
+				grabstats = "";
+			}
+		}else{
+			votestats = "<a style='color:#646b7e;'>No DJ</a>";
 			grabstats = "";
 		}
 
@@ -1548,7 +1560,7 @@ function lookfor(id,isityou){
 //PROFILE
 		var hasProfile = "<a style='color:#eaaeae;'>[No profile yet]</a>";
 		var profileColor = "#eaaeae";
-		if (data.level > 5){
+		if (data.level >= 5){
 			hasProfile = "";
 			profileColor = "#aec9ea";
 		}
