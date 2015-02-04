@@ -59,7 +59,6 @@ var bcs = {
 				$("#xmod").animate({left:'-170px'});
 			}
 		});
-
 		$('#xclick .xbox').on('click',	function(){
 			hasArrow  = !hasArrow;
 			$('#xclick .xbox').toggleClass('active');
@@ -79,7 +78,6 @@ var bcs = {
 			}
 		});
 		$("#xclick .xbox").click();
-
 		$('#xjoinmsg').on('click',	function(){
 			joinmsg = !joinmsg;
 			$(this).toggleClass('active');
@@ -144,7 +142,6 @@ var bcs = {
 				$("#chat-input").animate({width:"326"});
 			}
 		});
-
 		function chatShrink(){
 			bigchat = false;
 			$('#xbig').attr('class','xbutton');
@@ -158,7 +155,6 @@ var bcs = {
 		$('#room-bar').on('click', chatShrink);
 		$('#footer-user .user').on('click', chatShrink);
 		$('#app-menu .community').on('click', chatShrink);
-
 		function cuteVoting(){
 			cutevotes = !cutevotes;
 			$(this).toggleClass('active');
@@ -192,7 +188,6 @@ var bcs = {
 			}
 		}
 		$('#xvotes').on('click', cuteVoting);
-
 		$('#xpreviews').on('click',		function(){
 			dapreview = !dapreview;
 			$(this).toggleClass('active');
@@ -288,6 +283,7 @@ var bcs = {
 		});
 	},
 	turnOff: function(){
+		API.off(API.CHAT, chatStuff);
 		API.off(API.ADVANCE,displayLvl);
 		API.off(API.VOTE_UPDATE, updateList)
 		API.off(API.USER_LEAVE, updateList);
