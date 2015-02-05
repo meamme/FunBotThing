@@ -654,7 +654,7 @@ var style = '<style>\
 		.icon-chat-bcs {\
 			height:15px;\
 			width:15px;\
-			background-image:url(https://i.imgur.com/uUkfAUb.png);\
+			background-image:url(https://i.imgur.com/pSJVANr.png);\
 		}\
 		.icon-chat-bcs2 {\
 			height:15px;\
