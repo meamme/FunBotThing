@@ -654,7 +654,7 @@ var style = '<style>\
 		.icon-chat-bcs {\
 			height:15px;\
 			width:15px;\
-			background-image:url(https://i.imgur.com/pSJVANr.png);\
+			background-image:url(https://i.imgur.com/uUkfAUb.png);\
 		}\
 		.icon-chat-bcs2 {\
 			height:15px;\
@@ -1186,7 +1186,7 @@ function chatStuff(data){
 			}
 		};
 	}
-	if (lockdown == true){
+	if (lockdown){
 		for (var i = 0; i < API.getUsers().length; i++){
 			if (API.getUsers()[i].username == user){
 				if (API.getUsers()[i].role == 0){
@@ -1197,6 +1197,7 @@ function chatStuff(data){
 						});
 					}
 				}
+				break;
 			}
 		}
 	}
@@ -1662,8 +1663,19 @@ function commandStuff(data){
 					<a style='color: #8bdb85;'>⊱ Fix inline images bug</a><br>\
 					<a style='color: #8bdb85;'>⊱ Have WL position on vote list (cuz why not)</a><br>\
 					<a style='color: #8bdb85;'>⊱ Force skip at the end of songs (cuz why not)</a><br>\
+					<a style='color: #8bdb85;'>⊱ Change all avatars to only one (cuz why not)</a><br>\
+					<a style='color: #8bdb85;'>⊱ Check if I cna raise the cap to over 200 (cuz why not)</a><br>\
 					<a style='color: #8bdb85;'>⊱ Make vote list prettier ;D</a><br>","#CCCCCC",false,false,true);
 			break;
+
+		case "author":
+		case "authors":
+			//99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
+			//Initial CSS help from Marciano (https://plug.dj/@/marciano)
+			//Stole AddChat from Igor <3 Thanks a ton (https://plug.dj/@/igor)
+			bcs.addChat("<br>This script was mainly made by <a style='color:#b8e0ff;' href='https://plug.dj/@/beta-tester' target='_blank'>Beta Tester</a><br>\
+						Initial CSS help by <a style='color:#b8e0ff;' href='https://plug.dj/@/marciano' target='_blank'>Marciano</a><br>\
+						addChat() by <a style='color:#b8e0ff;' href='https://plug.dj/@/igor' target='_blank'>Igor</a>","#eee",false,true,true);
 
 		case "lrg":
 			bigchat = !bigchat;
