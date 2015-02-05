@@ -11,7 +11,7 @@ var bcs = {
 			betaWasOn = false;
 			$.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/ClientScript.js');
 		},
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.11.2.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.11.2.2</em></a>",
 	attemptRefresh:false,
 	addChat:function(text, color, hasLeft, hasBottom, isNotCenter) {
 			var chat = $('#chat-messages');var a = chat.scrollTop() > chat[0].scrollHeight - chat.height() - 28;
@@ -777,7 +777,6 @@ function attemptappend(){
 attemptappend();
 
 function displayid(){
-	$("#id_display").remove();
 	var e = $("#user-rollover .username").text();
 	var t;
 	var n = API.getUsers();
@@ -787,9 +786,18 @@ function displayid(){
 		}
 	}
 	var a = "Open Sans";
-	if (t == "undefined"){t = "0000000"}
-	$('#user-rollover .meta .joined').css({top:"64px"});
-	$("#user-rollover .info").append('<div id="id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
+	if ($("#id_display").text() == ""){
+		$('#user-rollover .meta .joined').css({top:"64px"});
+		$("#user-rollover .info").append('<div id="id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
+	}else{
+		if (typeof t == "undefined"){
+			t = "-------";
+			$("#id_display").hide();
+		}else{
+			$("#id_display").text("ID: " + t);
+			$("#id_display").show();
+		}
+	}
 	if (e == "Beta Tester" || e == "T98" || e == "CatSnore"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
@@ -819,6 +827,11 @@ function displayLvl(){
 	var lvl = $("#footer-user .progress").attr('style');
 	var lvlPc = lvl.substring(6,lvl.indexOf('%') + 1);
 	$("#footer-user .progress").append('<div class="percentage" style="font-size: 10px; position:block; margin-left:50px; margin-top:-1px"><b>' + lvlPc + '</b></div>');
+	if (parseInt(lvlPc) >= 95){
+		$("#footer-user .progress").css({'border-radius':'10px 10px'});
+	}else{
+		$("#footer-user .progress").css({'border-radius':'10px 0px 0px 10px'});
+	}
 }
 displayLvl();
 $("#footer-user .bar").mouseenter(function(){
@@ -827,7 +840,6 @@ $("#footer-user .bar").mouseenter(function(){
 $("#footer-user .bar").mouseleave(function(){
 	$("#footer-user .percentage").show();
 });
-API.on(API.ADVANCE,displayLvl);
 
 $("#app-menu .list .votelist").mouseenter(function(){
 	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');
@@ -842,7 +854,7 @@ var thevotelist = '\
 		top: 53px;\
 		height: 68%;\
 		left: 100%;\
-		width: 250px;\
+		width: 235px;\
 		display: none;\
 		background-color: #111317;\
 		outline: #000000 solid 1px;\
@@ -1219,20 +1231,13 @@ function voteStuff(obj){
 
 function advanceStuff(obj){
 	updateList();
-	if (autograb){
-		grab();
-	}
-	if (autowoot){
-		setTimeout(woot,5000);
-	}
-	if (timeskip){
-		if (hasPerms){
-			if (API.getMedia().duration > 480){
+	displayLvl();
+	if (autograb){grab();}
+	if (autowoot){setTimeout(woot,5000);}
+	if (timeskip){if (hasPerms){if (API.getMedia().duration > 480){
 				blunq.play();
 				bcs.addChat("<b>Song is over 8 minutes</b>","#ff3535",true);
-			}
-		}
-	}
+			}}}
 	if (autolock){
 		var dj = API.getDJ();
 		if (API.getWaitListPosition() <= -1 && dj.username != API.getUser().username){
