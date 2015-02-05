@@ -3,7 +3,6 @@ $("#dj-canvas").mousemove(displayid);
 $("#audience-canvas").mousemove(displayid);
 
 function displayid(){
-	$("#Id_display").remove();
 	var e = $("#user-rollover .username").text();
 	var t;
 	var n = API.getUsers();
@@ -13,11 +12,18 @@ function displayid(){
 		}
 	}
 	var a = "Open Sans";
-	if (t == "undefined"){
-		t = "0000000"
+	if ($("#id_display").text() == ""){
+		$('#user-rollover .meta .joined').css({top:"64px"});
+		$("#user-rollover .info").append('<div id="id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
+	}else{
+		if (typeof t == "undefined"){
+			t = "-------";
+			$("#id_display").hide();
+		}else{
+			$("#id_display").text("ID: " + t);
+			$("#id_display").show();
+		}
 	}
-	$('#user-rollover .meta .joined').css({top:"64px"});
-	$("#user-rollover .info").append('<div id="Id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "     </div>");
 }
 
 function lookfor(id,isityou){
@@ -372,5 +378,5 @@ function addChat(text, color, state, hasBottom, isNotCenter) {
 }
 
 addChat("<a style='color:#ececec;'>Beta Tester's <a style='color:#42a5dc;'>getID</a> script initiated!</a><br>\
-	<a style='color:#eb9595;'>Beta v0.6.1</a><br>\
+	<a style='color:#eb9595;'>Beta v0.6.2</a><br>\
 	<a style='color:#ececec;'>Check commands with /cmd</a>","#CCCCCC");
