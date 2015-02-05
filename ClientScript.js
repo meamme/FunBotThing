@@ -1,7 +1,3 @@
-//99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
-//Initial CSS help from Marciano (https://plug.dj/@/marciano)
-//Stole AddChat from Igor <3 Thanks a ton (https://plug.dj/@/igor)
-
 var bcs = {
 	resetAll:function(){
 			bcs.turnOff();
@@ -675,6 +671,11 @@ var style = '<style>\
 			height:15px;\
 			width:15px;\
 			background-image:url(https://i.imgur.com/hF5Y9ye.png);\
+		}\
+		.icon-chat-bcslogo {\
+			height:49px;\
+			width:49px;\
+			background-image:url(https://i.imgur.com/x1DEgOD.png);\
 		}\
 		.betabot-update {\
 			position:relative;\
@@ -1675,12 +1676,10 @@ function commandStuff(data){
 
 		case "author":
 		case "authors":
-			//99% of this script was made by Beta Tester (https://plug.dj/@/beta-tester)
-			//Initial CSS help from Marciano (https://plug.dj/@/marciano)
-			//Stole AddChat from Igor <3 Thanks a ton (https://plug.dj/@/igor)
-			bcs.addChat("<br>This script was mainly made by <a style='color:#b8e0ff;' href='https://plug.dj/@/beta-tester' target='_blank'>Beta Tester</a><br>\
+			bcs.addChat("<br><i class='icon icon-chat-bcslogo' style='left:75%;'></i>This script was mainly made by <a style='color:#b8e0ff;' href='https://plug.dj/@/beta-tester' target='_blank'>Beta Tester</a><br>\
 						Initial CSS help by <a style='color:#b8e0ff;' href='https://plug.dj/@/marciano' target='_blank'>Marciano</a><br>\
-						addChat() by <a style='color:#b8e0ff;' href='https://plug.dj/@/igor' target='_blank'>Igor</a>","#eee",false,true,true);
+						addChat() by <a style='color:#b8e0ff;' href='https://plug.dj/@/igor' target='_blank'>Igor</a><br>","#eee",false,true,true);
+			break;
 
 		case "lrg":
 			bigchat = !bigchat;
