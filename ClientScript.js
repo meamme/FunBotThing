@@ -1212,12 +1212,11 @@ function chatStuff(data){
 				var jp = msg.indexOf(pn[i]);
 				if (jp != -1){
 					var hts = msg.replace("http","https");
-					if (hts.indexOf("httpss") != -1){
-						hts = hts.replace("httpss","https");
-					}
+					if (hts.indexOf("httpss") != -1){hts = hts.replace("httpss","https");}
+					hts = hts.replace('"','');
 					jp = jp + 5;
 					var picLink = hts.slice(ht,jp);
-					$("#chat-messages > .cm[data-cid='" + msgid + "']").append("<center><img style='margin:10px; max-width:335px' src='" + picLink + "'></img></center>");
+					$("#chat-messages > .cm[data-cid='" + msgid + "']").append("<center><img style='margin:10px; max-width:300px' src='" + picLink + "'></img></center>");
 				}
 				setTimeout(function(){$("#chat-messages").scrollTop(50000)},3000);
 			}
