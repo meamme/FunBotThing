@@ -412,6 +412,7 @@ var bcs = {
 			if(bcs.settings.stored.spammer)bcs.toggle.spammer();
 		},
 		toast: function(msg){
+			$("#toast-notifications .notification").click();
 			$("#toast-notifications").append('\
 			<div class="notification bcs" style="opacity: 0; width: 250px;">\
 				<div class="left">\
@@ -428,10 +429,10 @@ var bcs = {
 					setTimeout(function(){
 						$("#toast-notifications .bcs").remove();
 					},500);
-				},2000);
+				},3000);
 			},500);
 			$("#toast-notifications .bcs").on("click",function(){
-				$("#toast-notifications .bcs").animate({opacity:0});
+				$("#toast-notifications .bcs").animate({opacity:0},50);
 				setTimeout(function(){
 					$("#toast-notifications .bcs").remove();
 				},500);});
