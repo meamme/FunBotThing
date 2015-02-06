@@ -1,4 +1,5 @@
 var bcs = {
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.12</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			$("#app-menu .list .votelist").remove();
@@ -7,7 +8,6 @@ var bcs = {
 			betaWasOn = false;
 			$.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/ClientScript.js');
 		},
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.11.3</em></a>",
 	attemptRefresh:false,
 	addChat:function(text, color, hasLeft, hasBottom, isNotCenter) {
 			var chat = $('#chat-messages');var a = chat.scrollTop() > chat[0].scrollHeight - chat.height() - 28;
@@ -1153,9 +1153,9 @@ function chatStuff(data){
 	if (user == "CatSnore" || user == "T98" || user == "DCV" || user == "Wumbology" || user == "Kwiztech" || user == "Newcool"  || user == "Legend" || user == "Mix_God"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
-	}else if (user == "Beta Tester"){
+	}else if(user == "Beta Tester"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-bcs2'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
 	}else if (user == "EDMC"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
@@ -1205,20 +1205,18 @@ function chatStuff(data){
 
 		//Bootleg Inline Images//
 	if (inlineOn){
-		var pn = ['.png','.gif','.jpg','.jpeg']
-		var ht = msg.indexOf('http');
-		if (ht != -1){
-			for (var i = 0; i < pn.length; i++){
-				var jp = msg.indexOf(pn[i]);
-				if (jp != -1){
-					var hts = msg.replace("http","https");
-					if (hts.indexOf("httpss") != -1){hts = hts.replace("httpss","https");}
-					hts = hts.replace('"','');
-					jp = jp + 5;
-					var picLink = hts.slice(ht,jp);
-					$("#chat-messages > .cm[data-cid='" + msgid + "']").append("<center><img style='margin:10px; max-width:300px' src='" + picLink + "'></img></center>");
-				}
-				setTimeout(function(){$("#chat-messages").scrollTop(50000)},3000);
+		var pn = ['.png','.gif','.jpg','.jpeg'];
+		var linked = $($(".cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).text();
+		var isItTheSame = msg.indexOf(linked);
+		for (var i = 0; i < pn.length; i++){
+			var isItAPic = linked.indexOf(pn[i]);
+			if (linked != "" && isItTheSame != -1 && isItAPic != -1){
+				var hts = $($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).text();
+				hts = hts.replace("http","https");
+				if (hts.indexOf("httpss") != -1){hts = hts.replace("httpss","https");}
+				$($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).append("<img style='margin:5px; max-width:300px;' src='" + hts + "'></img>");
+				setTimeout(function(){$("#chat-messages").scrollTop(50000)},2000);
+				break;
 			}
 		}
 	}
@@ -1749,7 +1747,7 @@ function commandStuff(data){
 	switch(command[0].toLowerCase()){
 		case "todo":
 			bcs.addChat("<br><a style='color:#c2f3bf;'><b>Todo list:</b></a><br><br>\
-					<a style='color: #8bdb85;'>⊱ Fix inline images bug</a><br>\
+					<a style='color: #d4d4d4;'>⊱ <del>Fix inline images bug</del> <b>[DONE]</b></a><br>\
 					<a style='color: #8bdb85;'>⊱ Have WL position on vote list (cuz why not)</a><br>\
 					<a style='color: #8bdb85;'>⊱ Force skip at the end of songs (cuz why not)</a><br>\
 					<a style='color: #8bdb85;'>⊱ Change all avatars to only one (cuz why not)</a><br>\
@@ -1767,6 +1765,10 @@ function commandStuff(data){
 
 		case "ooo":
 			ct("http://youtu.be/MeB3eYk1Ze0?t=1m16s");
+			break;
+
+		case "toast":
+			bcs.settings.toast(command[1]);
 			break;
 
 		case "lrg":
