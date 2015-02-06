@@ -212,7 +212,7 @@ var bcs = {
 				$("#xafkbutton").hide();
 				$("#xmod").css({'top':'436px'});
 			}
-			$("#afk").toggleClass('active');
+			$("#xafk").toggleClass('active');
 			$("#xafk .icon").toggleClass('active');
 		},
 		afknotifications: function(){
@@ -387,11 +387,11 @@ var bcs = {
 			if (localStorage.getItem('bcsSettings')){
 				bcs.settings.stored = JSON.parse(localStorage.getItem('bcsSettings'));
 				console.log(bcs.settings.stored);
-				setTimeout(function(){bcs.settings.toast("Custom settings loaded!");},500);
+				setTimeout(function(){bcs.settings.toast("Custom settings loaded!");},2000);
 			}else{
 				localStorage.setItem('bcsSettings', JSON.stringify(bcs.settings.stored));
 				console.log(bcs.settings.stored);
-				setTimeout(function(){bcs.settings.toast("Default settings loaded!");},500);
+				setTimeout(function(){bcs.settings.toast("Default settings loaded!");},2000);
 			}
 			if(bcs.settings.stored.autowoot)bcs.toggle.autowoot();
 			if(bcs.settings.stored.joinmsg)bcs.toggle.joinmsg();
@@ -411,9 +411,10 @@ var bcs = {
 			if(bcs.settings.stored.lockdown)bcs.toggle.lockdown();
 			if(bcs.settings.stored.spammer)bcs.toggle.spammer();
 		},
-		toast: function(msg){
+		toast: function(msg,top){
+			if (top == undefined){top = "330px";}
 			$("#toast-notifications").append('\
-			<div class="notification bcs" style="opacity: 0; width: 250px;">\
+			<div class="notification bcs" style="opacity: 0; width: 250px; top: ' + top + 'px;">\
 				<div class="left">\
 					<i class="icon icon-chat-bcslogo" style="top: 18px; left: 6px;"></i>\
 				</div>\
@@ -428,7 +429,7 @@ var bcs = {
 					setTimeout(function(){
 						$("#toast-notifications .bcs").remove();
 					},500);
-				},1000);
+				},2000);
 			},500);
 		}
 	}
