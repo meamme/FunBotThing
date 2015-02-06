@@ -7,7 +7,7 @@ var bcs = {
 			betaWasOn = false;
 			$.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/ClientScript.js');
 		},
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.11.2.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.11.3</em></a>",
 	attemptRefresh:false,
 	addChat:function(text, color, hasLeft, hasBottom, isNotCenter) {
 			var chat = $('#chat-messages');var a = chat.scrollTop() > chat[0].scrollHeight - chat.height() - 28;
@@ -32,16 +32,8 @@ var bcs = {
 			if (a){$('#chat-messages').scrollTop(50000);}
 			if (chat.children().length >= 512){chat.children().first().remove();}
 		},
-	turnOn: function(){
-		API.on(API.CHAT, chatStuff);
-		API.on(API.VOTE_UPDATE, voteStuff);
-		API.on(API.GRAB_UPDATE, grabStuff);
-		API.on(API.USER_JOIN, joinStuff);
-		API.on(API.ADVANCE, advanceStuff);
-		API.on(API.USER_LEAVE, leaveStuff);
-		API.on(API.CHAT_COMMAND, commandStuff);
-		var hasArrow = false;
-		$('#xprequel').on('click',	function(){
+	toggle: {
+		prequel: function(){
 			hasArrow  = !hasArrow;
 			$('#xclick .xbox').toggleClass('active');
 			$("#xall").toggleClass('active');
@@ -58,8 +50,8 @@ var bcs = {
 				$("#xmain").animate({left:'-170px'});
 				$("#xmod").animate({left:'-170px'});
 			}
-		});
-		$('#xclick .xbox').on('click',	function(){
+		},
+		box: function(){
 			hasArrow  = !hasArrow;
 			$('#xclick .xbox').toggleClass('active');
 			$("#xall").toggleClass('active');
@@ -76,61 +68,60 @@ var bcs = {
 				$("#xmain").animate({left:'-170px'});
 				$("#xmod").animate({left:'-170px'});
 			}
-		});
-		$("#xclick .xbox").click();
-		$('#xjoinmsg').on('click',	function(){
+		},
+		joinmsg: function(){
 			joinmsg = !joinmsg;
-			$(this).toggleClass('active');
+			$("#xjoinmsg").toggleClass('active');
 			$("#xjoinmsg .icon").toggleClass('active');
-		});
-		$('#xgrabmsg').on('click',	function(){
+		},
+		grabmsg: function(){
 			grabmsg = !grabmsg;
-			$(this).toggleClass('active');
+			$("#xgrabmsg").toggleClass('active');
 			$("#xgrabmsg .icon").toggleClass('active');
-		});
-		$('#xmehmsg').on('click',	function(){
+		},
+		mehmsg: function(){
 			mehmsg = !mehmsg;
-			$(this).toggleClass('active');
+			$("#xmehmsg").toggleClass('active');
 			$("#xmehmsg .icon").toggleClass('active');
-		});
-		$('#xautocap').on('click',	function(){ 
+		},
+		autocap: function(){
 			cap = !cap;
-			$(this).toggleClass('active');
+			$("#xautocap").toggleClass('active');
 			$("#xautocap .icon").toggleClass('active');
 			if (cap){
 				var thiscap = API.getStaff().length;
 				bcs.c('/cap ' + thiscap);
 				bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
 			}
-		});
-		$('#xautograb').on('click',	function(){
+		},
+		autograb: function(){
 			autograb = !autograb;
-			$(this).toggleClass('active');
+			$("#xautograb").toggleClass('active');
 			$("#xautograb .icon").toggleClass('active');
-		});
-		$('#xautojoin').on('click',	function(){
+		},
+		autojoin: function(){
 			autolock = !autolock;
-			$(this).toggleClass('active');
+			$("#xautojoin").toggleClass('active');
 			$("#xautojoin .icon").toggleClass('active');
-		});
-		$('#xautowoot').on('click',	function(){
+		},
+		autowoot: function(){
 			autowoot = !autowoot;
-			$(this).toggleClass('active');
+			$("#xautowoot").toggleClass('active');
 			$("#xautowoot .icon").toggleClass('active');
-		});
-		$('#xsongup').on('click',	function(){
+		},
+		songup: function(){
 			songup = !songup;
-			$(this).toggleClass('active');
+			$("#xsongup").toggleClass('active');
 			$("#xsongup .icon").toggleClass('active');
-		});
-		$('#xline').on('click',		function(){
+		},
+		line: function(){
 			inlineOn = !inlineOn;
-			$(this).toggleClass('active');
+			$("#xline").toggleClass('active');
 			$("#xline .icon").toggleClass('active');
-		});
-		$('#xbig').on('click',		function(){
+		},
+		big: function(){
 			bigchat = !bigchat;
-			$(this).toggleClass('active');
+			$("#xbig").toggleClass('active');
 			$("#xbig .icon").toggleClass('active');
 			if (bigchat){
 				$("#room .app-right").animate({width:"399"});
@@ -141,23 +132,18 @@ var bcs = {
 				$('#chat-input-field').animate({width:"305"});
 				$("#chat-input").animate({width:"326"});
 			}
-		});
-		function chatShrink(){
+		},
+		chatShrink: function(){
 			bigchat = false;
 			$('#xbig').attr('class','xbutton');
 			$("#xbig .icon").attr('class','icon icon-check-blue');
 			$("#room .app-right").animate({width:"345"});
 			$('#chat-input-field').animate({width:"305"});
 			$("#chat-input").animate({width:"326"});
-		}
-		$('#playlist-meta').on('click', chatShrink);
-		$('#history-button').on('click', chatShrink);
-		$('#room-bar').on('click', chatShrink);
-		$('#footer-user .user').on('click', chatShrink);
-		$('#app-menu .community').on('click', chatShrink);
-		function cuteVoting(){
+		},
+		cuteVoting: function(){
 			cutevotes = !cutevotes;
-			$(this).toggleClass('active');
+			$("#xvotes").toggleClass('active');
 			$("#xvotes .icon").toggleClass('active');
 			if (cutevotes){
 				$("#grab .top .icon").animate({left:"22"});
@@ -186,28 +172,27 @@ var bcs = {
 				$('#dj-button .left').animate({width:"72px"});
 				$('#dj-button').animate({width:"230px"});
 			}
-		}
-		$('#xvotes').on('click', cuteVoting);
-		$('#xpreviews').on('click',		function(){
+		},
+		previews: function(){
 			dapreview = !dapreview;
-			$(this).toggleClass('active');
+			$("#xpreviews").toggleClass('active');
 			$("#xpreviews .icon").toggleClass('active');
 			if (dapreview){
 				$("#dialog-container").css({left:"0px",top:"0px",width:"79.3%",height:"100%"});
 			}else if (!dapreview){
 				$("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
 			}
-		});
-		$('#xmuter').on('click',	function(){
+		},
+		muter: function(){
 			if (API.getUser().role > 1 || API.getUser().gRole > 0){
 				mutedood = !mutedood;
-				$(this).toggleClass('active');
+				$("#xmuter").toggleClass('active');
 				$("#xmuter .icon").toggleClass('active');
 			}else{
 				bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
 			}
-		});
-		$('#xafk').on('click',		function(){
+		},
+		afk: function(){
 			afkmsg = !afkmsg;
 			if (afkmsg){
 				$("#chat-input .afkIsOn").show();
@@ -227,31 +212,31 @@ var bcs = {
 				$("#xafkbutton").hide();
 				$("#xmod").css({'top':'417px'});
 			}
-			$(this).toggleClass('active');
+			$("#afk").toggleClass('active');
 			$("#xafk .icon").toggleClass('active');
-		});
-		$("#chat-input .afknotifications").on('click', function(){
+		},
+		afknotifications: function(){
 			for (var i = 0; i < mentioned.length; i++){
 				bcs.addChat(mentioned[i],"#4658b5",false,false,true);
 			}
 			notifyAFK = 0;
 			mentioned = [];
 			$("#chat-input .afknotifications").hide();
-		});
-		$('#xdel').on('click',		function(){
+		},
+		del: function(){
 			var r = confirm("Delete entire chat on log?");
 			if (r === true) {
 				deleteAll();
 			}else{
 				bcs.l("[Command DELETEALL denied]",true);
 			};
-		});
-		$('#xtimeskip').on('click',	function(){
+		},
+		timeskip: function(){
 			timeskip = !timeskip;
-			$(this).toggleClass('active');
+			$("#xtimeskip").toggleClass('active');
 			$("#xtimeskip .icon").toggleClass('active');
-		});
-		$('#xlockdown').on('click',	function(){
+		},
+		lockdown: function(){
 			if (API.getUser().role > 1 || API.getUser().gRole != 0){
 				lockdown = !lockdown;
 				if (lockdown){
@@ -260,13 +245,13 @@ var bcs = {
 					var ll = "disabled";
 				}
 				bcs.addChat("<b>Lockdown is now " + ll + "</b>","#FF3333");
-				$(this).toggleClass('active');
+				$("#xlockdown").toggleClass('active');
 				$("#xlockdown .icon").toggleClass('active');
 			}else{
 				bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
 			}
-		});
-		$('#xspammer').on('click',	function(){ 
+		},
+		spammer: function(){ 
 			if (API.getUser().role > 1 || API.getUser().gRole != 0){
 				spamon = !spamon;
 				if (spamon){
@@ -275,12 +260,49 @@ var bcs = {
 					var ll = "disabled";
 				}
 				bcs.addChat("<b>AntiSpam is now " + ll + "</b>","#FF3333");
-				$(this).toggleClass('active');
+				$("#xspammer").toggleClass('active');
 				$("#xspammer .icon").toggleClass('active');
 			}else{
 				bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
 			}
-		});
+		}
+	},
+	turnOn: function(){
+		API.on(API.CHAT, chatStuff);
+		API.on(API.VOTE_UPDATE, voteStuff);
+		API.on(API.GRAB_UPDATE, grabStuff);
+		API.on(API.USER_JOIN, joinStuff);
+		API.on(API.ADVANCE, advanceStuff);
+		API.on(API.USER_LEAVE, leaveStuff);
+		API.on(API.CHAT_COMMAND, commandStuff);
+		$('#xprequel').on('click', bcs.toggle.prequel);
+		$('#xclick .xbox').on('click', bcs.toggle.box);
+		$("#xclick .xbox").click();
+		$('#xjoinmsg').on('click', bcs.toggle.joinmsg);
+		$('#xgrabmsg').on('click', bcs.toggle.grabmsg);
+		$('#xmehmsg').on('click', bcs.toggle.mehmsg);
+		$('#xautocap').on('click', bcs.toggle.autocap);
+		$('#xautograb').on('click', bcs.toggle.autograb);
+		$('#xautojoin').on('click', bcs.toggle.autojoin);
+		$('#xautowoot').on('click', bcs.toggle.autowoot);
+		$('#xsongup').on('click', bcs.toggle.songup);
+		$('#xline').on('click', bcs.toggle.line);
+		$('#xbig').on('click', bcs.toggle.big);
+		$('#playlist-meta').on('click', bcs.toggle.chatShrink);
+		$('#history-button').on('click', bcs.toggle.chatShrink);
+		$('#room-bar').on('click', bcs.toggle.chatShrink);
+		$('#footer-user .user').on('click', bcs.toggle.chatShrink);
+		$('#app-menu .community').on('click', bcs.toggle.chatShrink);
+		$('#xvotes').on('click', bcs.toggle.cuteVoting);
+		$('#xpreviews').on('click', bcs.toggle.previews);
+		$('#xsave').on('click', bcs.settings.set);
+		$('#xmuter').on('click', bcs.toggle.muter);
+		$('#xafk').on('click', bcs.toggle.afk);
+		$("#chat-input .afknotifications").on('click', bcs.toggle.afknotifications);
+		$('#xdel').on('click', bcs.toggle.del);
+		$('#xtimeskip').on('click', bcs.toggle.timeskip);
+		$('#xlockdown').on('click', bcs.toggle.lockdown);
+		$('#xspammer').on('click', bcs.toggle.spammer);
 	},
 	turnOff: function(){
 		API.off(API.CHAT);
@@ -302,52 +324,12 @@ var bcs = {
 		$('#xsongup').off();
 		$('#xline').off();
 		$('#xbig').off();
-		function chatShrink(){
-			bigchat = false;
-			$('#xbig').attr('class','xbutton');
-			$("#xbig .icon").attr('class','icon icon-check-blue');
-			$("#room .app-right").animate({width:"345"});
-			$('#chat-input-field').animate({width:"305"});
-			$("#chat-input").animate({width:"326"});
-		}
-		function cuteVoting(){
-			cutevotes = !cutevotes;
-			$(this).toggleClass('active');
-			$("#xvotes .icon").toggleClass('active');
-			if (cutevotes){
-				$("#grab .top .icon").animate({left:"22"});
-				$("#grab .top .label").hide();
-				$("#woot .top .icon").animate({left:"22"});
-				$("#woot .top .label").hide();
-				$("#meh .top .icon").animate({left:"20"});
-				$("#meh .top .label").hide();
-				$('#meh').animate({left:"-1px"});
-				$('#woot').animate({left:"1px"});
-				$('#dj-button .left .icon').animate({left:"32px"});
-				$('#dj-button span').hide();
-				$('#dj-button .left').animate({width:"97px"});
-				$('#dj-button').animate({width:"130px"});
-			}else if (!cutevotes){
-				$("#grab .top .icon").animate({left:"0"});
-				$("#grab .top .label").show();
-				$("#woot .top .icon").animate({left:"0"});
-				$("#woot .top .label").show();
-				$("#meh .top .icon").animate({left:"0"});
-				$("#meh .top .label").show();
-				$('#meh').animate({left:"0px"});
-				$('#woot').animate({left:"0px"});
-				$('#dj-button .left .icon').animate({left:"22px"});
-				$('#dj-button span').show();
-				$('#dj-button .left').animate({width:"72px"});
-				$('#dj-button').animate({width:"230px"});
-			}
-		}
-		$('#history-button').off('click', chatShrink);
-		$('#playlist-meta').off('click', chatShrink);
-		$('#room-bar').off('click', chatShrink);
-		$('#footer-user .user').off('click',chatShrink);
-		$('#app-menu .community').off('click', chatShrink);
-		$('#xvotes').off('click', cuteVoting);
+		$('#history-button').off('click', bcs.toggle.chatShrink);
+		$('#playlist-meta').off('click', bcs.toggle.chatShrink);
+		$('#room-bar').off('click', bcs.toggle.chatShrink);
+		$('#footer-user .user').off('click', bcs.toggle.chatShrink);
+		$('#app-menu .community').off('click', bcs.toggle.chatShrink);
+		$('#xvotes').off('click', bcs.toggle.cuteVoting);
 		$('#xpreviews').off();
 		$('#xmuter').off();
 		$('#xafk').off();
@@ -358,7 +340,78 @@ var bcs = {
 		$('#xspammer').off();
 	},
 	c: function(msg){API.sendChat(msg);},
-	l: function(msg,state){API.chatLog(msg,state);}
+	l: function(msg,state){API.chatLog(msg,state);},
+	settings: {
+		stored:{
+			autowoot:true,
+			joinmsg:true,
+			mehmsg:true,
+			grabmsg:true,
+			songup:true,
+			autojoin:false,
+			autocap:false,
+			autograb:false,
+			muter:false,
+			previews:true,
+			afk:false,
+			timeskip:true,
+			line:true,
+			big:true,
+			cuteVoting:true,
+			lockdown:false,
+			spammer:false
+		},
+		set: function(){
+			bcs.settings.stored.autowoot = autowoot;
+			bcs.settings.stored.joinmsg = joinmsg;
+			bcs.settings.stored.grabmsg = grabmsg;
+			bcs.settings.stored.mehmsg = mehmsg;
+			bcs.settings.stored.songup = songup;
+			bcs.settings.stored.autojoin = autolock;
+			bcs.settings.stored.autocap = cap;
+			bcs.settings.stored.autograb = autograb;
+			bcs.settings.stored.muter = mutedood;
+			bcs.settings.stored.previews = dapreview;
+			bcs.settings.stored.afk = afkmsg;
+			bcs.settings.stored.timeskip = timeskip;
+			bcs.settings.stored.line = inlineOn;
+			bcs.settings.stored.big = bigchat;
+			bcs.settings.stored.cuteVoting = cutevotes;
+			bcs.settings.stored.lockdown = lockdown;
+			bcs.settings.stored.spammer = spamon;
+			localStorage.setItem('bcsSettings', JSON.stringify(bcs.settings.stored));
+			console.log(JSON.stringify(bcs.settings.stored));
+			bcs.addChat("Custom settings saved! [We'll have fancy toast notifications once I figure out how to do it]","#ccc");
+		},
+		load: function(){
+			if (localStorage.getItem('bcsSettings')){
+				bcs.settings.stored = JSON.parse(localStorage.getItem('bcsSettings'));
+				console.log(bcs.settings.stored);
+				bcs.addChat("Custom settings loaded!","#ccc");
+			}else{
+				localStorage.setItem('bcsSettings', JSON.stringify(bcs.settings.stored));
+				console.log(bcs.settings.stored);
+				bcs.addChat("Default settings loaded!","#ccc");
+			}
+			if(bcs.settings.stored.autowoot)bcs.toggle.autowoot();
+			if(bcs.settings.stored.joinmsg)bcs.toggle.joinmsg();
+			if(bcs.settings.stored.grabmsg)bcs.toggle.grabmsg();
+			if(bcs.settings.stored.mehmsg)bcs.toggle.mehmsg();
+			if(bcs.settings.stored.songup)bcs.toggle.songup();
+			if(bcs.settings.stored.autojoin)bcs.toggle.autojoin();
+			if(bcs.settings.stored.autocap)bcs.toggle.autocap();
+			if(bcs.settings.stored.autograb)bcs.toggle.autograb();
+			if(bcs.settings.stored.muter)bcs.toggle.muter();
+			if(bcs.settings.stored.previews)bcs.toggle.previews();
+			if(bcs.settings.stored.afk)bcs.toggle.afk();
+			if(bcs.settings.stored.timeskip)bcs.toggle.timeskip();
+			if(bcs.settings.stored.line)bcs.toggle.line();
+			if(bcs.settings.stored.bigchat)bcs.toggle.big();
+			if(bcs.settings.stored.cuteVoting)bcs.toggle.cuteVoting();
+			if(bcs.settings.stored.lockdown)bcs.toggle.lockdown();
+			if(bcs.settings.stored.spammer)bcs.toggle.spammer();
+		}
+	}
 }
 
 if (betaWasOn){
@@ -427,24 +480,24 @@ var menu = '\
 				<div id="xmoddescrip" class="xtxt">\
 					<span class="xtxt" style="color:#ac76ff; font-size:16px; margin:-5px;"><b><em>User Stuff</em></b></span><br>\
 				</div>\
-				<div id="xjoinmsg" class="xbutton active">\
-					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
+				<div id="xjoinmsg" class="xbutton">\
+					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;">Join Message</span>\
 				</div>\
-				<div id="xgrabmsg" class="xbutton active">\
-					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
+				<div id="xgrabmsg" class="xbutton">\
+					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;">Grab Message</span>\
 				</div>\
-				<div id="xmehmsg" class="xbutton active">\
-					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
+				<div id="xmehmsg" class="xbutton">\
+					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;">Meh Message</span>\
 				</div>\
-				<div id="xsongup" class="xbutton active">\
-					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
+				<div id="xsongup" class="xbutton">\
+					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;">Song Updates</span>\
 				</div>\
-				<div id="xautowoot" class="xbutton active">\
-					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
+				<div id="xautowoot" class="xbutton">\
+					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;">AutoWoot</span>\
 				</div>\
 				<div id="xautojoin" class="xbutton">\
@@ -465,29 +518,33 @@ var menu = '\
 				</div>\
 				<input id="xafkenter" style="display:none;"></input>\
 				<button id="xafkbutton" onclick="afkUpdate()" style="color:#cccccc; background-color:#141414; border: solid 1px #b0b0b0; font-family:' + opensansfnt + '; margin:2px; display:none;">&nbsp;Ok&nbsp;</button>\
-				<div id="xline" class="xbutton active">\
-					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
+				<div id="xline" class="xbutton">\
+					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;">Bootleg Inline</span>\
 				</div>\
-				<div id="xbig" class="xbutton active">\
-					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
+				<div id="xbig" class="xbutton">\
+					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;">Large Chat</span>\
 				</div>\
-				<div id="xvotes" class="xbutton active">\
-					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
+				<div id="xvotes" class="xbutton">\
+					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;">Fancy Buttons</span>\
 				</div>\
-				<div id="xpreviews" class="xbutton active">\
-					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
+				<div id="xpreviews" class="xbutton">\
+					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;">Fancy Previews</span>\
+				</div>\
+				<div id="xsave" class="xbutton">\
+					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
+					<span class="xclickable" style="margin-left:25px;">Save Settings</span>\
 				</div>\
 			</section>\
 			<section id="xmod">\
 				<div id="xmoddescrip" class="xtxt">\
 					<span class="xtxt" style="color:#ac76ff; font-size:16px; margin:-5px;"><b><em>Mod Stuff</em></b></span><br>\
 				</div>\
-				<div id="xtimeskip" class="xbutton active">\
-					<i class="icon icon-check-blue active" style="margin-top:2px;"></i>\
+				<div id="xtimeskip" class="xbutton">\
+					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;" title="Warns if a song is over 8min">8min warning</span>\
 				</div>\
 				<div id="xdel" class="xbutton">\
@@ -715,11 +772,11 @@ $("#app-menu .list").append('<div class="item votelist clickable"><i class="icon
 $("#footer-user .bar").css({'border-radius':'10px 10px'});
 $("#footer-user .progress").css({'border-radius':'10px 10px'});
 
-var autowoot = true;
-var joinmsg = true;
-var grabmsg = true;
-var mehmsg = true;
-var songup = true;
+var autowoot = false;
+var joinmsg = false;
+var grabmsg = false;
+var mehmsg = false;
+var songup = false;
 var lockPuff = false;
 var autolock = false;
 var cap = false;
@@ -728,12 +785,13 @@ var mutedood = false;
 var dapreview = false;
 var pufflock = false;
 var afkmsg = false;
-var timeskip = true;
-var inlineOn = true;
-var bigchat = true;
-var cutevotes = true;
+var timeskip = false;
+var inlineOn = false;
+var bigchat = false;
+var cutevotes = false;
 var lockdown = false;
 var spamon = false;
+var hasArrow = false;
 
 function safetyFirst(){
 	if (API.getUsers().length > 250){
@@ -804,7 +862,7 @@ function displayid(){
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
 		$("#user-rollover .username").css({color:'rgb(0, 190, 232)'});
-	}else if (e == "Kwiztech" || e == "LeDCV" || e == "Wumbology" || e == "Newcool"  || e == "Legend"){
+	}else if (e == "Kwiztech" || e == "DCV" || e == "Wumbology" || e == "Newcool"  || e == "Legend" || e == "Mix_God"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'linear-gradient(rgb(4, 52, 32) 10%, rgb(23, 31, 26) 85%) 100% 50%'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
@@ -1066,7 +1124,7 @@ function chatStuff(data){
 			$("#chat-input .afknotifications").show();
 		}
 	}
-	if (user == "CatSnore" || user == "T98" || user == "LeDCV" || user == "Wumbology" || user == "Kwiztech" || user == "Newcool"  || user == "Legend"){
+	if (user == "CatSnore" || user == "T98" || user == "DCV" || user == "Wumbology" || user == "Kwiztech" || user == "Newcool"  || user == "Legend" || user == "Mix_God"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
 	}else if (user == "Beta Tester"){
@@ -1670,7 +1728,8 @@ function commandStuff(data){
 					<a style='color: #8bdb85;'>⊱ Have WL position on vote list (cuz why not)</a><br>\
 					<a style='color: #8bdb85;'>⊱ Force skip at the end of songs (cuz why not)</a><br>\
 					<a style='color: #8bdb85;'>⊱ Change all avatars to only one (cuz why not)</a><br>\
-					<a style='color: #8bdb85;'>⊱ Check if I cna raise the cap to over 200 (cuz why not)</a><br>\
+					<a style='color: #8bdb85;'>⊱ Check if I can raise the cap to over 200 (cuz why not)</a><br>\
+					<a style='color: #8bdb85;'>⊱ Meh count per user (automeh check)</a><br>\
 					<a style='color: #8bdb85;'>⊱ Make vote list prettier ;D</a><br>","#CCCCCC",false,false,true);
 			break;
 
@@ -1679,6 +1738,10 @@ function commandStuff(data){
 			bcs.addChat("<br><i class='icon icon-chat-bcslogo' style='left:75%;'></i>This script was mainly made by <a style='color:#b8e0ff;' href='https://plug.dj/@/beta-tester' target='_blank'>Beta Tester</a><br>\
 						Initial CSS help by <a style='color:#b8e0ff;' href='https://plug.dj/@/marciano' target='_blank'>Marciano</a><br>\
 						addChat() by <a style='color:#b8e0ff;' href='https://plug.dj/@/igor' target='_blank'>Igor</a><br>","#eee",false,true,true);
+			break;
+
+		case "ooo":
+			ct("http://youtu.be/MeB3eYk1Ze0?t=1m16s");
 			break;
 
 		case "lrg":
@@ -1951,7 +2014,7 @@ function commandStuff(data){
 				setTimeout(function(){bcs.c("/me @everyone @staff")},250);
 				setTimeout(function(){bcs.c("/me @everyone @staff")},500);
 				setTimeout(function(){bcs.c("/me @everyone @staff")},750);
-				setTimeout(function(){bcs.addChat("This command was brought to you by LeDCV [ID 3639711]","#ececec",false,false,true);},775);
+				setTimeout(function(){bcs.addChat("This command was brought to you by DCV [ID 3639711]","#ececec",false,false,true);},775);
 			}else{
 				bcs.l("[Command " + command[0] + " denied]",true);
 			};
@@ -2041,8 +2104,8 @@ function commandStuff(data){
 			}
 			if (n1 == -1){API.moderateAddDJ(id1);n1 = API.getWaitList().length;}
 			if (n2 == -1){API.moderateAddDJ(id2);n2 = API.getWaitList().length;}
-			var posTime1 = setTimeout(function(){API.moderateMoveDJ(id1,n2);},500);
-			var posTime2 = setTimeout(function(){API.moderateMoveDJ(id2,n1 + 1);},750);
+			var posTime1 = setTimeout(function(){API.moderateMoveDJ(id1,n2);},750);
+			var posTime2 = setTimeout(function(){API.moderateMoveDJ(id2,n1 + 1);},1250);
 			switch ("undefined"){
 				case typeof n1:case typeof n2:
 				case typeof u1:case typeof u2:
@@ -2175,4 +2238,5 @@ function commandStuff(data){
 	};
 }
 bcs.turnOn();
+setTimeout(function(){bcs.settings.load();},1000);
 }
