@@ -381,17 +381,17 @@ var bcs = {
 			bcs.settings.stored.spammer = spamon;
 			localStorage.setItem('bcsSettings', JSON.stringify(bcs.settings.stored));
 			console.log(JSON.stringify(bcs.settings.stored));
-			bcs.addChat("Custom settings saved! [We'll have fancy toast notifications once I figure out how to do it]","#ccc");
+			bcs.settings.toast("Settings saved!");
 		},
 		load: function(){
 			if (localStorage.getItem('bcsSettings')){
 				bcs.settings.stored = JSON.parse(localStorage.getItem('bcsSettings'));
 				console.log(bcs.settings.stored);
-				bcs.addChat("Custom settings loaded!","#ccc");
+				setTimeout(function(){bcs.settings.toast("Custom settings loaded!");},500);
 			}else{
 				localStorage.setItem('bcsSettings', JSON.stringify(bcs.settings.stored));
 				console.log(bcs.settings.stored);
-				bcs.addChat("Default settings loaded!","#ccc");
+				setTimeout(function(){bcs.settings.toast("Default settings loaded!");},500);
 			}
 			if(bcs.settings.stored.autowoot)bcs.toggle.autowoot();
 			if(bcs.settings.stored.joinmsg)bcs.toggle.joinmsg();
@@ -410,6 +410,26 @@ var bcs = {
 			if(bcs.settings.stored.cuteVoting)bcs.toggle.cuteVoting();
 			if(bcs.settings.stored.lockdown)bcs.toggle.lockdown();
 			if(bcs.settings.stored.spammer)bcs.toggle.spammer();
+		},
+		toast: function(msg){
+			$("#toast-notifications").append('\
+			<div class="notification bcs" style="opacity: 0; width: 250px;">\
+				<div class="left">\
+					<i class="icon icon-chat-bcslogo" style="top: 18px; left: 6px;"></i>\
+				</div>\
+				<div class="right" style="width: 190px;">\
+					<span style="top: 25px; font-size:13px;">' + msg + '</span>\
+				</div>\
+			</div>');
+			setTimeout(function(){
+				$("#toast-notifications .bcs").animate({opacity:1});
+				setTimeout(function(){
+					$("#toast-notifications .bcs").animate({opacity:0});
+					setTimeout(function(){
+						$("#toast-notifications .bcs").remove();
+					},500);
+				},1000);
+			},500);
 		}
 	}
 }
