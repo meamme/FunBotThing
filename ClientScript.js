@@ -411,10 +411,9 @@ var bcs = {
 			if(bcs.settings.stored.lockdown)bcs.toggle.lockdown();
 			if(bcs.settings.stored.spammer)bcs.toggle.spammer();
 		},
-		toast: function(msg,top){
-			if (top == undefined){top = "330px";}
+		toast: function(msg){
 			$("#toast-notifications").append('\
-			<div class="notification bcs" style="opacity: 0; width: 250px; top: ' + top + 'px;">\
+			<div class="notification bcs" style="opacity: 0; width: 250px;">\
 				<div class="left">\
 					<i class="icon icon-chat-bcslogo" style="top: 18px; left: 6px;"></i>\
 				</div>\
@@ -431,6 +430,11 @@ var bcs = {
 					},500);
 				},2000);
 			},500);
+			$("#toast-notifications .bcs").on("click",function(){
+				$("#toast-notifications .bcs").animate({opacity:0});
+				setTimeout(function(){
+					$("#toast-notifications .bcs").remove();
+				},500);});
 		}
 	}
 }
