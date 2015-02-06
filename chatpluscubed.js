@@ -28,15 +28,12 @@ API.on(API.CHAT, function(data){
 	var user = data.un;
 	var userid = data.uid;
 
-	if (user == "CatSnore" || user == "T98"){
+	if (user == "CatSnore" || user == "T98" || user == "DCV"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
 	}else if (user == "Beta Tester"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs2'></i>");
-	}else if (user == "LeDCV" || user == "Wumbology"){
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-bcs3'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
 	}else if (user == "EDMC"){
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgID + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
@@ -110,17 +107,10 @@ function displayid(){
 	if (t == "undefined"){t = "0000000"}
 	$('#user-rollover .meta .joined').css({top:"64px"});
 	$("#user-rollover .info").append('<div id="id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
-	if (e == "Beta Tester" || e == "T98" || e == "CatSnore" || e == "Kwiztech"){
+	if (e == "Beta Tester" || e == "T98" || e == "CatSnore" || e == "Kwiztech" || e == "DCV"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
-	}else if (e == "LeDCV" || e == "Wumbology" || e == "Glitch Hopper"){
-		$("#iwannalookcool").show();
-		$('#user-rollover .meta').css({'background':'right linear-gradient(#faceff 10%, #f38fff 85%)'});
-		$('#user-rollover .label').text("❤✿❤✿❤");
-		$('#user-rollover .value').hide();
-		$('#user-rollover .background').css({'background':'rgb(234, 137, 255)'});
-		$("#user-rollover .username").css({color:'#2b2b2b'});
 	}else{
 		$("#iwannalookcool").hide();
 		$('#user-rollover .meta').css({'background':'#282C35'});
