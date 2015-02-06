@@ -200,7 +200,7 @@ var bcs = {
 				if (API.getUser().id != 4820534){
 					$("#xafkenter").show();
 					$("#xafkbutton").show();
-					$("#xmod").css({'top':'422px'});
+					$("#xmod").css({'top':'460px'});
 				}
 			}else{
 				$("#chat-input .afkIsOn").hide();
@@ -210,7 +210,7 @@ var bcs = {
 				$("#chat-input .afknotifications").hide();
 				$("#xafkenter").hide();
 				$("#xafkbutton").hide();
-				$("#xmod").css({'top':'417px'});
+				$("#xmod").css({'top':'436px'});
 			}
 			$("#afk").toggleClass('active');
 			$("#xafk .icon").toggleClass('active');
@@ -664,7 +664,7 @@ var style = '<style>\
 		}\
 		#xmod {\
 			position: absolute;\
-			top: 417px;\
+			top: 436px;\
 			padding: 10px;\
 			width: 150px;\
 			background-color: #111317;\
