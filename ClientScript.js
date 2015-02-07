@@ -414,11 +414,11 @@ var bcs = {
 		toast: function(msg){
 			$("#toast-notifications .notification").click();
 			$("#toast-notifications").append('\
-			<div class="notification bcs" style="opacity: 0; width: 250px;">\
+			<div class="notification bcs" style="opacity: 0;">\
 				<div class="left">\
 					<i class="icon icon-chat-bcslogo" style="top: 18px; left: 6px;"></i>\
 				</div>\
-				<div class="right" style="width: 190px;">\
+				<div class="right">\
 					<span style="top: 25px; font-size:13px;">' + msg + '</span>\
 				</div>\
 			</div>');
@@ -1358,7 +1358,7 @@ function leaveStuff(user){
 	if (s < 10){s = "0" + s;}
 	if (joinmsg){bcs.addChat("<i class='icon icon-chat-leave' style='left:12px;'></i> " + f + user.username + " (ID " + user.id + ") left <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>",c);};
 	if (cap){
-		if (user.role > 0);{
+		if (user.role != 0){
 			bcs.l(user.username + " - " + user.role);
 			var thiscap = API.getStaff().length;
 			bcs.c('/cap ' + thiscap);
@@ -1395,7 +1395,7 @@ function joinStuff(user){
 	if (user.level > 1 && joinmsg){bcs.addChat("<i class='icon icon-chat-enter' style='left:12px;'></i> " + f + thename + " (ID " + user.id + ") joined <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>",c);};
 	if (user.level == 1 && joinmsg){bcs.addChat("<i class='icon icon-chat-enter' style='left:12px;'></i> " + f + thename + " (ID " + user.id + ") joined (Lvl 1) <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#fef8a0");};
 	if (cap){
-		if (user.role > 0);{
+		if (user.role != 0){
 			bcs.l(user.username + " - " + user.role);
 			var thiscap = API.getStaff().length;
 			bcs.c('/cap ' + thiscap);
