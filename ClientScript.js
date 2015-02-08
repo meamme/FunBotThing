@@ -177,9 +177,9 @@ var bcs = {
 			dapreview = !dapreview;
 			$("#xpreviews").toggleClass('active');
 			$("#xpreviews .icon").toggleClass('active');
-			if (dapreview){
+			if (!dapreview){
 				$("#dialog-container").css({left:"0px",top:"0px",width:"79.3%",height:"100%"});
-			}else if (!dapreview){
+			}else if (dapreview){
 				$("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
 			}
 		},
@@ -771,9 +771,6 @@ var style = '<style>\
 
 $("#room").append(menu);
 $("body").prepend(style);
-$("#room .app-right").animate({width:"399"});
-$("#chat-input-field").animate({width:"360"});
-$("#chat-input").animate({width:"380"});
 $("#grab .top .icon").animate({left:"22"});
 $("#grab .top .label").hide();
 $("#woot .top .icon").animate({left:"22"});
