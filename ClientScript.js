@@ -881,22 +881,31 @@ function displayid(){
 			$("#id_display").show();
 		}
 	}
+	$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/x1DEgOD.png)"});
 	if (e == "Beta Tester" || e == "T98" || e == "CatSnore"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
 		$("#user-rollover .username").css({color:'rgb(0, 190, 232)'});
+		$("#user-rollover .info").css({background:'#111317'});
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").toggleClass("can-staff");}
 	}else if (e == "Kwiztech" || e == "DCV" || e == "Wumbology" || e == "Newcool"  || e == "Legend" || e == "Mix_God"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'linear-gradient(rgb(4, 52, 32) 10%, rgb(23, 31, 26) 85%) 100% 50%'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
 		$("#user-rollover .username").css({color:'rgb(0, 215, 76)'});
-	}else{
+		$("#user-rollover .info").css({background:'#1c1f25'});
+	}else if(e == "B‌2"){
+		$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/w3cXqFU.png)"});
+		$("#iwannalookcool").show();
+		$('#user-rollover .meta').css({'background':'#000'});
+		$("#user-rollover .info").css({background:'#111317'});
+	}else {
 		$("#iwannalookcool").hide();
 		$('#user-rollover .meta').css({'background':'#282C35'});
 		$('#user-rollover .background').css({'background':'#282c35'});
 		$("#user-rollover .username").css({color:'#eee'});
+		$("#user-rollover .info").css({background:'#1c1f25'});
 	}
 }
 
