@@ -293,6 +293,7 @@ var bcs = {
 		$('#room-bar').on('click', bcs.toggle.chatShrink);
 		$('#footer-user .user').on('click', bcs.toggle.chatShrink);
 		$('#app-menu .community').on('click', bcs.toggle.chatShrink);
+		$('#room .app-right .header').on('click', bcs.toggle.chatShrink);
 		$('#xvotes').on('click', bcs.toggle.cuteVoting);
 		$('#xpreviews').on('click', bcs.toggle.previews);
 		$('#xsave').on('click', bcs.settings.set);
@@ -438,7 +439,8 @@ var bcs = {
 				},500);});
 		}
 	},
-	user: API.getUser()
+	user: API.getUser(),
+	itsMe: if (bcs.user.username == "Beta Tester"){return true}
 }
 
 if (betaWasOn){
@@ -913,7 +915,7 @@ $("#chat-messages").click(displayid);
 $("#user-lists").click(displayid);
 $("#dj-canvas").mousemove(displayid);
 $("#audience-canvas").mousemove(displayid);
-
+$("#footer-user").on('hover',function(){if(bcs.itsMe){$("#footer-user .pp .value").text("305");}});
 //Percentage on progress bar :D
 function displayLvl(){
 	$("#footer-user .percentage").remove();
@@ -927,12 +929,8 @@ function displayLvl(){
 	}
 }
 displayLvl();
-$("#footer-user .bar").mouseenter(function(){
-	$("#footer-user .percentage").hide();
-});
-$("#footer-user .bar").mouseleave(function(){
-	$("#footer-user .percentage").show();
-});
+$("#footer-user .bar").mouseenter(function(){$("#footer-user .percentage").hide();});
+$("#footer-user .bar").mouseleave(function(){$("#footer-user .percentage").show();});
 
 $("#app-menu .list .votelist").mouseenter(function(){
 	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');
