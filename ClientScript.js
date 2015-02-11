@@ -445,7 +445,7 @@ var bcs = {
 
 if (betaWasOn){
 	//bcs.addChat("<img src='https://i.imgur.com/Z7LDEp0.gif'></img><br><a style='color:#FF0000;font-size:15px;'><b>[WARNING]</b></a><a style='font-size:15px;'> You already had BCS activated. To update, please refresh and then click bookmark again. Reclicking doesn't work.</a>","#ff7575",true,true);
-	bcs.addChat("<i class='icon icon-chat-bcs' style='left:5px;'></i> It seems like you would you like to restart BCS.<br><a style='color:#ff7575'> Restarting it <b>may turn off other scripts</b></a>.","#ccc",true,false);
+	bcs.addChat("<i class='icon icon-chat-bcs' style='left:5px;'></i> It seems like you would you like to restart BCS.<br><a style='color:#ff7575'> Restarting it <b>may turn off other scripts</b></a>. We recommend you refresh the page instead of just restarting the script.","#ccc",true,false);
 	bcs.addChat("<br><b><a style='color:#42a5dc;'>/yes</b></a>, restart BCS, who cares about other scripts!<br><b>\
 		<a style='color:#42a5dc;'>/no</b></a>, continue using this version of BCS<br><br>","#ccc",false,false,true);
 	bcs.attemptRefresh = true;
@@ -2271,4 +2271,5 @@ function commandStuff(data){
 }
 bcs.turnOn();
 setTimeout(function(){bcs.settings.load();},1000);
+$("#chat-header").append('<span style="font-size:10px;">plug.dj version ' + _v + '</span>');
 }
