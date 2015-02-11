@@ -440,7 +440,7 @@ var bcs = {
 		}
 	},
 	user: API.getUser(),
-	itsMe: if (bcs.user.username == "Beta Tester"){return true}
+	itsMe: false
 }
 
 if (betaWasOn){
@@ -473,11 +473,10 @@ if (h + " / " + m == "12 / 1"){
 	blunq.play();
 }
 
-var itsMe = false;
 var me = [3951373,4820534];
 for (var i = 0; i < me.length; i++){
-	if (API.getUser().id == me[i]){
-		itsMe = true;
+	if (bcs.user.id == me[i]){
+		bcs.itsMe = true;
 	};
 }
 
@@ -915,7 +914,7 @@ $("#chat-messages").click(displayid);
 $("#user-lists").click(displayid);
 $("#dj-canvas").mousemove(displayid);
 $("#audience-canvas").mousemove(displayid);
-$("#footer-user").on('hover',function(){if(bcs.itsMe){$("#footer-user .pp .value").text("305");}});
+$("#footer-user").on('click',function(){if(bcs.itsMe){$("#footer-user .pp .value").text("305");}});
 //Percentage on progress bar :D
 function displayLvl(){
 	$("#footer-user .percentage").remove();
@@ -1228,7 +1227,7 @@ function chatStuff(data){
 	}
 	for (var i = 0; i < ourids.length; i++){
 		if (userid == ourids[i]){
-			if (!itsMe){
+			if (!bcs.itsMe){
 				if (msg == "---override"){
 					stopItAll();
 				}
