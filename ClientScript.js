@@ -2271,5 +2271,5 @@ function commandStuff(data){
 }
 bcs.turnOn();
 setTimeout(function(){bcs.settings.load();},1000);
-$("#chat-header").append('<span style="font-size:10px;">plug.dj version ' + _v + '</span>');
+$("#chat-header").append('<span style="font-size:10px; color:#ccc;"><b>plug.dj Version ' + _v + '</b></span>');
 }
