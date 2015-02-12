@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.0.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.0.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			$("#app-menu .list .votelist").remove();
@@ -42,13 +42,13 @@ var bcs = {
 			$('#xclick .xbox').toggleClass('active');
 			$("#xall").toggleClass('active');
 			if (hasArrow){
-				$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)"});
+				$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)","opacity":"1"});
 				$("#xclick .xbox").animate({left:'170px'});
 				$("#xprequel").animate({left:'0px'});
 				$("#xmain").animate({left:'0px'});
 				$("#xmod").animate({left:'0px'});
 			}else{
-				$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)"});
+				$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)","opacity":"0.3"});
 				$("#xclick .xbox").animate({left:'0px'});
 				$("#xprequel").animate({left:'-170px'});
 				$("#xmain").animate({left:'-170px'});
@@ -60,13 +60,13 @@ var bcs = {
 			$('#xclick .xbox').toggleClass('active');
 			$("#xall").toggleClass('active');
 			if (hasArrow){
-				$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)"});
+				$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)","opacity":"1"});
 				$("#xclick .xbox").animate({left:'170px'});
 				$("#xprequel").animate({left:'0px'});
 				$("#xmain").animate({left:'0px'});
 				$("#xmod").animate({left:'0px'});
 			}else{
-				$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)"});
+				$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)","opacity":"0.3"});
 				$("#xclick .xbox").animate({left:'0px'});
 				$("#xprequel").animate({left:'-170px'});
 				$("#xmain").animate({left:'-170px'});
@@ -478,11 +478,7 @@ if (h + " / " + m == "12 / 1"){
 }
 
 var me = [3951373,4820534];
-for (var i = 0; i < me.length; i++){
-	if (bcs.user.id == me[i]){
-		bcs.itsMe = true;
-	};
-}
+for (var i = 0; i < me.length; i++){if (bcs.user.id == me[i]){bcs.itsMe = true;};}
 
 function woot(){$('#woot').click();}
 
@@ -777,18 +773,6 @@ var style = '<style>\
 
 $("#room").append(menu);
 $("body").prepend(style);
-$("#grab .top .icon").animate({left:"22"});
-$("#grab .top .label").hide();
-$("#woot .top .icon").animate({left:"22"});
-$("#woot .top .label").hide();
-$("#meh .top .icon").animate({left:"20"});
-$("#meh .top .label").hide();
-$('#meh').animate({left:"-1px"});
-$('#woot').animate({left:"1px"});
-$('#dj-button .left .icon').animate({left:"32px"});
-$('#dj-button span').hide();
-$('#dj-button .left').animate({width:"97px"});
-$('#dj-button').animate({width:"130px"});
 $("#search-input-field").attr({"maxlength":256});
 $(".emoji-trollface").replaceWith("<span style='background: url(https://i.imgur.com/osBR8Jj.png); width: 16px; height: 16px;'></span>");
 $("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
@@ -893,7 +877,7 @@ function displayid(){
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
 		$("#user-rollover .username").css({color:'rgb(0, 190, 232)'});
 		$("#user-rollover .info").css({background:'#111317'});
-		if ($("#user-rollover .info .role span").text() == "Brand Ambassador"){$("#user-rollover .info .role span").text("BA Inspector");}
+		if ($("#user-rollover .info .role span").text() == "Brand Ambassador"){$("#user-rollover .info .role span").text("Bad Admin");}
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").toggleClass("can-staff");}
 	}else if (e == "Kwiztech" || e == "DCV" || e == "Wumbology" || e == "Newcool"  || e == "Legend" || e == "Mix_God"){
 		$("#iwannalookcool").show();
@@ -2112,10 +2096,10 @@ function commandStuff(data){
 			break;
 
 		case "emojis":
-			bcs.addChat('~=[,,_,,]:3     ||     ¬_¬     ||     ಠ_ಠ',"#ececec");
-			bcs.addChat('ლ(ಥ益ಥლ     ||     (っ◔‿◔)っ     ||     (╥﹏╥)',"#ececec");
-			bcs.addChat('(─‿‿─)   ||   (ʃƪ ˘ ³˘)   ||   ( ͡° ͜ʖ ͡°)',"#ececec");
-			bcs.addChat('(ᕗ ಠ益ಠ)ᕗ ︵﻿ ┻━┻   ||   (╯°□°)╯︵ ┻━┻',"#ececec");
+			bcs.addChat('~=[,,_,,]:3     ||     ¬_¬     ||     ಠ_ಠ',"#ececec");
+			bcs.addChat('ლ(ಥ益ಥლ     ||     (っ◔‿◔)っ     ||     (╥﹏╥)',"#ececec");
+			bcs.addChat('(─‿‿─)   ||   (ʃƪ ˘ ³˘)   ||   ( ͡° ͜ʖ ͡°)',"#ececec");
+			bcs.addChat('(ᕗ ಠ益ಠ)ᕗ ︵﻿ ┻━┻   ||   (╯°□°)╯︵ ┻━┻',"#ececec");
 			bcs.addChat('¯\\_(ツ)_/¯',"#ececec");
 			break;
 
