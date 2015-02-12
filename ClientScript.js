@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.0.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			$("#app-menu .list .votelist").remove();
@@ -9,11 +9,15 @@ var bcs = {
 			$.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/ClientScript.js');
 		},
 	attemptRefresh:false,
-	addChat:function(text, color, hasLeft, hasBottom, isNotCenter) {
+	addChat:function(text, color, hasLeft, hasBottom, isNotCenter, hasMargin) {
 			var chat = $('#chat-messages');var a = chat.scrollTop() > chat[0].scrollHeight - chat.height() - 28;
 			if (color == undefined){color = "#99ffd7";}
 			if (isNotCenter){
-				chat.append("<div class='betabot-update' style='background-color:#0a0a0a;'><div class='text-margin' style='margin-left: 10px;'><span class='betatext' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></div></div>");
+				if (!hasMargin){
+					chat.append("<div class='betabot-update' style='background-color:#0a0a0a;'><div class='text-margin' style='margin-left: 10px;'><span class='betatext' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></div></div>");
+				}else{
+					chat.append("<div class='betabot-update' style='background-color:#0a0a0a; margin-top:10px;margin-bottom:10px;'><div class='text-margin' style='margin-left: 10px;'><span class='betatext' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></div></div>");
+				}
 			}else{
 				if (hasBottom){
 					if (hasLeft){
@@ -1367,7 +1371,7 @@ function leaveStuff(user){
 	var thename = user.username;
 	if (user.username.indexOf("<") != -1){thename = user.username.replace("<","&lt;")}
 	if (user.username.indexOf(">") != -1){thename = user.username.replace(">","&gt;")}
-	if (joinmsg){bcs.addChat("<br> <a style='color:" + c + ";'>" + f + user.username + " left </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a><br>","#ddd",false, false, true);};
+	if (joinmsg){bcs.addChat("<a style='color:" + c + ";'>" + f + user.username + " left </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
 	if (cap){
 		if (user.role != 0){
 			bcs.l(user.username + " - " + user.role);
@@ -1407,8 +1411,8 @@ function joinStuff(user){
 	var thename = user.username;
 	if (user.username.indexOf("<") != -1){thename = user.username.replace("<","&lt;")}
 	if (user.username.indexOf(">") != -1){thename = user.username.replace(">","&gt;")}
-	if (user.level > 1 && joinmsg){bcs.addChat("<a style='color:" + c + "'><br> " + f + thename + " joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a><br>","#ddd",false, false, true);};
-	if (user.level == 1 && joinmsg){bcs.addChat("<a style='color:#fef8a0;'><br> " + f + thename + " joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a><br>","#ddd",false,false,true);};
+	if (user.level > 1 && joinmsg){bcs.addChat("<a style='color:" + c + "'> " + f + thename + " joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false, false,true,true);};
+	if (user.level == 1 && joinmsg){bcs.addChat("<a style='color:#fef8a0;'> " + f + thename + " joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
 	if (cap){
 		if (user.role != 0){
 			bcs.l(user.username + " - " + user.role);
