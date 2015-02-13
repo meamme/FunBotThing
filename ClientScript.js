@@ -760,6 +760,13 @@ var style = '<style>\
 			width:100px %;\
 			word-wrap:break 0;\
 		}\
+		#chat .system {\
+			background: none repeat scroll 0% 0% rgba(219,24,46,0.3)\
+		}\
+		#chat .system .box {\
+			position:absolute;\
+			margin:2.5%;\
+		}\
 	</style>';
 
 $("#room").append(menu);
@@ -1320,13 +1327,12 @@ function advanceStuff(obj){
 	}
 	if (songup){
 		bcs.l(" ",false);
-		setTimeout(function(){$(".update")[$(this).length-1].remove();},250);
-		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
 		bcs.addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
 				<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b><br>\
 				<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
 				<a style='color:#e6ff99;'><b>Author:</b></a> " + obj.media.author + "<br>\
 				<a style='color:#e6ff99;'><b>Current DJ:</b></a> " + obj.dj.username + " (ID " + obj.dj.id + ")<br>","#ececec",true);
+		setTimeout(function(){$(".update")[$(this).length-1].remove();},1250);
 	}
 }
 
