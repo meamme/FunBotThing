@@ -465,18 +465,6 @@ var blunq = new Audio();
 blunq.src = "https://cdn.plug.dj/_/static/sfx/badoop.801a12ca13864e90203193b2c83c019c03a447d1.mp3";
 blunq.load();
 
-var d = new Date();
-var h = d.getDay();
-var m = d.getMonth();
-if (h + " / " + m == "12 / 1"){
-	bcs.addChat("<b>TODAY IS VITAL'S BDAY</b>","#ff0000");
-	bcs.addChat("<b>TODAY IS VITAL'S BDAY</b>","#ff0000");
-	bcs.addChat("<b>TODAY IS VITAL'S BDAY</b>","#ff0000");
-	bcs.addChat("<b>TODAY IS VITAL'S BDAY</b>","#ff0000");
-	bcs.addChat("<b>TODAY IS VITAL'S BDAY</b>","#ff0000");
-	blunq.play();
-}
-
 var me = [3951373,4820534];
 for (var i = 0; i < me.length; i++){if (bcs.user.id == me[i]){bcs.itsMe = true;};}
 
@@ -784,6 +772,8 @@ $("#search-input-field").attr({"maxlength":256});
 $("#app-menu .list").append('<div class="item votelist clickable"><i class="icon icon-woot-off"></i><span>Vote List (WIP)</span></div>');
 $("#footer-user .bar").css({'border-radius':'10px 10px'});
 $("#footer-user .progress").css({'border-radius':'10px 10px'});
+$("#xtheone").mouseenter(function(){$("#xclick .xbox").css({"opacity":"1"});});
+$("#xclick .xbox").mouseleave(function(){$("#xclick .xbox").css({"opacity":"0.3"});});
 
 var autowoot = false;
 var joinmsg = false;
@@ -1199,12 +1189,13 @@ function chatStuff(data){
 
 		//Bootleg Inline Images//
 	if (inlineOn){
-		var pn = ['.png','.gif','.jpg','.jpeg'];
+		var pn = ['.png','.gif','.jpg','.jpeg','.gifv'];
 		var linked = $($(".cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).text();
 		var isItTheSame = msg.indexOf(linked);
 		for (var i = 0; i < pn.length; i++){
 			var isItAPic = linked.indexOf(pn[i]);
 			if (linked != "" && isItTheSame != -1 && isItAPic != -1){
+				if (linked.indexOf('gifv') != -1){linked = linked.replace('gifv','gif');}
 				var hts = $($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).text();
 				hts = hts.replace("http","https");
 				if (hts.indexOf("httpss") != -1){hts = hts.replace("httpss","https");}
@@ -1355,7 +1346,7 @@ function leaveStuff(user){
 	var thename = user.username;
 	if (user.username.indexOf("<") != -1){thename = user.username.replace("<","&lt;")}
 	if (user.username.indexOf(">") != -1){thename = user.username.replace(">","&gt;")}
-	if (joinmsg){bcs.addChat("<a style='color:" + c + ";'>" + f + user.username + " left </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
+	if (joinmsg){bcs.addChat("<a style='color:" + c + ";'>" + f + "<b>" + user.username + "</b> left </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
 	if (cap){
 		if (user.role != 0){
 			bcs.l(user.username + " - " + user.role);
@@ -1395,8 +1386,8 @@ function joinStuff(user){
 	var thename = user.username;
 	if (user.username.indexOf("<") != -1){thename = user.username.replace("<","&lt;")}
 	if (user.username.indexOf(">") != -1){thename = user.username.replace(">","&gt;")}
-	if (user.level > 1 && joinmsg){bcs.addChat("<a style='color:" + c + "'> " + f + thename + " joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false, false,true,true);};
-	if (user.level == 1 && joinmsg){bcs.addChat("<a style='color:#fef8a0;'> " + f + thename + " joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
+	if (user.level > 1 && joinmsg){bcs.addChat("<a style='color:" + c + "'> " + f + "<b>" + thename + "</b> joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false, false,true,true);};
+	if (user.level == 1 && joinmsg){bcs.addChat("<a style='color:#fef8a0;'> " + f + "<b>" + thename + "</b> joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
 	if (cap){
 		if (user.role != 0){
 			bcs.l(user.username + " - " + user.role);
