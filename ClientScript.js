@@ -1349,7 +1349,6 @@ function leaveStuff(user){
 	if (joinmsg){bcs.addChat("<a style='color:" + c + ";'>" + f + "<b>" + user.username + "</b> left </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
 	if (cap){
 		if (user.role != 0){
-			bcs.l(user.username + " - " + user.role);
 			var thiscap = API.getStaff().length;
 			bcs.c('/cap ' + thiscap);
 			bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
