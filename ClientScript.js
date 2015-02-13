@@ -785,6 +785,14 @@ $("#footer-user .progress").css({'border-radius':'10px 10px'});
 $("#xtheone").mouseenter(function(){$("#xclick .xbox").css({"opacity":"1"});});
 $("#xclick .xbox").mouseleave(function(){$("#xclick .xbox").css({"opacity":"0.3"});});
 
+function transformBack(){$("#footer-user .back span").text("Back");}
+$("#footer-user .back").css({"width":"18%"});
+$("#footer-user .menu").on('click',transformBack);
+$("#room-bar").on('click',transformBack);
+$("#room .app-right .header").on('click',transformBack);
+$("#app-menu").on('click',transformBack);
+
+
 var autowoot = false;
 var joinmsg = false;
 var grabmsg = false;
@@ -1332,7 +1340,7 @@ function advanceStuff(obj){
 				<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
 				<a style='color:#e6ff99;'><b>Author:</b></a> " + obj.media.author + "<br>\
 				<a style='color:#e6ff99;'><b>Current DJ:</b></a> " + obj.dj.username + " (ID " + obj.dj.id + ")<br>","#ececec",true);
-		setTimeout(function(){$(".update")[$(this).length-1].remove();},1250);
+		setTimeout(function(){$(".update")[$(this).length-1].remove();},2000);
 	}
 }
 
@@ -1658,13 +1666,10 @@ function lookfor(id,isityou){
 
 //WAITLIST
 		var posstats = "<a style='color:#646b7e;'>Not in the WaitList</a>";
-		if (votestats == "<a style='color:#646b7e;'>Not in the room</a>"){
-			posstats = "<a style='color:#646b7e;'>Not in the room</a>";
-		}
 		var wlpos = API.getWaitListPosition(data.id);
-		if (wlpos != -1){
-			posstats = wlpos + 1;
-		}
+		if (wlpos != -1){posstats = wlpos + 1;}
+		if (votestats == "<a style='color:#646b7e;'>Not in the room</a>"){posstats = votestats;}
+		if (votestats == "<a style='color:#646b7e;'>Is currently DJ'ing</a>"){posstats = votestats;}
 
 //BLURB
 		var blurbTrue = "<a style='color:#eaaeae;'>[None]</a>";
