@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.0.2.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.0.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			$("#app-menu .list .votelist").remove();
@@ -42,11 +42,13 @@ var bcs = {
 			$('#xclick .xbox').toggleClass('active');
 			$("#xall").toggleClass('active');
 			if (hasArrow){
+				$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)"});
 				$("#xclick .xbox").animate({left:'170px'});
 				$("#xprequel").animate({left:'0px'});
 				$("#xmain").animate({left:'0px'});
 				$("#xmod").animate({left:'0px'});
 			}else{
+				$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)"});
 				$("#xclick .xbox").animate({left:'0px'});
 				$("#xprequel").animate({left:'-170px'});
 				$("#xmain").animate({left:'-170px'});
@@ -58,11 +60,13 @@ var bcs = {
 			$('#xclick .xbox').toggleClass('active');
 			$("#xall").toggleClass('active');
 			if (hasArrow){
+				$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)"});
 				$("#xclick .xbox").animate({left:'170px'});
 				$("#xprequel").animate({left:'0px'});
 				$("#xmain").animate({left:'0px'});
 				$("#xmod").animate({left:'0px'});
 			}else{
+				$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)"});
 				$("#xclick .xbox").animate({left:'0px'});
 				$("#xprequel").animate({left:'-170px'});
 				$("#xmain").animate({left:'-170px'});
