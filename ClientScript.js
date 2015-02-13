@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.0.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.0.2.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			$("#app-menu .list .votelist").remove();
@@ -42,13 +42,11 @@ var bcs = {
 			$('#xclick .xbox').toggleClass('active');
 			$("#xall").toggleClass('active');
 			if (hasArrow){
-				$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)","opacity":"1"});
 				$("#xclick .xbox").animate({left:'170px'});
 				$("#xprequel").animate({left:'0px'});
 				$("#xmain").animate({left:'0px'});
 				$("#xmod").animate({left:'0px'});
 			}else{
-				$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)","opacity":"0.3"});
 				$("#xclick .xbox").animate({left:'0px'});
 				$("#xprequel").animate({left:'-170px'});
 				$("#xmain").animate({left:'-170px'});
@@ -60,13 +58,11 @@ var bcs = {
 			$('#xclick .xbox').toggleClass('active');
 			$("#xall").toggleClass('active');
 			if (hasArrow){
-				$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)","opacity":"1"});
 				$("#xclick .xbox").animate({left:'170px'});
 				$("#xprequel").animate({left:'0px'});
 				$("#xmain").animate({left:'0px'});
 				$("#xmod").animate({left:'0px'});
 			}else{
-				$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)","opacity":"0.3"});
 				$("#xclick .xbox").animate({left:'0px'});
 				$("#xprequel").animate({left:'-170px'});
 				$("#xmain").animate({left:'-170px'});
@@ -465,9 +461,6 @@ var blunq = new Audio();
 blunq.src = "https://cdn.plug.dj/_/static/sfx/badoop.801a12ca13864e90203193b2c83c019c03a447d1.mp3";
 blunq.load();
 
-bcs.l("Today is VitalCZ's birthday! Please also congratulate him for getting Manager on DTE!",true);
-blunq.play();
-
 var me = [3951373,4820534];
 for (var i = 0; i < me.length; i++){if (bcs.user.id == me[i]){bcs.itsMe = true;};}
 
@@ -782,8 +775,6 @@ $("#search-input-field").attr({"maxlength":256});
 $("#app-menu .list").append('<div class="item votelist clickable"><i class="icon icon-woot-off"></i><span>Vote List (WIP)</span></div>');
 $("#footer-user .bar").css({'border-radius':'10px 10px'});
 $("#footer-user .progress").css({'border-radius':'10px 10px'});
-$("#xtheone").mouseenter(function(){$("#xclick .xbox").css({"opacity":"1"});});
-$("#xclick .xbox").mouseleave(function(){$("#xclick .xbox").css({"opacity":"0.3"});});
 
 function transformBack(){$("#footer-user .back span").text("Back");}
 $("#footer-user .back").css({"width":"18%"});
