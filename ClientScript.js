@@ -465,6 +465,9 @@ var blunq = new Audio();
 blunq.src = "https://cdn.plug.dj/_/static/sfx/badoop.801a12ca13864e90203193b2c83c019c03a447d1.mp3";
 blunq.load();
 
+bcs.l("Today is VitalCZ's birthday! Please also congratulate him for getting Manager on DTE!",true);
+blunq.play();
+
 var me = [3951373,4820534];
 for (var i = 0; i < me.length; i++){if (bcs.user.id == me[i]){bcs.itsMe = true;};}
 
@@ -889,6 +892,8 @@ function displayid(){
 	}
 }
 
+$("#video-only-dj").mousemove(displayid);
+$("#video-only-dj").click(displayid);
 $("#chat-messages").click(displayid);
 $("#user-lists").click(displayid);
 $("#dj-canvas").mousemove(displayid);
