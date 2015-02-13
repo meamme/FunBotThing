@@ -1340,7 +1340,8 @@ function advanceStuff(obj){
 				<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
 				<a style='color:#e6ff99;'><b>Author:</b></a> " + obj.media.author + "<br>\
 				<a style='color:#e6ff99;'><b>Current DJ:</b></a> " + obj.dj.username + " (ID " + obj.dj.id + ")<br>","#ececec",true);
-		setTimeout(function(){$(".update")[$(this).length-1].remove();},2000);
+		setTimeout(function(){$(".update")[$(this).length-1].remove();},250);
+		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
 	}
 }
 
@@ -1838,9 +1839,9 @@ function commandStuff(data){
 
 		case "sacrifice":
 		case "offering":
-			bcs.c("/me &nbsp;&nbsp;&nbsp;:fire: :fire: :fire: :fire: :fire:");
-			setTimeout(function(){bcs.c("/me &nbsp;&nbsp;&nbsp;:fire: :fire: :goat: :fire: :fire:")},250);
-			setTimeout(function(){bcs.c("/me &nbsp;&nbsp;&nbsp;:fire: :fire: :fire: :fire: :fire:")},500);
+			bcs.c("/me  :fire: :fire: :fire: :fire: :fire:");
+			setTimeout(function(){bcs.c("/me  :fire: :fire: :goat: :fire: :fire:")},250);
+			setTimeout(function(){bcs.c("/me  :fire: :fire: :fire: :fire: :fire:")},500);
 			setTimeout(function(){bcs.c("/me Please, all mighty Admins, accept this sacrifice!")},750);
 			break;
 
@@ -1903,7 +1904,7 @@ function commandStuff(data){
 
 		case "showoff":
 			bcs.c("/me :fire: :star2: :fire: :boom: :fire: :boom: :fire: :star2: :fire:");
-			setTimeout(function(){bcs.c("/me &nbsp;&nbsp;~A wild me appears~");},250);
+			setTimeout(function(){bcs.c("/me ~A wild me appears~");},250);
 			setTimeout(function(){bcs.c("/me :fire: :star2: :fire: :boom: :boom: :fire: :fire: :star2: :fire:");},500);
 			break;
 
