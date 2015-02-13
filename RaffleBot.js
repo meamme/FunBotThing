@@ -16,7 +16,7 @@ function raffleEnd(){
 				c("/me In total, " + raffleS.usersList.length + " users joined!");
 				rafflePicked = Math.floor(Math.random() * raffleS.usersList.length);
 				var pickedName = raffleS.usersList[rafflePicked];
-				setTimeout(function(){c("/me Congratulations @" + pickedName + ", you have won! Let @LeDCV or @ColorfulMind know your forum name!");},250);
+				setTimeout(function(){c("/me Congratulations @" + pickedName + ", you have won! Let @DCV or @ColorfulMind know your forum name!");},250);
 				raffleS.usersList.splice(rafflePicked,1);
 			}
 		}
@@ -194,9 +194,29 @@ API.on(API.CHAT, function(data){
 
 			case "slap":
 				if (itsMe){
-					c("/me *slaps LeDCV*");
+					c("/me *slaps DCV*");
 				}else{
 					delFrom();
+				}
+				break;
+
+			case "skip":
+				if (urole() >= 2 || itsMe){
+					if (typeof API.getDJ() != 'object'){
+						delFrom();
+						ct("[.skip] There is no DJ.");
+					}else{
+						delFrom();
+						API.moderateForceSkip();
+						c(user + " used skip!");
+					}
+				}else{
+					delFrom();
+					if (!antispam){
+						ct("This command is for Bouncers and above!",true);
+						antispam = true;
+						setTimeout(function(){antispam = false;},5000);
+					}
 				}
 				break;
 
@@ -222,6 +242,9 @@ API.on(API.CHAT, function(data){
 						"@" + userTagged + " <3 :blush:",
 						"@" + userTagged + " I... I've been too shy to say this but... This is the time... You are the prettiest person I know... Please love me back",
 						"@" + userTagged + " You're cute <3",
+						"@" + userTagged + " Your clothes are so pretty.. I bet they'd look great thrown on the floor, by my bed",
+						"How ya dooooin? @" + userTagged + " ;)",
+						"@" + userTagged + " I love you.",
 						"@" + userTagged + " You smell differently when you're awake..."];
 					var ranFlirt = Math.floor(Math.random() * flirts.length);
 					c(flirts[ranFlirt]);
@@ -230,32 +253,12 @@ API.on(API.CHAT, function(data){
 				}
 				break;
 
-			case "exe":
-				if (urole() >= 0 || itsMe){
-					delFrom();
-					exeIsOn = true;
-					c("&nbsp;&nbsp;&nbsp;&nbsp;:warning: :warning: .EXE WAS EXECUTED :warning: :warning:");
-					setTimeout(function(){c("&nbsp;&nbsp;&nbsp;&nbsp;Banning all users unless .cancel is typed by a staff member.");},500);
-					setTimeout(function(){
-						if (exeIsOn){
-							c("Your staff hates you all.");
-						}
-					},10000);
-				}else{
-					delFrom();
-				}
-				break;
-
-			case "cancel":
-				if (urole() >= 0 || itsMe){
-					delFrom();
-					if (exeIsOn){
-						c("http://i.imgur.com/Mc5cCal.gif");
-						exeIsOn = false;
-					}
-				}else{
-					delFrom();
-				}
+			case " _ .":
+			case "_.":
+			case ".":
+			case "..":
+			case "!":
+			case "!!":
 				break;
 
 			default:
@@ -287,7 +290,7 @@ function addChat(text, color, state, size) {
 
 addChat("<img src='https://i.imgur.com/wQjLpaH.gif' style='max-width:400px'></img><br>\
 	<a style='color:#ececec;'>Beta Tester's <a style='color:#41b5ff;'><b>raffle</b></a> script initiated!</a><br>\
-	<a style='color:#41b5ff;'>(Beta v0.6)</a><br>\
+	<a style='color:#41b5ff;'>(Beta v0.7)</a><br>\
 	<a style='color:#41b5ff;'>__________<br>\
 	<a style='color:#ececec;'>!<b>raffle</b><br>\
 	<a style='color:#c8c8c8;'>Starts the raffle<br>\
@@ -297,4 +300,6 @@ addChat("<img src='https://i.imgur.com/wQjLpaH.gif' style='max-width:400px'></im
 	<a style='color:#c8c8c8;'>Joins the raffle<br>\
 	<a style='color:#ececec;'>!<b>time</b> + # (in seconds)<br>\
 	<a style='color:#c8c8c8;'>Sets raffle's duration (default 30s)<br>\
+	<a style='color:#ececec;'>!<b>skip</b><br>\
+	<a style='color:#c8c8c8;'>Skips current DJ<br>\
 	<a style='color:#41b5ff;'>¯¯¯¯¯¯¯¯¯¯","#CCCCCC");
