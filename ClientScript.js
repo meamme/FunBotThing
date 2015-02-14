@@ -481,6 +481,7 @@ var opensansfnt = "'Open Sans' sans-serif";
 var messages = [];
 var logcheck = [];
 var logged = [];
+var chatIcons = true;
 
 //ffdd6f < Gold
 
