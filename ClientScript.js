@@ -1217,7 +1217,7 @@ function chatStuff(data){
 				var hts = $($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).text();
 				hts = hts.replace("http","https");
 				if (hts.indexOf("httpss") != -1){hts = hts.replace("httpss","https");}
-				$($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).append("<img style='margin:5px; max-width:300px;' src='" + hts + "'></img>");
+				$($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).append("<br><img style='margin:5px; max-width:300px; margin-left: -28px;' src='" + hts + "'></img>");
 				setTimeout(function(){$("#chat-messages").scrollTop(50000)},2000);
 				break;
 			}
