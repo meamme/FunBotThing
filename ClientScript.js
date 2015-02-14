@@ -726,25 +726,15 @@ var style = '<style>\
 			width:15px;\
 			background-image:url(https://i.imgur.com/pSJVANr.png);\
 		}\
-		.icon-chat-bcs2 {\
+		.icon-chat-ba2 {\
 			height:15px;\
 			width:15px;\
-			background-image:url(https://i.imgur.com/GG4jPsR.png);\
+			background-image:url(https://i.imgur.com/UkwsCad.png);\
 		}\
 		.icon-chat-baS {\
 			height:15px;\
 			width:15px;\
 			background-image:url(https://i.imgur.com/RQOpxNm.png);\
-		}\
-		.icon-chat-enter {\
-			height:15px;\
-			width:15px;\
-			background-image:url(https://i.imgur.com/lF5EhMq.png);\
-		}\
-		.icon-chat-leave {\
-			height:15px;\
-			width:15px;\
-			background-image:url(https://i.imgur.com/hF5Y9ye.png);\
 		}\
 		.icon-chat-bcslogo {\
 			height:49px;\
@@ -1156,7 +1146,7 @@ function chatStuff(data){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
 	}else if(user == "Beta Tester"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-ba2'></i>");
 	}else if (user == "EDMC"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
