@@ -104,11 +104,6 @@ API.on(API.CHAT, function(data){
 					}
 				}else{
 					delFrom();
-					if (!antispam){
-						ct("Raffle wasn't started!",true);
-						antispam = true;
-						setTimeout(function(){antispam = false;},5000);
-					}
 				}
 				break;
 
