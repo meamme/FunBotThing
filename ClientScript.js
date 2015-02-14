@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -431,7 +431,16 @@ var bcs = {
 	},
 	user: API.getUser(),
 	itsMe: false,
-	isFlip: false
+	isFlip: false,
+	hasp3: function(){
+		if ($("#plugcubed").width() != null){
+			$("#plugcubed").css({'left':'106px'});
+			$("#room-bar").animate({left:'159px'});
+			$("#room-bar .favorite").animate({right:'102px'});
+			$("#room-name .bar-value").css({'font-size':'13px'});
+			$("#chat-header span").remove();
+		}
+	}
 }
 
 if (betaWasOn){
@@ -443,7 +452,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>Now mostly incompatible with <a style='color:#99ffd7;'>p³</a>!<br><a style='font-size:10px;'>(I'll fix it eventually, geesh)</a><br>","#ececec",false,true);
+bcs.addChat("<br>Now sorta compatible with <a style='color:#99ffd7;'>p³</a>!<br>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
@@ -648,6 +657,8 @@ var style = '<style>\
 			z-index: 10;\
 			font-family: "Open Sans", sans-serif;\
 			color: #808691\
+			overflow-x: hidden;\
+			overflow-y: auto;\
 		}\
 		#xmain .icon {\
 			display:none;\
@@ -671,6 +682,8 @@ var style = '<style>\
 			z-index: 10;\
 			font-family: "Open Sans", sans-serif;\
 			color: #808691;\
+			overflow-x: hidden;\
+			overflow-y: auto;\
 		}\
 		#xmod .active {\
 			color: #00bee8;\
@@ -1288,6 +1301,7 @@ function voteStuff(obj){
 }
 
 function advanceStuff(obj){
+	bcs.hasp3();
 	var d = new Date();
 	var h = d.getHours();
 	var m = d.getMinutes();
@@ -1324,7 +1338,7 @@ function advanceStuff(obj){
 	if (API.getWaitListPosition() == -1 && API.djJoin() == 0){
 		setTimeout(function(){
 			if (API.getWaitListPosition() == -1){
-				bcs.addChat('You may be ghosting (or just have a terrible ping). We recommend you refresh the page','#f5ed66');
+				bcs.addChat('You may be ghosting (or just have a terrible ping).<br>We recommend you refresh the page.','#f5ed66');
 				console.log("[" + h + ":" + m + ":" + s + "] - Possibly ghosting");
 			}else{
 				API.djLeave();
@@ -2269,4 +2283,5 @@ function commandStuff(data){
 bcs.turnOn();
 setTimeout(function(){bcs.settings.load();},1000);
 $("#chat-header").append('<span style="font-size:10px; color:#ccc;"><b>plug.dj Version ' + _v + '</b></span>');
+bcs.hasp3();
 }
