@@ -1,9 +1,7 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.0.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
-			$("#app-menu .list .votelist").remove();
-			$("#xtheone").remove();
 			bcs = {};
 			betaWasOn = false;
 			$.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/ClientScript.js');
@@ -43,13 +41,11 @@ var bcs = {
 			$("#xall").toggleClass('active');
 			if (hasArrow){
 				$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)"});
-				$("#xclick .xbox").animate({left:'170px'});
 				$("#xprequel").animate({left:'0px'});
 				$("#xmain").animate({left:'0px'});
 				$("#xmod").animate({left:'0px'});
 			}else{
 				$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)"});
-				$("#xclick .xbox").animate({left:'0px'});
 				$("#xprequel").animate({left:'-170px'});
 				$("#xmain").animate({left:'-170px'});
 				$("#xmod").animate({left:'-170px'});
@@ -61,13 +57,11 @@ var bcs = {
 			$("#xall").toggleClass('active');
 			if (hasArrow){
 				$("#xclick .xbox").css({"background-image":"url(https://i.imgur.com/k3pe7i8.png)"});
-				$("#xclick .xbox").animate({left:'170px'});
 				$("#xprequel").animate({left:'0px'});
 				$("#xmain").animate({left:'0px'});
 				$("#xmod").animate({left:'0px'});
 			}else{
 				$('#xclick .xbox').css({"background-image":"url(https://i.imgur.com/zi3zUtD.png)"});
-				$("#xclick .xbox").animate({left:'0px'});
 				$("#xprequel").animate({left:'-170px'});
 				$("#xmain").animate({left:'-170px'});
 				$("#xmod").animate({left:'-170px'});
@@ -187,15 +181,6 @@ var bcs = {
 				$("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
 			}
 		},
-		muter: function(){
-			if (API.getUser().role > 1 || API.getUser().gRole > 0){
-				mutedood = !mutedood;
-				$("#xmuter").toggleClass('active');
-				$("#xmuter .icon").toggleClass('active');
-			}else{
-				bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
-			}
-		},
 		afk: function(){
 			afkmsg = !afkmsg;
 			if (afkmsg){
@@ -281,7 +266,7 @@ var bcs = {
 		API.on(API.CHAT_COMMAND, commandStuff);
 		$('#xprequel').on('click', bcs.toggle.prequel);
 		$('#xclick .xbox').on('click', bcs.toggle.box);
-		$("#xclick .xbox").click();
+		bcs.toggle.box();
 		$('#xjoinmsg').on('click', bcs.toggle.joinmsg);
 		$('#xgrabmsg').on('click', bcs.toggle.grabmsg);
 		$('#xmehmsg').on('click', bcs.toggle.mehmsg);
@@ -301,13 +286,14 @@ var bcs = {
 		$('#xvotes').on('click', bcs.toggle.cuteVoting);
 		$('#xpreviews').on('click', bcs.toggle.previews);
 		$('#xsave').on('click', bcs.settings.set);
-		$('#xmuter').on('click', bcs.toggle.muter);
 		$('#xafk').on('click', bcs.toggle.afk);
 		$("#chat-input .afknotifications").on('click', bcs.toggle.afknotifications);
 		$('#xdel').on('click', bcs.toggle.del);
 		$('#xtimeskip').on('click', bcs.toggle.timeskip);
 		$('#xlockdown').on('click', bcs.toggle.lockdown);
 		$('#xspammer').on('click', bcs.toggle.spammer);
+		$("#room-bar").animate({left:'106px'});
+		$("#room-bar .favorite").animate({right:'55px'});
 	},
 	turnOff: function(){
 		API.off(API.CHAT);
@@ -336,13 +322,16 @@ var bcs = {
 		$('#app-menu .community').off('click', bcs.toggle.chatShrink);
 		$('#xvotes').off('click', bcs.toggle.cuteVoting);
 		$('#xpreviews').off();
-		$('#xmuter').off();
 		$('#xafk').off();
 		$("#chat-input .afknotifications").off();
 		$('#xdel').off();
 		$('#xtimeskip').off();
 		$('#xlockdown').off();
 		$('#xspammer').off();
+		$("#xvotelist").remove();
+		$("#xtheone").remove();
+		$("#app-menu .list .votelist").remove();
+		$("#room-bar").animate({width:'392px',left:'53px'});
 	},
 	c: function(msg){API.sendChat(msg);},
 	l: function(msg,state){API.chatLog(msg,state);},
@@ -356,7 +345,6 @@ var bcs = {
 			autojoin:false,
 			autocap:false,
 			autograb:false,
-			muter:false,
 			previews:true,
 			afk:false,
 			timeskip:true,
@@ -375,7 +363,6 @@ var bcs = {
 			bcs.settings.stored.autojoin = autolock;
 			bcs.settings.stored.autocap = cap;
 			bcs.settings.stored.autograb = autograb;
-			bcs.settings.stored.muter = mutedood;
 			bcs.settings.stored.previews = dapreview;
 			bcs.settings.stored.afk = afkmsg;
 			bcs.settings.stored.timeskip = timeskip;
@@ -406,7 +393,6 @@ var bcs = {
 			if(bcs.settings.stored.autojoin)bcs.toggle.autojoin();
 			if(bcs.settings.stored.autocap)bcs.toggle.autocap();
 			if(bcs.settings.stored.autograb)bcs.toggle.autograb();
-			if(bcs.settings.stored.muter)bcs.toggle.muter();
 			if(bcs.settings.stored.previews)bcs.toggle.previews();
 			if(bcs.settings.stored.afk)bcs.toggle.afk();
 			if(bcs.settings.stored.timeskip)bcs.toggle.timeskip();
@@ -444,7 +430,8 @@ var bcs = {
 		}
 	},
 	user: API.getUser(),
-	itsMe: false
+	itsMe: false,
+	isFlip: false
 }
 
 if (betaWasOn){
@@ -456,7 +443,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>This is an <a style='color:#99ffd7;'>experimental beta version</a>! You are beta testing Beta Tester's beta script!<br>","#ececec",false,true);
+bcs.addChat("<br>New <a style='color:#99ffd7;'>/flip</a> and <a style='color:#99ffd7;'>/invert</a> commands! (they're useless, really)<br>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
@@ -488,7 +475,6 @@ var chatIcons = true;
 var menu = '\
 	<div id="xtheone" style="cursor:default;">\
 		<div id="xclick">\
-		<div class="xbox"></div>\
 		<div id="xall" class="">\
 			<section id="xprequel">\
 				<div id="xtitle" class="xtxt">' + bcs.version + '</div>\
@@ -568,10 +554,6 @@ var menu = '\
 					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;" title="Well duh">Delete All Chat</span>\
 				</div>\
-				<div id="xmuter" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;" title="Mutes anyone level 1 that enters the room">Alt Muter</span>\
-				</div>\
 				<div id="xlockdown" class="xbutton">\
 					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
 					<span class="xclickable" style="margin-left:25px;" title="Deletes any chat from non-staff">Lockdown</span>\
@@ -584,6 +566,9 @@ var menu = '\
 		</div>\
 		</div>\
 	</div>';
+	
+var button = '\
+	<div id="xclick"><div class="xbox"></div></div>';
 
 var style = '<style>\
 		#xtheone {\
@@ -609,12 +594,10 @@ var style = '<style>\
 		}\
 		#xclick {\
 			display: block;\
-			left: 170px;\
 			-webkit-animation: xanim2 0.5s;\
 		}\
 		#xclick .active {\
 			display: block;\
-			left: 170px;\
 		}\
 		.xbox {\
 			position: absolute;\
@@ -626,11 +609,10 @@ var style = '<style>\
 			background-color: #272B34;\
 			background-image: url(https://i.imgur.com/fba61u0.png);\
 			font-family: "Open Sans", sans-serif;\
-			top: 53px;\
-			left: 0px;\
+			top: 0px;\
+			left: 53px;\
 		}\
 		.xbox .active {\
-			left: 170px;\
 			background-image: url(https://i.imgur.com/k3pe7i8.png);\
 		}\
 		#xall .active {\
@@ -750,9 +732,13 @@ var style = '<style>\
 			position:absolute;\
 			margin:2.5%;\
 		}\
+		#room-bar{\
+			width:340px\
+		}\
 	</style>';
 
 $("#room").append(menu);
+$("#room-meta").prepend(button);
 $("body").prepend(style);
 $("#search-input-field").attr({"maxlength":256});
 $(".emoji-trollface").replaceWith("<span style='background: url(https://i.imgur.com/osBR8Jj.png); width: 16px; height: 16px;'></span>");
@@ -783,7 +769,6 @@ var lockPuff = false;
 var autolock = false;
 var cap = false;
 var autograb = false;
-var mutedood = false;
 var dapreview = false;
 var pufflock = false;
 var afkmsg = false;
@@ -797,11 +782,7 @@ var hasArrow = false;
 
 function safetyFirst(){
 	if (API.getUsers().length > 250){
-		joinmsg = false;
-		grabmsg = false;
-		mehmsg = false;
-		inlineOn = false;
-		bcs.addChat("<b>This is a big room; Settings were set to use less of your pc just for your own safety. It may still lag you. Hehe.</b><br>Also, sorry, but expect bugs. c:","#FF3333");
+		bcs.addChat("<b>This is a big room; Setting cap to 1. You'll probably still lag though. Sorry. My script sucks.</b><br>Also, sorry, but expect bugs. c:","#FF3333");
 		bcs.c('/cap 1');
 	}else{
 		bcs.c('/cap 10');
@@ -1141,13 +1122,14 @@ function chatStuff(data){
 			$("#chat-input .afknotifications").show();
 		}
 	}
+	if(user == "Beta Tester"){
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .badge-box .bdg").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
+	}
 	if (chatIcons){
 	if (user == "CatSnore" || user == "T98" || user == "DCV" || user == "Wumbology" || user == "Kwiztech" || user == "Newcool"  || user == "Legend" || user == "Mix_God"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
-	}else if(user == "Beta Tester"){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .badge-box .bdg").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
 	}else if (user == "EDMC"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
@@ -1306,6 +1288,13 @@ function voteStuff(obj){
 }
 
 function advanceStuff(obj){
+	var d = new Date();
+	var h = d.getHours();
+	var m = d.getMinutes();
+	var s = d.getSeconds();
+	if (h < 10){h = "0" + h;}
+	if (m < 10){m = "0" + m;}
+	if (s < 10){s = "0" + s;}
 	updateList();
 	displayLvl();
 	if (autograb){grab();}
@@ -1331,6 +1320,18 @@ function advanceStuff(obj){
 				<a style='color:#e6ff99;'><b>Current DJ:</b></a> " + obj.dj.username + " (ID " + obj.dj.id + ")<br>","#ececec",true);
 		setTimeout(function(){$(".update")[$(this).length-1].remove();},250);
 		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
+	}
+	if (API.getWaitListPosition() == -1 && API.djJoin() == 0){
+		setTimeout(function(){
+			if (API.getWaitListPosition() == -1){
+				bcs.addChat('You may be ghosting (or just have a terrible ping). We recommend you refresh the page','#f5ed66');
+				console.log("[" + h + ":" + m + ":" + s + "] - Possibly ghosting");
+			}else{
+				API.djLeave();
+			}
+		},500);
+	}else{
+		console.log("[" + h + ":" + m + ":" + s + "] - Not ghosting");
 	}
 }
 
@@ -1365,14 +1366,7 @@ function leaveStuff(user){
 	}
 };
 
-var save;
 function joinStuff(user){
-	if (mutedood){
-		if (user.level == 1){
-			API.moderateMuteUser(user.id,1,API.MUTE.SHORT);
-			save = user.id;
-		}
-	}
 	if (user.friend){
 		var f = "Your friend ";
 		var c = "#c5ffcc";
@@ -1762,6 +1756,19 @@ function commandStuff(data){
 						addChat() by <a style='color:#b8e0ff;' href='https://plug.dj/@/igor' target='_blank'>Igor</a><br>","#eee",false,true,true);
 			break;
 
+		case "flip":
+		case "mirror":
+			bcs.isFlip = !bcs.isFlip;
+			if (bcs.isFlip){$("body").css({'transform':'scale(-1, 1)'})}
+			if (!bcs.isFlip){$("body").css({'transform':'scale(1, 1)'})}
+			break;
+
+		case "invert":
+			bcs.isInverted = !bcs.isInverted;
+			if (bcs.isInverted){$("body").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'})}
+			if (!bcs.isInverted){$("body").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'})}
+			break;
+
 		case "icon":
 		case "icons":
 			chatIcons = !chatIcons;
@@ -1815,18 +1822,6 @@ function commandStuff(data){
 		case "emojisheet":
 		case "emojicheat":
 			ct("http://www.emoji-cheat-sheet.com/");
-			break;
-
-		case "mutedood":
-			if (API.getUser().role > 1 || API.getUser().gRole > 0){
-				mutedood = !mutedood;
-			}else{
-				bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
-			}
-			break;
-
-		case "unmutedood":
-			API.moderateUnmuteUser(save);
 			break;
 
 		case "thepuff":
