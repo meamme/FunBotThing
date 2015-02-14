@@ -443,7 +443,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>Now mostly incompatible with <a style='color:#99ffd7;'>p³</a>! (I'll fix it eventually, geesh)<br>","#ececec",false,true);
+bcs.addChat("<br>Now mostly incompatible with <a style='color:#99ffd7;'>p³</a>!<br><a style='font-size:10px;'>(I'll fix it eventually, geesh)</a><br>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
