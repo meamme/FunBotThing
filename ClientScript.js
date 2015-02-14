@@ -1149,6 +1149,7 @@ function chatStuff(data){
 			$("#chat-input .afknotifications").show();
 		}
 	}
+	if (chatIcons){
 	if (user == "CatSnore" || user == "T98" || user == "DCV" || user == "Wumbology" || user == "Kwiztech" || user == "Newcool"  || user == "Legend" || user == "Mix_God"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
@@ -1200,6 +1201,7 @@ function chatStuff(data){
 			<a style="color:#d40000">o</a>\
 			<a style="color:#d49b00">v</a>\
 			<a style="color:#78d400">a</a>');
+	}
 	}
 
 		//Bootleg Inline Images//
@@ -1763,9 +1765,16 @@ function commandStuff(data){
 
 		case "author":
 		case "authors":
-			bcs.addChat("<br><i class='icon icon-chat-bcslogo' style='left:75%;'></i>This script was mainly made by <a style='color:#b8e0ff;' href='https://plug.dj/@/beta-tester' target='_blank'>Beta Tester</a><br>\
+			bcs.addChat("<br><i class='icon icon-chat-bcslogo' style='left:80%;'></i>This script was mainly made by <a style='color:#b8e0ff;' href='https://plug.dj/@/beta-tester' target='_blank'>Beta Tester</a><br>\
 						Initial CSS help by <a style='color:#b8e0ff;' href='https://plug.dj/@/marciano' target='_blank'>Marciano</a><br>\
 						addChat() by <a style='color:#b8e0ff;' href='https://plug.dj/@/igor' target='_blank'>Igor</a><br>","#eee",false,true,true);
+			break;
+
+		case "icon":
+		case "icons":
+			chatIcons = !chatIcons;
+			var iconsOn = chatIcons ? "<a style='color:#90ad2f'><b>on</b></a>" : "<a style='color:#c42e3b'><b>off</b></a>";
+			bcs.addChat("BCS chat icons are now " + iconsOn,"#ccc");
 			break;
 
 		case "ooo":
