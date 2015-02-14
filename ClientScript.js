@@ -829,7 +829,7 @@ if (notifyAFK == 0){
 
 function attemptappend(){
 	if ($("#iwannalookcool").text() == ""){
-		$("#user-rollover .meta").append('<div id="iwannalookcool" style="background-image:url(https://i.imgur.com/x1DEgOD.png); position:absolute; top: 45%; left: 81%; color:#b6f6ff; font-size: 11px; font-family: ' + opensansfnt + ', sans-serif; width:49px; height:49px; display:none;"> </div>');
+		$("#user-rollover .meta").append('<div id="iwannalookcool" style="background-image:url(https://i.imgur.com/x1DEgOD.png); position:absolute; top: 6%; left: 88%; background-size: contain; color:#b6f6ff; font-size: 11px; font-family: ' + opensansfnt + ', sans-serif; width:30px; height:30px; display:none;"> </div>');
 		setTimeout(function(){attemptappend();},250);
 	}else if ($("#iwannalookcool").text() == " "){
 		console.log('Appended.');
@@ -866,7 +866,11 @@ function displayid(){
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
 		$("#user-rollover .username").css({color:'rgb(0, 190, 232)'});
 		$("#user-rollover .info").css({background:'#111317'});
-		if ($("#user-rollover .info .role span").text() == "Brand Ambassador"){$("#user-rollover .info .role span").text("Bad Admin");}
+		if ($("#user-rollover .info .role span").text() == "Brand Ambassador"){
+			$("#user-rollover .info .role span").text("Bad Admin");
+			$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
+			$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
+		}
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").toggleClass("can-staff");}
 	}else if (e == "Kwiztech" || e == "DCV" || e == "Wumbology" || e == "Newcool"  || e == "Legend" || e == "Mix_God"){
 		$("#iwannalookcool").show();
@@ -885,6 +889,8 @@ function displayid(){
 		$('#user-rollover .background').css({'background':'#282c35'});
 		$("#user-rollover .username").css({color:'#eee'});
 		$("#user-rollover .info").css({background:'#1c1f25'});
+		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
+		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 	}
 }
 
