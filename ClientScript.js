@@ -1080,7 +1080,7 @@ function afkUpdate(){
 	bcs.addChat("AFK message set to <b>" + themessage + "</b>","#CCCCCC");
 }
 
-var spam = ["auehuaehaeuhaeuahuae","hsauhsauhsau","kkkkkkkkkkkkkkk","aaaaaaaaaaaaaaa","eeeeeeeeeeeeee","ajajajajajajaj","ด"];
+var spam = ["auehuaehaeuhaeuahuae","hsauhsauhsau","kkkkkkkkkkkkkkk","aaaaaaaaaaaaaaa","eeeeeeeeeeeeee","ajajajajajajaj","ด","░"];
 function chatStuff(data){
 	var msg = data.message;
 	var msgid = data.cid;
