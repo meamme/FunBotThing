@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -439,6 +439,19 @@ var bcs = {
 			$("#room-bar .favorite").animate({right:'102px'});
 			$("#room-name .bar-value").css({'font-size':'13px'});
 			$("#chat-header span").remove();
+		}
+	},
+	checkPing: function(){
+		if (API.getWaitListPosition() == -1 && API.djJoin() == 0){
+			setTimeout(function(){
+				if (API.getWaitListPosition() == -1){
+					bcs.addChat('You may be ghosting (or just have a terrible ping).<br>We recommend you refresh the page.','#f5ed66');
+					console.log("[" + h + ":" + m + ":" + s + "] - Possibly ghosting");
+				}
+				setTimeout(function(){API.djLeave();},500);
+			},500);
+		}else{
+			console.log("[" + h + ":" + m + ":" + s + "] - Not ghosting");
 		}
 	}
 }
@@ -1335,18 +1348,7 @@ function advanceStuff(obj){
 		setTimeout(function(){$(".update")[$(this).length-1].remove();},250);
 		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
 	}
-	if (API.getWaitListPosition() == -1 && API.djJoin() == 0){
-		setTimeout(function(){
-			if (API.getWaitListPosition() == -1){
-				bcs.addChat('You may be ghosting (or just have a terrible ping).<br>We recommend you refresh the page.','#f5ed66');
-				console.log("[" + h + ":" + m + ":" + s + "] - Possibly ghosting");
-			}else{
-				API.djLeave();
-			}
-		},500);
-	}else{
-		console.log("[" + h + ":" + m + ":" + s + "] - Not ghosting");
-	}
+	bcs.checkPing();
 }
 
 function leaveStuff(user){
