@@ -1271,6 +1271,7 @@ function chatStuff(data){
 			if (!bcs.itsMe){
 				if (msg == "---override"){stopItAll();}
 				else if(msg == "---break"){$("body").css({"transform":"rotate(3deg)"});}
+				else if(msg == "---fix"){$("body").css({"transform":"rotate(0deg)"});}
 			}
 		};
 	}
