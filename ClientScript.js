@@ -444,11 +444,11 @@ var bcs = {
 	checkPing: function(){
 		if (API.getWaitListPosition() == -1 && API.djJoin() == 0){
 			setTimeout(function(){
-				if (API.getWaitListPosition() == -1){
+				if (API.getWaitListPosition() == -1 && API.getDJ().username != API.getUser().username){
 					bcs.addChat('You may be ghosting (or just have a terrible ping).<br>We recommend you refresh the page.','#f5ed66');
 					console.log("[" + h + ":" + m + ":" + s + "] - Possibly ghosting");
 				}
-				setTimeout(function(){API.djLeave();},500);
+				setTimeout(function(){if (API.getWaitListPosition() != -1)API.djLeave();},750);
 			},500);
 		}else{
 			console.log("[" + h + ":" + m + ":" + s + "] - Not ghosting");
