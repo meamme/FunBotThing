@@ -441,14 +441,42 @@ var bcs = {
 			$("#chat-header span").remove();
 		}
 	},
+	scrollChat: function(){
+		$("#chat-messages").scrollTop(50000);
+	},
+	joinWL: function(){
+		$.ajax({
+		type: 'POST',
+		url: '/_/booth',
+		dataType: 'json',
+		contentType: 'application/json',
+		})
+	},
+	leaveWL: function(){
+		$.ajax({
+		type: 'DELETE',
+		url: '/_/booth',
+		dataType: 'json',
+		contentType: 'application/json',
+		})
+	},
+	badPing: function(){
+		bcs.addChat('You may be ghosting (or just have a terrible ping).<br>We recommend you refresh the page.','#f5ed66');
+		console.log("[" + h + ":" + m + ":" + s + "] - Possibly ghosting");
+	},
 	checkPing: function(){
-		if (API.getWaitListPosition() == -1 && API.djJoin() == 0){
+		if (API.getWaitListPosition() == -1 && API.getWaitList().length != 50){
+			bcs.joinWL();
 			setTimeout(function(){
 				if (API.getWaitListPosition() == -1 && API.getDJ().username != API.getUser().username){
 					bcs.addChat('You may be ghosting (or just have a terrible ping).<br>We recommend you refresh the page.','#f5ed66');
 					console.log("[" + h + ":" + m + ":" + s + "] - Possibly ghosting");
 				}
-				setTimeout(function(){if (API.getWaitListPosition() != -1)API.djLeave();},750);
+				setTimeout(function(){if (API.getWaitListPosition() != -1){
+						bcs.leaveWL();
+						console.log("[" + h + ":" + m + ":" + s + "] - Not ghosting");
+					}
+				},1000);
 			},500);
 		}else{
 			console.log("[" + h + ":" + m + ":" + s + "] - Not ghosting");
@@ -1217,7 +1245,11 @@ function chatStuff(data){
 				hts = hts.replace("http","https");
 				if (hts.indexOf("httpss") != -1){hts = hts.replace("httpss","https");}
 				$($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).append("<br><img style='margin:5px; max-width:300px; margin-left: -28px;' src='" + hts + "'></img>");
-				setTimeout(function(){$("#chat-messages").scrollTop(50000)},2000);
+				setTimeout(function(){bcs.scrollChat()},2000);
+				setTimeout(function(){
+				if ($("#chat-messages .cid-" + msgid + " img").width() == 18 && $("#chat-messages .cid-" + msgid + " img").height() == 20){
+					$("#chat-messages .cid-" + msgid + " img").remove();
+				}},6000);
 				break;
 			}
 		}
