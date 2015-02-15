@@ -1452,10 +1452,9 @@ function joinStuff(user){
 	if (user.level == 1 && joinmsg){bcs.addChat("<a style='color:#fef8a0;'> " + f + "<b>" + thename + "</b> joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
 	if (cap){
 		if (user.role != 0){
-			bcs.l(user.username + " - " + user.role);
 			var thiscap = API.getStaff().length;
 			bcs.c('/cap ' + thiscap);
-			bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
+			bcs.addChat('Cap set to ' + thiscap + ' (' + user.username + ' - ' + user.role + ')',"#c5b5ff");
 		}
 	}
 }
