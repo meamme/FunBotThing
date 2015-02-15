@@ -669,7 +669,7 @@ var style = '<style>\
 			outline: #000000 solid 1px;\
 			z-index: 10;\
 			font-family: "Open Sans", sans-serif;\
-			color: #808691\
+			color: #808691;\
 			overflow-x: hidden;\
 			overflow-y: auto;\
 		}\
