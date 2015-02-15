@@ -769,14 +769,14 @@ $("body").prepend(style);
 $("#search-input-field").attr({"maxlength":256});
 $(".emoji-trollface").replaceWith("<span style='background: url(https://i.imgur.com/osBR8Jj.png); width: 16px; height: 16px;'></span>");
 $("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
-$("#chat .disconnect").css({left:"-200px",height:"50px",width:"200px",border:"dotted 2px #F00"});
-$("#chat .disconnect span").text("Connection lost");
-$("#chat .disconnect span").css({top:"10px"});
 $("#chat .spinner").hide();
 $("#search-input-field").attr({"maxlength":256});
 $("#app-menu .list").append('<div class="item votelist clickable"><i class="icon icon-woot-off"></i><span>Vote List (WIP)</span></div>');
 $("#footer-user .bar").css({'border-radius':'10px 10px'});
 $("#footer-user .progress").css({'border-radius':'10px 10px'});
+/* $("#chat .disconnect").css({left:"-200px",height:"50px",width:"200px",border:"dotted 2px #F00"});
+$("#chat .disconnect span").text("Connection lost");
+$("#chat .disconnect span").css({top:"10px"}); */
 
 function transformBack(){$("#footer-user .back span").text("Back");}
 $("#footer-user .back").css({"width":"18%"});
