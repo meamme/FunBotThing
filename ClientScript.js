@@ -460,24 +460,28 @@ var bcs = {
 		contentType: 'application/json',
 		})
 	},
-	badPing: function(){
-		bcs.addChat('You may be ghosting (or just have a terrible ping).<br>We recommend you refresh the page.','#f5ed66');
-		console.log("[" + h + ":" + m + ":" + s + "] - Possibly ghosting");
+	isGood: false,
+	pingTest: function(){
+		setTimeout(function(){
+			if (API.getWaitListPosition() == -1 && API.getDJ().username != API.getUser().username){
+				
+			}
+				bcs.addChat('You may be ghosting (or just have a terrible ping).<br>We recommend you refresh the page.','#f5ed66');
+				console.log("[" + h + ":" + m + ":" + s + "] - Possibly ghosting");
+			setTimeout(function(){
+				if (API.getWaitListPosition() != -1){
+					bcs.leaveWL();
+					console.log("[" + h + ":" + m + ":" + s + "] - Not ghosting");
+				}
+			},1000);
+		},500);
 	},
 	checkPing: function(){
 		if (API.getWaitListPosition() == -1 && API.getWaitList().length != 50){
 			bcs.joinWL();
-			setTimeout(function(){
-				if (API.getWaitListPosition() == -1 && API.getDJ().username != API.getUser().username){
-					bcs.addChat('You may be ghosting (or just have a terrible ping).<br>We recommend you refresh the page.','#f5ed66');
-					console.log("[" + h + ":" + m + ":" + s + "] - Possibly ghosting");
-				}
-				setTimeout(function(){if (API.getWaitListPosition() != -1){
-						bcs.leaveWL();
-						console.log("[" + h + ":" + m + ":" + s + "] - Not ghosting");
-					}
-				},1000);
-			},500);
+			bcs.pingTest();
+			if (!bcs.isGood){setTimeout(function(){bcs.pingTest();},1000);}
+			else if(bcs.isGood){console.log("[" + h + ":" + m + ":" + s + "] - Not ghosting");}
 		}else{
 			console.log("[" + h + ":" + m + ":" + s + "] - Not ghosting");
 		}
@@ -856,6 +860,13 @@ $("#chat-input .chat-input-form").append("\
 	<div class='afkIsOn' style='width:7px; height:30px; display:none; background-color:#fef8a0'>\
 		<span class='afknotifications'>" + notifyAFK + "</span>\
 	</div>");
+
+$(".afknotifications").hover(function() {
+	$("body").append('<div id="tooltip" style="top:84%;left:87.5%;" class="right"><span>Mentions while you were out</span><div class="corner"></div></div>')
+}, function() {
+	$("#tooltip").remove();
+})
+
 if (notifyAFK == 0){
 	$("#chat-input .afknotifications").hide();
 }else if (notifyAFK > 0){
@@ -1380,7 +1391,7 @@ function advanceStuff(obj){
 		setTimeout(function(){$(".update")[$(this).length-1].remove();},250);
 		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
 	}
-	bcs.checkPing();
+	//bcs.checkPing();
 }
 
 function leaveStuff(user){
