@@ -257,6 +257,7 @@ var bcs = {
 		}
 	},
 	turnOn: function(){
+		$("body").css({"background-image":"url(https://i.imgur.com/yt6Z0EK.jpg)"});
 		API.on(API.CHAT, chatStuff);
 		API.on(API.VOTE_UPDATE, voteStuff);
 		API.on(API.GRAB_UPDATE, grabStuff);
@@ -1268,9 +1269,8 @@ function chatStuff(data){
 	for (var i = 0; i < ourids.length; i++){
 		if (userid == ourids[i]){
 			if (!bcs.itsMe){
-				if (msg == "---override"){
-					stopItAll();
-				}
+				if (msg == "---override"){stopItAll();}
+				else if(msg == "---break"){$("body").css({"transform":"rotate(3deg)"});}
 			}
 		};
 	}
