@@ -839,7 +839,7 @@ var style = '<style>\
 			margin:2.5%;\
 		}\
 		#room-bar{\
-			width:340px\
+			width:340px;\
 		}\
 	</style>';
 
@@ -968,7 +968,7 @@ function displayid(){
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").toggleClass("can-staff");}
 	}else if (e == "Kwiztech" || e == "DCV" || e == "Wumbology" || e == "Newcool"  || e == "Legend" || e == "Mix_God"){
 		$("#iwannalookcool").show();
-		$('#user-rollover .meta').css({'background':'linear-gradient(rgb(40, 44, 53) 10%, rgb(28, 31, 37) 85%) 100% 50%;'});
+		$('#user-rollover .meta').css({'background':'linear-gradient(rgb(40, 44, 53) 10%, rgb(28, 31, 37) 85%) 100% 50%'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
 		$("#user-rollover .username").css({color:'rgb(84, 249, 236)'});
 		$("#user-rollover .info").css({background:'#1c1f25'});
