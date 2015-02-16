@@ -968,9 +968,9 @@ function displayid(){
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").toggleClass("can-staff");}
 	}else if (e == "Kwiztech" || e == "DCV" || e == "Wumbology" || e == "Newcool"  || e == "Legend" || e == "Mix_God"){
 		$("#iwannalookcool").show();
-		$('#user-rollover .meta').css({'background':'linear-gradient(rgb(4, 52, 32) 10%, rgb(23, 31, 26) 85%) 100% 50%'});
+		$('#user-rollover .meta').css({'background':'linear-gradient(rgb(40, 44, 53) 10%, rgb(28, 31, 37) 85%) 100% 50%;'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
-		$("#user-rollover .username").css({color:'rgb(0, 215, 76)'});
+		$("#user-rollover .username").css({color:'rgb(84, 249, 236)'});
 		$("#user-rollover .info").css({background:'#1c1f25'});
 	}else if(e == "B‌2"){
 		$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/w3cXqFU.png)"});
@@ -1740,7 +1740,7 @@ function lookfor(id,isityou){
 //WAITLIST
 		var posstats = "<a style='color:#646b7e;'>Not in the WaitList</a>";
 		var wlpos = API.getWaitListPosition(data.id);
-		if (wlpos != -1){posstats = wlpos + 1;}
+		if (wlpos != -1){posstats = wlpos + 1 + "/" + API.getWaitList().length;}
 		if (votestats == "<a style='color:#646b7e;'>Not in the room</a>"){posstats = votestats;}
 		if (votestats == "<a style='color:#646b7e;'>Is currently DJ'ing</a>"){posstats = votestats;}
 
