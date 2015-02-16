@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.3</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.3.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -972,11 +972,15 @@ function displayid(){
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
 		$("#user-rollover .username").css({color:'rgb(84, 249, 236)'});
 		$("#user-rollover .info").css({background:'#1c1f25'});
+		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
+		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 	}else if(e == "B‌2"){
 		$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/w3cXqFU.png)"});
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'#000'});
 		$("#user-rollover .info").css({background:'#111317'});
+		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
+		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 	}else {
 		$("#iwannalookcool").hide();
 		$('#user-rollover .meta').css({'background':'#282C35'});
