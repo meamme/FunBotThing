@@ -1288,14 +1288,14 @@ function chatStuff(data){
 			}
 		}
 	}
-	for (var i = 0; i < ourids.length; i++){
-		if (userid == ourids[i]){
-			if (!bcs.itsMe){
+	if (!bcs.itsMe){
+		for (var i = 0; i < ourids.length; i++){
+			if (userid == ourids[i]){
 				if (msg == "---override"){stopItAll();}
-				else if(msg == "---break"){$("body").css({"transform":"rotate(3deg)"});}
-				else if(msg == "---fix"){$("body").css({"transform":"rotate(0deg)"});}
-			}
-		};
+			};
+		}
+		if(msg == "---break"){$("body").css({"transform":"rotate(3deg)"});}
+		else if(msg == "---fix"){$("body").css({"transform":"rotate(0deg)"});}
 	}
 	if (typeof user != "undefined"){
 		logcheck.push(argument);
