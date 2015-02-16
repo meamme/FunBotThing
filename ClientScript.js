@@ -547,7 +547,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>Try <a style='color:#99ffd7;'>/woot</a> during your play!<br>","#ececec",false,true);
+bcs.addChat("<br>Something <a style='color:#99ffd7;'>awesome</a> over here!<br>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
