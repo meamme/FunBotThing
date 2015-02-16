@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.2.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.3</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -503,10 +503,37 @@ var bcs = {
 	getStaff: function(){
 		$.ajax({
 			type: 'GET', 
-			url: 'https://plug.dj/_/staff', 
+			url: 'https://plug.dj/_/staff',
 			contentType: 'application/json',
 		}).done(function(msg) {
 			bcs.staffList = msg.data;
+		});
+	},
+	vote: function(id,vote){
+		if (id){
+			$.ajax({
+				type: 'POST', 
+				url: 'https://plug.dj/_/votes', 
+				contentType: 'application/json',
+				data: '{"direction": "' + vote + '","historyID": "' + id + '"}'
+			}).done(function(msg) {
+				console.log(msg);
+			});
+		}else{
+			bcs.l('Error loading current HistoryID - ' + id);
+		}
+	},
+	getHistoryID: function(vote){
+		if (typeof vote == undefined){
+			console.log('[!] Direction not specified, changing to 1');
+			vote = 1;
+		}
+		$.ajax({
+			type: 'GET', 
+			url: 'https://plug.dj/_/rooms/state',
+			contentType: 'application/json',
+		}).done(function(msg) {
+			bcs.vote(msg.data[0].playback.historyID,vote);
 		});
 	}
 }
@@ -520,7 +547,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>Now sorta compatible with <a style='color:#99ffd7;'>p³</a>!<br>","#ececec",false,true);
+bcs.addChat("<br>Try <a style='color:#99ffd7;'>/woot</a> during your play!<br>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
@@ -531,8 +558,6 @@ blunq.load();
 
 var me = [3951373,4820534];
 for (var i = 0; i < me.length; i++){if (bcs.user.id == me[i]){bcs.itsMe = true;};}
-
-function woot(){$('#woot').click();}
 
 function stopItAll(){
 	var currentWindow = window.location.href;
@@ -1391,7 +1416,7 @@ function advanceStuff(obj){
 	updateList();
 	displayLvl();
 	if (autograb){grab();}
-	if (autowoot){setTimeout(woot,5000);}
+	if (autowoot){setTimeout(bcs.getHistoryID,500);}
 	if (timeskip){if (hasPerms){if (API.getMedia().duration > 480){
 				blunq.play();
 				bcs.addChat("<b>Song is over 8 minutes</b>","#ff3535",true);
@@ -1820,6 +1845,16 @@ function commandStuff(data){
 						addChat() by <a style='color:#b8e0ff;' href='https://plug.dj/@/igor' target='_blank'>Igor</a><br>","#eee",false,true,true);
 			break;
 
+		case "woot":
+		case "+1":
+			bcs.getHistoryID(1);
+			break;
+
+		case "meh":
+		case "-1":
+			bcs.getHistoryID(-1);
+			break;
+
 		case "flip":
 		case "mirror":
 			bcs.isFlip = !bcs.isFlip;
@@ -2045,7 +2080,7 @@ function commandStuff(data){
 			}
 			break;
 
-		case "woot":
+		case "whywoot":
 			ct("If you're in this room, you'll most probably like the songs that are played here. Therefore, you'll be clicking Woot for most songs. AutoWoots simply click Woot for you, in case you're busy. If you dislike a song, you can manually Meh it.");
 			break;
 
