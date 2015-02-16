@@ -295,6 +295,8 @@ var bcs = {
 		$('#xspammer').on('click', bcs.toggle.spammer);
 		$("#room-bar").animate({left:'106px'});
 		$("#room-bar .favorite").animate({right:'55px'});
+		bcs.getFriends();
+		bcs.getStaff();
 	},
 	turnOff: function(){
 		API.off(API.CHAT);
@@ -486,6 +488,26 @@ var bcs = {
 		}else{
 			console.log("[" + h + ":" + m + ":" + s + "] - Not ghosting");
 		}
+	},
+	friendsList: [],
+	getFriends: function(){
+		$.ajax({
+			type: 'GET', 
+			url: 'https://plug.dj/_/friends', 
+			contentType: 'application/json',
+		}).done(function(msg) {
+			bcs.friendsList = msg.data;
+		});
+	},
+	staffList: [],
+	getStaff: function(){
+		$.ajax({
+			type: 'GET', 
+			url: 'https://plug.dj/_/staff', 
+			contentType: 'application/json',
+		}).done(function(msg) {
+			bcs.staffList = msg.data;
+		});
 	}
 }
 
@@ -1392,6 +1414,7 @@ function advanceStuff(obj){
 		setTimeout(function(){$(".update")[$(this).length-1].remove();},250);
 		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
 	}
+	bcs.getFriends();
 	//bcs.checkPing();
 }
 
@@ -1522,24 +1545,6 @@ function grab(){
 }
 
 function lookfor(id,isityou){
-	var staffList = [];
-	$.ajax({
-	type: 'GET', 
-	url: 'https://plug.dj/_/staff', 
-	contentType: 'application/json',
-	}).done(function(msg) {
-		staffList = msg.data;
-	});
-	var friendsList = [];
-	$.ajax({
-	type: 'GET', 
-	url: 'https://plug.dj/_/friends', 
-	contentType: 'application/json',
-	}).done(function(msg) {
-		friendsList = msg.data;
-	});
-
-	setTimeout(function(){
 	$.ajax({
 		type: 'GET',
 		url: 'https://plug.dj/_/users/' + id
@@ -1660,9 +1665,9 @@ function lookfor(id,isityou){
 //ROLE
 		var userLR = 0;
 		var lr = "<a style='color:#777f92;'>Regular</a> (0)";
-		for (var i = 0; i < staffList.length; i++){
-			if (data.username == staffList[i].username){
-				userLR = staffList[i].role;
+		for (var i = 0; i < bcs.staffList.length; i++){
+			if (data.username == bcs.staffList[i].username){
+				userLR = bcs.staffList[i].role;
 			}
 		}
 		if (userLR == 1){
@@ -1722,10 +1727,10 @@ function lookfor(id,isityou){
 
 //FRIEND
 		var isFriend = "No (<em>false</em>)";
-		for (var i = 0; i < friendsList.length; i++){
-			if (data.username == friendsList[i].username){
+		for (var i = 0; i < bcs.friendsList.length; i++){
+			if (data.username == bcs.friendsList[i].username){
 				isFriend = "<a style='color:#ffc4f9;'>Yes</a> (<em>true</em>)<br><b>\
-				<a style='color:#42a5dc;'>Room:</b></a> <a href='https://plug.dj/" + friendsList[i].room.slug + "' style='color:#aec9ea;'>" + friendsList[i].room.name + "</a>";
+				<a style='color:#42a5dc;'>Room:</b></a> <a href='https://plug.dj/" + bcs.friendsList[i].room.slug + "' style='color:#aec9ea;'>" + bcs.friendsList[i].room.name + "</a>";
 				break;
 			}
 		}
@@ -1754,7 +1759,7 @@ function lookfor(id,isityou){
 		<a style='color:#42a5dc;'>Vote:</b></a> " + votestats + grabstats + "<br><b>\
 		<a style='color:#42a5dc;'>WaitList Position:</b></a> " + posstats + "<br>","#CCCCCC",false,false,true);
 		}
-	});},1000);
+	});
 }
 
 function dropHammer(tag,userid,dur){
