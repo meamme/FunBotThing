@@ -524,7 +524,7 @@ var bcs = {
 		}
 	},
 	getHistoryID: function(vote){
-		if (typeof vote == undefined){
+		if (typeof vote == 'undefined'){
 			console.log('[!] Direction not specified, changing to 1');
 			vote = 1;
 		}
@@ -1416,7 +1416,7 @@ function advanceStuff(obj){
 	updateList();
 	displayLvl();
 	if (autograb){grab();}
-	if (autowoot){setTimeout(bcs.getHistoryID,5000);}
+	if (autowoot){setTimeout(bcs.getHistoryID,1000);}
 	if (timeskip){if (hasPerms){if (API.getMedia().duration > 480){
 				blunq.play();
 				bcs.addChat("<b>Song is over 8 minutes</b>","#ff3535",true);
