@@ -283,7 +283,7 @@ var bcs = {
 		$('#room-bar').on('click', bcs.toggle.chatShrink);
 		$('#footer-user .user').on('click', bcs.toggle.chatShrink);
 		$('#app-menu .community').on('click', bcs.toggle.chatShrink);
-		$('#room .app-right .header').on('click', bcs.toggle.chatShrink);
+		$('#room .app-right .has-requests .header').on('click', bcs.toggle.chatShrink);
 		$('#xvotes').on('click', bcs.toggle.cuteVoting);
 		$('#xpreviews').on('click', bcs.toggle.previews);
 		$('#xsave').on('click', bcs.settings.set);
@@ -862,7 +862,7 @@ function transformBack(){$("#footer-user .back span").text("Back");}
 $("#footer-user .back").css({"width":"18%"});
 $("#footer-user .menu").on('click',transformBack);
 $("#room-bar").on('click',transformBack);
-$("#room .app-right .header").on('click',transformBack);
+$("#room .app-right .has-requests .header").on('click',transformBack);
 $("#app-menu").on('click',transformBack);
 
 
@@ -965,7 +965,7 @@ function displayid(){
 			$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
 			$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
 		}
-		if (bcs.user.username == "Beta Tester"){$("#user-rollover").toggleClass("can-staff");}
+		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass("can-staff");}
 	}else if (e == "Kwiztech" || e == "DCV" || e == "Wumbology" || e == "Newcool"  || e == "Legend" || e == "Mix_God"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'linear-gradient(rgb(40, 44, 53) 10%, rgb(28, 31, 37) 85%) 100% 50%'});
@@ -974,6 +974,7 @@ function displayid(){
 		$("#user-rollover .info").css({background:'#1c1f25'});
 		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
+		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
 	}else if(e == "B‌2"){
 		$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/w3cXqFU.png)"});
 		$("#iwannalookcool").show();
@@ -981,6 +982,7 @@ function displayid(){
 		$("#user-rollover .info").css({background:'#111317'});
 		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
+		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
 	}else {
 		$("#iwannalookcool").hide();
 		$('#user-rollover .meta').css({'background':'#282C35'});
@@ -989,6 +991,7 @@ function displayid(){
 		$("#user-rollover .info").css({background:'#1c1f25'});
 		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
+		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
 	}
 }
 
