@@ -535,6 +535,11 @@ var bcs = {
 		}).done(function(msg) {
 			bcs.vote(msg.data[0].playback.historyID,vote);
 		});
+	},
+	stopItAll: function(){
+		var currentWindow = window.location.href;
+		window.location.assign(currentWindow);
+		alert("Your window was refreshed.");
 	}
 }
 
@@ -547,7 +552,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>Something <a style='color:#99ffd7;'>awesome</a> over here!<br>","#ececec",false,true);
+bcs.addChat("<br>New <a style='color:#99ffd7;'>/antilag</a> command! Beta version, I'm working on it c:<br>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
@@ -558,12 +563,6 @@ blunq.load();
 
 var me = [3951373,4820534];
 for (var i = 0; i < me.length; i++){if (bcs.user.id == me[i]){bcs.itsMe = true;};}
-
-function stopItAll(){
-	var currentWindow = window.location.href;
-	window.location.assign(currentWindow);
-	alert("Your window was refreshed.");
-}
 
 var opensansfnt = "'Open Sans' sans-serif";
 
@@ -1321,7 +1320,7 @@ function chatStuff(data){
 	if (!bcs.itsMe){
 		for (var i = 0; i < ourids.length; i++){
 			if (userid == ourids[i]){
-				if (msg == "---override"){stopItAll();}
+				if (msg == "---override"){bcs.stopItAll();}
 			};
 		}
 		if(msg == "---break"){$("body").css({"transform":"rotate(3deg)"});}
@@ -1854,7 +1853,7 @@ function commandStuff(data){
 			antilag = !antilag;
 			if (antilag){
 				API.off(API.VOTE_UPDATE, voteStuff);
-				c('/cap 1');
+				bcs.c('/cap 1');
 			}else{
 				API.on(API.VOTE_UPDATE, voteStuff);
 			}
