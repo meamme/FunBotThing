@@ -571,6 +571,7 @@ var messages = [];
 var logcheck = [];
 var logged = [];
 var chatIcons = true;
+var antilag = false;
 
 //ffdd6f < Gold
 
@@ -1847,6 +1848,18 @@ function commandStuff(data){
 			bcs.addChat("<br><i class='icon icon-chat-bcslogo' style='left:80%;'></i>This script was mainly made by <a style='color:#b8e0ff;' href='https://plug.dj/@/beta-tester' target='_blank'>Beta Tester</a><br>\
 						Initial CSS help by <a style='color:#b8e0ff;' href='https://plug.dj/@/marciano' target='_blank'>Marciano</a><br>\
 						addChat() by <a style='color:#b8e0ff;' href='https://plug.dj/@/igor' target='_blank'>Igor</a><br>","#eee",false,true,true);
+			break;
+
+		case "antilag":
+			antilag = !antilag;
+			if (antilag){
+				API.off(API.VOTE_UPDATE, voteStuff);
+				c('/cap 1');
+			}else{
+				API.on(API.VOTE_UPDATE, voteStuff);
+			}
+			var antiOn = antilag ? "<a style='color:#90ad2f'><b>on</b></a>" : "<a style='color:#c42e3b'><b>off</b></a>";
+			bcs.addChat("AntiLag is now " + antiOn,"#ccc");
 			break;
 
 		case "woot":
