@@ -258,7 +258,7 @@ var bcs = {
 	},
 	turnOn: function(){
 		$("body").css({"background-image":"url(https://i.imgur.com/qOy1afT.png)"});
-		$("#intercom-launcher").css("visibility":"visible");
+		$("#intercom-launcher").css({"visibility":"visible"});
 		API.on(API.CHAT, chatStuff);
 		API.on(API.VOTE_UPDATE, voteStuff);
 		API.on(API.GRAB_UPDATE, grabStuff);
