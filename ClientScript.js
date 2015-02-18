@@ -1189,7 +1189,6 @@ function grabStuff(obj){
 }
 
 var coollock = false;
-tet = ["beta","beta tester"];
 
 if (localStorage.getItem('leMessage')){
 	themessage = localStorage.getItem('leMessage');
@@ -1222,11 +1221,9 @@ function chatStuff(data){
 	if (s < 10){s = "0" + s;}
 	var argument = "[" + h + ":" + m + ":" + s + "] [" + msgid + "] [" + userid + "] [" + user + "]		- " + msg;
 	if (userid != "undefined" && me == "Beta Tester"){
-		for (var i = 0; i < tet.length; i++){
-			var zz = msg.toLowerCase().indexOf(tet[i]);
-			if (zz != -1){
-				blunq.play();
-			}
+		var zz = msg.toLowerCase().indexOf("beta");
+		if (zz != -1){
+			blunq.play();
 		}
 		if (tst != -1){
 			if (!coollock && afkmsg){
