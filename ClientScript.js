@@ -258,7 +258,6 @@ var bcs = {
 	},
 	turnOn: function(){
 		$("body").css({"background-image":"url(https://i.imgur.com/qOy1afT.png)"});
-		$("#intercom-launcher").css({"visibility":"visible"});
 		API.on(API.CHAT, chatStuff);
 		API.on(API.VOTE_UPDATE, voteStuff);
 		API.on(API.GRAB_UPDATE, grabStuff);
@@ -1881,6 +1880,11 @@ function commandStuff(data){
 		case "woot":
 		case "+1":
 			bcs.getHistoryID(1);
+			break;
+
+		case "showinter":
+		case "intercom":
+			$("#intercom-launcher").css({"visibility":"visible"});
 			break;
 
 		case "meh":
