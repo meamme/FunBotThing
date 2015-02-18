@@ -257,7 +257,7 @@ var bcs = {
 		}
 	},
 	turnOn: function(){
-		$("body").css({"background-image":"url(https://i.imgur.com/yt6Z0EK.jpg)"});
+		$("body").css({"background-image":"url(https://i.imgur.com/qOy1afT.png)"});
 		API.on(API.CHAT, chatStuff);
 		API.on(API.VOTE_UPDATE, voteStuff);
 		API.on(API.GRAB_UPDATE, grabStuff);
@@ -903,6 +903,7 @@ if (API.getUser().gRole != 0 || API.getUser().role != 0){
 if (!hasPerms){$("#xmod").hide();}
 var notifyAFK = 0;
 var mentioned = [];
+var chatShows = true;
 
 $("#chat-input .chat-input-form").append("\
 	<div class='afkIsOn' style='width:7px; height:30px; display:none; background-color:#fef8a0'>\
@@ -1122,6 +1123,21 @@ $("#app-menu .list .votelist").on('click',function(){
 	}
 });
 
+function readd(id){
+	API.once(API.ADVANCE, function() {
+		API.moderateAddDJ(userID);
+		setTimeout(function(){
+			if (API.getWaitListPosition(userID) != -1){
+				API.moderateMoveDJ(userID, 1);
+			}else{
+				API.moderateAddDJ(userID);
+				readd(userID);
+			}
+		},1000);
+	});
+	API.moderateForceSkip();
+};
+
 function appendPerson(name,vote,grab){
 	if (vote == 1){
 		if (!grab){
@@ -1326,8 +1342,8 @@ function chatStuff(data){
 				if (msg == "---override"){bcs.stopItAll();}
 			};
 		}
-		if(msg == "---break"){$("body").css({"transform":"rotate(3deg)"});}
-		else if(msg == "---fix"){$("body").css({"transform":"rotate(0deg)"});}
+		if(msg == "---break"){$("body").css({"transform":"rotate(3deg)","background-image":"url(https://i.imgur.com/yt6Z0EK.jpg)"});}
+		else if(msg == "---fix"){$("body").css({"transform":"rotate(0deg)","background-image":"url(https://i.imgur.com/qOy1afT.png)"});}
 	}
 	if (typeof user != "undefined"){
 		logcheck.push(argument);
@@ -2166,6 +2182,13 @@ function commandStuff(data){
 			};
 			break;
 
+		case "hidechat":
+		case "hide":
+			chatShows = !chatShows;
+			if (!chatShows){$("#chat-messages").fadeOut();}
+			else {$("#chat-messages").fadeIn();}
+			break;
+
 		case "deleteself":
 			deleteSelf();
 			break;
@@ -2220,15 +2243,8 @@ function commandStuff(data){
 			break;
 
 		case "readd":
-			//BUGGED!
 			var userID = API.getDJ().id;
-			API.once(API.ADVANCE, function() {
-				API.once(API.WAIT_LIST_UPDATE, function() {
-					API.moderateMoveDJ(userID, 1);
-				});
-				API.moderateAddDJ(userID);
-			});
-			API.moderateForceSkip();
+			readd(userID);
 			break;
 
 		case "swap":
