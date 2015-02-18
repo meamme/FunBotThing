@@ -1,5 +1,6 @@
 var raffleS = {usersList:[],isOn:false,time:30};
 function c(ms){API.sendChat(ms);}
+function l(ms){API.chatLog(ms);}
 var rafflePicked;
 var exeIsOn = false;
 var userTagged = "";
@@ -16,8 +17,31 @@ function raffleEnd(){
 				c("/me In total, " + raffleS.usersList.length + " users joined!");
 				rafflePicked = Math.floor(Math.random() * raffleS.usersList.length);
 				var pickedName = raffleS.usersList[rafflePicked];
-				setTimeout(function(){c("/me Congratulations @" + pickedName + ", you have won! Let @DCV or @ColorfulMind know your forum name!");},250);
-				raffleS.usersList.splice(rafflePicked,1);
+				var pickedID;
+				for (var i = 0; i < API.getUsers().length; i++){
+					if (pickedName == API.getUsers()[i].username){
+						pickedID = API.getUsers()[i].id;
+						break;
+					}
+				}
+				var d = new Date();
+				var h = d.getUTCHours();
+				var m = d.getUTCMinutes();
+				var s = d.getUTCSeconds();
+				if (h < 10){h = "0" + h;}
+				if (m < 10){m = "0" + m;}
+				if (s < 10){s = "0" + s;}
+				if (typeof pickedID == "undefined"){
+					l("Houston, we have a problem. Winner is either ghosting or no longer in the room.",true);
+					console.log("[" + h + ":" + m + ":" + s + "] [RaffleBot] Houston, we have a problem. Winner is either ghosting or no longer in the room.");
+				}
+				setTimeout(function(){
+					c("/me Congratulations @" + pickedName + ", you have won! Let @DCV or @ColorfulMind know your forum name!");
+					l("[" + h + ":" + m + ":" + s + "] [RaffleBot] Winner of raffle is " + pickedName + " (ID " + pickedID + ") out of " + raffleS.usersList.length + " joiners");
+					console.log("[" + h + ":" + m + ":" + s + "] [RaffleBot] Winner of raffle is " + pickedName + " (ID " + pickedID + ") out of " + raffleS.usersList.length + " joiners");
+					API.moderateSetRole(pickedID,1);
+					raffleS.usersList.splice(rafflePicked,1);
+				},250);
 			}
 		}
 	}
@@ -48,12 +72,14 @@ API.on(API.CHAT, function(data){
 				}
 			}
 		}
-		console.log("[MsgID] " + msgid + " || [UserID] " + uid + " || [User] " + user + " || [MSG] " + msg);
 		var command = msg.substring(1).split(' ');
 		if(typeof command[2] != "undefined"){
 			for(var i = 2; i < command.length; i++){
 				command[1] = command[1] + ' ' + command[i];
 			}
+		}
+		if (command[0] != "join"){
+			console.log("[MsgID] " + msgid + " || [UserID] " + uid + " || [User] " + user + " || [MSG] " + msg);
 		}
 		function ct(ms,isMe){var a;if (isMe){a = "/me ";}else{a = "";};API.sendChat(a + "@" + user + " - " + ms);}
 		function delFrom(){$.ajax({type: 'DELETE', url: '/_/chat/' + msgid});}
