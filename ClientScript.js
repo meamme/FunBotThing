@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.3.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.3.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -258,6 +258,7 @@ var bcs = {
 	},
 	turnOn: function(){
 		$("body").css({"background-image":"url(https://i.imgur.com/qOy1afT.png)"});
+		$("#intercom-launcher").css("visibility":"visible");
 		API.on(API.CHAT, chatStuff);
 		API.on(API.VOTE_UPDATE, voteStuff);
 		API.on(API.GRAB_UPDATE, grabStuff);
@@ -966,7 +967,7 @@ function displayid(){
 			$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
 			$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
 		}
-		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass("can-staff");}
+		if (bcs.user.username == "Beta Tester"){$("#user-rollover").toggleClass("can-staff");}
 	}else if (e == "Kwiztech" || e == "DCV" || e == "Wumbology" || e == "Newcool"  || e == "Legend" || e == "Mix_God"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'linear-gradient(rgb(40, 44, 53) 10%, rgb(28, 31, 37) 85%) 100% 50%'});
