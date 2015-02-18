@@ -566,6 +566,11 @@ for (var i = 0; i < me.length; i++){if (bcs.user.id == me[i]){bcs.itsMe = true;}
 
 var opensansfnt = "'Open Sans' sans-serif";
 
+var d = new Date();
+if (d.getDate() == 2 && d.getMonth() == 11){
+	bcs.addChat("<a style='color:#ccc;'>Wot! It's Beta's</a> 2 year anniversary on plug<a style='color:#ccc;'>!<br><em>Not like you care</em>, but I thought I'd let you know! :D");
+}
+
 var messages = [];
 var logcheck = [];
 var logged = [];
@@ -1897,6 +1902,10 @@ function commandStuff(data){
 			bcs.isFlip = !bcs.isFlip;
 			if (bcs.isFlip){$("body").css({'transform':'scale(-1, 1)'})}
 			if (!bcs.isFlip){$("body").css({'transform':'scale(1, 1)'})}
+			break;
+
+		case "rekt":
+			bcs.c("NOT REKT ☐ &nbsp; REKT ☑");
 			break;
 
 		case "invert":
