@@ -138,6 +138,7 @@ var bcs = {
 			$("#room .app-right").animate({width:"345"});
 			$('#chat-input-field').animate({width:"305"});
 			$("#chat-input").animate({width:"326"});
+			bcs.scrollChat();
 		},
 		cuteVoting: function(){
 			cutevotes = !cutevotes;
