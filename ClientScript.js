@@ -1769,12 +1769,6 @@ function lookfor(id,isityou){
 		if (votestats == "<a style='color:#646b7e;'>Not in the room</a>"){posstats = votestats;}
 		if (votestats == "<a style='color:#646b7e;'>Is currently DJ'ing</a>"){posstats = votestats;}
 
-//BLURB
-		var blurbTrue = "<a style='color:#eaaeae;'>[None]</a>";
-		if (data.blurb != null){
-			blurbTrue = data.blurb;
-		}
-
 //FRIEND
 		var isFriend = "No (<em>false</em>)";
 		for (var i = 0; i < bcs.friendsList.length; i++){
@@ -1796,7 +1790,6 @@ function lookfor(id,isityou){
 
 		bcs.addChat("<br><a style='color:#42a5dc;'><b>Name:</b></a> " + data.username + "<br><b>\
 		<a style='color:#42a5dc;'>Slug:</b></a> <a style='color: " + profileColor + ";' href='/@/" + data.slug + "' target='_blank'>" + data.slug + "</a> " + hasProfile + "<br><b>\
-		<a style='color:#42a5dc;'>Blurb:</b></a> " + blurbTrue + "<br><b>\
 		<a style='color:#42a5dc;'>ID:</b></a> " + data.id + "<br><b>\
 		<a style='color:#42a5dc;'>Level:</b></a> " + data.level + "<br><b>\
 		<a style='color:#42a5dc;'>Avatar:</b></a> " + data.avatarID + "<br><b>\
