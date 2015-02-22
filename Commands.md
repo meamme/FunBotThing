@@ -8,6 +8,9 @@
 ###**/antilag**
 	Turns off vote update checks, and changes avatar cap to 1. Not at all efficient, but whatever.
 
+###**/bg**
+	Toggles custom background (currently only for MineHeroes room, due to a request).
+
 ###**/skip**
 	Skips the current song. Duh.
 
@@ -38,7 +41,7 @@
 
 ###**/icon**
 ###**/icons**
-	Toggles BCS's chat icons (you can't toggle off my awesome inverted corn though. Cuz yolo.
+	Toggles BCS's chat icons (you can't toggle off my awesome inverted corn though. Cuz yolo).
 
 ###**/ooo**
 	Sends in chat a link to the famous 'OOO' reaction, from 'SupaHotFire vs B-Bone' ("http://youtu.be/MeB3eYk1Ze0?t=1m16s")
