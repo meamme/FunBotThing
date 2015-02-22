@@ -266,6 +266,7 @@ var bcs = {
 		API.on(API.ADVANCE, advanceStuff);
 		API.on(API.USER_LEAVE, leaveStuff);
 		API.on(API.CHAT_COMMAND, commandStuff);
+		API.on(API.WAITLIST_UPDATE, updateList);
 		$('#xprequel').on('click', bcs.toggle.prequel);
 		$('#xclick .xbox').on('click', bcs.toggle.box);
 		bcs.toggle.box();
@@ -973,6 +974,9 @@ var style = '<style>\
 		#xwootlist, #xmehlist, #xcurrentdj{\
 			margin-left:5px;\
 		}\
+		#xcurrentdj{\
+			margin-bottom:10px;\
+		}\
 	</style>';
 
 $("#room").append(menu);
@@ -1201,7 +1205,7 @@ var thevotelist = '\
 			<i class="icon icon-arrow-right" style="margin-left:33%;margin-top:7%;"></i>\
 			<i class="icon icon-arrow-left" style="margin-left:39%;margin-top:7%;"></i>\
 	</div>\
-	<div id="xlist" style="position: absolute;top: 47px;">\
+	<div id="xlist" style="position: absolute;top: 47px; margin-top: 5px;">\
 		<div id="xcurrentdj"></div>\
 		<div id="xmehlist"></div>\
 		<div id="xwootlist"></div>\
@@ -1261,6 +1265,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 		case 5:var thisrole = "<i class='icon icon-chat-admin' style='margin-top:2px;'></i>";break;
 	}
 	if (grole == 3){namecolor = "#89be6c"}else if(grole == 5){namecolor = "#42a5dc"};
+	if (grole != 0 || role != 0){var indent = "19px";}else{var indent = "4px";};
 	var wlpos = "";
 	if (API.getWaitListPosition(id) != -1){
 		wlpos = API.getWaitListPosition(id) + 1;
@@ -1272,7 +1277,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 			$("#xwootlist").append('\
 			<div class="user" style="margin-bottom:8px;">\
 				' + thisrole + '\
-				<span class="name" style="margin-left:19px; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
 				<i class="icon icon-woot" style="margin-top:-5px;margin-left:-8px;"></i>\
 				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
@@ -1282,7 +1287,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 			$("#xwootlist").append('\
 			<div class="user" style="margin-bottom:8px;">\
 				' + thisrole + '\
-				<span class="name" style="margin-left:19px; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
 				<i class="icon icon-grab" style="margin-top:-5px;margin-left:11px;"></i>\
 				<i class="icon icon-woot" style="margin-top:-5px;margin-left:-8px;"></i>\
@@ -1295,7 +1300,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 			$("#xmehlist").append('\
 			<div class="user" style="margin-bottom:8px;">\
 				' + thisrole + '\
-				<span class="name" style="margin-left:19px; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
 				<i class="icon icon-meh" style="margin-top:-5px;margin-left:-8px;"></i>\
 				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
@@ -1305,7 +1310,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 			$("#xmehlist").append('\
 			<div class="user" style="margin-bottom:8px;">\
 				' + thisrole + '\
-				<span class="name" style="margin-left:19px; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
 				<i class="icon icon-grab" style="margin-top:-5px;margin-left:11px;"></i>\
 				<i class="icon icon-meh" style="margin-top:-5px;margin-left:-8px;"></i>\
@@ -1355,12 +1360,13 @@ function updateList(){
 		var namecolor = "#ac76ff";
 		if (currentdj.role == 0){namecolor = "#eee"};
 		if (currentdj.gRole == 3){namecolor = "#89be6c"}else if(currentdj.gRole == 5){namecolor = "#42a5dc"};
+		if (currentdj.gRole != 0 || currentdj.role != 0){var indent = "19px";}else{var indent = "4px";};
 		$("#xcurrentdj").append('\
-		<div class="user" style="margin-bottom:10px;">\
+		<div class="user">\
 			' + thisrole + '\
-			<span class="name" style="margin-left:19px; color:' + namecolor + '; cursor: default; font-size:14px;">' + currentdj.username + '</span>\
+			<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: default; font-size:14px;">' + currentdj.username + '</span>\
 			<br>\
-			<i class="icon icon-join-waitlist" style="margin-top:-5px;margin-left:1px;"></i>\
+			<i class="icon icon-join-waitlist" style="margin-top:-2px;margin-left:-1px;"></i>\
 			<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + currentdj.id + ' | Level: ' + currentdj.level + ' | <b>(Current DJ)</b></span>\
 		</div>\
 		<div class="xlistbreak" style="box-shadow: inset 0 5px 0 0 #555d70;height: 3px;"></div>');
