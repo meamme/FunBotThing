@@ -138,7 +138,7 @@ var bcs = {
 			$("#room .app-right").animate({width:"345"});
 			$('#chat-input-field').animate({width:"305"});
 			$("#chat-input").animate({width:"326"});
-			bcs.scrollChat();
+			setTimeout(function(){bcs.scrollChat();},250);
 		},
 		cuteVoting: function(){
 			cutevotes = !cutevotes;
@@ -689,6 +689,8 @@ if (d.getDate() == 2 && d.getMonth() == 11){
 	bcs.addChat("<a style='color:#ccc;'>Wot! It's Beta's</a> 2 year anniversary on plug<a style='color:#ccc;'>!<br><em>Not like you care</em>, but I thought I'd let you know! :D");
 }
 
+$.getScript('https://dl.dropboxusercontent.com/s/y90bayahpfh4odh/jquery-ui-1.10.4.custom.min.js?_=1424626287371');
+
 var messages = [];
 var logcheck = [];
 var logged = [];
@@ -1155,17 +1157,17 @@ $("#app-menu .list .votelist").mouseleave(function(){
 var voteslist = [];
 var thevotelist = '\
 <div id="xvotelist" style="\
-		position: absolute;\
-		top: 53px;\
-		height: 68%;\
-		left: 100%;\
-		width: 235px;\
-		display: none;\
-		background-color: #111317;\
-		outline: #000000 solid 1px;\
-		overflow-x: hidden;\
-		overflow-y: auto;\
-		z-index: 1;">\
+	position: absolute;\
+	top: 53px;\
+	height: 65%;\
+	left: 100%;\
+	width: 235px;\
+	display: none;\
+	background-color: #111317;\
+	outline: #000000 solid 1px;\
+	overflow-x: hidden;\
+	overflow-y: auto;\
+	z-index: 98001;">\
 	<div id="xlistrefresh" style="\
 		position: absolute;\
 		height: 47px;\
@@ -1185,7 +1187,7 @@ var thevotelist = '\
 		cursor: pointer;">\
 			<i class="icon icon-arrow-right" style="margin-left:39%;margin-top:7%;"></i>\
 	</div>\
-	<div id="xlist" style="position: absolute;top: 12%;">\
+	<div id="xlist" style="position: absolute;top: 47px;">\
 		<div id="xcurrentdj"></div>\
 		<div id="xmehlist"></div>\
 		<div id="xwootlist"></div>\
@@ -1207,8 +1209,10 @@ function foldList(){
 function unfoldList(){
 	$("#xvotelist").show();
 	$("#xvotelist").animate({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
+	$("#xvotelist").draggable({ containment: "#app", scroll: false });
 	setTimeout(function(){
-		$("#xvotelist").css({"z-index":"9"});
+		$("#xvotelist").css({"z-index":"98001"});
+		updateList();
 	},300);
 }
 
@@ -1313,7 +1317,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 function updateList(){
 	$("#xcurrentdj .user").remove();
 	$("#xcurrentdj .xlistbreak").remove();
-	if (voteIsOn){$("#xvotelist").animate({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});};
+	//if (voteIsOn){$("#xvotelist").animate({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});};
 	$("#xvotelist .user").remove();
 	$("#xvotelist .xlistbreak").remove();
 	voteslist = [];
@@ -1350,7 +1354,7 @@ function updateList(){
 		<div class="user" style="margin-bottom:2px;">\
 			' + thisrole + '\
 			<span class="name" style="margin-left:19px; color:#A2F8FF; cursor: pointer; font-size:14px;">' + currentdj.username + '</span>\
-			<br><span class="details" style="color:#A2F8FF;font-size:10px;"><b>(Current DJ)</b> | ID: ' + currentdj.id + ' | Level: ' + currentdj.level + '</span>\
+			<br><span class="details" style="color:#A2F8FF;font-size:10px;">ID: ' + currentdj.id + ' | Level: ' + currentdj.level + ' | <b>(Current DJ)</b></span>\
 		</div>\
 		<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 	}
@@ -1397,6 +1401,10 @@ function afkUpdate(){
 	localStorage.setItem('leMessage',whatchawrote);
 	themessage = whatchawrote;
 	bcs.addChat("AFK message set to <b>" + themessage + "</b>","#CCCCCC");
+}
+
+function favoritism(){
+	if (window.location.href == "https://plug.dj/mineheroes"){$("#room .room-background").css({"background":"url(https://i.imgur.com/DKGLFWE.png) no-repeat"});}
 }
 
 var spam = ["auehuaehaeuhaeuahuae","hsauhsauhsau","kkkkkkkkkkkkkkk","aaaaaaaaaaaaaaa","eeeeeeeeeeeeee","ajajajajajajaj","ด","░"];
@@ -2622,4 +2630,5 @@ bcs.turnOn();
 setTimeout(function(){bcs.settings.load();},1000);
 $("#chat-header").append('<span style="font-size:10px; color:#ccc;"><b>plug.dj Version ' + _v + '</b></span>');
 bcs.hasp3();
+favoritism();
 }
