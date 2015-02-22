@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.4.3</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.4.4</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -296,8 +296,12 @@ var bcs = {
 		$('#xspammer').on('click', bcs.toggle.spammer);
 		$("#room-bar").animate({left:'106px'});
 		$("#room-bar .favorite").animate({right:'55px'});
+		setTimeout(function(){bcs.settings.load();},1000);
 		bcs.getFriends();
 		bcs.getStaff();
+		bcs.hasp3();
+		$("#playlist-panel").on('click',function(){setTimeout(function(){$("#dialog-preview").draggable({ containment: "#app", scroll: false });},500)});
+		favoritism();
 	},
 	turnOff: function(){
 		API.off(API.CHAT);
@@ -1033,6 +1037,15 @@ var notifyAFK = 0;
 var mentioned = [];
 var chatShows = true;
 var autoskip = false;
+var custombg = true;
+bcs.defaultbg = $("#room .room-background").css('background');
+function favoritism(){
+	if (window.location.href == "https://plug.dj/mineheroes" && custombg){
+		$("#room .room-background").css({"background":"url(https://i.imgur.com/DKGLFWE.png) no-repeat"});
+	}else if(!custombg){
+		$("#room .room-background").css({"background":bcs.defaultbg});
+	}
+}
 
 $("#chat-input .chat-input-form").append("\
 	<div class='afkIsOn' style='width:7px; height:30px; display:none; background-color:#fef8a0'>\
@@ -1401,10 +1414,6 @@ function afkUpdate(){
 	localStorage.setItem('leMessage',whatchawrote);
 	themessage = whatchawrote;
 	bcs.addChat("AFK message set to <b>" + themessage + "</b>","#CCCCCC");
-}
-
-function favoritism(){
-	if (window.location.href == "https://plug.dj/mineheroes"){$("#room .room-background").css({"background":"url(https://i.imgur.com/DKGLFWE.png) no-repeat"});}
 }
 
 var spam = ["auehuaehaeuhaeuahuae","hsauhsauhsau","kkkkkkkkkkkkkkk","aaaaaaaaaaaaaaa","eeeeeeeeeeeeee","ajajajajajajaj","ด","░"];
@@ -2077,9 +2086,12 @@ function commandStuff(data){
 
 		case "author":
 		case "authors":
-			bcs.addChat("<br><i class='icon icon-chat-bcslogo' style='left:80%;'></i>This script was mainly made by <a style='color:#b8e0ff;' href='https://plug.dj/@/beta-tester' target='_blank'>Beta Tester</a><br>\
-						Initial CSS help by <a style='color:#b8e0ff;' href='https://plug.dj/@/marciano' target='_blank'>Marciano</a><br>\
-						addChat() by <a style='color:#b8e0ff;' href='https://plug.dj/@/igor' target='_blank'>Igor</a><br>","#eee",false,true,true);
+			bcs.addChat("<br>\
+			<i class='icon icon-chat-bcslogo' style='left:80%;'></i>\
+				This script was mainly made by <a style='color:#b8e0ff;' href='https://plug.dj/@/beta-tester' target='_blank'>Beta Tester</a><br>\
+				Initial CSS help by <a style='color:#b8e0ff;' href='https://plug.dj/@/marciano' target='_blank'>Marciano</a><br>\
+				addChat() by <a style='color:#b8e0ff;' href='https://plug.dj/@/igor' target='_blank'>Igor</a><br>\
+				Help with ideas from <a style='color:#b8e0ff;' href='https://plug.dj/@/dcv' target='_blank'>DCV</a><br>","#eee",false,true,true);
 			break;
 
 		case "antilag":
@@ -2092,6 +2104,13 @@ function commandStuff(data){
 			}
 			var antiOn = antilag ? "<a style='color:#90ad2f'><b>on</b></a>" : "<a style='color:#c42e3b'><b>off</b></a>";
 			bcs.addChat("AntiLag is now " + antiOn,"#ccc");
+			break;
+
+		case "bg":
+			custombg = !custombg;
+			favoritism();
+			var hasbg = custombg ? "<a style='color:#90ad2f'><b>on</b></a>" : "<a style='color:#c42e3b'><b>off</b></a>";
+			bcs.addChat("Custom background is now " + hasbg,"#ccc");
 			break;
 
 		case "skip":
@@ -2627,8 +2646,5 @@ function commandStuff(data){
 	};
 }
 bcs.turnOn();
-setTimeout(function(){bcs.settings.load();},1000);
 $("#chat-header").append('<span style="font-size:10px; color:#ccc;"><b>plug.dj Version ' + _v + '</b></span>');
-bcs.hasp3();
-favoritism();
 }
