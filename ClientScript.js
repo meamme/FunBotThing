@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.3.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.4</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -553,7 +553,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>New <a style='color:#99ffd7;'>/antilag</a> command! Beta version, I'm working on it c:<br>","#ececec",false,true);
+bcs.addChat("<br>New <a style='color:#99ffd7;'>History Warnings</a>!<br>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
@@ -847,6 +847,9 @@ var style = '<style>\
 		#room-bar{\
 			width:340px;\
 		}\
+		#xwootlist, #xmehlist{\
+			margin-left:5px;\
+		}\
 	</style>';
 
 $("#room").append(menu);
@@ -1064,9 +1067,7 @@ var thevotelist = '\
 		cursor: pointer;">\
 			<i class="icon icon-arrow-right" style="margin-left:39%;margin-top:7%;"></i>\
 	</div>\
-	<div id="xlist" style="\
-		position: absolute;\
-		top: 13%;\">\
+	<div id="xlist" style="position: absolute;top: 12%;">\
 		<div id="xmehlist"></div>\
 		<div id="xwootlist"></div>\
 	</div>\
@@ -1117,45 +1118,75 @@ $("#app-menu .list .votelist").on('click',function(){
 		unfoldList();
 		for (var i = 0; i < API.getUsers().length; i++){
 			if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1){
-				var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote};
+				var thisguy = API.getUsers()[i];
+				var a = {name:thisguy.username, id:thisguy.id, role:thisguy.role, grole:thisguy.gRole, vote:thisguy.vote, grab:thisguy.grab};
 				voteslist.push(a);
 			}
 		}
 		for (var i = 0; i < voteslist.length; i++){
-			appendPerson(voteslist[i].name,voteslist[i].vote);
+			appendPerson(voteslist[i].name, voteslist[i].id, voteslist[i].role, voteslist[i].grole, voteslist[i].vote, voteslist[i].grab);
 		}
 	}else{
 		foldList();
 	}
 });
 
-function readd(id){
-	API.once(API.ADVANCE, function() {
-		API.moderateAddDJ(userID);
-		setTimeout(function(){
-			if (API.getWaitListPosition(userID) != -1){
-				API.moderateMoveDJ(userID, 1);
-			}else{
-				API.moderateAddDJ(userID);
-				readd(userID);
-			}
-		},1000);
-	});
-	API.moderateForceSkip();
-};
-
-function appendPerson(name,vote,grab){
+function appendPerson(name,id,role,grole,vote,grab){
+	switch (role){
+		case 0:var thisrole = "";break;
+		case 1:var thisrole = "<i class='icon icon-chat-dj' style='margin-top:2px;'></i>";break;
+		case 2:var thisrole = "<i class='icon icon-chat-bouncer' style='margin-top:2px;'></i>";break;
+		case 3:var thisrole = "<i class='icon icon-chat-manager' style='margin-top:2px;'></i>";break;
+		case 4:case 5:var thisrole = "<i class='icon icon-chat-host' style='margin-top:2px;'></i>";break;
+	}
+	switch (grole){
+		case 0:break;
+		case 3:var thisrole = "<i class='icon icon-chat-ambassador' style='margin-top:2px;'></i>";break;
+		case 5:var thisrole = "<i class='icon icon-chat-admin' style='margin-top:2px;'></i>";break;
+	}
+	var wlpos = "";
+	if (API.getWaitListPosition(id) != -1){
+		wlpos = API.getWaitListPosition(id) + 1;
+		wlpos = " | Waitlist: " + wlpos;
+	}
+	var thislevel = API.getUser(id).level;
 	if (vote == 1){
 		if (!grab){
-			$("#xwootlist").append('<div class="user"><i class="icon icon-woot" style="margin-top:-5px;"></i><span class="name" style="margin-left:35px; color:#90ad2f; cursor: pointer;">' + name + '</span></div>');
+			$("#xwootlist").append('\
+			<div class="user" style="margin-bottom:2px;">\
+				' + thisrole + '\
+				<span class="name" style="margin-left:19px; color:#90ad2f; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<br><span class="details" style="color:#ccc;font-size:10px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
+			</div>\
+			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}else if (grab){
-			$("#xwootlist").append('<div class="user"><i class="icon icon-grab" style="margin-top:-5px;"></i><i class="icon icon-woot" style="margin-top:-5px; margin-left:17px;"></i><span class="name" style="margin-left:43px; color:#90ad2f; cursor: pointer;">' + name + '</span></div>');
+			$("#xwootlist").append('\
+			<div class="user" style="margin-bottom:2px;">\
+				<i class="icon icon-grab" style="margin-top:-5px; margin-left:12px;"></i>\
+				' + thisrole + '\
+				<span class="name" style="margin-left:36px; color:#90ad2f; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<br><span class="details" style="color:#ccc;font-size:10px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
+			</div>\
+			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}
 	}else if (vote == -1){
 		if (!grab){
-			$("#xmehlist").append('<div class="user"><i class="icon icon-meh" style="margin-top:-5px;"></i><span class="name" style="margin-left:35px; color:#c42e3b; cursor: pointer;">' + name + '</span></div>');
+			$("#xmehlist").append('\
+			<div class="user" style="margin-bottom:2px;">\
+				' + thisrole + '\
+				<span class="name" style="margin-left:19px; color:#D04545; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<br><span class="details" style="color:#ccc;font-size:10px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
+			</div>\
+			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}else if (grab){
-			$("#xmehlist").append('<div class="user"><i class="icon icon-grab" style="margin-top:-5px;"></i><i class="icon icon-meh" style="margin-top:-5px;margin-left:17px;"></i><span class="name" style="margin-left:43px; color:#c42e3b; cursor: pointer;">' + name + '</span></div>');
+			$("#xmehlist").append('\
+			<div class="user" style="margin-bottom:2px;">\
+				<i class="icon icon-grab" style="margin-top:-5px;margin-left:12px;"></i>\
+				' + thisrole + '\
+				<span class="name" style="margin-left:36px; color:#D04545; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<br><span class="details" style="color:#ccc;font-size:10px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
+			</div>\
+			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}
 	}
 }
@@ -1163,15 +1194,17 @@ function appendPerson(name,vote,grab){
 function updateList(){
 	if (voteIsOn){$("#xvotelist").animate({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});};
 	$("#xvotelist .user").remove();
+	$("#xvotelist .xlistbreak").remove();
 	voteslist = [];
 	for (var i = 0; i < API.getUsers().length; i++){
 		if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1 || API.getUsers()[i].grab == true){
-			var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote,grab:API.getUsers()[i].grab};
+			var thisguy = API.getUsers()[i];
+			var a = {name:thisguy.username, id:thisguy.id, role:thisguy.role, grole:thisguy.gRole, vote:thisguy.vote, grab:thisguy.grab};
 			voteslist.push(a);
 		}
 	}
 	for (var i = 0; i < voteslist.length; i++){
-		appendPerson(voteslist[i].name,voteslist[i].vote,voteslist[i].grab);
+		appendPerson(voteslist[i].name, voteslist[i].id, voteslist[i].role, voteslist[i].grole, voteslist[i].vote, voteslist[i].grab);
 	}
 	for (var i = 0; i < voteslist.length; i++){
 		$($("#xvotelist .user .name")[i]).on('click',function(){
@@ -1192,6 +1225,21 @@ function grabStuff(obj){
 	if (s < 10){s = "0" + s;}
 	if (grabmsg){bcs.addChat("<i class='icon icon-grab' style='left:5px;'></i> " + obj.user.username + " (ID " + obj.user.id + ") grabbed <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#c5e0ff");};
 }
+
+function readd(id){
+	API.once(API.ADVANCE, function() {
+		API.moderateAddDJ(userID);
+		setTimeout(function(){
+			if (API.getWaitListPosition(userID) != -1){
+				API.moderateMoveDJ(userID, 1);
+			}else{
+				API.moderateAddDJ(userID);
+				readd(userID);
+			}
+		},1000);
+	});
+	API.moderateForceSkip();
+};
 
 var coollock = false;
 
@@ -1443,7 +1491,7 @@ function advanceStuff(obj){
 	displayLvl();
 	if (autograb){grab();}
 	if (autowoot){setTimeout(bcs.getHistoryID,1000);}
-	if (timeskip){if (hasPerms){if (API.getMedia().duration > 480){
+	if (timeskip && songup){if (hasPerms){if (API.getMedia().duration > 480){
 				blunq.play();
 				bcs.addChat("<b>Song is over 8 minutes</b>","#ff3535",true);
 			}}}
@@ -1457,6 +1505,16 @@ function advanceStuff(obj){
 	}
 	if (songup){
 		bcs.l(" ",false);
+		for (var i = 0; i< API.getHistory().length; i++){
+			if (API.getHistory()[i].media.cid == API.getMedia().cid){
+				var previous = API.getHistory()[i];
+				var pos = i + 1;
+				var stats = previous.user.username + " (ID " + previous.user.id + ")";
+				blunq.play();
+				bcs.addChat("<b><a style='color:#ff3535;'>Song in History</a></b><br>Played by " + stats + " - (History position " + pos + ")","#D04545",true);
+				break;
+			}
+		}
 		bcs.addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
 				<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b><br>\
 				<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
@@ -1899,7 +1957,7 @@ function commandStuff(data){
 			break;
 
 		case "rekt":
-			bcs.c("NOT REKT ☐ &nbsp; REKT ☑");
+			bcs.c("NOT REKT ☐ | REKT ☑");
 			break;
 
 		case "invert":
