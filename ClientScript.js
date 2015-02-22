@@ -964,7 +964,7 @@ var style = '<style>\
 		#room-bar{\
 			width:340px;\
 		}\
-		#xwootlist, #xmehlist{\
+		#xwootlist, #xmehlist, #xcurrentdj{\
 			margin-left:5px;\
 		}\
 	</style>';
@@ -1185,6 +1185,7 @@ var thevotelist = '\
 			<i class="icon icon-arrow-right" style="margin-left:39%;margin-top:7%;"></i>\
 	</div>\
 	<div id="xlist" style="position: absolute;top: 12%;">\
+		<div id="xcurrentdj"></div>\
 		<div id="xmehlist"></div>\
 		<div id="xwootlist"></div>\
 	</div>\
@@ -1309,6 +1310,8 @@ function appendPerson(name,id,role,grole,vote,grab){
 }
 
 function updateList(){
+	$("#xcurrentdj .user").remove();
+	$("#xcurrentdj .xlistbreak").remove();
 	if (voteIsOn){$("#xvotelist").animate({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});};
 	$("#xvotelist .user").remove();
 	$("#xvotelist .xlistbreak").remove();
@@ -1327,6 +1330,15 @@ function updateList(){
 		$($("#xvotelist .user .name")[i]).on('click',function(){
 			$('#chat-input-field').val($('#chat-input-field').val() + "@" + $(this).text() + " ");
 		})
+	}
+	if (typeof API.getDJ().username != "undefined"){
+		var currentdj = API.getUser(API.getDJ().id);
+		$("#xcurrentdj").append('\
+		<div class="user" style="margin-bottom:2px;">\
+			<span class="name" style="margin-left:19px; color:#ccc; cursor: pointer; font-size:14px;">' + currentdj.username + '</span>\
+			<br><span class="details" style="color:#ededed;font-size:10px;">ID: ' + currentdj.id + ' | Level: ' + currentdj.level + '</span>\
+		</div>\
+		<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 	}
 }
 
@@ -2024,7 +2036,7 @@ function commandStuff(data){
 		case "todo":
 			bcs.addChat("<br><a style='color:#c2f3bf;'><b>Todo list:</b></a><br><br>\
 					<a style='color: #d4d4d4;'>⊱ <del>Fix inline images bug</del> <b>[DONE]</b></a><br>\
-					<a style='color: #8bdb85;'>⊱ Have WL position on vote list (cuz why not)</a><br>\
+					<a style='color: #d4d4d4;'>⊱ <del>Have WL position on vote list (cuz why not)</del> <b>[DONE]</b></a><br>\
 					<a style='color: #8bdb85;'>⊱ Force skip at the end of songs (cuz why not)</a><br>\
 					<a style='color: #8bdb85;'>⊱ Change all avatars to only one (cuz why not)</a><br>\
 					<a style='color: #8bdb85;'>⊱ Check if I can raise the cap to over 200 (cuz why not)</a><br>\
