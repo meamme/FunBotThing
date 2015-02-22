@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.4.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.4.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -543,6 +543,123 @@ var bcs = {
 		alert("Your window was refreshed.");
 	}
 }
+
+var BrowserDetect = {
+	init: function () {
+		this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
+		this.version = this.searchVersion(navigator.userAgent)
+			|| this.searchVersion(navigator.appVersion)
+			|| "an unknown version";
+		this.OS = this.searchString(this.dataOS) || "an unknown OS";
+	},
+	searchString: function (data) {
+		for (var i=0;i<data.length;i++)    {
+			var dataString = data[i].string;
+			var dataProp = data[i].prop;
+			this.versionSearchString = data[i].versionSearch || data[i].identity;
+			if (dataString) {
+				if (dataString.indexOf(data[i].subString) != -1)
+					return data[i].identity;
+			}
+			else if (dataProp)
+				return data[i].identity;
+		}
+	},
+	searchVersion: function (dataString) {
+		var index = dataString.indexOf(this.versionSearchString);
+		if (index == -1) return;
+		return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
+	},
+	dataBrowser: [
+		{
+			string: navigator.userAgent,
+			subString: "Chrome",
+			identity: "Chrome"
+		},
+		{	string: navigator.userAgent,
+			subString: "OmniWeb",
+			versionSearch: "OmniWeb/",
+			identity: "OmniWeb"
+		},
+		{
+			string: navigator.vendor,
+			subString: "Apple",
+			identity: "Safari",
+			versionSearch: "Version"
+		},
+		{
+			prop: window.opera,
+			identity: "Opera",
+			versionSearch: "Version"
+		},
+		{
+			string: navigator.vendor,
+			subString: "iCab",
+			identity: "iCab"
+		},
+		{
+			string: navigator.vendor,
+			subString: "KDE",
+			identity: "Konqueror"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Firefox",
+			identity: "Firefox"
+		},
+		{
+			string: navigator.vendor,
+			subString: "Camino",
+			identity: "Camino"
+		},
+		{		// for newer Netscapes (6+)
+			string: navigator.userAgent,
+			subString: "Netscape",
+			identity: "Netscape"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "MSIE",
+			identity: "Explorer",
+			versionSearch: "MSIE"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Gecko",
+			identity: "Mozilla",
+			versionSearch: "rv"
+		},
+		{		// for older Netscapes (4-)
+			string: navigator.userAgent,
+			subString: "Mozilla",
+			identity: "Netscape",
+			versionSearch: "Mozilla"
+		}
+	],
+	dataOS : [
+		{
+			string: navigator.platform,
+			subString: "Win",
+			identity: "Windows"
+		},
+		{
+			string: navigator.platform,
+			subString: "Mac",
+			identity: "Mac"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "iPhone",
+			identity: "iPhone/iPod"
+		},
+		{
+			string: navigator.platform,
+			subString: "Linux",
+			identity: "Linux"
+		}
+	]
+};
+BrowserDetect.init();
 
 if (betaWasOn){
 	//bcs.addChat("<img src='https://i.imgur.com/Z7LDEp0.gif'></img><br><a style='color:#FF0000;font-size:15px;'><b>[WARNING]</b></a><a style='font-size:15px;'> You already had BCS activated. To update, please refresh and then click bookmark again. Reclicking doesn't work.</a>","#ff7575",true,true);
@@ -1649,8 +1766,8 @@ function getuid(uname,oname){
 }
 
 function grab(){
-	setTimeout(function(){$("#grab").click();}, 500);
-	setTimeout(function(){$($(".grab .menu ul li")[0]).mousedown();}, 500);
+	setTimeout(function(){$("#grab").click();}, 2000);
+	setTimeout(function(){$($(".grab .menu ul li")[0]).mousedown();}, 2050);
 }
 
 function lookfor(id,isityou){
@@ -1963,21 +2080,29 @@ function commandStuff(data){
 		case "invert":
 			bcs.isInverted = !bcs.isInverted;
 			if (bcs.isInverted){
-				$("#app").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
-				$("#user-view").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
-				$("#room-settings").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
-				$("#dialog-container").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
-				$("#toast-notifications").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
-				$("#room-settings").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
-				bcs.l('Due to Mozilla being a bully, not every single part of the page will be inverted.');
+				if (BrowserDetect.browser == "Firefox"){
+					$("#app").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
+					$("#user-view").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
+					$("#room-settings").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
+					$("#dialog-container").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
+					$("#toast-notifications").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
+					$("#room-settings").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
+					bcs.l('Due to Mozilla being a bully, not every single part of the page will be inverted.');
+				}else{
+					$("body").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
+				}
 			}
 			if (!bcs.isInverted){
-				$("#app").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
-				$("#user-view").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
-				$("#room-settings").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
-				$("#dialog-container").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
-				$("#toast-notifications").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
-				$("#room-settings").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+				if (BrowserDetect.browser == "Firefox"){
+					$("#app").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+					$("#user-view").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+					$("#room-settings").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+					$("#dialog-container").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+					$("#toast-notifications").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+					$("#room-settings").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+				}else{
+					$("body").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+				}
 			}
 			break;
 
@@ -2250,7 +2375,7 @@ function commandStuff(data){
 		case "flood":
 			var r = confirm("Are you sure you wanna flood? Beta is NOT responsible for the consequences.");
 			if (r === true) {
-				bcs.c("/me It's flood time! :&zwnj;D");
+				bcs.c("/me It's flood time! ;D");
 				setTimeout(function(){bcs.c("/me @everyone @staff")},250);
 				setTimeout(function(){bcs.c("/me @everyone @staff")},500);
 				setTimeout(function(){bcs.c("/me @everyone @staff")},750);
