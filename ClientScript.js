@@ -1212,39 +1212,23 @@ $("#room").append(thevotelist);
 var voteIsOn = false;
 
 function foldList(){
-	//$("#xvotelist").animate({left:"100%"});
-	//$("#xvotelist").css({"z-index":"1"});
-	setTimeout(function(){
-		$("#xvotelist .user").remove();
-		voteslist = [];
-		//$("#xvotelist").hide();
-		$("#xvotelist").fadeOut();
-	},300);
+	$("#xvotelist .user").remove();
+	voteslist = [];
+	$("#xvotelist").fadeOut();
+	updateList();
 }
 function unfoldList(){
-	//$("#xvotelist").show();
 	$("#xvotelist").fadeIn();
-	//$("#xvotelist").animate({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
 	$("#xvotelist").draggable({ containment: "#app", scroll: false });
-	setTimeout(function(){
-		$("#xvotelist").css({"z-index":"98001"});
-		updateList();
-	},300);
+	$("#xvotelist").css({"z-index":"98001"});
+	updateList();
 }
 
 $("#xlistprequel").on('click',function(){
 	voteIsOn = !voteIsOn;
 	if (voteIsOn){
 		unfoldList();
-		for (var i = 0; i < API.getUsers().length; i++){
-			if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1){
-				var a = {name:API.getUsers()[i].username,vote:API.getUsers()[i].vote};
-				voteslist.push(a);
-			}
-		}
-		for (var i = 0; i < voteslist.length; i++){
-			appendPerson(voteslist[i].name,voteslist[i].vote);
-		}
+		updateList();
 	}else{
 		foldList();
 	}
@@ -1255,16 +1239,7 @@ $("#app-menu .list .votelist").on('click',function(){
 	voteIsOn = !voteIsOn;
 	if (voteIsOn){
 		unfoldList();
-		for (var i = 0; i < API.getUsers().length; i++){
-			if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1){
-				var thisguy = API.getUsers()[i];
-				var a = {name:thisguy.username, id:thisguy.id, role:thisguy.role, grole:thisguy.gRole, vote:thisguy.vote, grab:thisguy.grab};
-				voteslist.push(a);
-			}
-		}
-		for (var i = 0; i < voteslist.length; i++){
-			appendPerson(voteslist[i].name, voteslist[i].id, voteslist[i].role, voteslist[i].grole, voteslist[i].vote, voteslist[i].grab);
-		}
+		updateList();
 	}else{
 		foldList();
 	}
