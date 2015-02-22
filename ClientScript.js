@@ -1362,7 +1362,7 @@ function updateList(){
 		if (currentdj.gRole == 3){namecolor = "#89be6c"}else if(currentdj.gRole == 5){namecolor = "#42a5dc"};
 		if (currentdj.gRole != 0 || currentdj.role != 0){var indent = "19px";}else{var indent = "4px";};
 		$("#xcurrentdj").append('\
-		<div class="user">\
+		<div class="user" style="margin-bottom:10px;">\
 			' + thisrole + '\
 			<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: default; font-size:14px;">' + currentdj.username + '</span>\
 			<br>\
