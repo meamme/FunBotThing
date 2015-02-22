@@ -1030,7 +1030,7 @@ if (!hasPerms){$("#xmod").hide();}
 var notifyAFK = 0;
 var mentioned = [];
 var chatShows = true;
-var autoskip = true;
+var autoskip = false;
 
 $("#chat-input .chat-input-form").append("\
 	<div class='afkIsOn' style='width:7px; height:30px; display:none; background-color:#fef8a0'>\
@@ -1645,7 +1645,7 @@ function advanceStuff(obj){
 	if (autoskip && hasPerms){
 		clearTimeout(songtick);
 		var songsover = API.getMedia().duration;
-		var songtick = setTimeout(function() {API.moderateForceSkip()}, songsover * 1000 + 1000);
+		var songtick = setTimeout(function() {API.moderateForceSkip()}, songsover * 1000 + 5000);
 	}
 	if (autolock){
 		var dj = API.getDJ();
