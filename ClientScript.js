@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.4</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.4.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1962,8 +1962,23 @@ function commandStuff(data){
 
 		case "invert":
 			bcs.isInverted = !bcs.isInverted;
-			if (bcs.isInverted){$("body").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'})}
-			if (!bcs.isInverted){$("body").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'})}
+			if (bcs.isInverted){
+				$("#app").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
+				$("#user-view").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
+				$("#room-settings").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
+				$("#dialog-container").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
+				$("#toast-notifications").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
+				$("#room-settings").css({'filter':'invert(100%)','-webkit-filter':'invert(100%)'});
+				bcs.l('Due to Mozilla being a bully, not every single part of the page will be inverted.');
+			}
+			if (!bcs.isInverted){
+				$("#app").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+				$("#user-view").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+				$("#room-settings").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+				$("#dialog-container").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+				$("#toast-notifications").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+				$("#room-settings").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
+			}
 			break;
 
 		case "icon":
