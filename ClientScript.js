@@ -1030,6 +1030,7 @@ if (!hasPerms){$("#xmod").hide();}
 var notifyAFK = 0;
 var mentioned = [];
 var chatShows = true;
+var autoskip = true;
 
 $("#chat-input .chat-input-form").append("\
 	<div class='afkIsOn' style='width:7px; height:30px; display:none; background-color:#fef8a0'>\
@@ -1641,9 +1642,11 @@ function advanceStuff(obj){
 			}
 		}
 	}
-	clearTimeout(songtick);
-	var songsover = API.getMedia().duration;
-	var songtick = setTimeout(function() {API.moderateForceSkip()}, songsover * 1000 + 250);
+	if (autoskip && hasPerms){
+		clearTimeout(songtick);
+		var songsover = API.getMedia().duration;
+		var songtick = setTimeout(function() {API.moderateForceSkip()}, songsover * 1000 + 1000);
+	}
 	if (autolock){
 		var dj = API.getDJ();
 		if (API.getWaitListPosition() <= -1 && dj.username != API.getUser().username){
@@ -2085,6 +2088,12 @@ function commandStuff(data){
 
 		case "skip":
 			API.moderateForceSkip();
+			break;
+
+		case "autoskip":
+			autoskip = !autoskip;
+			var willSkip = willSkip ? "<a style='color:#90ad2f'><b>on</b></a>" : "<a style='color:#c42e3b'><b>off</b></a>";
+			bcs.addChat("Song autoskipper is now " + willSkip,"#ccc");
 			break;
 
 		case "woot":
