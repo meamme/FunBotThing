@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.4.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.4.3</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1333,8 +1333,21 @@ function updateList(){
 	}
 	if (typeof API.getDJ().username != "undefined"){
 		var currentdj = API.getUser(API.getDJ().id);
+		switch (currentdj.role){
+			case 0:var thisrole = "";break;
+			case 1:var thisrole = "<i class='icon icon-chat-dj' style='margin-top:2px;'></i>";break;
+			case 2:var thisrole = "<i class='icon icon-chat-bouncer' style='margin-top:2px;'></i>";break;
+			case 3:var thisrole = "<i class='icon icon-chat-manager' style='margin-top:2px;'></i>";break;
+			case 4:case 5:var thisrole = "<i class='icon icon-chat-host' style='margin-top:2px;'></i>";break;
+		}
+		switch (currentdj.gRole){
+			case 0:break;
+			case 3:var thisrole = "<i class='icon icon-chat-ambassador' style='margin-top:2px;'></i>";break;
+			case 5:var thisrole = "<i class='icon icon-chat-admin' style='margin-top:2px;'></i>";break;
+		}
 		$("#xcurrentdj").append('\
 		<div class="user" style="margin-bottom:2px;">\
+			' + thisrole + '\
 			<span class="name" style="margin-left:19px; color:#ccc; cursor: pointer; font-size:14px;">' + currentdj.username + '</span>\
 			<br><span class="details" style="color:#ededed;font-size:10px;">ID: ' + currentdj.id + ' | Level: ' + currentdj.level + '</span>\
 		</div>\
@@ -1620,10 +1633,17 @@ function advanceStuff(obj){
 	displayLvl();
 	if (autograb){grab();}
 	if (autowoot){setTimeout(bcs.getHistoryID,1000);}
-	if (timeskip && songup){if (hasPerms){if (API.getMedia().duration > 480){
+	if (timeskip && songup){
+		if (hasPerms){
+			if (API.getMedia().duration > 480){
 				blunq.play();
 				bcs.addChat("<b>Song is over 8 minutes</b>","#ff3535",true);
-			}}}
+			}
+		}
+	}
+	clearTimeout(songtick);
+	var songsover = API.getMedia().duration;
+	var songtick = setTimeout(function() {API.moderateForceSkip()}, songsover * 1000 + 250);
 	if (autolock){
 		var dj = API.getDJ();
 		if (API.getWaitListPosition() <= -1 && dj.username != API.getUser().username){
@@ -2037,9 +2057,9 @@ function commandStuff(data){
 			bcs.addChat("<br><a style='color:#c2f3bf;'><b>Todo list:</b></a><br><br>\
 					<a style='color: #d4d4d4;'>⊱ <del>Fix inline images bug</del> <b>[DONE]</b></a><br>\
 					<a style='color: #d4d4d4;'>⊱ <del>Have WL position on vote list (cuz why not)</del> <b>[DONE]</b></a><br>\
-					<a style='color: #8bdb85;'>⊱ Force skip at the end of songs (cuz why not)</a><br>\
-					<a style='color: #8bdb85;'>⊱ Change all avatars to only one (cuz why not)</a><br>\
-					<a style='color: #8bdb85;'>⊱ Check if I can raise the cap to over 200 (cuz why not)</a><br>\
+					<a style='color: #d4d4d4;'>⊱ <del>Force skip at the end of songs</del> <b>[DONE / Hard to test]</b></a><br>\
+					<a style='color: #D04545;'>⊱ <del>Change all avatars to only one</del> <b>[Ruled out]</b></a><br>\
+					<a style='color: #b8e0ff;'>⊱ Check if I can raise the cap to over 200 <b>[Pending]</b></a><br>\
 					<a style='color: #8bdb85;'>⊱ Meh count per user (automeh check)</a><br>\
 					<a style='color: #8bdb85;'>⊱ Make vote list prettier ;D</a><br>","#CCCCCC",false,false,true);
 			break;
@@ -2061,6 +2081,10 @@ function commandStuff(data){
 			}
 			var antiOn = antilag ? "<a style='color:#90ad2f'><b>on</b></a>" : "<a style='color:#c42e3b'><b>off</b></a>";
 			bcs.addChat("AntiLag is now " + antiOn,"#ccc");
+			break;
+
+		case "skip":
+			API.moderateForceSkip();
 			break;
 
 		case "woot":
