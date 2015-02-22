@@ -1173,7 +1173,7 @@ var thevotelist = '\
 	position: absolute;\
 	top: 53px;\
 	height: 65%;\
-	left: 100%;\
+	left: 64%;\
 	width: 235px;\
 	display: none;\
 	background-color: #111317;\
@@ -1212,17 +1212,19 @@ $("#room").append(thevotelist);
 var voteIsOn = false;
 
 function foldList(){
-	$("#xvotelist").animate({left:"100%"});
-	$("#xvotelist").css({"z-index":"1"});
+	//$("#xvotelist").animate({left:"100%"});
+	//$("#xvotelist").css({"z-index":"1"});
 	setTimeout(function(){
 		$("#xvotelist .user").remove();
 		voteslist = [];
-		$("#xvotelist").hide();
+		//$("#xvotelist").hide();
+		$("#xvotelist").fadeOut();
 	},300);
 }
 function unfoldList(){
-	$("#xvotelist").show();
-	$("#xvotelist").animate({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
+	//$("#xvotelist").show();
+	$("#xvotelist").fadeIn();
+	//$("#xvotelist").animate({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
 	$("#xvotelist").draggable({ containment: "#app", scroll: false });
 	setTimeout(function(){
 		$("#xvotelist").css({"z-index":"98001"});
@@ -1689,18 +1691,18 @@ function advanceStuff(obj){
 			setTimeout(function(){API.djJoin();},250);
 		}
 	}
+	for (var i = 0; i< API.getHistory().length; i++){
+		if (API.getHistory()[i].media.cid == API.getMedia().cid){
+			var previous = API.getHistory()[i];
+			var pos = i + 1;
+			var stats = previous.user.username + " (ID " + previous.user.id + ")";
+			blunq.play();
+			bcs.addChat("<b><a style='color:#ff3535;'>Song in History</a></b><br>Played by " + stats + " - (History position " + pos + ")","#D04545",true);
+			break;
+		}
+	}
 	if (songup){
 		bcs.l(" ",false);
-		for (var i = 0; i< API.getHistory().length; i++){
-			if (API.getHistory()[i].media.cid == API.getMedia().cid){
-				var previous = API.getHistory()[i];
-				var pos = i + 1;
-				var stats = previous.user.username + " (ID " + previous.user.id + ")";
-				blunq.play();
-				bcs.addChat("<b><a style='color:#ff3535;'>Song in History</a></b><br>Played by " + stats + " - (History position " + pos + ")","#D04545",true);
-				break;
-			}
-		}
 		bcs.addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
 				<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b><br>\
 				<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
