@@ -2610,37 +2610,7 @@ function commandStuff(data){
 		
 		case "cmds":
 		case "cmd":
-			if (hasPerms){
-				bcs.addChat("<br><a style='color:#7174ff;'><b>------=[ Mod Commands ]=------</b></a><br><br>\
-						<a style='color:#ffffff;'><b>/id @</b><em>NAME</em></a><br>\
-						<a style='color:#CCCCCC;'>Returns the ID of that user</a><br><br>\
-						<a style='color:#ffffff;'><b>/lookup </b><em>ID</em></a><br>\
-						<a style='color:#CCCCCC;'>Returns info about specified user</a><br><br>\
-						<a style='color:#ffffff;'><b>/search @</b><em>NAME</em></a><br>\
-						<a style='color:#CCCCCC;'>Returns info about specified user</a><br><br>\
-						<a style='color:#ffffff;'><b>/deleteall</b></a><br>\
-						<a style='color:#CCCCCC;'>Deletes all chat since joining</a><br><br>\
-						<a style='color:#ffffff;'><b>/del </b><em>MSG#</em></a><br>\
-						<a style='color:#CCCCCC;'>Deletes message from you, using Array position</a><br><br>\
-						<a style='color:#ffffff;'><b>/erase </b><em>MSGID</em></a><br>\
-						<a style='color:#CCCCCC;'>Deletes message with specified ID<br>(regardless of it being sent before or after you joined)</a><br><br>\
-						<a style='color:#e6ff99;'><b>/readd</b></a><br>\
-						<a style='color:#e6ff99;'>Skips > Puts in WL > Moves to 1st<br>BUGGED</a><br><br>\
-						<a style='color:#e6ff99;'><b>/swap @</b><em>NAME</em> <b>@</b><em>NAME</em></a><br>\
-						<a style='color:#e6ff99;'>Swaps two people in the WaitList<br>BUGGED</a><br><br>\
-						<a style='color:#ffaaaa;'><b>/ban </b><em>ID</em></a><br>\
-						<a style='color:#CCCCCC;'>Permabans an user by its ID</a><br><br>\
-						<a style='color:#7174ff;'><b>------=[ Mod Commands ]=------</b></a><br>","#CCCCCC");
-			}else{
-				bcs.addChat("<br><a style='color:#71ffb0;'><b>------=[ Commands ]=------</b></a><br><br>\
-						<a style='color:#ffffff;'><b>/id @</b><em>NAME</em></a><br>\
-						<a style='color:#CCCCCC;'>Returns the ID of that user</a><br><br>\
-						<a style='color:#ffffff;'><b>/lookup </b><em>ID</em></a><br>\
-						<a style='color:#CCCCCC;'>Returns info about specified user</a><br><br>\
-						<a style='color:#ffffff;'><b>/search @</b><em>NAME</em></a><br>\
-						<a style='color:#CCCCCC;'>Returns info about specified user</a><br><br>\
-						<a style='color:#71ffb0;'><b>------=[ Commands ]=------</b></a><br>","#CCCCCC");
-			}
+			bcs.addChat("<br><i class='icon icon-chat-bcslogo' style='left:80%;'></i>There are too many commands for an in-chat<br> reference of all of them. <br><a style='color:#b8e0ff;' href='https://github.com/Tetheu98/FunBotThing/blob/master/Commands.md' target='_blank' title='Commands List'>Click here instead</a><br>","#eee",false,true,true);
 			break;
 
 		default:
