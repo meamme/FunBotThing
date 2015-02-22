@@ -1349,8 +1349,8 @@ function updateList(){
 		$("#xcurrentdj").append('\
 		<div class="user" style="margin-bottom:2px;">\
 			' + thisrole + '\
-			<span class="name" style="margin-left:19px; color:#ccc; cursor: pointer; font-size:14px;">' + currentdj.username + '</span>\
-			<br><span class="details" style="color:#ededed;font-size:10px;">ID: ' + currentdj.id + ' | Level: ' + currentdj.level + '</span>\
+			<span class="name" style="margin-left:19px; color:#A2F8FF; cursor: pointer; font-size:14px;">' + currentdj.username + '</span>\
+			<br><span class="details" style="color:#A2F8FF;font-size:10px;"><b>(Current DJ)</b> | ID: ' + currentdj.id + ' | Level: ' + currentdj.level + '</span>\
 		</div>\
 		<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 	}
@@ -2092,7 +2092,7 @@ function commandStuff(data){
 
 		case "autoskip":
 			autoskip = !autoskip;
-			var willSkip = willSkip ? "<a style='color:#90ad2f'><b>on</b></a>" : "<a style='color:#c42e3b'><b>off</b></a>";
+			var willSkip = autoskip ? "<a style='color:#90ad2f'><b>on</b></a>" : "<a style='color:#c42e3b'><b>off</b></a>";
 			bcs.addChat("Song autoskipper is now " + willSkip,"#ccc");
 			break;
 
