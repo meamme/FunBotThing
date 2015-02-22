@@ -1198,7 +1198,8 @@ var thevotelist = '\
 		background-color: #0A0A0A;\
 		outline: #1C1F25 solid 1px;\
 		cursor: pointer;">\
-			<i class="icon icon-arrow-right" style="margin-left:39%;margin-top:7%;"></i>\
+			<i class="icon icon-arrow-right" style="margin-left:33%;margin-top:7%;"></i>\
+			<i class="icon icon-arrow-left" style="margin-left:39%;margin-top:7%;"></i>\
 	</div>\
 	<div id="xlist" style="position: absolute;top: 47px;">\
 		<div id="xcurrentdj"></div>\
@@ -1275,11 +1276,14 @@ function appendPerson(name,id,role,grole,vote,grab){
 		case 3:var thisrole = "<i class='icon icon-chat-manager' style='margin-top:2px;'></i>";break;
 		case 4:case 5:var thisrole = "<i class='icon icon-chat-host' style='margin-top:2px;'></i>";break;
 	}
+	var namecolor = "#ac76ff";
+	if (role == 0){namecolor = "#eee"};
 	switch (grole){
 		case 0:break;
 		case 3:var thisrole = "<i class='icon icon-chat-ambassador' style='margin-top:2px;'></i>";break;
 		case 5:var thisrole = "<i class='icon icon-chat-admin' style='margin-top:2px;'></i>";break;
 	}
+	if (grole == 3){namecolor = "#89be6c"}else if(grole == 5){namecolor = "#42a5dc"};
 	var wlpos = "";
 	if (API.getWaitListPosition(id) != -1){
 		wlpos = API.getWaitListPosition(id) + 1;
@@ -1289,38 +1293,46 @@ function appendPerson(name,id,role,grole,vote,grab){
 	if (vote == 1){
 		if (!grab){
 			$("#xwootlist").append('\
-			<div class="user" style="margin-bottom:2px;">\
+			<div class="user" style="margin-bottom:8px;">\
 				' + thisrole + '\
-				<span class="name" style="margin-left:19px; color:#90ad2f; cursor: pointer; font-size:14px;">' + name + '</span>\
-				<br><span class="details" style="color:#ccc;font-size:10px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
+				<span class="name" style="margin-left:19px; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<br>\
+				<i class="icon icon-woot" style="margin-top:-5px;margin-left:-8px;"></i>\
+				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}else if (grab){
 			$("#xwootlist").append('\
-			<div class="user" style="margin-bottom:2px;">\
-				<i class="icon icon-grab" style="margin-top:-5px; margin-left:12px;"></i>\
+			<div class="user" style="margin-bottom:8px;">\
 				' + thisrole + '\
-				<span class="name" style="margin-left:36px; color:#90ad2f; cursor: pointer; font-size:14px;">' + name + '</span>\
-				<br><span class="details" style="color:#ccc;font-size:10px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
+				<span class="name" style="margin-left:19px; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<br>\
+				<i class="icon icon-grab" style="margin-top:-5px;margin-left:11px;"></i>\
+				<i class="icon icon-woot" style="margin-top:-5px;margin-left:-8px;"></i>\
+				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}
 	}else if (vote == -1){
 		if (!grab){
 			$("#xmehlist").append('\
-			<div class="user" style="margin-bottom:2px;">\
+			<div class="user" style="margin-bottom:8px;">\
 				' + thisrole + '\
-				<span class="name" style="margin-left:19px; color:#D04545; cursor: pointer; font-size:14px;">' + name + '</span>\
-				<br><span class="details" style="color:#ccc;font-size:10px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
+				<span class="name" style="margin-left:19px; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<br>\
+				<i class="icon icon-meh" style="margin-top:-5px;margin-left:-8px;"></i>\
+				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}else if (grab){
 			$("#xmehlist").append('\
-			<div class="user" style="margin-bottom:2px;">\
-				<i class="icon icon-grab" style="margin-top:-5px;margin-left:12px;"></i>\
+			<div class="user" style="margin-bottom:8px;">\
 				' + thisrole + '\
-				<span class="name" style="margin-left:36px; color:#D04545; cursor: pointer; font-size:14px;">' + name + '</span>\
-				<br><span class="details" style="color:#ccc;font-size:10px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
+				<span class="name" style="margin-left:19px; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<br>\
+				<i class="icon icon-grab" style="margin-top:-5px;margin-left:11px;"></i>\
+				<i class="icon icon-meh" style="margin-top:-5px;margin-left:-8px;"></i>\
+				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}
@@ -1349,7 +1361,7 @@ function updateList(){
 			$('#chat-input-field').val($('#chat-input-field').val() + "@" + $(this).text() + " ");
 		})
 	}
-	if (typeof API.getDJ().username != "undefined"){
+	if (typeof API.getDJ() != "undefined"){
 		var currentdj = API.getUser(API.getDJ().id);
 		switch (currentdj.role){
 			case 0:var thisrole = "";break;
@@ -1363,13 +1375,18 @@ function updateList(){
 			case 3:var thisrole = "<i class='icon icon-chat-ambassador' style='margin-top:2px;'></i>";break;
 			case 5:var thisrole = "<i class='icon icon-chat-admin' style='margin-top:2px;'></i>";break;
 		}
+		var namecolor = "#ac76ff";
+		if (currentdj.role == 0){namecolor = "#eee"};
+		if (currentdj.gRole == 3){namecolor = "#89be6c"}else if(currentdj.gRole == 5){namecolor = "#42a5dc"};
 		$("#xcurrentdj").append('\
-		<div class="user" style="margin-bottom:2px;">\
+		<div class="user" style="margin-bottom:10px;">\
 			' + thisrole + '\
-			<span class="name" style="margin-left:19px; color:#A2F8FF; cursor: pointer; font-size:14px;">' + currentdj.username + '</span>\
-			<br><span class="details" style="color:#A2F8FF;font-size:10px;">ID: ' + currentdj.id + ' | Level: ' + currentdj.level + ' | <b>(Current DJ)</b></span>\
+			<span class="name" style="margin-left:19px; color:' + namecolor + '; cursor: default; font-size:14px;">' + currentdj.username + '</span>\
+			<br>\
+			<i class="icon icon-join-waitlist" style="margin-top:-5px;margin-left:1px;"></i>\
+			<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + currentdj.id + ' | Level: ' + currentdj.level + ' | <b>(Current DJ)</b></span>\
 		</div>\
-		<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
+		<div class="xlistbreak" style="box-shadow: inset 0 5px 0 0 #555d70;height: 3px;"></div>');
 	}
 }
 
@@ -2081,7 +2098,7 @@ function commandStuff(data){
 					<a style='color: #D04545;'>⊱ <del>Change all avatars to only one</del> <b>[Ruled out]</b></a><br>\
 					<a style='color: #b8e0ff;'>⊱ Check if I can raise the cap to over 200 <b>[Pending]</b></a><br>\
 					<a style='color: #8bdb85;'>⊱ Meh count per user (automeh check)</a><br>\
-					<a style='color: #8bdb85;'>⊱ Make vote list prettier ;D</a><br>","#CCCCCC",false,false,true);
+					<a style='color: #d4d4d4;'>⊱ <del>Make vote list prettier</del> <b>[DONE]</b></a><br>","#CCCCCC",false,false,true);
 			break;
 
 		case "author":
