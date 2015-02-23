@@ -977,6 +977,11 @@ var style = '<style>\
 		#xcurrentdj{\
 			margin-bottom:10px;\
 		}\
+		#user-lists .list.room .user .icon-meh {\
+			top: -1px;\
+			right: 9px;\
+			left: auto;\
+		}\
 	</style>';
 
 $("#room").append(menu);
@@ -1060,7 +1065,7 @@ $(".afknotifications").hover(function() {
 	$("body").append('<div id="tooltip" style="top:84%;left:87.5%;" class="right"><span>Mentions while you were out</span><div class="corner"></div></div>')
 }, function() {
 	$("#tooltip").remove();
-})
+});
 
 if (notifyAFK == 0){
 	$("#chat-input .afknotifications").hide();
@@ -1175,7 +1180,7 @@ var voteslist = [];
 var thevotelist = '\
 <div id="xvotelist" style="\
 	position: absolute;\
-	top: 53px;\
+	top: 55px;\
 	height: 65%;\
 	left: 64%;\
 	width: 235px;\
@@ -1187,7 +1192,7 @@ var thevotelist = '\
 	z-index: 98001;">\
 	<div id="xlistrefresh" style="\
 		position: absolute;\
-		height: 47px;\
+		height: 45px;\
 		width: 50%;\
 		background-color: #0A0A0A;\
 		outline: #1C1F25 solid 1px;\
@@ -1196,7 +1201,7 @@ var thevotelist = '\
 	</div>\
 	<div id="xlistprequel" style="\
 		position: absolute;\
-		height: 47px;\
+		height: 45px;\
 		width: 50%;\
 		left: 50%;\
 		background-color: #0A0A0A;\
@@ -1205,7 +1210,7 @@ var thevotelist = '\
 			<i class="icon icon-arrow-right" style="margin-left:33%;margin-top:7%;"></i>\
 			<i class="icon icon-arrow-left" style="margin-left:39%;margin-top:7%;"></i>\
 	</div>\
-	<div id="xlist" style="position: absolute;top: 47px; margin-top: 5px;">\
+	<div id="xlist" style="position: absolute;top: 45px; margin-top: 5px;">\
 		<div id="xcurrentdj"></div>\
 		<div id="xmehlist"></div>\
 		<div id="xwootlist"></div>\
@@ -1214,6 +1219,12 @@ var thevotelist = '\
 $("#xvotelist").css({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
 $("#room").append(thevotelist);
 var voteIsOn = false;
+
+$("#xwootlist .user .icon-woot").hover(function() {
+	$("body").append('<div id="tooltip" style="top:84%;left:87.5%;" class="right"><span>Woot!</span><div class="corner"></div></div>')
+}, function() {
+	$("#tooltip").remove();
+});
 
 function foldList(){
 	$("#xvotelist .user").remove();
@@ -1265,7 +1276,8 @@ function appendPerson(name,id,role,grole,vote,grab){
 		case 5:var thisrole = "<i class='icon icon-chat-admin' style='margin-top:2px;'></i>";break;
 	}
 	if (grole == 3){namecolor = "#89be6c"}else if(grole == 5){namecolor = "#42a5dc"};
-	if (grole != 0 || role != 0){var indent = "19px";}else{var indent = "4px";};
+	var indent = "4px";
+	if (grole != 0 || role != 0){indent = "19px";};
 	var wlpos = "";
 	if (API.getWaitListPosition(id) != -1){
 		wlpos = API.getWaitListPosition(id) + 1;
@@ -1275,7 +1287,8 @@ function appendPerson(name,id,role,grole,vote,grab){
 	if (vote == 1){
 		if (!grab){
 			$("#xwootlist").append('\
-			<div class="user" style="margin-bottom:8px;">\
+			<div class="user" style="margin-bottom:8px;"> \
+				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
 				' + thisrole + '\
 				<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
@@ -1286,6 +1299,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 		}else if (grab){
 			$("#xwootlist").append('\
 			<div class="user" style="margin-bottom:8px;">\
+				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
 				' + thisrole + '\
 				<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
@@ -1299,6 +1313,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 		if (!grab){
 			$("#xmehlist").append('\
 			<div class="user" style="margin-bottom:8px;">\
+				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
 				' + thisrole + '\
 				<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
@@ -1309,6 +1324,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 		}else if (grab){
 			$("#xmehlist").append('\
 			<div class="user" style="margin-bottom:8px;">\
+				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
 				' + thisrole + '\
 				<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
@@ -1320,6 +1336,12 @@ function appendPerson(name,id,role,grole,vote,grab){
 		}
 	}
 }
+
+$("#xlist .user .icon-support-white").hover(function() {
+	$("body").append('<div id="tooltip" style="top:84%;left:87.5%;" class="right"><span>Mentions while you were out</span><div class="corner"></div></div>')
+}, function() {
+	$("#tooltip").remove();
+});
 
 function updateList(){
 	$("#xcurrentdj .user").remove();
@@ -1338,38 +1360,46 @@ function updateList(){
 	for (var i = 0; i < voteslist.length; i++){
 		appendPerson(voteslist[i].name, voteslist[i].id, voteslist[i].role, voteslist[i].grole, voteslist[i].vote, voteslist[i].grab);
 	}
-	for (var i = 0; i < voteslist.length; i++){
-		$($("#xvotelist .user .name")[i]).on('click',function(){
-			$('#chat-input-field').val($('#chat-input-field').val() + "@" + $(this).text() + " ");
-		})
-	}
 	if (typeof API.getDJ() != "undefined"){
 		var currentdj = API.getUser(API.getDJ().id);
 		switch (currentdj.role){
 			case 0:var thisrole = "";break;
-			case 1:var thisrole = "<i class='icon icon-chat-dj' style='margin-top:2px;'></i>";break;
-			case 2:var thisrole = "<i class='icon icon-chat-bouncer' style='margin-top:2px;'></i>";break;
-			case 3:var thisrole = "<i class='icon icon-chat-manager' style='margin-top:2px;'></i>";break;
-			case 4:case 5:var thisrole = "<i class='icon icon-chat-host' style='margin-top:2px;'></i>";break;
+			case 1:var thisrole = "<i class='icon icon-chat-dj' style='margin-top:3px;'></i>";break;
+			case 2:var thisrole = "<i class='icon icon-chat-bouncer' style='margin-top:3px;'></i>";break;
+			case 3:var thisrole = "<i class='icon icon-chat-manager' style='margin-top:3px;'></i>";break;
+			case 4:case 5:var thisrole = "<i class='icon icon-chat-host' style='margin-top:3px;'></i>";break;
 		}
 		switch (currentdj.gRole){
 			case 0:break;
-			case 3:var thisrole = "<i class='icon icon-chat-ambassador' style='margin-top:2px;'></i>";break;
-			case 5:var thisrole = "<i class='icon icon-chat-admin' style='margin-top:2px;'></i>";break;
+			case 3:var thisrole = "<i class='icon icon-chat-ambassador' style='margin-top:3px;'></i>";break;
+			case 5:var thisrole = "<i class='icon icon-chat-admin' style='margin-top:3px;'></i>";break;
 		}
 		var namecolor = "#ac76ff";
 		if (currentdj.role == 0){namecolor = "#eee"};
 		if (currentdj.gRole == 3){namecolor = "#89be6c"}else if(currentdj.gRole == 5){namecolor = "#42a5dc"};
-		if (currentdj.gRole != 0 || currentdj.role != 0){var indent = "19px";}else{var indent = "4px";};
+		var indent = "4px";
+		if (currentdj.gRole != 0 || currentdj.role != 0){indent = "19px";};
 		$("#xcurrentdj").append('\
 		<div class="user" style="margin-bottom:10px;">\
+			<i class="icon icon-support-white" idt="' + currentdj.id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
 			' + thisrole + '\
-			<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: default; font-size:14px;">' + currentdj.username + '</span>\
+			<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor:pointer; font-size:14px;">' + currentdj.username + '</span>\
 			<br>\
-			<i class="icon icon-join-waitlist" style="margin-top:-2px;margin-left:-1px;"></i>\
+			<i class="icon icon-join-booth" style="margin-top:-2px;margin-left:2px;"></i>\
 			<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + currentdj.id + ' | Level: ' + currentdj.level + ' | <b>(Current DJ)</b></span>\
 		</div>\
 		<div class="xlistbreak" style="box-shadow: inset 0 5px 0 0 #555d70;height: 3px;"></div>');
+	}
+	for (var i = 0; i < voteslist.length + 1; i++){
+		$($("#xlist .user .name")[i]).on('click',function(){
+			$('#chat-input-field').val($('#chat-input-field').val() + "@" + $(this).text() + " ");
+		});
+		$($("#xlist .user .icon-support-white")[i]).on('click',function(){
+			var itsYou = false;
+			var theirid = $(this).attr('idt');
+			if (theirid == API.getUser().id){itsYou = true;}
+			lookfor(theirid,itsYou);
+		});
 	}
 }
 
