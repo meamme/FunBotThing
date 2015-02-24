@@ -24,16 +24,8 @@ var notifications = true;
 
 API.on(API.USER_JOIN, function(user){
 	if (notifications){
-		if (API.getUser().role >= 2 && API.getUser().role <= 3){
-			var managerslist = "";
-			for (var i = 0; i < API.getUsers().length; i++){
-				if (API.getUsers()[i].role == 3){
-					managerslist += "@" + API.getUsers()[i].username + " ";
-				}
-			}
-			API.sendChat(managerslist + " - user " + user.username + " joined");
-		}else if (API.getUser().role >= 4 || API.getUser().gRole != 0){
-			API.sendChat('@managers');
+		if (API.getUser().role >= 2 || API.getUser().gRole != 0){
+			API.sendChat("@" + API.getUser().username + " - user " + user.username + " joined");
 		}
 	}
 });
