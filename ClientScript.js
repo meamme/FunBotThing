@@ -1276,8 +1276,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 		case 5:var thisrole = "<i class='icon icon-chat-admin' style='margin-top:2px;'></i>";break;
 	}
 	if (grole == 3){namecolor = "#89be6c"}else if(grole == 5){namecolor = "#42a5dc"};
-	var indent = "4px";
-	if (grole != 0 || role != 0){indent = "19px";};
+	if (namecolor == "#eee"){var indent = "4px";}else{var indent = "19px";};
 	var wlpos = "";
 	if (API.getWaitListPosition(id) != -1){
 		wlpos = API.getWaitListPosition(id) + 1;
@@ -1290,7 +1289,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 			<div class="user" style="margin-bottom:8px;"> \
 				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
 				' + thisrole + '\
-				<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
 				<i class="icon icon-woot" style="margin-top:-5px;margin-left:-8px;"></i>\
 				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
@@ -1301,7 +1300,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 			<div class="user" style="margin-bottom:8px;">\
 				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
 				' + thisrole + '\
-				<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
 				<i class="icon icon-grab" style="margin-top:-5px;margin-left:11px;"></i>\
 				<i class="icon icon-woot" style="margin-top:-5px;margin-left:-8px;"></i>\
@@ -1315,7 +1314,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 			<div class="user" style="margin-bottom:8px;">\
 				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
 				' + thisrole + '\
-				<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
 				<i class="icon icon-meh" style="margin-top:-5px;margin-left:-8px;"></i>\
 				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
@@ -1326,7 +1325,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 			<div class="user" style="margin-bottom:8px;">\
 				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
 				' + thisrole + '\
-				<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
 				<i class="icon icon-grab" style="margin-top:-5px;margin-left:11px;"></i>\
 				<i class="icon icon-meh" style="margin-top:-5px;margin-left:-8px;"></i>\
@@ -1377,13 +1376,12 @@ function updateList(){
 		var namecolor = "#ac76ff";
 		if (currentdj.role == 0){namecolor = "#eee"};
 		if (currentdj.gRole == 3){namecolor = "#89be6c"}else if(currentdj.gRole == 5){namecolor = "#42a5dc"};
-		var indent = "4px";
-		if (currentdj.gRole != 0 || currentdj.role != 0){indent = "19px";};
+		if (namecolor == "#eee"){var indent = "4px";}else{var indent = "19px";};
 		$("#xcurrentdj").append('\
 		<div class="user" style="margin-bottom:10px;">\
 			<i class="icon icon-support-white" idt="' + currentdj.id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
 			' + thisrole + '\
-			<span class="name" style="margin-left:' + indent + '; color:' + namecolor + '; cursor:pointer; font-size:14px;">' + currentdj.username + '</span>\
+			<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor:pointer; font-size:14px;">' + currentdj.username + '</span>\
 			<br>\
 			<i class="icon icon-join-booth" style="margin-top:-2px;margin-left:2px;"></i>\
 			<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + currentdj.id + ' | Level: ' + currentdj.level + ' | <b>(Current DJ)</b></span>\
@@ -1392,7 +1390,7 @@ function updateList(){
 	}
 	for (var i = 0; i < voteslist.length + 1; i++){
 		$($("#xlist .user .name")[i]).on('click',function(){
-			$('#chat-input-field').val($('#chat-input-field').val() + "@" + $(this).text() + " ");
+			$('#chat-input-field').val($('#chat-input-field').val() + "@" + $(this).text() + " ").focus();
 		});
 		$($("#xlist .user .icon-support-white")[i]).on('click',function(){
 			var itsYou = false;
@@ -1499,15 +1497,21 @@ function chatStuff(data){
 			$("#chat-input .afknotifications").show();
 		}
 	}
-	if(user == "Beta Tester"){
+	$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").append("\
+	<span class='info' style='font-size:7px; color:#808691; opacity:0.2;'> Lv. <a style='font-size:9px; color:#eee'>" + API.getUser(userid).level + "</a></span>\
+	<span class='info' style='font-size:7px; color:#808691; opacity:0.2;'> ID: <a style='font-size:9px; color:#eee'>" + userid + "</a></span>");
+	$("#chat-messages > .cm[data-cid='" + msgid + "']").hover(function(){
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"1"});
+	}, function(){
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"0.2"});
+	});
+
+	if(user == "Beta Tester" || user == "CatSnore" || user == "T98" || user == "DCV" || user == "Wumbology" || user == "Kwiztech" || user == "Newcool"  || user == "Legend" || user == "Mix_God"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .badge-box .bdg").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
 	}
 	if (chatIcons){
-	if (user == "CatSnore" || user == "T98" || user == "DCV" || user == "Wumbology" || user == "Kwiztech" || user == "Newcool"  || user == "Legend" || user == "Mix_God"){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-bcs'></i>");
-	}else if (user == "EDMC"){
+	if (user == "EDMC"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").css({color:'#0097cd'});
