@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.4.4</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.5</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1498,8 +1498,8 @@ function chatStuff(data){
 		}
 	}
 	$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").append("\
-	<span class='info' style='font-size:7px; color:#808691; opacity:0.2;'> Lv. <a style='font-size:9px; color:#eee'>" + API.getUser(userid).level + "</a></span>\
-	<span class='info' style='font-size:7px; color:#808691; opacity:0.2;'> ID: <a style='font-size:9px; color:#eee'>" + userid + "</a></span>");
+	<span class='info' style='font-size:7px; color:#808691; opacity:0.1;'> Lv. <a style='font-size:9px; color:#eee'>" + API.getUser(userid).level + "</a></span>\
+	<span class='info' style='font-size:7px; color:#808691; opacity:0.1;'> ID: <a style='font-size:9px; color:#eee'>" + userid + "</a></span>");
 	$("#chat-messages > .cm[data-cid='" + msgid + "']").hover(function(){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"1"});
 	}, function(){
@@ -1685,14 +1685,7 @@ function advanceStuff(obj){
 	displayLvl();
 	if (autograb){grab();}
 	if (autowoot){setTimeout(bcs.getHistoryID,1000);}
-	if (timeskip && songup){
-		if (hasPerms){
-			if (API.getMedia().duration > 480){
-				blunq.play();
-				bcs.addChat("<b>Song is over 8 minutes</b>","#ff3535",true);
-			}
-		}
-	}
+
 	if (autoskip && hasPerms){
 		clearTimeout(songtick);
 		var songsover = API.getMedia().duration;
@@ -1706,6 +1699,13 @@ function advanceStuff(obj){
 			setTimeout(function(){API.djJoin();},250);
 		}
 	}
+	if (songup){
+		bcs.l(" ",false);
+		bcs.addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
+			<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b>","#ececec",true);
+		setTimeout(function(){$(".update")[$(this).length-1].remove();},250);
+		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
+	}
 	for (var i = 0; i< API.getHistory().length; i++){
 		if (API.getHistory()[i].media.cid == API.getMedia().cid){
 			var previous = API.getHistory()[i];
@@ -1716,15 +1716,23 @@ function advanceStuff(obj){
 			break;
 		}
 	}
+	if (timeskip && songup){
+		if (hasPerms){
+			if (API.getMedia().duration > 480){
+				blunq.play();
+				var theminutes = Math.floor(API.getMedia().duration / 60);
+				if (theminutes >= 60){var thehours = theminutes / 60};
+				var theseconds = API.getMedia().duration % 60;
+				if (theseconds < 10){theseconds = "0" + s;}
+				var actuallength = theminutes + ":" + theseconds;
+				bcs.addChat("<b><a style='color:#ff3535;'>Song is over 8 minutes</a></b><br> Song length: " + actuallength,"#D04545",true);
+			}
+		}
+	}
 	if (songup){
-		bcs.l(" ",false);
-		bcs.addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
-				<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b><br>\
-				<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
-				<a style='color:#e6ff99;'><b>Author:</b></a> " + obj.media.author + "<br>\
-				<a style='color:#e6ff99;'><b>Current DJ:</b></a> " + obj.dj.username + " (ID " + obj.dj.id + ")<br>","#ececec",true);
-		setTimeout(function(){$(".update")[$(this).length-1].remove();},250);
-		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
+		bcs.addChat("<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
+			<a style='color:#e6ff99;'><b>Author:</b></a> " + obj.media.author + "<br>\
+			<a style='color:#e6ff99;'><b>Current DJ:</b></a> " + obj.dj.username + " (ID " + obj.dj.id + ")<br>","#ececec",true);
 	}
 	bcs.getFriends();
 	//bcs.checkPing();
@@ -1942,6 +1950,29 @@ function lookfor(id,isityou){
 				break;
 		}
 
+//LANGUAGE
+		switch (data.language){
+			case "bg":	var lan = "Bulgarian";break;
+			case "cs":	var lan = "Czech";break;
+			case "da":	var lan = "Danish";break;
+			case "de":	var lan = "German";break;
+			case "en":	var lan = "English";break;
+			case "es":	var lan = "Spanish";break;
+			case "fi":	var lan = "Finnish";break;
+			case "fr":	var lan = "French";break;
+			case "hr":	var lan = "Croatian";break;
+			case "it":	var lan = "Italian";break;
+			case "ms":	var lan = "Malay";break;
+			case "nl":	var lan = "Dutch";break;
+			case "pl":	var lan = "Polish";break;
+			case "pt":	var lan = "Portuguese";break;
+			case "sk":	var lan = "Slovak";break;
+			case "sl":	var lan = "Slovenian";break;
+			case "sr":	var lan = "Serbian";break;
+			case "zh":	var lan = "Chinese";break;
+			default:	var lan = "Unknown";break;
+		}
+
 //JOINED
 		var jin = data.joined.split('-');
 		var lk = jin[2].split(' ');
@@ -2056,6 +2087,7 @@ function lookfor(id,isityou){
 		<a style='color:#42a5dc;'>Level:</b></a> " + data.level + "<br><b>\
 		<a style='color:#42a5dc;'>Avatar:</b></a> " + data.avatarID + "<br><b>\
 		<a style='color:#42a5dc;'>Status:</b></a> " + stt + "<br><b>\
+		<a style='color:#42a5dc;'>Language:</b></a> " + lan + "<br><b>\
 		<a style='color:#42a5dc;'>Role:</b></a> " + lr + "<br><b>\
 		<a style='color:#42a5dc;'>Global Role:</b></a> " + g + "<br><b>\
 		<a style='color:#42a5dc;'>Joined:</b></a> " + jnd + "<br><b>\
