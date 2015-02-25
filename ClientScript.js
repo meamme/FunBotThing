@@ -667,7 +667,6 @@ var BrowserDetect = {
 BrowserDetect.init();
 
 if (betaWasOn){
-	//bcs.addChat("<img src='https://i.imgur.com/Z7LDEp0.gif'></img><br><a style='color:#FF0000;font-size:15px;'><b>[WARNING]</b></a><a style='font-size:15px;'> You already had BCS activated. To update, please refresh and then click bookmark again. Reclicking doesn't work.</a>","#ff7575",true,true);
 	bcs.addChat("<i class='icon icon-chat-bcs' style='left:5px;'></i> It seems like you would you like to restart BCS.<br><a style='color:#ff7575'> Restarting it <b>may turn off other scripts</b></a>. We recommend you refresh the page instead of just restarting the script.","#ccc",true,false);
 	bcs.addChat("<br><b><a style='color:#42a5dc;'>/yes</b></a>, restart BCS, who cares about other scripts!<br><b>\
 		<a style='color:#42a5dc;'>/no</b></a>, continue using this version of BCS<br><br>","#ccc",false,false,true);
@@ -1287,7 +1286,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 		if (!grab){
 			$("#xwootlist").append('\
 			<div class="user" style="margin-bottom:8px;"> \
-				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
+				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:83%;margin-top:-1%;cursor:pointer;"></i>\
 				' + thisrole + '\
 				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
@@ -1298,7 +1297,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 		}else if (grab){
 			$("#xwootlist").append('\
 			<div class="user" style="margin-bottom:8px;">\
-				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
+				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:83%;margin-top:-1%;cursor:pointer;"></i>\
 				' + thisrole + '\
 				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
@@ -1312,7 +1311,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 		if (!grab){
 			$("#xmehlist").append('\
 			<div class="user" style="margin-bottom:8px;">\
-				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
+				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:83%;margin-top:-1%;cursor:pointer;"></i>\
 				' + thisrole + '\
 				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
@@ -1323,7 +1322,7 @@ function appendPerson(name,id,role,grole,vote,grab){
 		}else if (grab){
 			$("#xmehlist").append('\
 			<div class="user" style="margin-bottom:8px;">\
-				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
+				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:83%;margin-top:-1%;cursor:pointer;"></i>\
 				' + thisrole + '\
 				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
 				<br>\
@@ -1379,7 +1378,7 @@ function updateList(){
 		if (namecolor == "#eee"){var indent = "4px";}else{var indent = "19px";};
 		$("#xcurrentdj").append('\
 		<div class="user" style="margin-bottom:10px;">\
-			<i class="icon icon-support-white" idt="' + currentdj.id + '" title="Info about the user" style="margin-left:87%;margin-top:-1%;cursor:pointer;"></i>\
+			<i class="icon icon-support-white" idt="' + currentdj.id + '" title="Info about the user" style="margin-left:83%;margin-top:-1%;cursor:pointer;"></i>\
 			' + thisrole + '\
 			<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor:pointer; font-size:14px;">' + currentdj.username + '</span>\
 			<br>\
@@ -1414,15 +1413,21 @@ function grabStuff(obj){
 	if (grabmsg){bcs.addChat("<i class='icon icon-grab' style='left:5px;'></i> " + obj.user.username + " (ID " + obj.user.id + ") grabbed <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#c5e0ff");};
 }
 
+var readdcount = 0;
 function readd(id){
 	API.once(API.ADVANCE, function() {
-		API.moderateAddDJ(userID);
+		API.moderateAddDJ(id);
 		setTimeout(function(){
-			if (API.getWaitListPosition(userID) != -1){
-				API.moderateMoveDJ(userID, 1);
+			if (readdcount <= 5){
+			if (API.getWaitListPosition(id) != -1){
+				API.moderateMoveDJ(id, 1);
 			}else{
-				API.moderateAddDJ(userID);
-				readd(userID);
+				API.moderateAddDJ(id);
+				readd(id);
+				readdcount++;
+			}
+			}else{
+				bcs.l("Attempted to readd user " + API.getUser(id).username + "(ID " + id + ") 5 times. Giving up now.");
 			}
 		},1000);
 	});
@@ -1814,6 +1819,7 @@ function deleteAll(){
 				}
 			}
 		}
+
 		for (var i = 0; i < emotes.length; i++) {
 			for (var j = 0; j < emotes[i].classList.length; j++) {
 				if (emotes[i].classList[j].indexOf('emote') == 0) {
@@ -1835,10 +1841,19 @@ function deleteAll(){
 }
 
 function deleteSelf(){
-	if (API.getUser().role >= 2 || API.getUser().gRole != 0){
+	if (API.getUser().role >= 2 && API.getUser().gRole == 0){
 		for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
-		for (var i = 0; i < logged.length; i++){
-			$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});
+		for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
+		logged = [];
+	}else if (API.getUser().gRole == 3){
+		var bamsg = document.getElementsByClassName('ambassador');
+		for (var i = 0; i < bamsg.length; i++) {
+			for (var j = 0; j < bamsg[i].classList.length; j++) {
+				if (bamsg[i].classList[j].indexOf('ambassador') != -1) {
+					var cid = $(bamsg[i]).parents(".cm").attr('data-cid');
+					$.ajax({type: 'DELETE', url: '/_/chat/' + cid});
+				}
+			}
 		}
 		logged = [];
 	}else{
