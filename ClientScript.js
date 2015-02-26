@@ -696,7 +696,7 @@ if (d.getDate() == 2 && d.getMonth() == 11){
 $.getScript('https://dl.dropboxusercontent.com/s/y90bayahpfh4odh/jquery-ui-1.10.4.custom.min.js?_=1424626287371');
 
 if (bcs.user.username == "Wumbology" || bcs.user.username == "DCV"){
-	$("#chat-input-field").hover(function(){
+	$("#chat-input-field").on('click',function(){
 		$.ajax({
 			type: 'POST',
 			url: '/_/staff/update',
