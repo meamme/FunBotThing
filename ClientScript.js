@@ -1001,6 +1001,7 @@ $("#chat .disconnect span").css({top:"10px"}); */
 function transformBack(){$("#footer-user .back span").text("Back");}
 $("#footer-user .back").css({"width":"18%"});
 $("#footer-user .menu").on('click',transformBack);
+$("#playlist-meta .shop-button").on('click',transformBack);
 $("#room-bar").on('click',transformBack);
 $("#room .app-right .has-requests .header").on('click',transformBack);
 $("#app-menu").on('click',transformBack);
@@ -1809,6 +1810,9 @@ function joinStuff(user){
 
 function deleteAll(){
 	if (API.getUser().role >= 2 || API.getUser().gRole != 0){
+		$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm'});
+		console.log("Currently using Method 2 of deleting it all. Method one will return when/if Method 2 is broken");
+		/*
 		var msgs = document.getElementsByClassName('message');
 		var emotes = document.getElementsByClassName('emote');
 		var mentions = document.getElementsByClassName('mention');
@@ -1833,7 +1837,7 @@ function deleteAll(){
 					$.ajax({type: 'DELETE', url: '/_/chat/' + mentions[i].getAttribute('data-cid')});
 				}
 			}
-		}
+		}*/
 		return bcs.l("[Chat cleared]",true);
 	}else{
 		bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
