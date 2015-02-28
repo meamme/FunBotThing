@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.5</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.5.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -973,6 +973,12 @@ var style = '<style>\
 		#xwootlist, #xmehlist, #xcurrentdj{\
 			margin-left:5px;\
 		}\
+		#xwootlist{\
+			background-color: rgba(146, 172, 58, 0.05);\
+		}\
+		#xmehlist{\
+			 background-color: rgba(196, 46, 59, 0.1);\
+		}\
 		#xcurrentdj{\
 			margin-bottom:10px;\
 		}\
@@ -1214,6 +1220,7 @@ var thevotelist = '\
 		<div id="xcurrentdj"></div>\
 		<div id="xmehlist"></div>\
 		<div id="xwootlist"></div>\
+		<div id="xuserlist"></div>\
 	</div>\
 </div>';
 $("#xvotelist").css({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
@@ -1333,6 +1340,16 @@ function appendPerson(name,id,role,grole,vote,grab){
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}
+	}else if(vote == 0){
+		$("#xuserlist").append('\
+			<div class="user" style="margin-bottom:8px;">\
+				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:83%;margin-top:-1%;cursor:pointer;"></i>\
+				' + thisrole + '\
+				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<br>\
+				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
+			</div>\
+			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 	}
 }
 
@@ -1350,11 +1367,9 @@ function updateList(){
 	$("#xvotelist .xlistbreak").remove();
 	voteslist = [];
 	for (var i = 0; i < API.getUsers().length; i++){
-		if (API.getUsers()[i].vote == 1 || API.getUsers()[i].vote == -1 || API.getUsers()[i].grab == true){
-			var thisguy = API.getUsers()[i];
-			var a = {name:thisguy.username, id:thisguy.id, role:thisguy.role, grole:thisguy.gRole, vote:thisguy.vote, grab:thisguy.grab};
-			voteslist.push(a);
-		}
+		var thisguy = API.getUsers()[i];
+		var a = {name:thisguy.username, id:thisguy.id, role:thisguy.role, grole:thisguy.gRole, vote:thisguy.vote, grab:thisguy.grab};
+		voteslist.push(a);
 	}
 	for (var i = 0; i < voteslist.length; i++){
 		appendPerson(voteslist[i].name, voteslist[i].id, voteslist[i].role, voteslist[i].grole, voteslist[i].vote, voteslist[i].grab);
