@@ -1860,6 +1860,7 @@ function deleteAll(){
 }
 
 function deleteSelf(){
+	bcs.c("/me  ");
 	if (API.getUser().role >= 2 && API.getUser().gRole == 0){
 		$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm[data-cid^=' + bcs.user.id + ']'});
 		//for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
@@ -1988,24 +1989,24 @@ function lookfor(id,isityou){
 
 //LANGUAGE
 		switch (data.language){
-			case "bg":	var lan = "Bulgarian";break;
-			case "cs":	var lan = "Czech";break;
-			case "da":	var lan = "Danish";break;
-			case "de":	var lan = "German";break;
-			case "en":	var lan = "English";break;
-			case "es":	var lan = "Spanish";break;
-			case "fi":	var lan = "Finnish";break;
-			case "fr":	var lan = "French";break;
-			case "hr":	var lan = "Croatian";break;
-			case "it":	var lan = "Italian";break;
-			case "ms":	var lan = "Malay";break;
-			case "nl":	var lan = "Dutch";break;
-			case "pl":	var lan = "Polish";break;
-			case "pt":	var lan = "Portuguese";break;
-			case "sk":	var lan = "Slovak";break;
-			case "sl":	var lan = "Slovenian";break;
-			case "sr":	var lan = "Serbian";break;
-			case "zh":	var lan = "Chinese";break;
+			case "bg":	var lan = "Bulgarian <img title='Flag of Bulgaria' src='https://i.imgur.com/vd7Q54y.png' height='13px'></img>";break;
+			case "cs":	var lan = "Czech <img title='Flag of Czech Republic' src='https://i.imgur.com/myeQpZg.png' height='13px'></img>";break;
+			case "da":	var lan = "Danish <img title='Flag of Denmark' src='https://i.imgur.com/G2zlI4m.png' height='13px'></img>";break;
+			case "de":	var lan = "German <img title='Flag of Germany' src='https://i.imgur.com/ET2npvp.png' height='13px'></img>";break;
+			case "en":	var lan = "English <img title='Flag of The United States' src='https://i.imgur.com/IaxwAn7.png' height='13px'></img><img title='Flag of The United Kingdom' src='https://i.imgur.com/rknRtyL.png' height='13px'></img>";break;
+			case "es":	var lan = "Spanish <img title='Flag of Spain' src='https://i.imgur.com/mGFlRq3.png' height='13px'></img>";break;
+			case "fi":	var lan = "Finnish <img title='Flag of Finland' src='https://i.imgur.com/Hcu7KE7.png' height='13px'></img>";break;
+			case "fr":	var lan = "French <img title='Flag of France' src='https://i.imgur.com/nZAaWyV.png' height='13px'></img>";break;
+			case "hr":	var lan = "Croatian <img title='Flag of Croatia' src='https://i.imgur.com/5p7E9yn.png' height='13px'></img>";break;
+			case "it":	var lan = "Italian <img title='Flag of Italy' src='https://i.imgur.com/s2EY2Sw.png' height='13px'></img>";break;
+			case "ms":	var lan = "Malay <img title='Flag of Malaysia' src='http://i.imgur.com/dbSl3H1.png' height='13px'></img>";break;
+			case "nl":	var lan = "Dutch <img title='Flag of Netherlands' src='http://i.imgur.com/soj7PT7.png' height='13px'></img>";break;
+			case "pl":	var lan = "Polish <img title='Flag of Poland' src='https://i.imgur.com/IOJdJly.png' height='13px'></img>";break;
+			case "pt":	var lan = "Portuguese <img title='Flag of Brazil' src='https://i.imgur.com/qg8RKSZ.png' height='13px'></img><img title='Flag of Portugal' src='https://i.imgur.com/OizJHOL.png' height='13px'></img>";break;
+			case "sk":	var lan = "Slovak <img title='Flag of Slovakia' src='https://i.imgur.com/YNTVgl3.png' height='13px'></img>";break;
+			case "sl":	var lan = "Slovenian <img title='Flag of Slovenia' src='https://i.imgur.com/OGVamtC.png' height='13px'></img>";break;
+			case "sr":	var lan = "Serbian <img title='Flag of Serbia' src='https://i.imgur.com/WOb4q8V.png' height='13px'></img>";break;
+			case "zh":	var lan = "Chinese <img title='Flag of China' src='https://i.imgur.com/VW4XYiF.png' height='16px'></img>";break;
 			default:	var lan = "Unknown";break;
 		}
 
