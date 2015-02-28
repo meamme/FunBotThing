@@ -1861,19 +1861,21 @@ function deleteAll(){
 
 function deleteSelf(){
 	if (API.getUser().role >= 2 && API.getUser().gRole == 0){
-		for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
-		for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
+		$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm[data-cid^=' + bcs.user.id + ']'});
+		//for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
+		//for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
 		logged = [];
 	}else if (API.getUser().gRole == 3){
-		var bamsg = document.getElementsByClassName('ambassador');
-		for (var i = 0; i < bamsg.length; i++) {
-			for (var j = 0; j < bamsg[i].classList.length; j++) {
-				if (bamsg[i].classList[j].indexOf('ambassador') != -1) {
-					var cid = $(bamsg[i]).parents(".cm").attr('data-cid');
-					$.ajax({type: 'DELETE', url: '/_/chat/' + cid});
-				}
-			}
-		}
+		$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm[data-cid^=' + bcs.user.id + ']'});
+		//var bamsg = document.getElementsByClassName('ambassador');
+		//for (var i = 0; i < bamsg.length; i++) {
+		//	for (var j = 0; j < bamsg[i].classList.length; j++) {
+		//		if (bamsg[i].classList[j].indexOf('ambassador') != -1) {
+		//			var cid = $(bamsg[i]).parents(".cm").attr('data-cid');
+		//			$.ajax({type: 'DELETE', url: '/_/chat/' + cid});
+		//		}
+		//	}
+		//}
 		logged = [];
 	}else{
 		bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
