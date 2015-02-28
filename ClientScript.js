@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.5.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.5.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -970,7 +970,7 @@ var style = '<style>\
 		#room-bar{\
 			width:340px;\
 		}\
-		#xwootlist, #xmehlist, #xcurrentdj{\
+		#xwootlist, #xmehlist, #xcurrentdj, #xuserlist{\
 			margin-left:5px;\
 		}\
 		#xwootlist{\
