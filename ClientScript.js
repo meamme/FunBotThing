@@ -2128,6 +2128,43 @@ function dropHammer(tag,userid,dur){
 	}
 }
 
+var heartcount = 0;
+var heartrow = 0;
+function sendHearts(rows){
+	heartcount++;
+	heartrow++;
+	switch (heartrow){
+		case 1:
+			bcs.c(":heart: :purple_heart: :blue_heart: :green_heart: :yellow_heart: :heart: :purple_heart: :blue_heart: :green_heart: :yellow_heart:");
+			break;
+		case 2:
+			bcs.c(":purple_heart: :blue_heart: :green_heart: :yellow_heart: :heart: :purple_heart: :blue_heart: :green_heart: :yellow_heart: :heart:");
+			break;
+		case 3:
+			bcs.c(":blue_heart: :green_heart: :yellow_heart: :heart: :purple_heart: :blue_heart: :green_heart: :yellow_heart: :heart: :purple_heart:");
+			break;
+		case 4:
+			bcs.c(":green_heart: :yellow_heart: :heart: :purple_heart: :blue_heart: :green_heart: :yellow_heart: :heart: :purple_heart: :blue_heart:");
+			break;
+		case 5:
+			bcs.c(":yellow_heart: :heart: :purple_heart: :blue_heart: :green_heart: :yellow_heart: :heart: :purple_heart: :blue_heart: :green_heart:");
+			heartrow = 0;
+			break;
+		default:
+			break;
+	}
+	if (rows == 1){
+		var whatever = heartcount * 10;
+		setTimeout(function(){bcs.l("Total of " + whatever + " hearts sent. Nice flood!");},500);
+	}else{
+		if (bcs.user.role > 0 || bcs.user.gRole > 0){
+			setTimeout(function(){var smth = rows - 1;sendHearts(smth);},250);
+		}else{
+			setTimeout(function(){var smth = rows - 1;sendHearts(smth);},500);
+		}
+	}
+}
+
 function commandStuff(data){
 	var msg = data;
 	var command = msg.substring(1).split(' ');
@@ -2573,11 +2610,23 @@ function commandStuff(data){
 		case "rainbow":
 		case "rainbows":
 		case "hearts":
-			bcs.c(":heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart:");
-			setTimeout(function(){bcs.c(":purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart:")},250);
-			setTimeout(function(){bcs.c(":blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart:")},500);
-			setTimeout(function(){bcs.c(":green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart:")},750);
-			setTimeout(function(){bcs.c(":yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart: :yellow_heart: :green_heart: :blue_heart: :purple_heart: :heart:")},1000);
+			var rows = parseInt(command[1]);
+			if (rows < 1){rows = 1};
+			if (rows > 10){
+				if (bcs.user.role > 0 || bcs.user.gRole > 0){
+					var r = confirm("Are you sure you wanna flood? Beta is NOT responsible for the consequences.");
+					if (r === true) {
+						sendHearts(rows);
+					}else{
+						bcs.l("[Command " + command[0] + " denied]",true);
+					}
+				}else{
+					bcs.l("Unranked users may not send more than 10 lines of hearts. Sowwy :P",false);
+					bcs.l("[Command " + command[0] + " denied]",true);
+				}
+			}else{
+				sendHearts(rows);
+			}
 			break;
 
 		case "msgs":
