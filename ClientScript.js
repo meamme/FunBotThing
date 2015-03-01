@@ -1014,7 +1014,6 @@ $("#room-bar").on('click',transformBack);
 $("#room .app-right .has-requests .header").on('click',transformBack);
 $("#app-menu").on('click',transformBack);
 
-
 var autowoot = false;
 var joinmsg = false;
 var grabmsg = false;
@@ -1397,7 +1396,15 @@ function updateList(){
 }
 
 function grabStuff(obj){
-	updateList();
+	if (!listlock){
+		updateList();
+		listlock = true;
+		if (API.getUsers().length >= 100){
+			setTimeout(function(){listlock = false;},10000);
+		}else{
+			setTimeout(function(){listlock = false;},5000);
+		}
+	}
 	var media = API.getMedia();
 	var d = new Date();
 	var h = d.getHours();
@@ -1663,7 +1670,11 @@ function voteStuff(obj){
 	if (!listlock){
 		updateList();
 		listlock = true;
-		setTimeout(function(){listlock = false;},5000);
+		if (API.getUsers().length >= 100){
+			setTimeout(function(){listlock = false;},10000);
+		}else{
+			setTimeout(function(){listlock = false;},5000);
+		}
 	}
 	if (obj.vote == -1){
 		var d = new Date();
@@ -1679,8 +1690,14 @@ function voteStuff(obj){
 
 function advanceStuff(obj){
 	updateList();
-	listlock = true;
-	setTimeout(function(){listlock = false;},15000);
+	if (!listlock){
+		listlock = true;
+		if (API.getUsers().length >= 100){
+			setTimeout(function(){listlock = false;},20000);
+		}else{
+			setTimeout(function(){listlock = false;},5000);
+		}
+	}
 	bcs.hasp3();
 	var d = new Date();
 	var h = d.getHours();
