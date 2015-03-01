@@ -2584,6 +2584,11 @@ function commandStuff(data){
 			$.ajax({type: 'DELETE', url: '/_/chat/1-,.moderation'});
 			break;
 
+		case "stopreload":
+			window.onbeforeunload = function(){return "BCS caught something trying to reload your page.";}
+			bcs.l("BCS will now prevent page from reloading without your permission.");
+			break;
+
 		case "selfdemote":
 			if (bcs.user.role >= 2){
 				var r = confirm("Demote yourself to RDJ?");
