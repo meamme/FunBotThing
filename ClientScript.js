@@ -1037,7 +1037,7 @@ var listlock = false;
 
 function safetyFirst(){
 	if (API.getUsers().length > 250){
-		bcs.addChat("<b>This is a big room; Setting cap to 1. You'll probably still lag though. Sorry. My script sucks.</b><br>Also, sorry, but expect bugs. c:","#FF3333");
+		bcs.addChat("<b>This is a big room; Setting cap to 1. You'll probably still lag though. Sorry. My script sucks.</b><br>Also, sorry, but expect bugs / lagspikes c:","#FF3333");
 		bcs.c('/cap 1');
 	}else{
 		bcs.c('/cap 10');
@@ -1201,22 +1201,32 @@ var thevotelist = '\
 	<div id="xlistrefresh" style="\
 		position: absolute;\
 		height: 45px;\
-		width: 50%;\
+		width: 33%;\
 		background-color: #0A0A0A;\
 		outline: #1C1F25 solid 1px;\
 		cursor: pointer;">\
-			<i class="icon icon-refresh-video" style="margin-left:39%;margin-top:7%;"></i>\
+			<i class="icon icon-refresh-video" style="margin-left:30%;margin-top:7%;"></i>\
 	</div>\
-	<div id="xlistprequel" style="\
+	<div id="xlistback" style="\
 		position: absolute;\
 		height: 45px;\
-		width: 50%;\
-		left: 50%;\
+		width: 33%;\
+		left: 33%;\
 		background-color: #0A0A0A;\
 		outline: #1C1F25 solid 1px;\
 		cursor: pointer;">\
-			<i class="icon icon-arrow-right" style="margin-left:33%;margin-top:7%;"></i>\
-			<i class="icon icon-arrow-left" style="margin-left:39%;margin-top:7%;"></i>\
+			<i class="icon icon-arrow-up" style="margin-left:30%;margin-top:7%;"></i>\
+	</div>\
+	<div id="xlistclose" style="\
+		position: absolute;\
+		height: 45px;\
+		width: 33%;\
+		left: 66%;\
+		background-color: #0A0A0A;\
+		outline: #1C1F25 solid 1px;\
+		cursor: pointer;">\
+			<i class="icon icon-arrow-right" style="margin-left:26%;margin-top:7%;"></i>\
+			<i class="icon icon-arrow-left" style="margin-left:36%;margin-top:7%;"></i>\
 	</div>\
 	<div id="xlist" style="position: absolute;top: 45px; margin-top: 5px;">\
 		<div id="xcurrentdj"></div>\
@@ -1240,19 +1250,29 @@ function unfoldList(){
 	updateList();
 }
 
-$("#xlistprequel").on('click',function(){
+$("#xlistclose").on('click',function(){
 	voteIsOn = !voteIsOn;
 	if (voteIsOn){unfoldList();}
 	else{foldList();}
 });
+
+$("#xlistback").on('click',function(){
+	if ($("#xvotelist").css('z-index') == "98001"){
+		$("#xvotelist").css({'z-index':"17"});
+		$("#xlistback .icon").attr("class","icon icon-arrow-down");
+	}else if ($("#xvotelist").css('z-index') == "17"){
+		$("#xvotelist").css({'z-index':"98001"});
+		$("#xlistback .icon").attr("class","icon icon-arrow-up");
+	}
+});
+
+$("#xlistrefresh").on('click',function(){updateList();});
 
 $("#app-menu .list .votelist").on('click',function(){
 	voteIsOn = !voteIsOn;
 	if (voteIsOn){unfoldList();}
 	else{foldList();}
 });
-
-$("#xlistrefresh").on('click',function(){updateList();});
 
 function appendPerson(name,id,role,grole,vote,grab){
 	switch (role){
