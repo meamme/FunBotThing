@@ -1034,6 +1034,7 @@ var cutevotes = false;
 var lockdown = false;
 var spamon = false;
 var hasArrow = false;
+var listlock = false;
 
 function safetyFirst(){
 	if (API.getUsers().length > 250){
