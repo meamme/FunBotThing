@@ -1661,6 +1661,8 @@ function chatStuff(data){
 function voteStuff(obj){
 	if (!listlock){
 		updateList();
+		listlock = true;
+		setTimeout(function(){listlock = false;},5000);
 	}
 	if (obj.vote == -1){
 		var d = new Date();
