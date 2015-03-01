@@ -266,7 +266,6 @@ var bcs = {
 		API.on(API.ADVANCE, advanceStuff);
 		API.on(API.USER_LEAVE, leaveStuff);
 		API.on(API.CHAT_COMMAND, commandStuff);
-		API.on(API.WAITLIST_UPDATE, updateList);
 		$('#xprequel').on('click', bcs.toggle.prequel);
 		$('#xclick .xbox').on('click', bcs.toggle.box);
 		bcs.toggle.box();
@@ -311,7 +310,7 @@ var bcs = {
 		API.off(API.USER_JOIN, joinStuff);
 		API.off(API.ADVANCE, advanceStuff);
 		API.off(API.USER_LEAVE, leaveStuff);
-		API.off(API.CHAT_COMMAND);
+		API.off(API.CHAT_COMMAND, commandStuff);
 		$('#xprequel').off();
 		$('#xclick .xbox').off();
 		$('#xjoinmsg').off();
@@ -581,7 +580,8 @@ var BrowserDetect = {
 			subString: "Chrome",
 			identity: "Chrome"
 		},
-		{	string: navigator.userAgent,
+		{
+			string: navigator.userAgent,
 			subString: "OmniWeb",
 			versionSearch: "OmniWeb/",
 			identity: "OmniWeb"
@@ -674,7 +674,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>New <a style='color:#99ffd7;'>History Warnings</a>!<br>","#ececec",false,true);
+bcs.addChat("<br>I really don't have anything to write here <a style='color:#99ffd7;'>yet</a>!<br>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
@@ -689,8 +689,10 @@ for (var i = 0; i < me.length; i++){if (bcs.user.id == me[i]){bcs.itsMe = true;}
 var opensansfnt = "'Open Sans' sans-serif";
 
 var d = new Date();
-if (d.getDate() == 2 && d.getMonth() == 11){
+if (d.getDate() == 2 && d.getMonth() == 9){
 	bcs.addChat("<a style='color:#ccc;'>Wot! It's Beta's</a> 2 year anniversary on plug<a style='color:#ccc;'>!<br><em>Not like you care</em>, but I thought I'd let you know! :D");
+}else if(d.getDate() == 1 && d.getMonth() == 2){
+	bcs.addChat("<a style='color:#ccc;'>Wot! Today <a style='color:#eee;font-size:15px;font-family:" + opensansfnt + ";'>plug</a><a style='color:#2FC7FB;font-size:15px;font-family:" + opensansfnt + ";'>.</a><a style='color:#eee;font-size:15px;font-family:" + opensansfnt + ";'>dj</a> turns 3 years old<a style='color:#ccc;'>!<br><em>Not like you care</em>, but I thought I'd let you know! :D");
 }
 
 $.getScript('https://dl.dropboxusercontent.com/s/y90bayahpfh4odh/jquery-ui-1.10.4.custom.min.js?_=1424626287371');
@@ -970,7 +972,7 @@ var style = '<style>\
 		#room-bar{\
 			width:340px;\
 		}\
-		#xwootlist, #xmehlist, #xcurrentdj, #xuserlist{\
+		#xwootlist, #xmehlist, #xcurrentdj{\
 			margin-left:5px;\
 		}\
 		#xwootlist{\
@@ -1220,24 +1222,16 @@ var thevotelist = '\
 		<div id="xcurrentdj"></div>\
 		<div id="xmehlist"></div>\
 		<div id="xwootlist"></div>\
-		<div id="xuserlist"></div>\
 	</div>\
 </div>';
 $("#xvotelist").css({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
 $("#room").append(thevotelist);
 var voteIsOn = false;
 
-$("#xwootlist .user .icon-woot").hover(function() {
-	$("body").append('<div id="tooltip" style="top:84%;left:87.5%;" class="right"><span>Woot!</span><div class="corner"></div></div>')
-}, function() {
-	$("#tooltip").remove();
-});
-
 function foldList(){
 	$("#xvotelist .user").remove();
 	voteslist = [];
 	$("#xvotelist").fadeOut();
-	updateList();
 }
 function unfoldList(){
 	$("#xvotelist").fadeIn();
@@ -1248,24 +1242,17 @@ function unfoldList(){
 
 $("#xlistprequel").on('click',function(){
 	voteIsOn = !voteIsOn;
-	if (voteIsOn){
-		unfoldList();
-		updateList();
-	}else{
-		foldList();
-	}
+	if (voteIsOn){unfoldList();}
+	else{foldList();}
 });
-$("#xlistrefresh").on('click',function(){updateList();});
 
 $("#app-menu .list .votelist").on('click',function(){
 	voteIsOn = !voteIsOn;
-	if (voteIsOn){
-		unfoldList();
-		updateList();
-	}else{
-		foldList();
-	}
+	if (voteIsOn){unfoldList();}
+	else{foldList();}
 });
+
+$("#xlistrefresh").on('click',function(){updateList();});
 
 function appendPerson(name,id,role,grole,vote,grab){
 	switch (role){
@@ -1340,16 +1327,6 @@ function appendPerson(name,id,role,grole,vote,grab){
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}
-	}else if(vote == 0){
-		$("#xuserlist").append('\
-			<div class="user" style="margin-bottom:8px;">\
-				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:83%;margin-top:-1%;cursor:pointer;"></i>\
-				' + thisrole + '\
-				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
-				<br>\
-				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
-			</div>\
-			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 	}
 }
 
@@ -1368,8 +1345,10 @@ function updateList(){
 	voteslist = [];
 	for (var i = 0; i < API.getUsers().length; i++){
 		var thisguy = API.getUsers()[i];
-		var a = {name:thisguy.username, id:thisguy.id, role:thisguy.role, grole:thisguy.gRole, vote:thisguy.vote, grab:thisguy.grab};
-		voteslist.push(a);
+		if (thisguy.vote != 0){
+			var a = {name:thisguy.username, id:thisguy.id, role:thisguy.role, grole:thisguy.gRole, vote:thisguy.vote, grab:thisguy.grab};
+			voteslist.push(a);
+		}
 	}
 	for (var i = 0; i < voteslist.length; i++){
 		appendPerson(voteslist[i].name, voteslist[i].id, voteslist[i].role, voteslist[i].grole, voteslist[i].vote, voteslist[i].grab);
@@ -1680,7 +1659,9 @@ function chatStuff(data){
 }
 
 function voteStuff(obj){
-	updateList();
+	if (!listlock){
+		updateList();
+	}
 	if (obj.vote == -1){
 		var d = new Date();
 		var h = d.getHours();
@@ -1694,6 +1675,9 @@ function voteStuff(obj){
 }
 
 function advanceStuff(obj){
+	updateList();
+	listlock = true;
+	setTimeout(function(){listlock = false;},15000);
 	bcs.hasp3();
 	var d = new Date();
 	var h = d.getHours();
@@ -1702,7 +1686,6 @@ function advanceStuff(obj){
 	if (h < 10){h = "0" + h;}
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
-	updateList();
 	displayLvl();
 	if (autograb){grab();}
 	if (autowoot){setTimeout(bcs.getHistoryID,1000);}
@@ -1715,9 +1698,13 @@ function advanceStuff(obj){
 	if (autolock){
 		var dj = API.getDJ();
 		if (API.getWaitListPosition() <= -1 && dj.username != API.getUser().username){
-			API.djJoin();
-			setTimeout(function(){API.djJoin();},100);
-			setTimeout(function(){API.djJoin();},250);
+			bcs.joinWL();
+			setTimeout(function(){
+				if (API.getWaitListPosition() <= -1 && dj.username != bcs.user.username){bcs.joinWL();}
+			},100);
+			setTimeout(function(){
+				if (API.getWaitListPosition() <= -1 && dj.username != bcs.user.username){bcs.joinWL();}
+			},250);
 		}
 	}
 	if (songup){
@@ -1738,14 +1725,21 @@ function advanceStuff(obj){
 		}
 	}
 	if (timeskip && songup){
+		var thistime = API.getMedia().duration;
 		if (hasPerms){
-			if (API.getMedia().duration > 480){
+			if (thistime > 480){
 				blunq.play();
-				var theminutes = Math.floor(API.getMedia().duration / 60);
-				if (theminutes >= 60){var thehours = theminutes / 60};
-				var theseconds = API.getMedia().duration % 60;
-				if (theseconds < 10){theseconds = "0" + s;}
-				var actuallength = theminutes + ":" + theseconds;
+				var thehours = "";
+				var theminutes = Math.floor(thistime / 60);
+				if (theminutes >= 60){
+					thehours = Math.floor(theminutes / 60);
+					theminutes = theminutes % 60;
+				};
+				if (thehours != ""){thehours = thehours + ":";};
+				var theseconds = thistime % 60;
+				if (theseconds < 10){theseconds = "0" + theseconds;}
+				if (theminutes < 10){theminutes = "0" + theminutes;}
+				var actuallength = thehours + theminutes + ":" + theseconds;
 				bcs.addChat("<b><a style='color:#ff3535;'>Song is over 8 minutes</a></b><br> Song length: " + actuallength,"#D04545",true);
 			}
 		}
