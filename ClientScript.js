@@ -575,93 +575,24 @@ var BrowserDetect = {
 		return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
 	},
 	dataBrowser: [
-		{
-			string: navigator.userAgent,
-			subString: "Chrome",
-			identity: "Chrome"
-		},
-		{
-			string: navigator.userAgent,
-			subString: "OmniWeb",
-			versionSearch: "OmniWeb/",
-			identity: "OmniWeb"
-		},
-		{
-			string: navigator.vendor,
-			subString: "Apple",
-			identity: "Safari",
-			versionSearch: "Version"
-		},
-		{
-			prop: window.opera,
-			identity: "Opera",
-			versionSearch: "Version"
-		},
-		{
-			string: navigator.vendor,
-			subString: "iCab",
-			identity: "iCab"
-		},
-		{
-			string: navigator.vendor,
-			subString: "KDE",
-			identity: "Konqueror"
-		},
-		{
-			string: navigator.userAgent,
-			subString: "Firefox",
-			identity: "Firefox"
-		},
-		{
-			string: navigator.vendor,
-			subString: "Camino",
-			identity: "Camino"
-		},
-		{		// for newer Netscapes (6+)
-			string: navigator.userAgent,
-			subString: "Netscape",
-			identity: "Netscape"
-		},
-		{
-			string: navigator.userAgent,
-			subString: "MSIE",
-			identity: "Explorer",
-			versionSearch: "MSIE"
-		},
-		{
-			string: navigator.userAgent,
-			subString: "Gecko",
-			identity: "Mozilla",
-			versionSearch: "rv"
-		},
-		{		// for older Netscapes (4-)
-			string: navigator.userAgent,
-			subString: "Mozilla",
-			identity: "Netscape",
-			versionSearch: "Mozilla"
-		}
+		{string: navigator.userAgent,subString: "Chrome",identity: "Chrome"},
+		{string: navigator.userAgent,subString: "OmniWeb",versionSearch: "OmniWeb/",identity: "OmniWeb"},
+		{string: navigator.vendor,subString: "Apple",identity: "Safari",versionSearch: "Version"},
+		{prop: window.opera,identity: "Opera",versionSearch: "Version"},
+		{string: navigator.vendor,subString: "iCab",identity: "iCab"},
+		{string: navigator.vendor,subString: "KDE",identity: "Konqueror"},
+		{string: navigator.userAgent,subString: "Firefox",identity: "Firefox"},
+		{string: navigator.vendor,subString: "Camino",identity: "Camino"},
+		{string: navigator.userAgent,subString: "Netscape",identity: "Netscape"},// for newer Netscapes (6+)
+		{string: navigator.userAgent,subString: "MSIE",identity: "Explorer",versionSearch: "MSIE"},
+		{string: navigator.userAgent,subString: "Gecko",identity: "Mozilla",versionSearch: "rv"},
+		{string: navigator.userAgent,subString: "Mozilla",identity: "Netscape",versionSearch: "Mozilla"}// for older Netscapes (4-)
 	],
 	dataOS : [
-		{
-			string: navigator.platform,
-			subString: "Win",
-			identity: "Windows"
-		},
-		{
-			string: navigator.platform,
-			subString: "Mac",
-			identity: "Mac"
-		},
-		{
-			string: navigator.userAgent,
-			subString: "iPhone",
-			identity: "iPhone/iPod"
-		},
-		{
-			string: navigator.platform,
-			subString: "Linux",
-			identity: "Linux"
-		}
+		{string: navigator.platform,subString: "Win",identity: "Windows"},
+		{string: navigator.platform,subString: "Mac",identity: "Mac"},
+		{string: navigator.userAgent,subString: "iPhone",identity: "iPhone/iPod"},
+		{string: navigator.platform,subString: "Linux",identity: "Linux"}
 	]
 };
 BrowserDetect.init();
@@ -1538,6 +1469,7 @@ function chatStuff(data){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .badge-box .bdg").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
 	}
+
 	if (chatIcons){
 	if (user == "EDMC"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
@@ -1789,8 +1721,8 @@ function advanceStuff(obj){
 	if (songup){
 		bcs.addChat("<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
 			<a style='color:#e6ff99;'><b>Author:</b></a> " + obj.media.author + "<br>\
-			<a style='color:#e6ff99;'><b>Current DJ:</b></a> " + obj.dj.username + " (ID " + obj.dj.id + ")<br>\
-			<a style='color:#e6ff99;'><b>Song length:</b></a> " + actuallength + "<br>","#ececec",true);
+			<a style='color:#e6ff99;'><b>Song length:</b></a> " + actuallength + "<br>\
+			<a style='color:#e6ff99;'><b>Current DJ:</b></a> " + obj.dj.username + " (ID " + obj.dj.id + ")<br>","#ececec",true);
 	}
 	bcs.getFriends();
 	//bcs.checkPing();
