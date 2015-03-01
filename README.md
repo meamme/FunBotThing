@@ -16,7 +16,7 @@ Make a bookmark and replace the URL field with these:
    $.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/ActualScript.js');
  }());
 
-###Client Script:
+###Client Script (BCS):
 
  javascript:(function(){
    $.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/ClientScript.js');
