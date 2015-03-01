@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.5.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.5.3</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1710,6 +1710,7 @@ function voteStuff(obj){
 
 function advanceStuff(obj){
 	updateList();
+	var thissong = API.getMedia();
 	if (!listlock){
 		listlock = true;
 		if (API.getUsers().length >= 100){
@@ -1732,8 +1733,8 @@ function advanceStuff(obj){
 
 	if (autoskip && hasPerms){
 		clearTimeout(songtick);
-		var songsover = API.getMedia().duration;
-		var songtick = setTimeout(function() {API.moderateForceSkip()}, songsover * 1000 + 5000);
+		var songsover = thissong.duration;
+		var songtick = setTimeout(function() {API.moderateForceSkip()}, songsover * 1000 + 20000);
 	}
 	if (autolock){
 		var dj = API.getDJ();
@@ -1755,7 +1756,7 @@ function advanceStuff(obj){
 		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
 	}
 	for (var i = 0; i< API.getHistory().length; i++){
-		if (API.getHistory()[i].media.cid == API.getMedia().cid){
+		if (API.getHistory()[i].media.cid == thissong.cid){
 			var previous = API.getHistory()[i];
 			var pos = i + 1;
 			var stats = previous.user.username + " (ID " + previous.user.id + ")";
@@ -1765,7 +1766,7 @@ function advanceStuff(obj){
 		}
 	}
 	if (timeskip && songup){
-		var thistime = API.getMedia().duration;
+		thistime = thissong.duration;
 		if (hasPerms){
 			if (thistime > 480){
 				blunq.play();
