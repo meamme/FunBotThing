@@ -674,7 +674,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>I really don't have anything to write here <a style='color:#99ffd7;'>yet</a>!<br>","#ececec",false,true);
+bcs.addChat("<br>Added <a style='color:#99ffd7;'>/deleteuser</a>!<br> You can delete all messages from the user by their ID<br>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
@@ -1765,22 +1765,23 @@ function advanceStuff(obj){
 			break;
 		}
 	}
+
+	var thistime = thissong.duration;
+	var thehours = "";
+	var theminutes = Math.floor(thistime / 60);
+	if (theminutes >= 60){
+		thehours = Math.floor(theminutes / 60);
+		theminutes = theminutes % 60;
+	};
+	if (thehours != ""){thehours = thehours + ":";};
+	var theseconds = thistime % 60;
+	if (theseconds < 10){theseconds = "0" + theseconds;}
+	if (theminutes < 10){theminutes = "0" + theminutes;}
+	var actuallength = thehours + theminutes + ":" + theseconds;
 	if (timeskip && songup){
-		thistime = thissong.duration;
 		if (hasPerms){
 			if (thistime > 480){
 				blunq.play();
-				var thehours = "";
-				var theminutes = Math.floor(thistime / 60);
-				if (theminutes >= 60){
-					thehours = Math.floor(theminutes / 60);
-					theminutes = theminutes % 60;
-				};
-				if (thehours != ""){thehours = thehours + ":";};
-				var theseconds = thistime % 60;
-				if (theseconds < 10){theseconds = "0" + theseconds;}
-				if (theminutes < 10){theminutes = "0" + theminutes;}
-				var actuallength = thehours + theminutes + ":" + theseconds;
 				bcs.addChat("<b><a style='color:#ff3535;'>Song is over 8 minutes</a></b><br> Song length: " + actuallength,"#D04545",true);
 			}
 		}
@@ -1788,7 +1789,8 @@ function advanceStuff(obj){
 	if (songup){
 		bcs.addChat("<a style='color:#e6ff99;'><b>Now playing:</b></a> " + obj.media.title + "<br>\
 			<a style='color:#e6ff99;'><b>Author:</b></a> " + obj.media.author + "<br>\
-			<a style='color:#e6ff99;'><b>Current DJ:</b></a> " + obj.dj.username + " (ID " + obj.dj.id + ")<br>","#ececec",true);
+			<a style='color:#e6ff99;'><b>Current DJ:</b></a> " + obj.dj.username + " (ID " + obj.dj.id + ")<br>\
+			<a style='color:#e6ff99;'><b>Song length:</b></a> " + actuallength + "<br>","#ececec",true);
 	}
 	bcs.getFriends();
 	//bcs.checkPing();
@@ -2630,6 +2632,10 @@ function commandStuff(data){
 
 		case "deleteself":
 			deleteSelf();
+			break;
+
+		case "deleteuser":
+			$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm[data-cid^=' + command[1] + ']'});
 			break;
 
 		case "rainbow":
