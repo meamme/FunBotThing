@@ -2580,6 +2580,10 @@ function commandStuff(data){
 			};
 			break;
 
+		case "deletemod":
+			$.ajax({type: 'DELETE', url: '/_/chat/1-,.moderation'});
+			break;
+
 		case "selfdemote":
 			if (bcs.user.role >= 2){
 				var r = confirm("Demote yourself to RDJ?");
