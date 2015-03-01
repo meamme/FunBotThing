@@ -1966,6 +1966,7 @@ function lookfor(id,isityou){
 			case "ba":			var bb = "Brand Ambassador (" + data.badge + ")";break;
 			case "admin":		var bb = "Admin Badge (" + data.badge + ")";break;
 			case "plot":		var bb = "Translator Badge (" + data.badge + ")";break;
+			case "2015bday":	var bb = "3rd Anniversary Badge (" + data.badge + ")";break;
 			case "2014wbb":		var bb = "Winter Badge (" + data.badge + ")";break;
 			case "raveset":		var bb = "Rave Badge (" + data.badge + ")";break;
 			case "robotset":	var bb = "Robot Badge (" + data.badge + ")";break;
@@ -2014,11 +2015,8 @@ function lookfor(id,isityou){
 			case "tiki03":		var bb = "Green Tree (" + data.badge + ")";break;
 			case "tiki04":		var bb = "Purple Tree (" + data.badge + ")";break;
 			default:
-				if (data.badge == null){
-					var bb = "None (<a style='color:#b8e0ff;'><em>null</em></a>)";
-				}else{
-					var bb = data.badge;
-				}
+				if (data.badge == null){var bb = "None (<a style='color:#b8e0ff;'><em>null</em></a>)";}
+				else{var bb = data.badge;}
 				break;
 		}
 
