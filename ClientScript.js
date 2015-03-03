@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.5.3</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.5.4</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -605,7 +605,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>Added <a style='color:#99ffd7;'>/deleteuser</a>!<br> You can delete all messages from the user by their ID<br>","#ececec",false,true);
+bcs.addChat("<br>Added <a style='color:#99ffd7;'>/clean</a>!<br> Remove all pesky BCS messages from chat, in case you missed something!<br>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
@@ -622,8 +622,6 @@ var opensansfnt = "'Open Sans' sans-serif";
 var d = new Date();
 if (d.getDate() == 2 && d.getMonth() == 9){
 	bcs.addChat("<a style='color:#ccc;'>Wot! It's Beta's</a> 2 year anniversary on plug<a style='color:#ccc;'>!<br><em>Not like you care</em>, but I thought I'd let you know! :D");
-}else if(d.getDate() == 1 && d.getMonth() == 2){
-	bcs.addChat("<a style='color:#ccc;'>Wot! Today <a style='color:#eee;font-size:15px;font-family:" + opensansfnt + ";'>plug</a><a style='color:#2FC7FB;font-size:15px;font-family:" + opensansfnt + ";'>.</a><a style='color:#eee;font-size:15px;font-family:" + opensansfnt + ";'>dj</a> turns 3 years old<a style='color:#ccc;'>!<br><em>Not like you care</em>, but I thought I'd let you know! :D");
 }
 
 $.getScript('https://dl.dropboxusercontent.com/s/y90bayahpfh4odh/jquery-ui-1.10.4.custom.min.js?_=1424626287371');
@@ -665,7 +663,7 @@ var menu = '\
 				</div>\
 				<div id="xautowoot" class="xbutton">\
 					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">AutoWoot</span>\
+					<span class="xclickable" style="margin-left:25px;" title="This is line 666 on the code. Hehehe.">AutoWoot</span>\
 				</div>\
 				<div id="xautojoin" class="xbutton">\
 					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
@@ -2070,8 +2068,13 @@ function lookfor(id,isityou){
 		var isFriend = "No (<em>false</em>)";
 		for (var i = 0; i < bcs.friendsList.length; i++){
 			if (data.username == bcs.friendsList[i].username){
+				if (typeof bcs.friendsList[i].room != "undefined"){
+					var friendroom = "<a href='https://plug.dj/" + bcs.friendsList[i].room.slug + "' style='color:#aec9ea;'>" + bcs.friendsList[i].room.name + "</a>";
+				}else{
+					var friendroom = "<a style='color:#808691;'>Offline</a>";
+				}
 				isFriend = "<a style='color:#ffc4f9;'>Yes</a> (<em>true</em>)<br><b>\
-				<a style='color:#42a5dc;'>Room:</b></a> <a href='https://plug.dj/" + bcs.friendsList[i].room.slug + "' style='color:#aec9ea;'>" + bcs.friendsList[i].room.name + "</a>";
+					<a style='color:#42a5dc;'>Room:</b></a> " + friendroom;
 				break;
 			}
 		}
@@ -2090,12 +2093,12 @@ function lookfor(id,isityou){
 		<a style='color:#42a5dc;'>ID:</b></a> " + data.id + "<br><b>\
 		<a style='color:#42a5dc;'>Level:</b></a> " + data.level + "<br><b>\
 		<a style='color:#42a5dc;'>Avatar:</b></a> " + data.avatarID + "<br><b>\
+		<a style='color:#42a5dc;'>Badge:</b></a> " + bb + "<br><b>\
 		<a style='color:#42a5dc;'>Status:</b></a> " + stt + "<br><b>\
 		<a style='color:#42a5dc;'>Language:</b></a> " + lan + "<br><b>\
 		<a style='color:#42a5dc;'>Role:</b></a> " + lr + "<br><b>\
 		<a style='color:#42a5dc;'>Global Role:</b></a> " + g + "<br><b>\
 		<a style='color:#42a5dc;'>Joined:</b></a> " + jnd + "<br><b>\
-		<a style='color:#42a5dc;'>Badge:</b></a> " + bb + "<br><b>\
 		<a style='color:#42a5dc;'>Friend:</b></a> " + isFriend + "<br><b>\
 		<a style='color:#42a5dc;'>Vote:</b></a> " + votestats + grabstats + "<br><b>\
 		<a style='color:#42a5dc;'>WaitList Position:</b></a> " + posstats + "<br>","#CCCCCC",false,false,true);
@@ -2377,18 +2380,25 @@ function commandStuff(data){
 			});
 			break;
 
+		case "clean":
+		case "cls":
+			$(".betabot-update").remove();
+			break;
+
 		case "break":
 			API.sendChat('/me  ');
 			setTimeout(function(){API.sendChat('/del 0')},550);
 			break;
 
 		case "lookup":
+		case "l":
 			var itsYou = false;
 			if (command[1] == API.getUser().id){itsYou = true;}
 			lookfor(command[1],itsYou);
 			break;
 
 		case "search":
+		case "s":
 			var xname = command[1].substring(1).toString();
 			var oname = xname.substring(0,xname.length - 2);
 			var uname = oname.toLowerCase();
@@ -2553,6 +2563,17 @@ function commandStuff(data){
 
 		case "deletemod":
 			$.ajax({type: 'DELETE', url: '/_/chat/1-,.moderation'});
+			break;
+
+		case "promoteandclear":
+			$.ajax({
+				type: 'POST',
+				url: '/_/staff/update',
+				dataType: 'json',
+				contentType: 'application/json',
+				data: JSON.stringify({userID: command[1], roleID: 2})
+			});
+			setTimeout(function(){$.ajax({type: 'DELETE', url: '/_/chat/1-,.moderation'});},250);
 			break;
 
 		case "stopreload":
