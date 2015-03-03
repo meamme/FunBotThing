@@ -1,3 +1,5 @@
+####**Updated for BCS Beta v0.13.5.4**
+
 ###**/todo**
 	Returns the "Todo" list; Will be updated while features are added / requested.
 
@@ -30,7 +32,7 @@
 	Toggles the visibility for the intercom chat. Might not work, because of reasons humans don't quite comprehend.
 
 ###**/flip**
-/**mirror**
+###/**mirror**
 	Mirrors the screen. Cuz yolo.
 
 ###**/invert**
@@ -87,13 +89,19 @@
 ###**/erase**
 	Deletes any message by it's ID.
 
+###**/clean**
+###**/cls**
+	Removes pesky BCS log messages.
+
 ###**/break**
 	Sends in an empty /me, then removes it. Mostly for debugging / testing.
 
 ###**/lookup**
+###**/l**
 	Searches an user in the plug database through their ID.
 
 ###**/search**
+###**/s**
 	Searches an user in the plug database through their name (they must be in the same room).
 
 ###**/cya**
@@ -174,6 +182,18 @@
 ###**/deleteall**
 	Deletes all chat
 
+###**/deletemod**
+	Deletes plug.dj mod system messages (Such as Moved to position X, Banned X from the community etc)
+
+###**/promoteandclear**
+	Command made for testing, promotes specified user and removes the message saying they were promoted.
+
+###**/stopreload**
+	Prevents page from reloading without your consent. Mostly used to breach Maintenance Mode hehehe
+
+###**/selfdemote**
+	If possible, demotes yourself to RDJ. WHY WOULD YOU xD
+
 ###**/flood**
 	Sends in chat "@everyone @staff" 3 times. [Requested by DCV (3639711)]
 
@@ -182,7 +202,10 @@
 	Hides chat. Mainly for homework purposes.
 
 ###**/deleteself**
-	Deletes all of your own messages. Might have some bugs.
+	Deletes all of your own messages.
+
+###**/deleteuser**
+	Deletes all of a specific user's messages (through user ID).
 
 ###**/rainbow**
 ###**/rainbows**
@@ -262,3 +285,6 @@
 ###**/cmds**
 ###**/cmd**
 	Returns this list.
+
+###**If you type in anything that is not registered by any script / plug itself**
+	Returns "Command YOURCOMMAND is not a command!"
