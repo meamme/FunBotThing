@@ -2649,6 +2649,7 @@ function commandStuff(data){
 		case "rainbow":
 		case "rainbows":
 		case "hearts":
+			if (command[1] == ""){command[1] = "1";};
 			var rows = parseInt(command[1]);
 			if (rows < 1){rows = 1};
 			if (rows > 10){
