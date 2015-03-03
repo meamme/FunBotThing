@@ -921,12 +921,12 @@ var style = '<style>\
 		#iwannalookcool{\
 			background-image:url(https://i.imgur.com/x1DEgOD.png);\
 			position:absolute;\
-			top: 6%;\
-			left: 88%;\
 			background-size: contain;\
 			color:#b6f6ff;\
 			font-size: 11px;\
 			font-family: ' + opensansfnt + ', sans-serif;\
+			top: 6%;\
+			left: 88%;\
 			width:30px;\
 			height:30px;\
 			display:none;\
@@ -1054,7 +1054,7 @@ function displayid(){
 			$("#id_display").show();
 		}
 	}
-	$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/x1DEgOD.png)"});
+	$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/x1DEgOD.png)","top":"6%","left":"88%","width":"30px","height":"30px"});
 	if (e == "Beta Tester" || e == "T98" || e == "CatSnore"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
