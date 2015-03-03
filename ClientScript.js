@@ -2228,6 +2228,10 @@ function commandStuff(data){
 				Help with ideas from <a style='color:#b8e0ff;' href='https://plug.dj/@/dcv' target='_blank'>DCV</a><br>","#eee",false,true,true);
 			break;
 
+		case "both":
+			ct(" Both. http://i.imgur.com/py7q8V7.gif");
+			break;
+
 		case "antilag":
 			antilag = !antilag;
 			if (antilag){
