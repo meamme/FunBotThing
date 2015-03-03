@@ -918,6 +918,18 @@ var style = '<style>\
 			right: 9px;\
 			left: auto;\
 		}\
+		#iwannalookcool{\
+			background-image:url(https://i.imgur.com/x1DEgOD.png);\
+			position:absolute;\
+			top: 6%;\
+			left: 88%;\
+			background-size: contain;\
+			color:#b6f6ff;\
+			font-size: 11px;\
+			font-family: ' + opensansfnt + ', sans-serif;\
+			width:30px;\
+			height:30px;\
+			display:none;\
 	</style>';
 
 $("#room").append(menu);
@@ -1012,7 +1024,7 @@ if (notifyAFK == 0){
 
 function attemptappend(){
 	if ($("#iwannalookcool").text() == ""){
-		$("#user-rollover .meta").append('<div id="iwannalookcool" style="background-image:url(https://i.imgur.com/x1DEgOD.png); position:absolute; top: 6%; left: 88%; background-size: contain; color:#b6f6ff; font-size: 11px; font-family: ' + opensansfnt + ', sans-serif; width:30px; height:30px; display:none;"> </div>');
+		$("#user-rollover .meta").append('<div id="iwannalookcool"> </div>');
 		setTimeout(function(){attemptappend();},250);
 	}else if ($("#iwannalookcool").text() == " "){
 		console.log('Appended.');
@@ -1055,7 +1067,7 @@ function displayid(){
 			$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
 		}
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").toggleClass("can-staff");}
-	}else if (e == "Kwiztech" || e == "DCV" || e == "Wumbology" || e == "Newcool"  || e == "Legend" || e == "Mix_God"){
+	}else if (e == "Kwiztech" || e == "DCV" || e == "Wumbology" || e == "Newcool"  || e == "Mix_God"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'linear-gradient(rgb(40, 44, 53) 10%, rgb(28, 31, 37) 85%) 100% 50%'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
@@ -1072,7 +1084,15 @@ function displayid(){
 		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
-	}else {
+	}else if(e == "Legend"){
+		$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/hKmP5Ez.png)","width":"75px","height":"75px","left":"73%","top":"13%"});
+		$("#iwannalookcool").show();
+		$('#user-rollover .meta').css({'background':'#000'});
+		$("#user-rollover .info").css({background:'#111317'});
+		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
+		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
+		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
+	}else{
 		$("#iwannalookcool").hide();
 		$('#user-rollover .meta').css({'background':'#282C35'});
 		$('#user-rollover .background').css({'background':'#282c35'});
@@ -2183,6 +2203,10 @@ function commandStuff(data){
 	console.log("[COMMAND] " + command[0] + " || [ARGUMENT] " + command[1]);
 
 	switch(command[0].toLowerCase()){
+		case "level":
+			bcs.l("http://i.imgur.com/aRU9YZk.png");
+			break;
+
 		case "todo":
 			bcs.addChat("<br><a style='color:#c2f3bf;'><b>Todo list:</b></a><br><br>\
 					<a style='color: #d4d4d4;'>⊱ <del>Fix inline images bug</del> <b>[DONE]</b></a><br>\
@@ -2238,14 +2262,14 @@ function commandStuff(data){
 			bcs.getHistoryID(1);
 			break;
 
-		case "showinter":
-		case "intercom":
-			$("#intercom-launcher").css({"visibility":"visible"});
-			break;
-
 		case "meh":
 		case "-1":
 			bcs.getHistoryID(-1);
+			break;
+
+		case "showinter":
+		case "intercom":
+			$("#intercom-launcher").css({"visibility":"visible"});
 			break;
 
 		case "flip":
@@ -2253,10 +2277,6 @@ function commandStuff(data){
 			bcs.isFlip = !bcs.isFlip;
 			if (bcs.isFlip){$("body").css({'transform':'scale(-1, 1)'})}
 			if (!bcs.isFlip){$("body").css({'transform':'scale(1, 1)'})}
-			break;
-
-		case "rekt":
-			bcs.c("NOT REKT ☐ | REKT ☑");
 			break;
 
 		case "invert":
@@ -2286,6 +2306,10 @@ function commandStuff(data){
 					$("body").css({'filter':'invert(0%)','-webkit-filter':'invert(0%)'});
 				}
 			}
+			break;
+
+		case "rekt":
+			bcs.c("NOT REKT ☐ | REKT ☑");
 			break;
 
 		case "icon":
@@ -2417,12 +2441,6 @@ function commandStuff(data){
 				bcs.addChat("<br><b><a style='color:#eaaeae;'>[User </b></a>" + oname + "<b><a style='color:#eaaeae;'> not found]</a></b><br>\
 				Make sure you are using <b>'<a style='background-color:#3f3fff;'>@NAME </a>'</b> (yes, the space after it <em>is</em> important)","#CCCCCC",false,false,true);
 			}
-			break;
-
-		case "showoff":
-			bcs.c("/me :fire: :star2: :fire: :boom: :fire: :boom: :fire: :star2: :fire:");
-			setTimeout(function(){bcs.c("/me ~A wild me appears~");},250);
-			setTimeout(function(){bcs.c("/me :fire: :star2: :fire: :boom: :boom: :fire: :fire: :star2: :fire:");},500);
 			break;
 
 		case "cya":
