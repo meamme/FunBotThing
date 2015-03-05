@@ -1712,7 +1712,7 @@ function advanceStuff(obj){
 			var pos = i + 1;
 			var stats = previous.user.username + " (ID " + previous.user.id + ")";
 			blunq.play();
-			bcs.addChat("<b><a style='color:#ff3535;'>Song in History</a></b><br>Played by " + stats + " - (History position " + pos + ")","#D04545",true);
+			bcs.addChat("<b><a style='color:#ff3535;'>Song in History</a></b><br>Played by " + stats + " - (History position " + pos + ")<br>[" + previous.media.title + "]","#D04545",true);
 			break;
 		}
 	}
