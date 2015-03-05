@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.5.4</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.6</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -605,7 +605,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>Added <a style='color:#99ffd7;'>/clean</a>!<br> Remove all pesky BCS messages from chat, in case you missed something!<br>","#ececec",false,true);
+bcs.addChat("<br>Added <a style='color:#99ffd7;'>/joined @NAME</a> !<br> Check the time someone joined (as long as they joined after you)<br>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
@@ -1705,6 +1705,7 @@ function advanceStuff(obj){
 		setTimeout(function(){$(".log")[$(this).length-1].remove();},250);
 		setTimeout(function(){$(".log")[$(this).length-1].remove();},1000);
 	}
+	setTimeout(function(){
 	for (var i = 0; i< API.getHistory().length; i++){
 		if (API.getHistory()[i].media.cid == thissong.cid){
 			var previous = API.getHistory()[i];
@@ -1715,6 +1716,7 @@ function advanceStuff(obj){
 			break;
 		}
 	}
+	},250);
 
 	var thistime = thissong.duration;
 	var thehours = "";
@@ -1746,6 +1748,8 @@ function advanceStuff(obj){
 	//bcs.checkPing();
 }
 
+var userslist = [];
+
 function leaveStuff(user){
 	updateList();
 	if (user.friend){
@@ -1775,16 +1779,15 @@ function leaveStuff(user){
 			bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
 		}
 	}
+	for (var i = 0; i < userslist.length; i++){
+		if (user.username == userslist[i].name){
+			userslist.splice(i,1);
+			break;
+		}
+	}
 };
 
 function joinStuff(user){
-	if (user.friend){
-		var f = "Your friend ";
-		var c = "#c5ffcc";
-	}else{
-		var f = "";
-		var c = "#74afff";
-	}
 	var d = new Date();
 	var h = d.getHours();
 	var m = d.getMinutes();
@@ -1792,6 +1795,16 @@ function joinStuff(user){
 	if (h < 10){h = "0" + h;}
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
+
+	userslist.push({"name":user.username,"id":user.id,"time":"[" + h + ":" + m + ":" + s + "]"});
+
+	if (user.friend){
+		var f = "Your friend ";
+		var c = "#c5ffcc";
+	}else{
+		var f = "";
+		var c = "#74afff";
+	}
 	var userrole = "";
 	switch (user.role){case 0:userrole = "";break;case 1:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>RDJ</b></a> (1) |";break;case 2:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Bouncer</b></a> (2) |";break;case 3:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Manager</b></a> (3) |";break;case 4:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>CoHost</b></a> (4) |";break;case 5:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Host</b></a> (5) |";break;}
 	var usergrole = "";
@@ -2230,6 +2243,34 @@ function commandStuff(data){
 
 		case "both":
 			ct(" Both. http://i.imgur.com/py7q8V7.gif");
+			break;
+
+		case "j":
+		case "timejoined":
+		case "joined":
+			if (command[1].indexOf("@") != -1){
+				var xname = command[1].substring(1).toString();
+				var oname = xname.substring(0,xname.length - 2);
+				var uname = oname.toLowerCase();
+				console.log(xname + "||" + uname + "||" + oname);
+			}
+			var foundIt = false;
+			for (var i = 0; i < API.getUsers().length; i++){
+				if (oname == API.getUsers()[i].username || command[1] == API.getUsers()[i].id){
+					foundIt = true;
+					break;
+				};
+			};
+			if (foundIt){
+				for (var i = 0; i < userslist.length; i++){
+					if (oname == userslist[i].name || command[1] == userslist[i].id){
+						bcs.addChat("User " + userslist[i].name + " (ID " + userslist[i].id + ") joined the room at " + userslist[i].time,"#ccc");
+						break;
+					};
+				};
+			}else if (!foundIt){
+				bcs.addChat("User " + command[1] + " is either not in the room or joined before you did.","#c42e3b");
+			};
 			break;
 
 		case "antilag":
