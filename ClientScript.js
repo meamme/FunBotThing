@@ -218,7 +218,7 @@ var bcs = {
 			if (r === true) {
 				deleteAll();
 			}else{
-				bcs.l("[Command DELETEALL denied]",true);
+				bcs.l("[Command DELETEALL denied]");
 			};
 		},
 		timeskip: function(){
@@ -1699,11 +1699,11 @@ function advanceStuff(obj){
 		}
 	}
 	if (songup){
-		bcs.l(" ",false);
+		bcs.l(" ");
 		bcs.addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
 			<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b>","#ececec",true);
-		setTimeout(function(){$(".update")[$(this).length-1].remove();},250);
-		setTimeout(function(){$(".update")[$(this).length-1].remove();},1000);
+		setTimeout(function(){$(".log")[$(this).length-1].remove();},250);
+		setTimeout(function(){$(".log")[$(this).length-1].remove();},1000);
 	}
 	for (var i = 0; i< API.getHistory().length; i++){
 		if (API.getHistory()[i].media.cid == thissong.cid){
@@ -1840,7 +1840,7 @@ function deleteAll(){
 				}
 			}
 		}*/
-		return bcs.l("[Chat cleared]",true);
+		return bcs.l("[Chat cleared]");
 	}else{
 		bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
 	}
@@ -2579,7 +2579,7 @@ function commandStuff(data){
 			if (r === true) {
 				deleteAll();
 			}else{
-				bcs.l("[Command " + command[0] + " denied]",true);
+				bcs.l("[Command " + command[0] + " denied]");
 			};
 			break;
 
@@ -2615,10 +2615,10 @@ function commandStuff(data){
 						data: JSON.stringify({userID: bcs.user.id, roleID: 1})
 					})
 				}else {
-					bcs.l("[Command " + command[0] + " denied]",true);
+					bcs.l("[Command " + command[0] + " denied]");
 				}
 			}else {
-				bcs.l("[Command " + command[0] + " denied]",true);
+				bcs.l("[Command " + command[0] + " denied]");
 			}
 			break;
 
@@ -2631,7 +2631,7 @@ function commandStuff(data){
 				setTimeout(function(){bcs.c("/me @everyone @staff")},750);
 				setTimeout(function(){bcs.addChat("This command was brought to you by DCV [ID 3639711]","#ececec",false,false,true);},775);
 			}else{
-				bcs.l("[Command " + command[0] + " denied]",true);
+				bcs.l("[Command " + command[0] + " denied]");
 			};
 			break;
 
@@ -2662,11 +2662,11 @@ function commandStuff(data){
 					if (r === true) {
 						sendHearts(rows);
 					}else{
-						bcs.l("[Command " + command[0] + " denied]",true);
+						bcs.l("[Command " + command[0] + " denied]");
 					}
 				}else{
-					bcs.l("Unranked users may not send more than 10 lines of hearts. Sowwy :P",false);
-					bcs.l("[Command " + command[0] + " denied]",true);
+					bcs.l("Unranked users may not send more than 10 lines of hearts. Sowwy :P");
+					bcs.l("[Command " + command[0] + " denied]");
 				}
 			}else{
 				sendHearts(rows);
