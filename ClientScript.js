@@ -940,9 +940,7 @@ var style = '<style>\
 			display: block;\
 			left: 19%;\
 			width: 300px;\
-			-webkit-box-shadow: inset 1px 0 0 0 #0a0a0a;\
-			-moz-box-shadow: inset 1px 0 0 0 #0a0a0a;\
-			box-shadow: inset 1px 0 0 0 #0a0a0a;\
+			background: #282C35;\
 		}\
 		#footer-user .info .name {\
 			cursor: pointer;\
@@ -950,8 +948,8 @@ var style = '<style>\
 		#footer-user .back {\
 			width: 19%;\
 		}\
-		.points {\
-			right: 10px;\
+		#footer-user .info .points {\
+			right: 25px;\
 		}\
 	</style>';
 
@@ -971,12 +969,8 @@ $("#footer-user .store").remove();
 $("#footer-user .played").remove();
 $("#footer-user .settings").remove();
 $("#footer-user .info .meta .bar").css({"width":"105px"});
-$("#footer-user .info .points").css({"right":"10px"});
+$("#footer-user .info .meta .level .label").text("Lv");
 $("#footer-user .inventory .image .thumb").css({"border":"2px solid #89be6c"});
-/* $("#chat .disconnect").css({left:"-200px",height:"50px",width:"200px",border:"dotted 2px #F00"});
-$("#chat .disconnect span").text("Connection lost");
-$("#chat .disconnect span").css({top:"10px"}); */
-
 function transformBack(){$("#footer-user .back span").text("Back");}
 $("#footer-user .back").css({"width":"19%"});
 $("#footer-user").on('click',transformBack);
