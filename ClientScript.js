@@ -145,11 +145,11 @@ var bcs = {
 			$("#xvotes").toggleClass('active');
 			$("#xvotes .icon").toggleClass('active');
 			if (cutevotes){
-				$("#grab .top .icon").animate({left:"22"});
+				$("#grab .top .icon").animate({left:"4%"});
 				$("#grab .top .label").hide();
-				$("#woot .top .icon").animate({left:"22"});
+				$("#woot .top .icon").animate({left:"4%"});
 				$("#woot .top .label").hide();
-				$("#meh .top .icon").animate({left:"20"});
+				$("#meh .top .icon").animate({left:"4%"});
 				$("#meh .top .label").hide();
 				$('#meh').animate({left:"-1px"});
 				$('#woot').animate({left:"1px"});
@@ -285,6 +285,7 @@ var bcs = {
 		$('#footer-user .user').on('click', bcs.toggle.chatShrink);
 		$('#app-menu .community').on('click', bcs.toggle.chatShrink);
 		$('#room .app-right .has-requests .header').on('click', bcs.toggle.chatShrink);
+		$('#footer-user .inventory').on('click', bcs.toggle.chatShrink);
 		$('#xvotes').on('click', bcs.toggle.cuteVoting);
 		$('#xpreviews').on('click', bcs.toggle.previews);
 		$('#xsave').on('click', bcs.settings.set);
@@ -296,6 +297,7 @@ var bcs = {
 		$('#xspammer').on('click', bcs.toggle.spammer);
 		$("#room-bar").animate({left:'106px'});
 		$("#room-bar .favorite").animate({right:'55px'});
+		$("#footer-user .bar .value").hide();
 		setTimeout(function(){bcs.settings.load();},1000);
 		bcs.getFriends();
 		bcs.getStaff();
@@ -336,6 +338,7 @@ var bcs = {
 		$('#xtimeskip').off();
 		$('#xlockdown').off();
 		$('#xspammer').off();
+		$("#xclick").remove();
 		$("#xvotelist").remove();
 		$("#xtheone").remove();
 		$("#app-menu .list .votelist").remove();
@@ -605,7 +608,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>Added <a style='color:#99ffd7;'>/joined @NAME</a> !<br> Check the time someone joined (as long as they joined after you)<br>","#ececec",false,true);
+bcs.addChat("<br>Implemented the <a style='color:#99ffd7;'>old plug look</a>!<br> If you dislike it,<br> I think it's time you stop using this script ; - ;<br>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
@@ -930,6 +933,22 @@ var style = '<style>\
 			width:30px;\
 			height:30px;\
 			display:none;\
+		}\
+		#footer-user .info {\
+			top: 1px;\
+			display: block;\
+			left: 19%;\
+			width: 300px;\
+			-webkit-box-shadow: inset 1px 0 0 0 #0a0a0a;\
+			-moz-box-shadow: inset 1px 0 0 0 #0a0a0a;\
+			box-shadow: inset 1px 0 0 0 #0a0a0a;\
+		}\
+		#footer-user .back {\
+			width: 19%;\
+		}\
+		.points {\
+			right: 10px;\
+		}\
 	</style>';
 
 $("#room").append(menu);
@@ -943,13 +962,20 @@ $("#search-input-field").attr({"maxlength":256});
 $("#app-menu .list").append('<div class="item votelist clickable"><i class="icon icon-woot-off"></i><span>Vote List (WIP)</span></div>');
 $("#footer-user .bar").css({'border-radius':'10px 10px'});
 $("#footer-user .progress").css({'border-radius':'10px 10px'});
+$("#footer-user .profile").remove();
+$("#footer-user .store").remove();
+$("#footer-user .played").remove();
+$("#footer-user .settings").remove();
+$("#footer-user .info .meta .bar").css({"width":"105px"});
+$("#footer-user .info .points").css({"right":"10px"});
+$("#footer-user .inventory .image .thumb").css({"border":"2px solid #89be6c"});
 /* $("#chat .disconnect").css({left:"-200px",height:"50px",width:"200px",border:"dotted 2px #F00"});
 $("#chat .disconnect span").text("Connection lost");
 $("#chat .disconnect span").css({top:"10px"}); */
 
 function transformBack(){$("#footer-user .back span").text("Back");}
-$("#footer-user .back").css({"width":"18%"});
-$("#footer-user .menu").on('click',transformBack);
+$("#footer-user .back").css({"width":"19%"});
+$("#footer-user").on('click',transformBack);
 $("#playlist-meta .shop-button").on('click',transformBack);
 $("#room-bar").on('click',transformBack);
 $("#room .app-right .has-requests .header").on('click',transformBack);
@@ -1111,12 +1137,18 @@ $("#user-lists").click(displayid);
 $("#dj-canvas").mousemove(displayid);
 $("#audience-canvas").mousemove(displayid);
 $("#footer-user").on('click',function(){if(bcs.itsMe){$("#footer-user .pp .value").text("305");}});
-//Percentage on progress bar :D
+//Percentage on progress bar :D [Outdated]
+
 function displayLvl(){
 	$("#footer-user .percentage").remove();
 	var lvl = $("#footer-user .progress").attr('style');
 	var lvlPc = lvl.substring(6,lvl.indexOf('%') + 1);
-	$("#footer-user .progress").append('<div class="percentage" style="font-size: 10px; position:block; margin-left:50px; margin-top:-1px"><b>' + lvlPc + '</b></div>');
+	$("#footer-user .bar").append('\
+	<div class="percentage" style="font-size: 10px;\
+		position:block;\
+		margin-left:50px;\
+		margin-top:-1px;\
+		position:absolute;"><b>' + lvlPc + '</b></div>');
 	if (parseInt(lvlPc) >= 95){
 		$("#footer-user .progress").css({'border-radius':'10px 10px'});
 	}else{
@@ -1124,8 +1156,14 @@ function displayLvl(){
 	}
 }
 displayLvl();
-$("#footer-user .bar").mouseenter(function(){$("#footer-user .percentage").hide();});
-$("#footer-user .bar").mouseleave(function(){$("#footer-user .percentage").show();});
+$("#footer-user .bar").mouseenter(function(){
+	$("#footer-user .percentage").hide();
+	$("#footer-user .bar .value").show();
+});
+$("#footer-user .bar").mouseleave(function(){
+	$("#footer-user .percentage").show();
+	$("#footer-user .bar .value").hide();
+});
 
 $("#app-menu .list .votelist").mouseenter(function(){
 	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');
