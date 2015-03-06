@@ -1950,16 +1950,6 @@ function lookfor(id,isityou){
 		bcs.addChat("<b><a style='color:#eaaeae;'>[User has not updated yet!]</a></b>","#CCCCCC",false,false,true);
 	}else{
 
-//STATUS
-		switch (data.status){
-			case 0:	var stt = "<a style='color:#89be6c;'>Available</a> (0)";break;
-			case 1:	var stt = "<a style='color:#ffdd6f;'>Away</a> (1)";break;
-			case 2:	var stt = "<a style='color:#f04f30;'>Working</a> (2)";break;
-			case 3:	var stt = "<a style='color:#ac76ff;'>Gaming</a> (3)";break;
-			case 4:	var stt = "<a style='color:#555d70;'>Offline / Undefined</a> (4?)";break;
-			default:var stt = "<a style='color:#ff0000;'>Wot.</a>";
-		}
-
 //BADGE
 		switch(data.badge){
 			case "bt":			var bb = "Beta Tester (" + data.badge + ")";break;
@@ -2165,7 +2155,6 @@ function lookfor(id,isityou){
 		<a style='color:#42a5dc;'>Level:</b></a> " + data.level + "<br><b>\
 		<a style='color:#42a5dc;'>Avatar:</b></a> " + data.avatarID + "<br><b>\
 		<a style='color:#42a5dc;'>Badge:</b></a> " + bb + "<br><b>\
-		<a style='color:#42a5dc;'>Status:</b></a> " + stt + "<br><b>\
 		<a style='color:#42a5dc;'>Language:</b></a> " + lan + "<br><b>\
 		<a style='color:#42a5dc;'>Role:</b></a> " + lr + "<br><b>\
 		<a style='color:#42a5dc;'>Global Role:</b></a> " + g + "<br><b>\
