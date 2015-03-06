@@ -283,6 +283,7 @@ var bcs = {
 		$('#history-button').on('click', bcs.toggle.chatShrink);
 		$('#room-bar').on('click', bcs.toggle.chatShrink);
 		$('#footer-user .user').on('click', bcs.toggle.chatShrink);
+		$('#footer-user .info .name').on('click', function(){$("#footer-user .buttons .inventory").click();});
 		$('#app-menu .community').on('click', bcs.toggle.chatShrink);
 		$('#room .app-right .has-requests .header').on('click', bcs.toggle.chatShrink);
 		$('#footer-user .inventory').on('click', bcs.toggle.chatShrink);
@@ -942,6 +943,9 @@ var style = '<style>\
 			-webkit-box-shadow: inset 1px 0 0 0 #0a0a0a;\
 			-moz-box-shadow: inset 1px 0 0 0 #0a0a0a;\
 			box-shadow: inset 1px 0 0 0 #0a0a0a;\
+		}\
+		#footer-user .info .name {\
+			cursor: pointer;\
 		}\
 		#footer-user .back {\
 			width: 19%;\
@@ -1749,8 +1753,9 @@ function advanceStuff(obj){
 			var previous = API.getHistory()[i];
 			var pos = i + 1;
 			var stats = previous.user.username + " (ID " + previous.user.id + ")";
-			blunq.play();
-			bcs.addChat("<b><a style='color:#ff3535;'>Song in History</a></b><br>Played by " + stats + " - (History position " + pos + ")<br>[" + previous.media.title + "]","#D04545",true);
+			console.log("Song in History | Played by " + stats + " - (History position " + pos + ")<br>[" + previous.media.title + "]");
+			//blunq.play(); |Disabled due to bugs|
+			//bcs.addChat("<b><a style='color:#ff3535;'>Song in History</a></b><br>Played by " + stats + " - (History position " + pos + ")<br>[" + previous.media.title + "]","#D04545",true);
 			break;
 		}
 	}
