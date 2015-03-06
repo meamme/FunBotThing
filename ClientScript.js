@@ -971,6 +971,14 @@ $("#footer-user .settings").remove();
 $("#footer-user .info .meta .bar").css({"width":"105px"});
 $("#footer-user .info .meta .level .label").text("Lv");
 $("#footer-user .inventory .image .thumb").css({"border":"2px solid #89be6c"});
+$("#footer-user .inventory").hover(function(){
+	$("#tooltip").remove();
+	$("#footer-user .buttons").css({"\
+	background":"#282C35","\
+	box-shadow":"#282C35","\
+	-webkit-box-shadow":"#282C35","\
+	-moz-box-shadow":"#282C35"});
+});
 function transformBack(){$("#footer-user .back span").text("Back");}
 $("#footer-user .back").css({"width":"19%"});
 $("#footer-user").on('click',transformBack);
@@ -2024,6 +2032,8 @@ function lookfor(id,isityou){
 			case "fr":	var lan = "French <img title='Flag of France' src='https://i.imgur.com/nZAaWyV.png' height='13px'></img>";break;
 			case "hr":	var lan = "Croatian <img title='Flag of Croatia' src='https://i.imgur.com/5p7E9yn.png' height='13px'></img>";break;
 			case "it":	var lan = "Italian <img title='Flag of Italy' src='https://i.imgur.com/s2EY2Sw.png' height='13px'></img>";break;
+			case "ko":	var lan = "Korean <img title='Flag of North Korea' src='https://i.imgur.com/OTStsvw.png' height='13px'></img><img title='Flag of South Korea' src='https://i.imgur.com/LBOlA1K.png' height='13px'></img>";break;
+			case "lt":	var lan = "Lithuanian <img title='Flag of Lithuania' src='https://i.imgur.com/Axr4ba6.png' height='13px'></img>";break;
 			case "ms":	var lan = "Malay <img title='Flag of Malaysia' src='http://i.imgur.com/dbSl3H1.png' height='13px'></img>";break;
 			case "nl":	var lan = "Dutch <img title='Flag of Netherlands' src='http://i.imgur.com/soj7PT7.png' height='13px'></img>";break;
 			case "pl":	var lan = "Polish <img title='Flag of Poland' src='https://i.imgur.com/IOJdJly.png' height='13px'></img>";break;
@@ -2032,7 +2042,7 @@ function lookfor(id,isityou){
 			case "sl":	var lan = "Slovenian <img title='Flag of Slovenia' src='https://i.imgur.com/OGVamtC.png' height='13px'></img>";break;
 			case "sr":	var lan = "Serbian <img title='Flag of Serbia' src='https://i.imgur.com/WOb4q8V.png' height='13px'></img>";break;
 			case "zh":	var lan = "Chinese <img title='Flag of China' src='https://i.imgur.com/VW4XYiF.png' height='16px'></img>";break;
-			default:	var lan = "Unknown";break;
+			default:	var lan = "Unknown (" + data.language + ")";break;
 		}
 
 //JOINED
