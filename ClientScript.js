@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -282,7 +282,6 @@ var bcs = {
 		$('#playlist-meta').on('click', bcs.toggle.chatShrink);
 		$('#history-button').on('click', bcs.toggle.chatShrink);
 		$('#room-bar').on('click', bcs.toggle.chatShrink);
-		$('#footer-user .user').on('click', bcs.toggle.chatShrink);
 		$('#app-menu .community').on('click', bcs.toggle.chatShrink);
 		$('#room .app-right .has-requests .header').on('click', bcs.toggle.chatShrink);
 		$('#footer-user .inventory').on('click', bcs.toggle.chatShrink);
@@ -1019,9 +1018,8 @@ $("#footer-user .inventory").hover(function(){
 	-webkit-box-shadow":"#282C35","\
 	-moz-box-shadow":"#282C35"});
 });
-$("#footer-user .button").hover(function(){
-	$("#tooltip").remove();
-});
+$("#footer-user .button").hover(function(){$("#tooltip").remove();});
+$("#footer-user .button").on('click',hideFooter);
 
 $("#footer-user .badge").append("<div class='nothing'></div><span>My Badges</span>");
 $("#footer-user .store").append("<div class='nothing'></div><span>Shop</span>");
@@ -1034,35 +1032,37 @@ function hideFooter(){
 		$("#footer-user .store").hide();
 		$("#footer-user .profile").hide();
 		$("#footer-user .settings").hide();
+		$("#footer-user .info").css({"background":"#282C35"});
 	}
 }
 
 $("#app").on('click', function(e) {
-	if (!$(e.target).closest("#footer-user").length){
+	if (!$(e.target).closest("#footer-user .info").length){
 		hideFooter();
 	}
 });
 
 function toggleFooter(){
-	if ($("#footer-user .badge").css('display') == "none"){
-		$("#footer-user .badge").show();
-		$("#footer-user .store").show();
-		$("#footer-user .profile").show();
-		$("#footer-user .settings").show();
-		$("#footer-user .info").css({"background":"#111317"});
-	}else{
-		$("#footer-user .badge").hide();
-		$("#footer-user .store").hide();
-		$("#footer-user .profile").hide();
-		$("#footer-user .settings").hide();
-		$("#footer-user .info").css({"background":"#282C35"});
+	if ($("#footer-user .back").css('display') == "none"){
+		if ($("#footer-user .badge").css('display') == "none"){
+			$("#footer-user .badge").show();
+			$("#footer-user .store").show();
+			$("#footer-user .profile").show();
+			$("#footer-user .settings").show();
+			$("#footer-user .info").css({"background":"#111317"});
+		}else{
+			$("#footer-user .badge").hide();
+			$("#footer-user .store").hide();
+			$("#footer-user .profile").hide();
+			$("#footer-user .settings").hide();
+			$("#footer-user .info").css({"background":"#282C35"});
+		}
 	}
 }
 
 $("#footer-user .info").on('click',toggleFooter);
 
 function transformBack(){$("#footer-user .back span").text("Back");}
-$("#footer-user .back").css({"width":"19%"});
 $("#footer-user").on('click',transformBack);
 $("#playlist-meta .shop-button").on('click',transformBack);
 $("#room-bar").on('click',transformBack);
