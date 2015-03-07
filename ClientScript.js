@@ -617,6 +617,9 @@ bcs.attemptRefresh = false;
 var blunq = new Audio();
 blunq.src = "https://cdn.plug.dj/_/static/sfx/badoop.801a12ca13864e90203193b2c83c019c03a447d1.mp3";
 blunq.load();
+var tada = new Audio();
+tada.src = "https://puu.sh/gpzsS.mp3";
+tada.load();
 
 var me = [3951373,4820534];
 for (var i = 0; i < me.length; i++){if (bcs.user.id == me[i]){bcs.itsMe = true;};}
@@ -667,7 +670,7 @@ var menu = '\
 				</div>\
 				<div id="xautowoot" class="xbutton">\
 					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;" title="This is line 666 on the code. Hehehe.">AutoWoot</span>\
+					<span class="xclickable" style="margin-left:25px;">AutoWoot</span>\
 				</div>\
 				<div id="xautojoin" class="xbutton">\
 					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
@@ -1464,6 +1467,16 @@ function afkUpdate(){
 	themessage = whatchawrote;
 	bcs.addChat("AFK message set to <b>" + themessage + "</b>","#CCCCCC");
 }
+
+function chatHTML(data) {
+	console.log(data);
+	if (data.hasClass('user-action') && data['0'].innerText.indexOf("a gift") != -1) {
+		tada.play();
+	}
+}
+
+var chatObs = new MutationObserver(function(divs){chatHTML($(divs[0].addedNodes[0]));});
+chatObs.observe(document.querySelector('#chat-messages'),{childList:true});
 
 var spam = ["auehuaehaeuhaeuahuae","hsauhsauhsau","kkkkkkkkkkkkkkk","aaaaaaaaaaaaaaa","eeeeeeeeeeeeee","ajajajajajajaj","ด","░"];
 function chatStuff(data){
