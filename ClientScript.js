@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.13.6</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -283,7 +283,6 @@ var bcs = {
 		$('#history-button').on('click', bcs.toggle.chatShrink);
 		$('#room-bar').on('click', bcs.toggle.chatShrink);
 		$('#footer-user .user').on('click', bcs.toggle.chatShrink);
-		$('#footer-user .info .name').on('click', function(){$("#footer-user .buttons .inventory").click();});
 		$('#app-menu .community').on('click', bcs.toggle.chatShrink);
 		$('#room .app-right .has-requests .header').on('click', bcs.toggle.chatShrink);
 		$('#footer-user .inventory').on('click', bcs.toggle.chatShrink);
@@ -609,7 +608,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>Implemented the <a style='color:#99ffd7;'>old plug look</a>!<br> If you dislike it,<br> I think it's time you stop using this script ; - ;<br>","#ececec",false,true);
+bcs.addChat("<br>We just hit <a style='color:#99ffd7;'>3K lines of code</a>!<br>Weeee","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
@@ -938,14 +937,48 @@ var style = '<style>\
 			height:30px;\
 			display:none;\
 		}\
+		#footer-user .buttons .button {\
+			top: -100%;\
+			left: 0px;\
+			background: #282C35;\
+			display: none;\
+		}\
+		#footer-user .buttons .inventory {\
+			top: 0%;\
+			left: 0%;\
+			background: #282C35;\
+			display: block;\
+			-webkit-box-shadow: inset 1px 0 0 0 #0A0A0A;\
+			-moz-box-shadow: inset 1px 0 0 0 #0A0A0A;\
+			box-shadow: inset 1px 0 0 0 #0A0A0A;\
+		}\
+		#footer-user .buttons .button.inventory:hover {\
+			background: #282C35;\
+			-webkit-box-shadow: inset 1px 0 0 0 #0A0A0A;\
+			-moz-box-shadow: inset 1px 0 0 0 #0A0A0A;\
+			box-shadow: inset 1px 0 0 0 #0A0A0A;\
+		}\
+		#footer-user .buttons .badge, #footer-user .buttons .store, #footer-user .buttons .profile, #footer-user .buttons .settings {\
+			width: 100%;\
+			top: -265px;\
+			background: #111317;\
+		}\
+		#footer-user .buttons .badge .bdg, #footer-user .buttons .store .icon, #footer-user .buttons .profile .icon, #footer-user .buttons .settings .icon{\
+			left:20px;\
+			position: absolute;\
+		}\
+		#footer-user .buttons .button.store:hover{\
+			background: #323742;\
+		}\
 		#footer-user .info {\
 			top: 1px;\
 			display: block;\
 			left: 19%;\
 			width: 300px;\
 			background: #282C35;\
+			display: block;\
 		}\
-		#footer-user .info .name {\
+		#footer-user {\
 			cursor: pointer;\
 		}\
 		#footer-user .back {\
@@ -953,6 +986,9 @@ var style = '<style>\
 		}\
 		#footer-user .info .points {\
 			right: 25px;\
+		}\
+		.nothing {\
+			height: 16px;\
 		}\
 	</style>';
 
@@ -967,21 +1003,64 @@ $("#search-input-field").attr({"maxlength":256});
 $("#app-menu .list").append('<div class="item votelist clickable"><i class="icon icon-woot-off"></i><span>Vote List (WIP)</span></div>');
 $("#footer-user .bar").css({'border-radius':'10px 10px'});
 $("#footer-user .progress").css({'border-radius':'10px 10px'});
-$("#footer-user .profile").remove();
-$("#footer-user .store").remove();
-$("#footer-user .played").remove();
-$("#footer-user .settings").remove();
+
+$("#footer-user .inventory").off();
+$("#footer-user .profile").hide();
+$("#footer-user .store").hide();
+$("#footer-user .played").hide();
+$("#footer-user .settings").hide();
 $("#footer-user .info .meta .bar").css({"width":"105px"});
-$("#footer-user .info .meta .level .label").text("Lv");
+$("#footer-user .info .meta .level .label").text("Lv.");
 $("#footer-user .inventory .image .thumb").css({"border":"2px solid #89be6c"});
 $("#footer-user .inventory").hover(function(){
-	$("#tooltip").remove();
 	$("#footer-user .buttons").css({"\
 	background":"#282C35","\
 	box-shadow":"#282C35","\
 	-webkit-box-shadow":"#282C35","\
 	-moz-box-shadow":"#282C35"});
 });
+$("#footer-user .button").hover(function(){
+	$("#tooltip").remove();
+});
+
+$("#footer-user .badge").append("<div class='nothing'></div><span>My Badges</span>");
+$("#footer-user .store").append("<div class='nothing'></div><span>Shop</span>");
+$("#footer-user .profile").append("<div class='nothing'></div><span>My Profile</span>");
+$("#footer-user .settings").append("<div class='nothing'></div><span>Settings</span>");
+
+function hideFooter(){
+	if ($("#footer-user .badge").css('display') == "block"){
+		$("#footer-user .badge").hide();
+		$("#footer-user .store").hide();
+		$("#footer-user .profile").hide();
+		$("#footer-user .settings").hide();
+	}
+}
+
+$("#app").on('click', function(e) {
+	if (!$(e.target).closest("#footer-user").length){
+		hideFooter();
+	}
+});
+
+function toggleFooter(){
+	if ($("#footer-user .badge").css('display') == "none"){
+		$("#footer-user .badge").show();
+		$("#footer-user .store").show();
+		$("#footer-user .profile").show();
+		$("#footer-user .settings").show();
+		$("#footer-user .info").css({"background":"#111317"});
+	}else{
+		$("#footer-user .badge").hide();
+		$("#footer-user .store").hide();
+		$("#footer-user .profile").hide();
+		$("#footer-user .settings").hide();
+		$("#footer-user .info").css({"background":"#282C35"});
+	}
+}
+
+$("#footer-user .info").on('click',toggleFooter);
+
 function transformBack(){$("#footer-user .back span").text("Back");}
 $("#footer-user .back").css({"width":"19%"});
 $("#footer-user").on('click',transformBack);
@@ -1469,7 +1548,6 @@ function afkUpdate(){
 }
 
 function chatHTML(data) {
-	console.log(data);
 	if (data.hasClass('user-action') && data['0'].innerText.indexOf("a gift") != -1) {
 		tada.play();
 	}
@@ -1883,9 +1961,9 @@ function joinStuff(user){
 
 function deleteAll(){
 	if (API.getUser().role >= 2 || API.getUser().gRole != 0){
-		$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm'});
-		console.log("Currently using Method 2 of deleting it all. Method one will return when/if Method 2 is broken");
-		/*
+		//$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm'});
+		//console.log("Currently using Method 2 of deleting it all. Method one will return when/if Method 2 is broken");
+		
 		var msgs = document.getElementsByClassName('message');
 		var emotes = document.getElementsByClassName('emote');
 		var mentions = document.getElementsByClassName('mention');
@@ -1910,7 +1988,7 @@ function deleteAll(){
 					$.ajax({type: 'DELETE', url: '/_/chat/' + mentions[i].getAttribute('data-cid')});
 				}
 			}
-		}*/
+		}
 		return bcs.l("[Chat cleared]");
 	}else{
 		bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
@@ -1920,21 +1998,21 @@ function deleteAll(){
 function deleteSelf(){
 	bcs.c("/me  ");
 	if (API.getUser().role >= 2 && API.getUser().gRole == 0){
-		$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm[data-cid^=' + bcs.user.id + ']'});
-		//for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
-		//for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
+		//$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm[data-cid^=' + bcs.user.id + ']'});
+		for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
+		for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
 		logged = [];
 	}else if (API.getUser().gRole == 3){
-		$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm[data-cid^=' + bcs.user.id + ']'});
-		//var bamsg = document.getElementsByClassName('ambassador');
-		//for (var i = 0; i < bamsg.length; i++) {
-		//	for (var j = 0; j < bamsg[i].classList.length; j++) {
-		//		if (bamsg[i].classList[j].indexOf('ambassador') != -1) {
-		//			var cid = $(bamsg[i]).parents(".cm").attr('data-cid');
-		//			$.ajax({type: 'DELETE', url: '/_/chat/' + cid});
-		//		}
-		//	}
-		//}
+		//$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm[data-cid^=' + bcs.user.id + ']'});
+		var bamsg = document.getElementsByClassName('ambassador');
+		for (var i = 0; i < bamsg.length; i++) {
+			for (var j = 0; j < bamsg[i].classList.length; j++) {
+				if (bamsg[i].classList[j].indexOf('ambassador') != -1) {
+					var cid = $(bamsg[i]).parents(".cm").attr('data-cid');
+					$.ajax({type: 'DELETE', url: '/_/chat/' + cid});
+				}
+			}
+		}
 		logged = [];
 	}else{
 		bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
