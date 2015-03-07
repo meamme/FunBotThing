@@ -385,17 +385,17 @@ var bcs = {
 			bcs.settings.stored.spammer = spamon;
 			localStorage.setItem('bcsSettings', JSON.stringify(bcs.settings.stored));
 			console.log(JSON.stringify(bcs.settings.stored));
-			bcs.settings.toast("Settings saved!");
+			bcs.l("Settings saved!");
 		},
 		load: function(){
 			if (localStorage.getItem('bcsSettings')){
 				bcs.settings.stored = JSON.parse(localStorage.getItem('bcsSettings'));
 				console.log(bcs.settings.stored);
-				setTimeout(function(){bcs.settings.toast("Custom settings loaded!");},2000);
+				setTimeout(function(){bcs.l("Custom Settings loaded!");},2000);
 			}else{
 				localStorage.setItem('bcsSettings', JSON.stringify(bcs.settings.stored));
 				console.log(bcs.settings.stored);
-				setTimeout(function(){bcs.settings.toast("Default settings loaded!");},2000);
+				setTimeout(function(){bcs.l("Default Settings loaded!");},2000);
 			}
 			if(bcs.settings.stored.autowoot)bcs.toggle.autowoot();
 			if(bcs.settings.stored.joinmsg)bcs.toggle.joinmsg();
