@@ -28,7 +28,7 @@ Make a bookmark and replace the URL field with these:
    $.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/ID-Basics.js');
  }());
 
-###Percentage on level bar:
+###XP percentage + old style user menu
 
  javascript:(function(){
    $.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/percentage.js');
