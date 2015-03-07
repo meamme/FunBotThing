@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -284,7 +284,10 @@ var bcs = {
 		$('#room-bar').on('click', bcs.toggle.chatShrink);
 		$('#app-menu .community').on('click', bcs.toggle.chatShrink);
 		$('#room .app-right .has-requests .header').on('click', bcs.toggle.chatShrink);
-		$('#footer-user .inventory').on('click', bcs.toggle.chatShrink);
+		$('#footer-user .buttons .badge').on('click', bcs.toggle.chatShrink);
+		$('#footer-user .buttons .store').on('click', bcs.toggle.chatShrink);
+		$('#footer-user .buttons .profile').on('click', bcs.toggle.chatShrink);
+		$('#footer-user .buttons .settings').on('click', bcs.toggle.chatShrink);
 		$('#xvotes').on('click', bcs.toggle.cuteVoting);
 		$('#xpreviews').on('click', bcs.toggle.previews);
 		$('#xsave').on('click', bcs.settings.set);
@@ -1230,7 +1233,6 @@ $("#user-lists").click(displayid);
 $("#dj-canvas").mousemove(displayid);
 $("#audience-canvas").mousemove(displayid);
 $("#footer-user").on('click',function(){if(bcs.itsMe){$("#footer-user .pp .value").text("305");}});
-//Percentage on progress bar :D [Outdated]
 
 function displayLvl(){
 	$("#footer-user .percentage").remove();
