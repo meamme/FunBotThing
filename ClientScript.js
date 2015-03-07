@@ -1757,7 +1757,7 @@ function advanceStuff(obj){
 			var stats = previous.user.username + " (ID " + previous.user.id + ")";
 			console.log("Song in History | Played by " + stats + " - (History position " + pos + ")<br>[" + previous.media.title + "]");
 			//blunq.play(); |Disabled due to bugs|
-			//bcs.addChat("<b><a style='color:#ff3535;'>Song in History</a></b><br>Played by " + stats + " - (History position " + pos + ")<br>[" + previous.media.title + "]","#D04545",true);
+			bcs.addChat("<b><a style='color:#ff3535;'>Song in History</a></b><br>Played by " + stats + " - (History position " + pos + ")<br>[" + previous.media.title + "]","#D04545",true);
 			break;
 		}
 	}
