@@ -938,15 +938,17 @@ var style = '<style>\
 		}\
 		#footer-user .buttons .button {\
 			top: -100%;\
-			left: 0px;\
+			left: 65px;\
 			background: #282C35;\
 			display: none;\
+			text-align: left;\
 		}\
 		#footer-user .buttons .inventory {\
 			top: 0%;\
 			left: 0%;\
 			background: #282C35;\
 			display: block;\
+			cursor: default;\
 			-webkit-box-shadow: inset 1px 0 0 0 #0A0A0A;\
 			-moz-box-shadow: inset 1px 0 0 0 #0A0A0A;\
 			box-shadow: inset 1px 0 0 0 #0A0A0A;\
@@ -957,13 +959,16 @@ var style = '<style>\
 			-moz-box-shadow: inset 1px 0 0 0 #0A0A0A;\
 			box-shadow: inset 1px 0 0 0 #0A0A0A;\
 		}\
+		#footer-user .buttons .button span {\
+			margin-left: 20%;\
+		}\
 		#footer-user .buttons .badge, #footer-user .buttons .store, #footer-user .buttons .profile, #footer-user .buttons .settings {\
-			width: 100%;\
+			width: 82%;\
 			top: -265px;\
-			background: #111317;\
+			background: #1C1F25;\
 		}\
 		#footer-user .buttons .badge .bdg, #footer-user .buttons .store .icon, #footer-user .buttons .profile .icon, #footer-user .buttons .settings .icon{\
-			left:20px;\
+			left:12px;\
 			position: absolute;\
 		}\
 		#footer-user .buttons .button.store:hover{\
@@ -1049,7 +1054,7 @@ function toggleFooter(){
 			$("#footer-user .store").show();
 			$("#footer-user .profile").show();
 			$("#footer-user .settings").show();
-			$("#footer-user .info").css({"background":"#111317"});
+			$("#footer-user .info").css({"background":"#1C1F25"});
 		}else{
 			$("#footer-user .badge").hide();
 			$("#footer-user .store").hide();
