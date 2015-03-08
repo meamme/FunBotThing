@@ -1098,6 +1098,7 @@ var lockdown = false;
 var spamon = false;
 var hasArrow = false;
 var listlock = false;
+var retroChat = false;
 
 function safetyFirst(){
 	if (API.getUsers().length > 250){
@@ -1570,6 +1571,13 @@ function chatStuff(data){
 	var msgid = data.cid;
 	var user = data.un;
 	var userid = data.uid;
+	if (retroChat){
+		bcs.l(' ');
+		$(".log").remove();
+		$(".badge-box").remove();
+		$(".text").remove();
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").append("<span class='oldmessage' style='margin-left:5px;color:#eee;'>" + msg + "</a></span>");
+	}
 	var me = API.getUser().username;
 	var tst = msg.indexOf('@' + me);
 	var ourids = [3951373,4820534];
@@ -1617,14 +1625,16 @@ function chatStuff(data){
 			$("#chat-input .afknotifications").show();
 		}
 	}
-	$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").append("\
-	<span class='info' style='font-size:7px; color:#808691; opacity:0.1;'> Lv. <a style='font-size:9px; color:#eee'>" + API.getUser(userid).level + "</a></span>\
-	<span class='info' style='font-size:7px; color:#808691; opacity:0.1;'> ID: <a style='font-size:9px; color:#eee'>" + userid + "</a></span>");
-	$("#chat-messages > .cm[data-cid='" + msgid + "']").hover(function(){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"1"});
-	}, function(){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"0.2"});
-	});
+	if (!retroChat){
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").append("\
+		<span class='info' style='font-size:7px; color:#808691; opacity:0.1;'> Lv. <a style='font-size:9px; color:#eee'>" + API.getUser(userid).level + "</a></span>\
+		<span class='info' style='font-size:7px; color:#808691; opacity:0.1;'> ID: <a style='font-size:9px; color:#eee'>" + userid + "</a></span>");
+		$("#chat-messages > .cm[data-cid='" + msgid + "']").hover(function(){
+			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"1"});
+		}, function(){
+			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"0.2"});
+		});
+	}
 	var fulluser;
 	for (var i = 0; i < API.getUsers().length; i++){
 		if (API.getUsers()[i].username == user){
@@ -1634,11 +1644,11 @@ function chatStuff(data){
 	}
 
 	if (lockdown){
-		if (fulluser.role == 0 && fulluser.gRole == 0){
+		if (fulluser && fulluser.role == 0 && fulluser.gRole == 0){
 			$.ajax({type: 'DELETE',url: '/_/chat/' + msgid});
 		}
 	}
-	if (fulluser.role == 5){
+	if (fulluser && fulluser.role == 5){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon-chat-host").hide();
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-thehost'></i>");
 	}
@@ -2410,6 +2420,27 @@ function commandStuff(data){
 			if (!doubleFound){
 				bcs.addChat("User " + command[1] + " is either not in the room or joined before you did.","#c42e3b");
 			}
+			break;
+
+		case "retro":
+			retroChat = !retroChat;
+			bcs.c("/clear");
+			if (retroChat){
+				var retrostyle = "<style id='retrostyle'>\
+					#chat-messages .msg{\
+						padding:5px 8px 6px 10px\
+					}\
+					#chat-messages .message{\
+						min-height:0px;\
+					}\
+				</style>";
+				$("body").prepend(retrostyle);
+				var isRetro = "<a style='color:#90ad2f'><b>on</b></a>";
+			}else{
+				$("#retrostyle").remove();
+				var isRetro = "<a style='color:#c42e3b'><b>off</b></a>. Thank god.";
+			}
+			bcs.addChat("Poorly made bootleg beaten up pre-alpha retro chat is now " + isRetro,"#ccc");
 			break;
 
 		case "antilag":
