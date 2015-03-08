@@ -890,7 +890,7 @@ var style = '<style>\
 		.icon-chat-thehost {\
 			height:15px;\
 			width:15px;\
-			background-image:url(https://i.imgur.com/vcwdTgg.png);\
+			background-image:url(https://i.imgur.com/g8NkPge.png);\
 		}\
 		.icon-chat-bcslogo {\
 			height:49px;\
@@ -1631,25 +1631,24 @@ function chatStuff(data){
 	}, function(){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"0.2"});
 	});
-
+	var fulluser;
 	for (var i = 0; i < API.getUsers().length; i++){
 		if (API.getUsers()[i].username == user){
-			if (lockdown){
-				if (API.getUsers()[i].role == 0){
-					if (API.getUsers()[i].gRole == 0){
-						$.ajax({
-							type: 'DELETE',
-							url: '/_/chat/' + msgid
-						});
-					}
-				}
-				break;
-			}
-			if (API.getUsers()[i].role == 5){
-				$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
-				$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-thehost'></i>");
-			}
+			fulluser = API.getUsers()[i];
+			console.log(fulluser);
+			break;
 		}
+	}
+	console.log(fulluser);
+
+	if (lockdown){
+		if (fulluser.role == 0 && fulluser.gRole == 0){
+			$.ajax({type: 'DELETE',url: '/_/chat/' + msgid});
+		}
+	}
+	if (fulluser.role == 5){
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon-chat-host").hide();
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-thehost'></i>");
 	}
 
 	if(user == "Beta Tester" || user == "CatSnore" || user == "T98" || user == "DCV" || user == "Wumbology" || user == "Kwiztech" || user == "Newcool"  || user == "Legend" || user == "Mix_God"){
