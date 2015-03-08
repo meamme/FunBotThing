@@ -1066,6 +1066,7 @@ function toggleFooter(){
 			$("#footer-user .info").css({"background":"#282C35"});
 		}
 	}
+	$("#footer-user .info .name .icon").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
 }
 
 $("#footer-user .info").on('click',toggleFooter);
