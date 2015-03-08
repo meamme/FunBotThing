@@ -386,17 +386,17 @@ var bcs = {
 			bcs.settings.stored.spammer = spamon;
 			localStorage.setItem('bcsSettings', JSON.stringify(bcs.settings.stored));
 			console.log(JSON.stringify(bcs.settings.stored));
-			bcs.l("Settings saved!");
+			require.s.contexts._.defined["c723d/fc3a9/e1aa1"].plugMessage('BCS settings saved!')
 		},
 		load: function(){
 			if (localStorage.getItem('bcsSettings')){
 				bcs.settings.stored = JSON.parse(localStorage.getItem('bcsSettings'));
 				console.log(bcs.settings.stored);
-				setTimeout(function(){bcs.l("Custom Settings loaded!");},2000);
+				setTimeout(function(){require.s.contexts._.defined["c723d/fc3a9/e1aa1"].plugMessage('BCS custom settings loaded!')},2000);
 			}else{
 				localStorage.setItem('bcsSettings', JSON.stringify(bcs.settings.stored));
 				console.log(bcs.settings.stored);
-				setTimeout(function(){bcs.l("Default Settings loaded!");},2000);
+				setTimeout(function(){require.s.contexts._.defined["c723d/fc3a9/e1aa1"].plugMessage('BCS default settings loaded!')},2000);
 			}
 			if(bcs.settings.stored.autowoot)bcs.toggle.autowoot();
 			if(bcs.settings.stored.joinmsg)bcs.toggle.joinmsg();
@@ -1631,7 +1631,6 @@ function chatStuff(data){
 			break;
 		}
 	}
-	console.log(fulluser);
 
 	if (lockdown){
 		if (fulluser.role == 0 && fulluser.gRole == 0){
