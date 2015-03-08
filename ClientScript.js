@@ -2396,16 +2396,22 @@ function commandStuff(data){
 					break;
 				};
 			};
+			var doubleFound = false;
 			if (foundIt){
 				for (var i = 0; i < userslist.length; i++){
 					if (oname == userslist[i].name || command[1] == userslist[i].id){
 						bcs.addChat("User " + userslist[i].name + " (ID " + userslist[i].id + ") joined the room at " + userslist[i].time,"#ccc");
-						break;
+						doubleFound = true;
+						return;
 					};
 				};
 			}else if (!foundIt){
 				bcs.addChat("User " + command[1] + " is either not in the room or joined before you did.","#c42e3b");
+				doubleFound = true;
 			};
+			if (!doubleFound){
+				bcs.addChat("User " + command[1] + " is either not in the room or joined before you did.","#c42e3b");
+			}
 			break;
 
 		case "antilag":
