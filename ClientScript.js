@@ -1026,8 +1026,6 @@ $("#footer-user .inventory").hover(function(){
 	-webkit-box-shadow":"#282C35","\
 	-moz-box-shadow":"#282C35"});
 });
-$("#footer-user .button").hover(function(){$("#tooltip").remove();});
-$("#footer-user .button").on('click',hideFooter);
 
 $("#footer-user .badge").append("<div class='nothing'></div><span>My Badges</span>");
 $("#footer-user .store").append("<div class='nothing'></div><span>Shop</span>");
@@ -1043,6 +1041,9 @@ function hideFooter(){
 		$("#footer-user .info").css({"background":"#282C35"});
 	}
 }
+
+$("#footer-user .button").hover(function(){$("#tooltip").remove();});
+$("#footer-user .button").on('click',hideFooter);
 
 $("#app").on('click', function(e) {
 	if (!$(e.target).closest("#footer-user .info").length){
