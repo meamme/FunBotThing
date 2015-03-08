@@ -348,6 +348,7 @@ var bcs = {
 	},
 	c: function(msg){API.sendChat(msg);},
 	l: function(msg,state){API.chatLog(msg,state);},
+	plugCode: require.s.contexts._.defined["c723d/fc3a9/e1aa1"],
 	settings: {
 		stored:{
 			autowoot:true,
@@ -386,17 +387,17 @@ var bcs = {
 			bcs.settings.stored.spammer = spamon;
 			localStorage.setItem('bcsSettings', JSON.stringify(bcs.settings.stored));
 			console.log(JSON.stringify(bcs.settings.stored));
-			require.s.contexts._.defined["c723d/fc3a9/e1aa1"].plugMessage('BCS settings saved!')
+			bcs.plugCode.plugMessage('BCS settings saved!')
 		},
 		load: function(){
 			if (localStorage.getItem('bcsSettings')){
 				bcs.settings.stored = JSON.parse(localStorage.getItem('bcsSettings'));
 				console.log(bcs.settings.stored);
-				setTimeout(function(){require.s.contexts._.defined["c723d/fc3a9/e1aa1"].plugMessage('BCS custom settings loaded!')},2000);
+				bcs.plugCode.plugMessage('BCS custom settings loaded!');
 			}else{
 				localStorage.setItem('bcsSettings', JSON.stringify(bcs.settings.stored));
 				console.log(bcs.settings.stored);
-				setTimeout(function(){require.s.contexts._.defined["c723d/fc3a9/e1aa1"].plugMessage('BCS default settings loaded!')},2000);
+				bcs.plugCode.plugMessage('BCS default settings loaded!');
 			}
 			if(bcs.settings.stored.autowoot)bcs.toggle.autowoot();
 			if(bcs.settings.stored.joinmsg)bcs.toggle.joinmsg();
