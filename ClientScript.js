@@ -2456,7 +2456,8 @@ function commandStuff(data){
 
 		case "showinter":
 		case "intercom":
-			$("#intercom-launcher").css({"visibility":"visible"});
+			if ($("#intercom-launcher").css("visibility") == "visible"){$("#intercom-launcher").css({"visibility":"hidden"});}
+			else if ($("#intercom-launcher").css("visibility") == "hidden"){$("#intercom-launcher").css({"visibility":"visible"});}
 			break;
 
 		case "flip":
