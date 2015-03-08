@@ -904,13 +904,6 @@ var style = '<style>\
 			width:100px %;\
 			word-wrap:break 0;\
 		}\
-		#chat .system {\
-			background: none repeat scroll 0% 0% rgba(219,24,46,0.3)\
-		}\
-		#chat .system .box {\
-			position:absolute;\
-			margin:2.5%;\
-		}\
 		#room-bar{\
 			width:340px;\
 		}\
@@ -1635,7 +1628,6 @@ function chatStuff(data){
 	for (var i = 0; i < API.getUsers().length; i++){
 		if (API.getUsers()[i].username == user){
 			fulluser = API.getUsers()[i];
-			console.log(fulluser);
 			break;
 		}
 	}
@@ -1922,10 +1914,8 @@ function leaveStuff(user){
 	switch (user.role){case 0:userrole = "";break;case 1:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>RDJ</b></a> (1) |";break;case 2:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Bouncer</b></a> (2) |";break;case 3:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Manager</b></a> (3) |";break;case 4:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>CoHost</b></a> (4) |";break;case 5:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Host</b></a> (5) |";break;}
 	var usergrole = "";
 	switch (user.gRole){case 0:usergrole = "";break;case 3:usergrole = "<a style='color:#89be6c;font-size:11px;'><b>BA</b></a> (3) |";break;case 5:usergrole = " <a style='color:#42a5dc;font-size:11px;'><b>Admin</b></a> (5) |";break;}
-	var thename = user.username;
-	if (user.username.indexOf("<") != -1){thename = user.username.replace("<","&lt;")}
-	if (user.username.indexOf(">") != -1){thename = user.username.replace(">","&gt;")}
-	if (joinmsg){bcs.addChat("<a style='color:" + c + ";'>" + f + "<b>" + user.username + "</b> left </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
+	var thename = user.username.split("<").join("&lt;").split(">").join("&gt;")
+	if (joinmsg){bcs.addChat("<a style='color:" + c + ";'>" + f + "<b>" + thename + "</b> left </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
 	if (cap){
 		if (user.role != 0){
 			var thiscap = API.getStaff().length;
@@ -1934,7 +1924,7 @@ function leaveStuff(user){
 		}
 	}
 	for (var i = 0; i < userslist.length; i++){
-		if (user.username == userslist[i].name){
+		if (thename == userslist[i].name){
 			userslist.splice(i,1);
 			break;
 		}
@@ -1963,16 +1953,14 @@ function joinStuff(user){
 	switch (user.role){case 0:userrole = "";break;case 1:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>RDJ</b></a> (1) |";break;case 2:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Bouncer</b></a> (2) |";break;case 3:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Manager</b></a> (3) |";break;case 4:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>CoHost</b></a> (4) |";break;case 5:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Host</b></a> (5) |";break;}
 	var usergrole = "";
 	switch (user.gRole){case 0:usergrole = "";break;case 3:usergrole = "<a style='color:#89be6c;font-size:11px;'><b>BA</b></a> (3) |";break;case 5:usergrole = "<a style='color:#42a5dc;font-size:11px;'><b>Admin</b></a> (5) |";break;}
-	var thename = user.username;
-	if (user.username.indexOf("<") != -1){thename = user.username.replace("<","&lt;")}
-	if (user.username.indexOf(">") != -1){thename = user.username.replace(">","&gt;")}
+	var thename = user.username.split("<").join("&lt;").split(">").join("&gt;")
 	if (user.level > 1 && joinmsg){bcs.addChat("<a style='color:" + c + "'> " + f + "<b>" + thename + "</b> joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false, false,true,true);};
 	if (user.level == 1 && joinmsg){bcs.addChat("<a style='color:#fef8a0;'> " + f + "<b>" + thename + "</b> joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
 	if (cap){
 		if (user.role != 0){
 			var thiscap = API.getStaff().length;
 			bcs.c('/cap ' + thiscap);
-			bcs.addChat('Cap set to ' + thiscap + ' (' + user.username + ' - ' + user.role + ')',"#c5b5ff");
+			bcs.addChat('Cap set to ' + thiscap + ' (' + thename + ' - ' + user.role + ')',"#c5b5ff");
 		}
 	}
 }
