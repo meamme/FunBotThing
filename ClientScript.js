@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.2.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.2.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -2362,6 +2362,15 @@ function commandStuff(data){
 		case "level":
 			bcs.l("http://i.imgur.com/aRU9YZk.png");
 			break;
+		
+		case "spiderpig":
+			$("#chat-messages").append("<iframe src='https://loli.dance/'></iframe>");
+			$("#chat-messages").append("<iframe src='https://loli.dance/'></iframe>");
+			$("#chat-messages").append("<iframe src='https://loli.dance/'></iframe>");
+			setTimeout(function(){bcs.scrollChat();},500);
+			bcs.addChat("YOU JUST GOT REKT SON");
+			break;
+			
 
 		case "todo":
 			bcs.addChat("<br><a style='color:#c2f3bf;'><b>Todo list:</b></a><br><br>\
