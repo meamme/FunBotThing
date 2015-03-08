@@ -2362,15 +2362,6 @@ function commandStuff(data){
 		case "level":
 			bcs.l("http://i.imgur.com/aRU9YZk.png");
 			break;
-		
-		case "spiderpig":
-			$("#chat-messages").append("<iframe src='https://loli.dance/'></iframe>");
-			$("#chat-messages").append("<iframe src='https://loli.dance/'></iframe>");
-			$("#chat-messages").append("<iframe src='https://loli.dance/'></iframe>");
-			setTimeout(function(){bcs.scrollChat();},500);
-			bcs.addChat("YOU JUST GOT REKT SON");
-			break;
-			
 
 		case "todo":
 			bcs.addChat("<br><a style='color:#c2f3bf;'><b>Todo list:</b></a><br><br>\
@@ -2395,6 +2386,10 @@ function commandStuff(data){
 
 		case "both":
 			ct(" Both. http://i.imgur.com/py7q8V7.gif");
+			break;
+
+		case "spiderpig":
+			ct(" http://youtu.be/714-Ioa4XQw");
 			break;
 
 		case "j":
