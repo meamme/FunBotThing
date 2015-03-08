@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.2.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
