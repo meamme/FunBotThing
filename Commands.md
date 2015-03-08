@@ -182,12 +182,6 @@
 ###**/deleteall**
 	Deletes all chat
 
-###**/deletemod**
-	Deletes plug.dj mod system messages (Such as Moved to position X, Banned X from the community etc)
-
-###**/promoteandclear**
-	Command made for testing, promotes specified user and removes the message saying they were promoted.
-
 ###**/stopreload**
 	Prevents page from reloading without your consent. Mostly used to breach Maintenance Mode hehehe
 
