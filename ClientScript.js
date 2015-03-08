@@ -2767,21 +2767,6 @@ function commandStuff(data){
 			};
 			break;
 
-		case "deletemod":
-			$.ajax({type: 'DELETE', url: '/_/chat/1-,.moderation'});
-			break;
-
-		case "promoteandclear":
-			$.ajax({
-				type: 'POST',
-				url: '/_/staff/update',
-				dataType: 'json',
-				contentType: 'application/json',
-				data: JSON.stringify({userID: command[1], roleID: 2})
-			});
-			setTimeout(function(){$.ajax({type: 'DELETE', url: '/_/chat/1-,.moderation'});},250);
-			break;
-
 		case "stopreload":
 			window.onbeforeunload = function(){return "BCS caught something trying to reload your page.";}
 			bcs.l("BCS will now prevent page from reloading without your permission.");
