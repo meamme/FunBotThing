@@ -348,7 +348,7 @@ var bcs = {
 	},
 	c: function(msg){API.sendChat(msg);},
 	l: function(msg,state){API.chatLog(msg,state);},
-	plugCode: require.s.contexts._.defined["c723d/fc3a9/e1aa1"],
+	plugCode: require.s.contexts._.defined,
 	settings: {
 		stored:{
 			autowoot:true,
@@ -387,17 +387,17 @@ var bcs = {
 			bcs.settings.stored.spammer = spamon;
 			localStorage.setItem('bcsSettings', JSON.stringify(bcs.settings.stored));
 			console.log(JSON.stringify(bcs.settings.stored));
-			bcs.plugCode.plugMessage('BCS settings saved!')
+			bcs.l('BCS settings saved!')
 		},
 		load: function(){
 			if (localStorage.getItem('bcsSettings')){
 				bcs.settings.stored = JSON.parse(localStorage.getItem('bcsSettings'));
 				console.log(bcs.settings.stored);
-				bcs.plugCode.plugMessage('BCS custom settings loaded!');
+				bcs.l('BCS custom settings loaded!');
 			}else{
 				localStorage.setItem('bcsSettings', JSON.stringify(bcs.settings.stored));
 				console.log(bcs.settings.stored);
-				bcs.plugCode.plugMessage('BCS default settings loaded!');
+				bcs.l('BCS default settings loaded!');
 			}
 			if(bcs.settings.stored.autowoot)bcs.toggle.autowoot();
 			if(bcs.settings.stored.joinmsg)bcs.toggle.joinmsg();
@@ -619,9 +619,6 @@ bcs.attemptRefresh = false;
 var blunq = new Audio();
 blunq.src = "https://cdn.plug.dj/_/static/sfx/badoop.801a12ca13864e90203193b2c83c019c03a447d1.mp3";
 blunq.load();
-var tada = new Audio();
-tada.src = "https://puu.sh/gpzsS.mp3";
-tada.load();
 
 var me = [3951373,4820534];
 for (var i = 0; i < me.length; i++){if (bcs.user.id == me[i]){bcs.itsMe = true;};}
@@ -1558,7 +1555,7 @@ function afkUpdate(){
 
 function chatHTML(data) {
 	if (data.hasClass('user-action') && data['0'].innerText.indexOf("a gift") != -1) {
-		tada.play();
+		//tada.play();
 	}
 }
 
