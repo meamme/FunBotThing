@@ -993,6 +993,11 @@ var style = '<style>\
 		.nothing {\
 			height: 16px;\
 		}\
+		#chat .delete-button{\
+			padding: 3px;\
+			height: 15px;\
+			width: 32px;\
+		}\
 	</style>';
 
 $("#room").append(menu);
