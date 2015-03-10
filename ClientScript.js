@@ -19,13 +19,13 @@ var bcs = {
 			}else{
 				if (hasBottom){
 					if (hasLeft){
-						chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; border-bottom: double 6px " + color + "'><center><span class='betatext'' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
+						chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; border-bottom: double 6px " + color + "'><center><span class='betatext' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
 					}else{
-						chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-bottom: double 6px " + color + ";'><center><span class='betatext'' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
+						chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-bottom: double 6px " + color + ";'><center><span class='betatext' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
 					}
 				}else{
 					if (hasLeft){
-						chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; margin-top:5px;margin-bottom:5px;'><center><span class='betatext'' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></center></div>");
+						chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; margin-top:5px;margin-bottom:5px;'><center><span class='betatext' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></center></div>");
 					}else{
 						chat.append("<div class='betabot-update' style='background-color:#0a0a0a; margin-top:5px;margin-bottom:5px;'><center><span class='betatext' style='color: " + color + ";'>" + text + "<br></span></center></div>");
 					}
@@ -611,7 +611,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>We just hit <a style='color:#99ffd7;'>3K lines of code</a>!<br>Weeee","#ececec",false,true);
+bcs.addChat("<br><marquee>I just found out of a new useless line of code!</marquee>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
