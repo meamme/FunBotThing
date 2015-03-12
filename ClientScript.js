@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.2.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.2.3</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1181,6 +1181,8 @@ function displayid(){
 		}
 	}
 	$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/x1DEgOD.png)","top":"6%","left":"88%","width":"30px","height":"30px"});
+	$('#user-rollover .thumb').show();
+	$('#id_display').show();
 	if (e == "Beta Tester" || e == "T98" || e == "CatSnore"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
@@ -1211,12 +1213,14 @@ function displayid(){
 		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
 	}else if(e == "Legend"){
-		$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/hKmP5Ez.png)","width":"75px","height":"75px","left":"73%","top":"13%"});
+		$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/15HnmWz.png)","width":"300px","height":"103px","left":"0px","top":"0px"});
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'#000'});
 		$("#user-rollover .info").css({background:'#111317'});
 		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
+		$('#user-rollover .thumb').hide();
+		$('#id_display').hide();
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
 	}else{
 		$("#iwannalookcool").hide();
@@ -1857,10 +1861,9 @@ function advanceStuff(obj){
 	}
 	if (songup){
 		bcs.l(" ");
+		$(".log").remove();
 		bcs.addChat("<br><img src='https://i.imgur.com/fhagHZg.png'></img><br>\
 			<b><a style='color:#90ad2f;'>" + obj.lastPlay.score.positive + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#aa74ff;'>" + obj.lastPlay.score.grabs + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#c42e3b;'>" + obj.lastPlay.score.negative + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style='color:#646b7e;'>" + API.getUsers().length + "</a></b>","#ececec",true);
-		setTimeout(function(){$(".log")[$(this).length-1].remove();},250);
-		setTimeout(function(){$(".log")[$(this).length-1].remove();},1000);
 	}
 	setTimeout(function(){
 	for (var i = 0; i< API.getHistory().length; i++){
