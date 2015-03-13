@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.2.3</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.2.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -2088,6 +2088,7 @@ function lookfor(id,isityou){
 			case "2014hwset":	var bb = "Halloween Badge (" + data.badge + ")";break;
 			case "hiphopset":	var bb = "HipHop Badge (" + data.badge + ")";break;
 			case "countryset":	var bb = "Country Badge (" + data.badge + ")";break;
+			case "dragon01":	var bb = "Dragon Badge (" + data.badge + ")";break;
 			case "winter01":	var bb = "Ski Boot (" + data.badge + ")";break;
 			case "winter02":	var bb = "Snowman Badge (" + data.badge + ")";break;
 			case "winter03":	var bb = "Snowflake Badge (" + data.badge + ")";break;
