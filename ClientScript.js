@@ -1240,7 +1240,7 @@ $("#chat-messages").click(displayid);
 $("#user-lists").click(displayid);
 $("#dj-canvas").mousemove(displayid);
 $("#audience-canvas").mousemove(displayid);
-$("#footer-user").on('click',function(){if(bcs.itsMe){$("#footer-user .pp .value").text("305");}});
+$("#footer-user").on('click',function(){if(bcs.itsMe){$("#footer-user .pp .value").text("0");}});
 
 function displayLvl(){
 	$("#footer-user .percentage").remove();
