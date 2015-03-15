@@ -611,7 +611,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br><marquee>I just found out of a new useless line of code!</marquee>","#ececec",false,true);
+bcs.addChat("<br>Really. I got nothing to say here. :/","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
@@ -1725,7 +1725,7 @@ function chatStuff(data){
 				var hts = $($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).text();
 				hts = hts.replace("http","https");
 				if (hts.indexOf("httpss") != -1){hts = hts.replace("httpss","https");}
-				$($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).append("<br><img style='margin:5px; max-width:300px; margin-left: -28px;' src='" + hts + "'></img>");
+				$($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).append("<br><img style='margin:5px; max-width:300px; margin-left: -28px;' src='" + hts + "'></img><br>");
 				setTimeout(function(){bcs.scrollChat()},2000);
 				setTimeout(function(){
 				if ($("#chat-messages .cid-" + msgid + " img").width() == 18 && $("#chat-messages .cid-" + msgid + " img").height() == 20){
@@ -1871,7 +1871,7 @@ function advanceStuff(obj){
 			var previous = API.getHistory()[i];
 			var pos = i + 1;
 			var stats = previous.user.username + " (ID " + previous.user.id + ")";
-			console.log("Song in History | Played by " + stats + " - (History position " + pos + ")<br>[" + previous.media.title + "]");
+			console.log("Song in History | Played by " + stats + "<br>(History position " + pos + ")<br>[" + previous.media.title + "]");
 			//blunq.play(); |Disabled due to bugs|
 			bcs.addChat("<b><a style='color:#ff3535;'>Song in History</a></b><br>Played by " + stats + " - (History position " + pos + ")<br>[" + previous.media.title + "]","#D04545",true);
 			break;
