@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.2.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.3</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1721,10 +1721,8 @@ function chatStuff(data){
 		for (var i = 0; i < pn.length; i++){
 			var isItAPic = linked.indexOf(pn[i]);
 			if (linked != "" && isItTheSame != -1 && isItAPic != -1){
-				if (linked.indexOf('gifv') != -1){linked = linked.replace('gifv','gif');}
 				var hts = $($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).text();
-				hts = hts.replace("http","https");
-				if (hts.indexOf("httpss") != -1){hts = hts.replace("httpss","https");}
+				hts.split("http").join("https").split("httpss").join("https").split("gifv").join("gif");
 				$($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).append("<br><img style='margin:5px; max-width:300px; margin-left: -28px;' src='" + hts + "'></img><br>");
 				setTimeout(function(){bcs.scrollChat()},2000);
 				setTimeout(function(){
@@ -1929,7 +1927,7 @@ function leaveStuff(user){
 	switch (user.role){case 0:userrole = "";break;case 1:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>RDJ</b></a> (1) |";break;case 2:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Bouncer</b></a> (2) |";break;case 3:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Manager</b></a> (3) |";break;case 4:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>CoHost</b></a> (4) |";break;case 5:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Host</b></a> (5) |";break;}
 	var usergrole = "";
 	switch (user.gRole){case 0:usergrole = "";break;case 3:usergrole = "<a style='color:#89be6c;font-size:11px;'><b>BA</b></a> (3) |";break;case 5:usergrole = " <a style='color:#42a5dc;font-size:11px;'><b>Admin</b></a> (5) |";break;}
-	var thename = user.username.split("<").join("&lt;").split(">").join("&gt;")
+	var thename = user.username.split("<").join("&lt;").split(">").join("&gt;");
 	if (joinmsg){bcs.addChat("<a style='color:" + c + ";'>" + f + "<b>" + thename + "</b> left </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
 	if (cap){
 		if (user.role != 0){
