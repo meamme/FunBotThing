@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.3</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.3.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1240,7 +1240,7 @@ $("#chat-messages").click(displayid);
 $("#user-lists").click(displayid);
 $("#dj-canvas").mousemove(displayid);
 $("#audience-canvas").mousemove(displayid);
-$("#footer-user").on('click',function(){if(bcs.itsMe){$("#footer-user .pp .value").text("100");}});
+$("#footer-user").on('click',function(){if(bcs.itsMe){$("#footer-user .pp .value").text("200");}});
 
 function displayLvl(){
 	$("#footer-user .percentage").remove();
@@ -1563,9 +1563,10 @@ function afkUpdate(){
 }
 
 function chatHTML(data) {
-	if (data.hasClass('user-action') && data['0'].innerText.indexOf("a gift") != -1) {
+	console.log(data['0']);
+	//if (data.hasClass('user-action') && data['0'].innerText.indexOf("a gift") != -1) {
 		//tada.play();
-	}
+	//}
 }
 
 var chatObs = new MutationObserver(function(divs){chatHTML($(divs[0].addedNodes[0]));});
@@ -2015,7 +2016,6 @@ function deleteAll(){
 }
 
 function deleteSelf(){
-	bcs.c("/me  ");
 	if (API.getUser().role >= 2 && API.getUser().gRole == 0){
 		//$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm[data-cid^=' + bcs.user.id + ']'});
 		for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
@@ -2112,6 +2112,7 @@ function lookfor(id,isityou){
 			case "food06":		var bb = "Hamburguer Badge (" + data.badge + ")";break;
 			case "food07":		var bb = "Fries Badge (" + data.badge + ")";break;
 			case "food08":		var bb = "Coffee Badge (" + data.badge + ")";break;
+			case "food09":		var bb = "Beef Badge (" + data.badge + ")";break;
 			case "animals01":	var bb = "Wolf Badge (" + data.badge + ")";break;
 			case "animals02":	var bb = "Cat Badge (" + data.badge + ")";break;
 			case "animals03":	var bb = "Chicken Badge (" + data.badge + ")";break;
@@ -2121,13 +2122,16 @@ function lookfor(id,isityou){
 			case "style03":		var bb = "Cap Badge (" + data.badge + ")";break;
 			case "style04":		var bb = "Funky Glasses Badge (" + data.badge + ")";break;
 			case "style05":		var bb = "Necklace Badge (" + data.badge + ")";break;
+			case "style06":		var bb = "Cowboy Hat Badge (" + data.badge + ")";break;
+			case "style07":		var bb = "Color Palette Badge (" + data.badge + ")";break;
+			case "style08":		var bb = "Astronaut Badge (" + data.badge + ")";break;
 			case "tiki01":		var bb = "Fat Tiki Mask (" + data.badge + ")";break;
 			case "tiki02":		var bb = "Slim Tiki Mask (" + data.badge + ")";break;
 			case "tiki03":		var bb = "Green Tree (" + data.badge + ")";break;
 			case "tiki04":		var bb = "Purple Tree (" + data.badge + ")";break;
 			default:
 				if (data.badge == null){var bb = "None (<a style='color:#b8e0ff;'><em>null</em></a>)";}
-				else{var bb = data.badge;}
+				else{var bb = "Unregistered - " + data.badge;}
 				break;
 		}
 
