@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.3.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.3.3</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -126,10 +126,9 @@ var bcs = {
 				$("#room .app-right").animate({width:"399"});
 				$('#chat-input-field').animate({width:"360"});
 				$("#chat-input").animate({width:"380"});
+				$("#curVer").css({"margin-top":"11px"});
 			}else if (!bigchat){
-				$("#room .app-right").animate({width:"345"});
-				$('#chat-input-field').animate({width:"305"});
-				$("#chat-input").animate({width:"326"});
+				bcs.toggle.chatShrink();
 			}
 		},
 		chatShrink: function(){
@@ -139,6 +138,7 @@ var bcs = {
 			$("#room .app-right").animate({width:"345"});
 			$('#chat-input-field').animate({width:"305"});
 			$("#chat-input").animate({width:"326"});
+			$("#curVer").css({"margin-top":"2px"});
 			setTimeout(function(){bcs.scrollChat();},250);
 		},
 		cuteVoting: function(){
@@ -2734,5 +2734,7 @@ function commandStuff(data){
 	};
 }
 bcs.turnOn();
-$("#chat-header").append('<span style="font-size:10px; color:#ccc;"><b>plug.dj Version ' + _v + '</b></span>');
+$("#chat-header").append('<div id="curVer" style="margin-top: 2px;">\
+	<span style="font-size:10px; color:#ccc;"><b>plug.dj Version ' + _v + '</b></span>\
+</div>');
 }
