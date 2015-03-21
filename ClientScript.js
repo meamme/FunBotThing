@@ -7,6 +7,7 @@ var bcs = {
 			$.getScript('https://rawgit.com/Tetheu98/FunBotThing/master/ClientScript.js');
 		},
 	attemptRefresh:false,
+	user: API.getUser(),
 	addChat:function(text, color, hasLeft, hasBottom, isNotCenter, hasMargin) {
 			var chat = $('#chat-messages');var a = chat.scrollTop() > chat[0].scrollHeight - chat.height() - 28;
 			if (color == undefined){color = "#99ffd7";}
@@ -187,7 +188,7 @@ var bcs = {
 			if (afkmsg){
 				$("#chat-input .afkIsOn").show();
 				$("#chat-input-field").css({color:'#fef8a0'});
-				if (API.getUser().id != 4820534){
+				if (bcs.user.id != 4820534){
 					$("#xafkenter").show();
 					$("#xafkbutton").show();
 					$("#xmod").css({'top':'460px'});
@@ -227,7 +228,7 @@ var bcs = {
 			$("#xtimeskip .icon").toggleClass('active');
 		},
 		lockdown: function(){
-			if (API.getUser().role > 1 || API.getUser().gRole != 0){
+			if (bcs.user.role > 1 || bcs.user.gRole != 0){
 				lockdown = !lockdown;
 				if (lockdown){
 					var ll = "enabled. Only staff may chat.";
@@ -242,7 +243,7 @@ var bcs = {
 			}
 		},
 		spammer: function(){ 
-			if (API.getUser().role > 1 || API.getUser().gRole != 0){
+			if (bcs.user.role > 1 || bcs.user.gRole != 0){
 				spamon = !spamon;
 				if (spamon){
 					var ll = "enabled.";
@@ -257,8 +258,69 @@ var bcs = {
 			}
 		}
 	},
+	footerStuff:{
+		tansformBack: function(){$("#footer-user .back span").text("Back");},
+		hideFooter: function(){
+			if ($("#footer-user .badge").css('display') == "block"){
+				$("#footer-user .badge").hide();
+				$("#footer-user .store").hide();
+				$("#footer-user .profile").hide();
+				$("#footer-user .settings").hide();
+				$("#footer-user .info").css({"background":"#282C35"});
+			}
+		},
+		toggleFooter: function(){
+			if ($("#footer-user .back").css('display') == "none"){
+				if ($("#footer-user .badge").css('display') == "none"){
+					$("#footer-user .badge").show();
+					$("#footer-user .store").show();
+					$("#footer-user .profile").show();
+					$("#footer-user .settings").show();
+					$("#footer-user .info").css({"background":"#1C1F25"});
+				}else{
+					$("#footer-user .badge").hide();
+					$("#footer-user .store").hide();
+					$("#footer-user .profile").hide();
+					$("#footer-user .settings").hide();
+					$("#footer-user .info").css({"background":"#282C35"});
+				}
+			}
+			$("#footer-user .info .name .icon").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
+		},
+		turnOn: function(){
+			$("#footer-user .button").on('click',bcs.footerStuff.hideFooter);
+			$("#app").on('click', function(e) {if (!$(e.target).closest("#footer-user .info").length){bcs.footerStuff.hideFooter();}});
+			$("#footer-user .info").on('click',bcs.footerStuff.toggleFooter);
+			$("#footer-user").on('click',bcs.footerStuff.tansformBack);
+			$("#playlist-meta .shop-button").on('click',bcs.footerStuff.tansformBack);
+			$("#room-bar").on('click',bcs.footerStuff.tansformBack);
+			$("#room .app-right .has-requests .header").on('click',bcs.footerStuff.tansformBack);
+			$("#app-menu").on('click',bcs.footerStuff.tansformBack);
+		}
+	},
+	listStuff: {
+		voteIsOn: false,
+		toggleList: function(){
+			bcs.listStuff.voteIsOn = !bcs.listStuff.voteIsOn;
+			if (bcs.listStuff.voteIsOn){
+				$("#xvotelist").fadeIn();
+				$("#xvotelist").draggable({ containment: "#app", scroll: false });
+				$("#xvotelist").css({"z-index":"98001"});
+				updateList();
+			}else{
+				$("#xvotelist .user").remove();
+				voteslist = [];
+				$("#xvotelist").fadeOut();
+			}
+		},
+		turnOn: function(){
+			$("#xlistclose").on('click',bcs.listStuff.toggleList);
+			$("#app-menu .list .votelist").on('click',bcs.listStuff.toggleList);
+		}
+	},
 	turnOn: function(){
 		$("body").css({"background-image":"url(https://i.imgur.com/qOy1afT.png)"});
+		$.getScript('https://dl.dropboxusercontent.com/s/y90bayahpfh4odh/jquery-ui-1.10.4.custom.min.js?_=1424626287371');
 		API.on(API.CHAT, chatStuff);
 		API.on(API.VOTE_UPDATE, voteStuff);
 		API.on(API.GRAB_UPDATE, grabStuff);
@@ -300,10 +362,40 @@ var bcs = {
 		$("#room-bar").animate({left:'106px'});
 		$("#room-bar .favorite").animate({right:'55px'});
 		$("#footer-user .bar .value").hide();
+		$("#footer-user .bar").mouseenter(function(){$("#footer-user .percentage").hide();$("#footer-user .bar .value").show();});
+		$("#footer-user .bar").mouseleave(function(){$("#footer-user .percentage").show();$("#footer-user .bar .value").hide();});
+		$("#app-menu .list .votelist").mouseenter(function(){$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');});
+		$("#app-menu .list .votelist").mouseleave(function(){$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-off');});
+		$("#search-input-field").attr({"maxlength":256});
+		$(".emoji-trollface").replaceWith("<span style='background: url(https://i.imgur.com/osBR8Jj.png); width: 16px; height: 16px;'></span>");
+		$("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
+		$("#chat .spinner").hide();
+		$("#search-input-field").attr({"maxlength":256});
+		$("#app-menu .list").append('<div class="item votelist clickable"><i class="icon icon-woot-off"></i><span>Vote List (WIP)</span></div>');
+		$("#footer-user .bar").css({'border-radius':'10px 10px'});
+		$("#footer-user .progress").css({'border-radius':'10px 10px'});
+		$("#footer-user .inventory").off();
+		$("#footer-user .profile").hide();
+		$("#footer-user .store").hide();
+		$("#footer-user .played").hide();
+		$("#footer-user .settings").hide();
+		$("#footer-user .info .meta .bar").css({"width":"105px"});
+		$("#footer-user .info .meta .level .label").text("Lv.");
+		$("#footer-user .inventory .image .thumb").css({"border":"2px solid #89be6c"});
+		$("#footer-user .inventory").hover(function(){
+		$("#footer-user .buttons").css({"background":"#282C35","box-shadow":"#282C35","-webkit-box-shadow":"#282C35","-moz-box-shadow":"#282C35"});});
+		$("#footer-user .badge").append("<div class='nothing'></div><span>My Badges</span>");
+		$("#footer-user .store").append("<div class='nothing'></div><span>Shop</span>");
+		$("#footer-user .profile").append("<div class='nothing'></div><span>My Profile</span>");
+		$("#footer-user .settings").append("<div class='nothing'></div><span>Settings</span>");
+		$("#footer-user .button").hover(function(){$("#tooltip").remove();});
 		setTimeout(function(){bcs.settings.load();},1000);
+		bcs.footerStuff.turnOn();
+		bcs.listStuff.turnOn();
 		bcs.getFriends();
 		bcs.getStaff();
 		bcs.hasp3();
+		bcs.displayLvl();
 		$("#playlist-panel").on('click',function(){setTimeout(function(){$("#dialog-preview").draggable({ containment: "#app", scroll: false });},500)});
 		favoritism();
 	},
@@ -443,7 +535,7 @@ var bcs = {
 				},500);});
 		}
 	},
-	user: API.getUser(),
+	userslist: [],
 	itsMe: false,
 	isFlip: false,
 	hasp3: function(){
@@ -551,6 +643,22 @@ var bcs = {
 		var currentWindow = window.location.href;
 		window.location.assign(currentWindow);
 		alert("Your window was refreshed.");
+	},
+	displayLvl: function(){
+		$("#footer-user .percentage").remove();
+		var lvl = $("#footer-user .progress").attr('style');
+		var lvlPc = lvl.substring(6,lvl.indexOf('%') + 1);
+		$("#footer-user .bar").append('\
+		<div class="percentage" style="font-size: 10px;\
+			position:block;\
+			margin-left:50px;\
+			margin-top:-1px;\
+			position:absolute;"><b>' + lvlPc + '</b></div>');
+		if (parseInt(lvlPc) >= 95){
+			$("#footer-user .progress").css({'border-radius':'10px 10px'});
+		}else{
+			$("#footer-user .progress").css({'border-radius':'10px 0px 0px 10px'});
+		}
 	}
 }
 
@@ -630,15 +738,11 @@ if (d.getDate() == 2 && d.getMonth() == 9){
 	bcs.addChat("<a style='color:#ccc;'>Wot! It's Beta's</a> 2 year anniversary on plug<a style='color:#ccc;'>!<br><em>Not like you care</em>, but I thought I'd let you know! :D");
 }
 
-$.getScript('https://dl.dropboxusercontent.com/s/y90bayahpfh4odh/jquery-ui-1.10.4.custom.min.js?_=1424626287371');
-
 var messages = [];
 var logcheck = [];
 var logged = [];
 var chatIcons = true;
 var antilag = false;
-
-//ffdd6f < Gold
 
 var menu = '\
 	<div id="xtheone" style="cursor:default;">\
@@ -734,351 +838,10 @@ var menu = '\
 		</div>\
 		</div>\
 	</div>';
-	
-var button = '\
-	<div id="xclick"><div class="xbox"></div></div>';
-
-var style = '<style>\
-		#xtheone {\
-			display: block;\
-		}\
-		#xtheone .active{\
-			display: block;\
-		}\
-		@-webkit-keyframes xanim1 {\
-			from {left: 0px;}\
-			to {left: 170px;}\
-		}\
-		@-webkit-keyframes xanim2 {\
-			from {left: 170px;}\
-			to {left: 0px;}\
-		}\
-		@-webkit-keyframes xanim3 {\
-			from {left:-73px;}\
-			to {left:10px;}\
-		}\
-		#xtitle {\
-			margin-top: 40px;\
-		}\
-		#xclick {\
-			display: block;\
-			-webkit-animation: xanim2 0.5s;\
-		}\
-		#xclick .active {\
-			display: block;\
-		}\
-		.xbox {\
-			position: absolute;\
-			width: 53px;\
-			height: 53px;\
-			display: block;\
-			z-index: 9;\
-			outline: #000000 solid 1px;\
-			background-color: #272B34;\
-			background-image: url(https://i.imgur.com/fba61u0.png);\
-			font-family: "Open Sans", sans-serif;\
-			top: 0px;\
-			left: 53px;\
-		}\
-		.xbox .active {\
-			background-image: url(https://i.imgur.com/k3pe7i8.png);\
-		}\
-		#xall .active {\
-			display:block;\
-		}\
-		#xprequel {\
-			position: absolute;\
-			top: 53px;\
-			height: 53px;\
-			padding: 10px;\
-			width: 150px;\
-			background-color: #272B34;\
-			outline: #000000 solid 1px;\
-			z-index: 10;\
-			font-family: "Open Sans", sans-serif;\
-			background-image:url(https://i.imgur.com/fba61u0.png);\
-		}\
-		#xafkenter {\
-			margin-left:5px;\
-			width:100px;\
-			background-color:#282c35;\
-			color:#eeeeee;\
-			border: solid 1px #009cdd;\
-		}\
-		#xmain {\
-			position: absolute;\
-			top: 127px;\
-			padding: 10px;\
-			width: 150px;\
-			height: auto;\
-			background-color: #111317;\
-			outline: #000000 solid 1px;\
-			z-index: 10;\
-			font-family: "Open Sans", sans-serif;\
-			color: #808691;\
-			overflow-x: hidden;\
-			overflow-y: auto;\
-		}\
-		#xmain .icon {\
-			display:none;\
-		}\
-		#xmain .active {\
-			color: #00bee8;\
-			top:auto;\
-			left:auto;\
-			display:block;\
-		}\
-		#xmod .icon {\
-			display:none;\
-		}\
-		#xmod {\
-			position: absolute;\
-			top: 436px;\
-			padding: 10px;\
-			width: 150px;\
-			background-color: #111317;\
-			outline: #000000 solid 1px;\
-			z-index: 10;\
-			font-family: "Open Sans", sans-serif;\
-			color: #808691;\
-			overflow-x: hidden;\
-			overflow-y: auto;\
-		}\
-		#xmod .active {\
-			color: #00bee8;\
-			top:auto;\
-			left:auto;\
-			display:block;\
-		}\
-		.xtxt: {\
-			color: #3366FF;\
-			padding: 2px 15px;\
-		}\
-		.xbutton: {\
-			padding: 2px 15px;\
-		}\
-		.xbutton:hover, .xbox:hover, #xprequel {\
-			cursor: pointer;\
-		}\
-		#chat-input .afknotifications {\
-			position: absolute;\
-			top: 8px;\
-			right: 4px;\
-			padding: 0 6px;\
-			min-width: 10px;\
-			border-radius: 12px;\
-			background: #db182e;\
-			text-align: center;\
-			font-size: 12px;\
-			cursor: pointer;\
-		}\
-		.icon-woot-off {\
-			background-image:url(https://i.imgur.com/liUIR94.png);\
-		}\
-		.icon-chat-bcs {\
-			height:15px;\
-			width:15px;\
-			background-image:url(https://i.imgur.com/pSJVANr.png);\
-		}\
-		.icon-chat-baS {\
-			height:15px;\
-			width:15px;\
-			background-image:url(https://i.imgur.com/RQOpxNm.png);\
-		}\
-		.icon-chat-thehost {\
-			height:15px;\
-			width:15px;\
-			background-image:url(https://i.imgur.com/g8NkPge.png);\
-		}\
-		.icon-chat-bcslogo {\
-			height:49px;\
-			width:49px;\
-			background-image:url(https://i.imgur.com/x1DEgOD.png);\
-		}\
-		.betabot-update {\
-			position:relative;\
-			clear:left;\
-			min-height:46px px;\
-			width:100px %;\
-			word-wrap:break 0;\
-		}\
-		#room-bar{\
-			width:340px;\
-		}\
-		#xwootlist, #xmehlist, #xcurrentdj{\
-			margin-left:5px;\
-		}\
-		#xwootlist{\
-			background-color: rgba(146, 172, 58, 0.05);\
-		}\
-		#xmehlist{\
-			 background-color: rgba(196, 46, 59, 0.1);\
-		}\
-		#xcurrentdj{\
-			margin-bottom:10px;\
-		}\
-		#user-lists .list.room .user .icon-meh {\
-			top: -1px;\
-			right: 9px;\
-			left: auto;\
-		}\
-		#iwannalookcool{\
-			background-image:url(https://i.imgur.com/x1DEgOD.png);\
-			position:absolute;\
-			background-size: contain;\
-			color:#b6f6ff;\
-			font-size: 11px;\
-			font-family: ' + opensansfnt + ', sans-serif;\
-			top: 6%;\
-			left: 88%;\
-			width:30px;\
-			height:30px;\
-			display:none;\
-		}\
-		#footer-user .buttons .button {\
-			top: -100%;\
-			left: 65px;\
-			background: #282C35;\
-			display: none;\
-			text-align: left;\
-		}\
-		#footer-user .buttons .inventory {\
-			top: 0%;\
-			left: 0%;\
-			background: #282C35;\
-			display: block;\
-			cursor: default;\
-			-webkit-box-shadow: inset 1px 0 0 0 #0A0A0A;\
-			-moz-box-shadow: inset 1px 0 0 0 #0A0A0A;\
-			box-shadow: inset 1px 0 0 0 #0A0A0A;\
-		}\
-		#footer-user .buttons .button.inventory:hover {\
-			background: #282C35;\
-			-webkit-box-shadow: inset 1px 0 0 0 #0A0A0A;\
-			-moz-box-shadow: inset 1px 0 0 0 #0A0A0A;\
-			box-shadow: inset 1px 0 0 0 #0A0A0A;\
-		}\
-		#footer-user .buttons .button span {\
-			margin-left: 20%;\
-		}\
-		#footer-user .buttons .badge, #footer-user .buttons .store, #footer-user .buttons .profile, #footer-user .buttons .settings {\
-			width: 82%;\
-			top: -265px;\
-			background: #1C1F25;\
-		}\
-		#footer-user .buttons .badge .bdg, #footer-user .buttons .store .icon, #footer-user .buttons .profile .icon, #footer-user .buttons .settings .icon{\
-			left:12px;\
-			position: absolute;\
-		}\
-		#footer-user .buttons .button.store:hover{\
-			background: #323742;\
-		}\
-		#footer-user .info {\
-			top: 1px;\
-			display: block;\
-			left: 19%;\
-			width: 300px;\
-			background: #282C35;\
-			display: block;\
-		}\
-		#footer-user {\
-			cursor: pointer;\
-		}\
-		#footer-user .back {\
-			width: 19%;\
-		}\
-		#footer-user .info .points {\
-			right: 25px;\
-		}\
-		.nothing {\
-			height: 16px;\
-		}\
-		#chat .delete-button{\
-			padding: 3px;\
-			height: 15px;\
-			width: 32px;\
-		}\
-	</style>';
 
 $("#room").append(menu);
-$("#room-meta").prepend(button);
-$("body").prepend(style);
-$("#search-input-field").attr({"maxlength":256});
-$(".emoji-trollface").replaceWith("<span style='background: url(https://i.imgur.com/osBR8Jj.png); width: 16px; height: 16px;'></span>");
-$("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
-$("#chat .spinner").hide();
-$("#search-input-field").attr({"maxlength":256});
-$("#app-menu .list").append('<div class="item votelist clickable"><i class="icon icon-woot-off"></i><span>Vote List (WIP)</span></div>');
-$("#footer-user .bar").css({'border-radius':'10px 10px'});
-$("#footer-user .progress").css({'border-radius':'10px 10px'});
-
-$("#footer-user .inventory").off();
-$("#footer-user .profile").hide();
-$("#footer-user .store").hide();
-$("#footer-user .played").hide();
-$("#footer-user .settings").hide();
-$("#footer-user .info .meta .bar").css({"width":"105px"});
-$("#footer-user .info .meta .level .label").text("Lv.");
-$("#footer-user .inventory .image .thumb").css({"border":"2px solid #89be6c"});
-$("#footer-user .inventory").hover(function(){
-	$("#footer-user .buttons").css({"\
-	background":"#282C35","\
-	box-shadow":"#282C35","\
-	-webkit-box-shadow":"#282C35","\
-	-moz-box-shadow":"#282C35"});
-});
-
-$("#footer-user .badge").append("<div class='nothing'></div><span>My Badges</span>");
-$("#footer-user .store").append("<div class='nothing'></div><span>Shop</span>");
-$("#footer-user .profile").append("<div class='nothing'></div><span>My Profile</span>");
-$("#footer-user .settings").append("<div class='nothing'></div><span>Settings</span>");
-
-function hideFooter(){
-	if ($("#footer-user .badge").css('display') == "block"){
-		$("#footer-user .badge").hide();
-		$("#footer-user .store").hide();
-		$("#footer-user .profile").hide();
-		$("#footer-user .settings").hide();
-		$("#footer-user .info").css({"background":"#282C35"});
-	}
-}
-
-$("#footer-user .button").hover(function(){$("#tooltip").remove();});
-$("#footer-user .button").on('click',hideFooter);
-
-$("#app").on('click', function(e) {
-	if (!$(e.target).closest("#footer-user .info").length){
-		hideFooter();
-	}
-});
-
-function toggleFooter(){
-	if ($("#footer-user .back").css('display') == "none"){
-		if ($("#footer-user .badge").css('display') == "none"){
-			$("#footer-user .badge").show();
-			$("#footer-user .store").show();
-			$("#footer-user .profile").show();
-			$("#footer-user .settings").show();
-			$("#footer-user .info").css({"background":"#1C1F25"});
-		}else{
-			$("#footer-user .badge").hide();
-			$("#footer-user .store").hide();
-			$("#footer-user .profile").hide();
-			$("#footer-user .settings").hide();
-			$("#footer-user .info").css({"background":"#282C35"});
-		}
-	}
-	$("#footer-user .info .name .icon").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
-}
-
-$("#footer-user .info").on('click',toggleFooter);
-
-function transformBack(){$("#footer-user .back span").text("Back");}
-$("#footer-user").on('click',transformBack);
-$("#playlist-meta .shop-button").on('click',transformBack);
-$("#room-bar").on('click',transformBack);
-$("#room .app-right .has-requests .header").on('click',transformBack);
-$("#app-menu").on('click',transformBack);
+$("#room-meta").prepend('<div id="xclick"><div class="xbox"></div></div>');
+$("head").append('<link rel="stylesheet" type="text/css" href="https://rawgit.com/Tetheu98/FunBotThing/master/BCSCSS.css">');
 
 var autowoot = false;
 var joinmsg = false;
@@ -1113,9 +876,7 @@ function safetyFirst(){
 safetyFirst();
 
 var hasPerms = false;
-if (API.getUser().gRole != 0 || API.getUser().role != 0){
-	hasPerms = true;
-}
+if (bcs.user.gRole != 0 || bcs.user.role != 0){hasPerms = true;}
 if (!hasPerms){$("#xmod").hide();}
 var notifyAFK = 0;
 var mentioned = [];
@@ -1172,7 +933,7 @@ function displayid(){
 		$('#user-rollover .meta .joined').css({top:"64px"});
 		$("#user-rollover .info").append('<div id="id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
 	}else{
-		if (typeof t == "undefined"){
+		if (typeof t == "undefined" || t == "undefined"){
 			t = "-------";
 			$("#id_display").hide();
 		}else{
@@ -1242,38 +1003,6 @@ $("#dj-canvas").mousemove(displayid);
 $("#audience-canvas").mousemove(displayid);
 $("#footer-user").on('click',function(){if(bcs.itsMe){$("#footer-user .pp .value").text("200");}});
 
-function displayLvl(){
-	$("#footer-user .percentage").remove();
-	var lvl = $("#footer-user .progress").attr('style');
-	var lvlPc = lvl.substring(6,lvl.indexOf('%') + 1);
-	$("#footer-user .bar").append('\
-	<div class="percentage" style="font-size: 10px;\
-		position:block;\
-		margin-left:50px;\
-		margin-top:-1px;\
-		position:absolute;"><b>' + lvlPc + '</b></div>');
-	if (parseInt(lvlPc) >= 95){
-		$("#footer-user .progress").css({'border-radius':'10px 10px'});
-	}else{
-		$("#footer-user .progress").css({'border-radius':'10px 0px 0px 10px'});
-	}
-}
-displayLvl();
-$("#footer-user .bar").mouseenter(function(){
-	$("#footer-user .percentage").hide();
-	$("#footer-user .bar .value").show();
-});
-$("#footer-user .bar").mouseleave(function(){
-	$("#footer-user .percentage").show();
-	$("#footer-user .bar .value").hide();
-});
-
-$("#app-menu .list .votelist").mouseenter(function(){
-	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');
-});
-$("#app-menu .list .votelist").mouseleave(function(){
-	$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-off');
-});
 var voteslist = [];
 var thevotelist = '\
 <div id="xvotelist" style="\
@@ -1281,7 +1010,7 @@ var thevotelist = '\
 	top: 55px;\
 	height: 65%;\
 	left: 64%;\
-	width: 235px;\
+	width: 200px;\
 	display: none;\
 	background-color: #111317;\
 	outline: #000000 solid 1px;\
@@ -1318,7 +1047,7 @@ var thevotelist = '\
 			<i class="icon icon-arrow-right" style="margin-left:26%;margin-top:7%;"></i>\
 			<i class="icon icon-arrow-left" style="margin-left:36%;margin-top:7%;"></i>\
 	</div>\
-	<div id="xlist" style="position: absolute;top: 45px; margin-top: 5px;">\
+	<div id="xlist">\
 		<div id="xcurrentdj"></div>\
 		<div id="xmehlist"></div>\
 		<div id="xwootlist"></div>\
@@ -1326,26 +1055,7 @@ var thevotelist = '\
 </div>';
 $("#xvotelist").css({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
 $("#room").append(thevotelist);
-var voteIsOn = false;
-
-function foldList(){
-	$("#xvotelist .user").remove();
-	voteslist = [];
-	$("#xvotelist").fadeOut();
-}
-function unfoldList(){
-	$("#xvotelist").fadeIn();
-	$("#xvotelist").draggable({ containment: "#app", scroll: false });
-	$("#xvotelist").css({"z-index":"98001"});
-	updateList();
-}
-
-$("#xlistclose").on('click',function(){
-	voteIsOn = !voteIsOn;
-	if (voteIsOn){unfoldList();}
-	else{foldList();}
-});
-
+$("#xlistrefresh").on('click',function(){updateList();});
 $("#xlistback").on('click',function(){
 	if ($("#xvotelist").css('z-index') == "98001"){
 		$("#xvotelist").css({'z-index':"17"});
@@ -1356,15 +1066,14 @@ $("#xlistback").on('click',function(){
 	}
 });
 
-$("#xlistrefresh").on('click',function(){updateList();});
-
-$("#app-menu .list .votelist").on('click',function(){
-	voteIsOn = !voteIsOn;
-	if (voteIsOn){unfoldList();}
-	else{foldList();}
-});
-
-function appendPerson(name,id,role,grole,vote,grab){
+function appendPerson(user){
+	var name = user.name;
+	var id = user.id;
+	var xuser = API.getUser(id);
+	var role = user.role;
+	var grole = user.grole;
+	var vote = user.vote;
+	var grab = user.grab;
 	switch (role){
 		case 0:var thisrole = "";break;
 		case 1:var thisrole = "<i class='icon icon-chat-dj' style='margin-top:2px;'></i>";break;
@@ -1384,31 +1093,31 @@ function appendPerson(name,id,role,grole,vote,grab){
 	var wlpos = "";
 	if (API.getWaitListPosition(id) != -1){
 		wlpos = API.getWaitListPosition(id) + 1;
-		wlpos = " | Waitlist: " + wlpos;
+		wlpos = " | Wl: " + wlpos;
 	}
-	var thislevel = API.getUser(id).level;
+	var thislevel = xuser.level;
 	if (vote == 1){
 		if (!grab){
 			$("#xwootlist").append('\
 			<div class="user" style="margin-bottom:8px;"> \
-				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:83%;margin-top:-1%;cursor:pointer;"></i>\
+				<i class="icon icon-support-white xlistinfo" idt="' + id + '" title="User info"></i>\
 				' + thisrole + '\
-				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + name + '</span>\
 				<br>\
-				<i class="icon icon-woot" style="margin-top:-5px;margin-left:-8px;"></i>\
-				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
+				<i class="icon icon-woot xlistvoted"></i>\
+				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Lvl: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}else if (grab){
 			$("#xwootlist").append('\
 			<div class="user" style="margin-bottom:8px;">\
-				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:83%;margin-top:-1%;cursor:pointer;"></i>\
+				<i class="icon icon-support-white xlistinfo" idt="' + id + '" title="Info about the user"></i>\
 				' + thisrole + '\
-				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + name + '</span>\
 				<br>\
-				<i class="icon icon-grab" style="margin-top:-5px;margin-left:11px;"></i>\
-				<i class="icon icon-woot" style="margin-top:-5px;margin-left:-8px;"></i>\
-				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
+				<i class="icon icon-grab xlistgrabbed"></i>\
+				<i class="icon icon-woot xlistvoted"></i>\
+				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Lv: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}
@@ -1416,24 +1125,24 @@ function appendPerson(name,id,role,grole,vote,grab){
 		if (!grab){
 			$("#xmehlist").append('\
 			<div class="user" style="margin-bottom:8px;">\
-				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:83%;margin-top:-1%;cursor:pointer;"></i>\
+				<i class="icon icon-support-white xlistinfo" idt="' + id + '" title="Info about the user"></i>\
 				' + thisrole + '\
-				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + name + '</span>\
 				<br>\
-				<i class="icon icon-meh" style="margin-top:-5px;margin-left:-8px;"></i>\
-				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
+				<i class="icon icon-meh xlistvoted"></i>\
+				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Lv: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}else if (grab){
 			$("#xmehlist").append('\
 			<div class="user" style="margin-bottom:8px;">\
-				<i class="icon icon-support-white" idt="' + id + '" title="Info about the user" style="margin-left:83%;margin-top:-1%;cursor:pointer;"></i>\
+				<i class="icon icon-support-white xlistinfo" idt="' + id + '" title="Info about the user"></i>\
 				' + thisrole + '\
-				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor: pointer; font-size:14px;">' + name + '</span>\
+				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + name + '</span>\
 				<br>\
-				<i class="icon icon-grab" style="margin-top:-5px;margin-left:11px;"></i>\
-				<i class="icon icon-meh" style="margin-top:-5px;margin-left:-8px;"></i>\
-				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Level: ' + thislevel + wlpos + '</span>\
+				<i class="icon icon-grab"></i>\
+				<i class="icon icon-meh"></i>\
+				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Lv: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}
@@ -1449,7 +1158,7 @@ $("#xlist .user .icon-support-white").hover(function() {
 function updateList(){
 	$("#xcurrentdj .user").remove();
 	$("#xcurrentdj .xlistbreak").remove();
-	//if (voteIsOn){$("#xvotelist").animate({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});};
+	//if (bcs.listStuff.voteIsOn){$("#xvotelist").animate({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});};
 	$("#xvotelist .user").remove();
 	$("#xvotelist .xlistbreak").remove();
 	voteslist = [];
@@ -1460,35 +1169,35 @@ function updateList(){
 			voteslist.push(a);
 		}
 	}
-	for (var i = 0; i < voteslist.length; i++){
-		appendPerson(voteslist[i].name, voteslist[i].id, voteslist[i].role, voteslist[i].grole, voteslist[i].vote, voteslist[i].grab);
-	}
+	for (var i = 0; i < voteslist.length; i++){appendPerson(voteslist[i]);}
 	if (typeof API.getDJ() != "undefined"){
 		var currentdj = API.getUser(API.getDJ().id);
 		switch (currentdj.role){
 			case 0:var thisrole = "";break;
-			case 1:var thisrole = "<i class='icon icon-chat-dj' style='margin-top:3px;'></i>";break;
-			case 2:var thisrole = "<i class='icon icon-chat-bouncer' style='margin-top:3px;'></i>";break;
-			case 3:var thisrole = "<i class='icon icon-chat-manager' style='margin-top:3px;'></i>";break;
-			case 4:case 5:var thisrole = "<i class='icon icon-chat-host' style='margin-top:3px;'></i>";break;
+			case 1:var thisrole = "<i class='icon icon-chat-dj xlisticon'></i>";break;
+			case 2:var thisrole = "<i class='icon icon-chat-bouncer xlisticon'></i>";break;
+			case 3:var thisrole = "<i class='icon icon-chat-manager xlisticon'></i>";break;
+			case 4:var thisrole = "<i class='icon icon-chat-host xlisticon'></i>";break;
+			case 5:var thisrole = "<i class='icon icon-chat-thehost xlisticon'></i>";break;
 		}
 		switch (currentdj.gRole){
 			case 0:break;
-			case 3:var thisrole = "<i class='icon icon-chat-ambassador' style='margin-top:3px;'></i>";break;
-			case 5:var thisrole = "<i class='icon icon-chat-admin' style='margin-top:3px;'></i>";break;
+			case 3:var thisrole = "<i class='icon icon-chat-ambassador xlisticon'></i>";break;
+			case 5:var thisrole = "<i class='icon icon-chat-admin xlisticon''></i>";break;
 		}
 		var namecolor = "#ac76ff";
 		if (currentdj.role == 0){namecolor = "#eee"};
 		if (currentdj.gRole == 3){namecolor = "#89be6c"}else if(currentdj.gRole == 5){namecolor = "#42a5dc"};
 		if (namecolor == "#eee"){var indent = "4px";}else{var indent = "19px";};
+		var quote = "'";
 		$("#xcurrentdj").append('\
 		<div class="user" style="margin-bottom:10px;">\
-			<i class="icon icon-support-white" idt="' + currentdj.id + '" title="Info about the user" style="margin-left:83%;margin-top:-1%;cursor:pointer;"></i>\
+			<i class="icon icon-support-white xlistinfo" idt="' + currentdj.id + '" title="Info about the user"></i>\
 			' + thisrole + '\
-			<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + '; cursor:pointer; font-size:14px;">' + currentdj.username + '</span>\
+			<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + currentdj.username + '</span>\
 			<br>\
-			<i class="icon icon-join-booth" style="margin-top:-2px;margin-left:2px;"></i>\
-			<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + currentdj.id + ' | Level: ' + currentdj.level + ' | <b>(Current DJ)</b></span>\
+			<i class="icon icon-join-booth xlistdjing"></i>\
+			<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + currentdj.id + ' | Lv: ' + currentdj.level + ' | <b>(DJ' + quote + 'ing)</b></span>\
 		</div>\
 		<div class="xlistbreak" style="box-shadow: inset 0 5px 0 0 #555d70;height: 3px;"></div>');
 	}
@@ -1499,7 +1208,7 @@ function updateList(){
 		$($("#xlist .user .icon-support-white")[i]).on('click',function(){
 			var itsYou = false;
 			var theirid = $(this).attr('idt');
-			if (theirid == API.getUser().id){itsYou = true;}
+			if (theirid == bcs.user.id){itsYou = true;}
 			lookfor(theirid,itsYou);
 		});
 	}
@@ -1563,7 +1272,6 @@ function afkUpdate(){
 }
 
 function chatHTML(data) {
-	console.log(data['0']);
 	//if (data.hasClass('user-action') && data['0'].innerText.indexOf("a gift") != -1) {
 		//tada.play();
 	//}
@@ -1585,7 +1293,7 @@ function chatStuff(data){
 		$(".text").remove();
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").append("<span class='oldmessage' style='margin-left:5px;color:#eee;'>" + msg + "</a></span>");
 	}
-	var me = API.getUser().username;
+	var me = bcs.user.username;
 	var tst = msg.indexOf('@' + me);
 	var ourids = [3951373,4820534];
 	var d = new Date();
@@ -1666,52 +1374,25 @@ function chatStuff(data){
 	}
 
 	if (chatIcons){
-	if (user == "EDMC"){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").css({color:'#0097cd'});
-	}else if (user == "Roms Kidd"){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").text('');
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
-			<a style="color:#d40000">R</a>\
-			<a style="color:#d49b00">o</a>\
-			<a style="color:#78d400">m</a>\
-			<a style="color:#00d437">s</a>\
-			<a style="color:#000000"> </a>\
-			<a style="color:#00a5d4">K</a>\
-			<a style="color:#0f00d4">i</a>\
-			<a style="color:#d100d4">d</a>\
-			<a style="color:#d40064">d</a>');
-	}else if (user == "Zuchku"){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").text('');
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
-			<a style="color:#d40000">Z</a>\
-			<a style="color:#d49b00">u</a>\
-			<a style="color:#78d400">c</a>\
-			<a style="color:#00d437">h</a>\
-			<a style="color:#00a5d4">k</a>\
-			<a style="color:#0f00d4">u</a>');
-	}else if (user == "81supernova"){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").text('');
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
-			<a style="color:#d40000">8</a>\
-			<a style="color:#d49b00">1</a>\
-			<a style="color:#78d400">s</a>\
-			<a style="color:#00d437">u</a>\
-			<a style="color:#00a5d4">p</a>\
-			<a style="color:#0f00d4">e</a>\
-			<a style="color:#d100d4">r</a>\
-			<a style="color:#d4003c">n</a>\
-			<a style="color:#d40000">o</a>\
-			<a style="color:#d49b00">v</a>\
-			<a style="color:#78d400">a</a>');
-	}
+		if (user == "EDMC"){
+			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
+			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+			$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").css({color:'#0097cd'});
+		}else if (user == "Roms Kidd" || user == "Zuchku" || user == "81supernova"){
+			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
+			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+			$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").text('');
+			if (user == "Roms Kidd"){
+				$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
+<a style="color:#d40000">R</a><a style="color:#d49b00">o</a><a style="color:#78d400">m</a><a style="color:#00d437">s</a><a style="color:#000000"> </a><a style="color:#00a5d4">K</a><a style="color:#0f00d4">i</a><a style="color:#d100d4">d</a><a style="color:#d40064">d</a>');
+			}else if (user == "Zuchku"){
+				$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
+<a style="color:#d40000">Z</a><a style="color:#d49b00">u</a><a style="color:#78d400">c</a><a style="color:#00d437">h</a><a style="color:#00a5d4">k</a><a style="color:#0f00d4">u</a>');
+			}else if (user == "81supernova"){
+				$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
+<a style="color:#d40000">8</a><a style="color:#d49b00">1</a><a style="color:#78d400">s</a><a style="color:#00d437">u</a><a style="color:#00a5d4">p</a><a style="color:#0f00d4">e</a><a style="color:#d100d4">r</a><a style="color:#d4003c">n</a><a style="color:#d40000">o</a><a style="color:#d49b00">v</a><a style="color:#78d400">a</a>');
+			}
+		}
 	}
 
 		//Bootleg Inline Images//
@@ -1757,7 +1438,7 @@ function chatStuff(data){
 			}
 		}
 	}
-	if (userid == API.getUser().id){
+	if (userid == bcs.user.id){
 		logged.unshift(msgid);
 		console.log(msgid);
 	};
@@ -1821,6 +1502,11 @@ function voteStuff(obj){
 function advanceStuff(obj){
 	updateList();
 	var thissong = API.getMedia();
+	if ($("#now-playing-media .bar-value").width() >= $("#now-playing-media").width()){
+		$("#scrollname").remove();
+		$("#now-playing-media .bar-value").hide();
+		$("#now-playing-media").append("<marquee id='scrollname' scrollamount='6'>" + thissong.author + " - " + thissong.title + "</marquee>");
+	}
 	if (!listlock){
 		listlock = true;
 		if (API.getUsers().length >= 100){
@@ -1830,6 +1516,7 @@ function advanceStuff(obj){
 		}
 	}
 	bcs.hasp3();
+	bcs.displayLvl();
 	var d = new Date();
 	var h = d.getHours();
 	var m = d.getMinutes();
@@ -1837,10 +1524,8 @@ function advanceStuff(obj){
 	if (h < 10){h = "0" + h;}
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
-	displayLvl();
 	if (autograb){grab();}
 	if (autowoot){setTimeout(bcs.getHistoryID,1000);}
-
 	if (autoskip && hasPerms){
 		clearTimeout(songtick);
 		var songsover = thissong.duration;
@@ -1848,7 +1533,7 @@ function advanceStuff(obj){
 	}
 	if (autolock){
 		var dj = API.getDJ();
-		if (API.getWaitListPosition() <= -1 && dj.username != API.getUser().username){
+		if (API.getWaitListPosition() <= -1 && dj.username != bcs.user.username){
 			bcs.joinWL();
 			setTimeout(function(){
 				if (API.getWaitListPosition() <= -1 && dj.username != bcs.user.username){bcs.joinWL();}
@@ -1877,7 +1562,6 @@ function advanceStuff(obj){
 		}
 	}
 	},250);
-
 	var thistime = thissong.duration;
 	var thehours = "";
 	var theminutes = Math.floor(thistime / 60);
@@ -1908,8 +1592,6 @@ function advanceStuff(obj){
 	//bcs.checkPing();
 }
 
-var userslist = [];
-
 function leaveStuff(user){
 	updateList();
 	if (user.friend){
@@ -1937,9 +1619,9 @@ function leaveStuff(user){
 			bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
 		}
 	}
-	for (var i = 0; i < userslist.length; i++){
-		if (thename == userslist[i].name){
-			userslist.splice(i,1);
+	for (var i = 0; i < bcs.userslist.length; i++){
+		if (thename == bcs.userslist[i].name){
+			bcs.userslist.splice(i,1);
 			break;
 		}
 	}
@@ -1954,7 +1636,7 @@ function joinStuff(user){
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
 
-	userslist.push({"name":user.username,"id":user.id,"time":"[" + h + ":" + m + ":" + s + "]"});
+	bcs.userslist.push({"name":user.username,"id":user.id,"time":"[" + h + ":" + m + ":" + s + "]"});
 
 	if (user.friend){
 		var f = "Your friend ";
@@ -1980,7 +1662,7 @@ function joinStuff(user){
 }
 
 function deleteAll(){
-	if (API.getUser().role >= 2 || API.getUser().gRole != 0){
+	if (bcs.user.role >= 2 || bcs.user.gRole != 0){
 		//$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm'});
 		//console.log("Currently using Method 2 of deleting it all. Method one will return when/if Method 2 is broken");
 		
@@ -2016,12 +1698,12 @@ function deleteAll(){
 }
 
 function deleteSelf(){
-	if (API.getUser().role >= 2 && API.getUser().gRole == 0){
+	if (bcs.user.role >= 2 && bcs.user.gRole == 0){
 		//$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm[data-cid^=' + bcs.user.id + ']'});
 		for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
 		for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
 		logged = [];
-	}else if (API.getUser().gRole == 3){
+	}else if (bcs.user.gRole == 3){
 		//$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm[data-cid^=' + bcs.user.id + ']'});
 		var bamsg = document.getElementsByClassName('ambassador');
 		for (var i = 0; i < bamsg.length; i++) {
@@ -2418,9 +2100,9 @@ function commandStuff(data){
 			};
 			var doubleFound = false;
 			if (foundIt){
-				for (var i = 0; i < userslist.length; i++){
-					if (oname == userslist[i].name || command[1] == userslist[i].id){
-						bcs.addChat("User " + userslist[i].name + " (ID " + userslist[i].id + ") joined the room at " + userslist[i].time,"#ccc");
+				for (var i = 0; i < bcs.userslist.length; i++){
+					if (oname == bcs.userslist[i].name || command[1] == bcs.userslist[i].id){
+						bcs.addChat("User " + bcs.userslist[i].name + " (ID " + bcs.userslist[i].id + ") joined the room at " + bcs.userslist[i].time,"#ccc");
 						doubleFound = true;
 						return;
 					};
@@ -2645,7 +2327,7 @@ function commandStuff(data){
 		case "lookup":
 		case "l":
 			var itsYou = false;
-			if (command[1] == API.getUser().id){itsYou = true;}
+			if (command[1] == bcs.user.id){itsYou = true;}
 			lookfor(command[1],itsYou);
 			break;
 
@@ -2656,7 +2338,7 @@ function commandStuff(data){
 			var uname = oname.toLowerCase();
 			var foundIt = false;
 			var itsYou = false;
-			if (oname == API.getUser().username){itsYou = true;}
+			if (oname == bcs.user.username){itsYou = true;}
 			console.log(xname + "||" + uname + "||" + oname);
 			for (var i = 0; i < API.getUsers().length; i++){
 				if (oname == API.getUsers()[i].username){
@@ -2996,7 +2678,7 @@ function commandStuff(data){
 			break;
 
 		case "lockdown":
-			if (API.getUser().role > 1 || API.getUser().gRole != 0){
+			if (bcs.user.role > 1 || bcs.user.gRole != 0){
 				lockdown = !lockdown;
 				if (lockdown){
 					var ll = "enabled. Only staff may chat.";
@@ -3035,7 +2717,7 @@ function commandStuff(data){
 		case "afk":case "work":case "sleep":case "join":case "leave":case "whoami":
 		case "refresh":case "version":case "mute":case "link":case "unmute":case "no":
 		case "nextsong":case "automute":case "alertson":case "alertsoff":case "yes":
-		case "getpos":case "ignore":case "whois":case "kick":case "add":case "help":
+		case "getpos":case "ignore":case "whois":case "kick":case "add":
 		case "remove":case "lock":case "unlock":case "help":case "me":case "em":
 			break;
 		
