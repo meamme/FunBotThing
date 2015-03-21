@@ -161,18 +161,25 @@
 	width:100px %;
 	word-wrap:break 0;
 }
-#room-bar{
-	width:340px;
+#room-bar{width:340px;}
+.user .xavi{
+	border: 2px solid rgb(137, 190, 108);
+	top: inherit;
+	left: -30px;
 }
-#xwootlist, #xmehlist, #xcurrentdj{
-	margin-left:5px;
+#xlist{
+	position: absolute;
+	top: 45px;
+	margin-top: 5px;
+	left: -2px;
 }
-#xwootlist{
-	background-color: rgba(146, 172, 58, 0.05);
+#xwootlist, #xmehlist, #xcurrentdj{margin-left:5px;}
+#xwootlist .user .name, #xmehlist .user .name, #xcurrentdj .user .name{
+	cursor: pointer;
+	font-size: 13px;
 }
-#xmehlist{
-	 background-color: rgba(196, 46, 59, 0.1);
-}
+#xwootlist{background-color: rgba(146, 172, 58, 0.05);}
+#xmehlist{background-color: rgba(196, 46, 59, 0.1);}
 #xcurrentdj{
 	margin-bottom:10px;
 }
