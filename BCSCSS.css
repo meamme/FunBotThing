@@ -189,6 +189,7 @@
 	margin-top: 5px;
 	overflow-x: hidden;
 	overflow-y: auto;
+	cursor: default;
 }
 #xwootlist, #xmehlist, #xcurrentdj{margin-left:5px;}
 #xwootlist .user .name, #xmehlist .user .name, #xcurrentdj .user .name{
