@@ -1005,7 +1005,18 @@ $("#footer-user").on('click',function(){if(bcs.itsMe){$("#footer-user .pp .value
 
 var voteslist = [];
 var thevotelist = '\
-<div id="xvotelist">\
+<div id="xvotelist" style="\
+	position: absolute;\
+	top: 55px;\
+	height: 65%;\
+	left: 64%;\
+	width: 200px;\
+	display: none;\
+	background-color: #111317;\
+	outline: #000000 solid 1px;\
+	overflow-x: hidden;\
+	overflow-y: hidden;\
+	z-index: 98001;">\
 	<div id="xlistrefresh" style="\
 		position: absolute;\
 		height: 45px;\
