@@ -364,8 +364,7 @@ var bcs = {
 		$("#footer-user .bar .value").hide();
 		$("#footer-user .bar").mouseenter(function(){$("#footer-user .percentage").hide();$("#footer-user .bar .value").show();});
 		$("#footer-user .bar").mouseleave(function(){$("#footer-user .percentage").show();$("#footer-user .bar .value").hide();});
-		$("#app-menu .list .votelist").mouseenter(function(){$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');});
-		$("#app-menu .list .votelist").mouseleave(function(){$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-off');});
+		$("#app-menu .list .votelist").hover(function(){$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');},function(){$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-off');});
 		$("#search-input-field").attr({"maxlength":256});
 		$(".emoji-trollface").replaceWith("<span style='background: url(https://i.imgur.com/osBR8Jj.png); width: 16px; height: 16px;'></span>");
 		$("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
@@ -1506,6 +1505,9 @@ function advanceStuff(obj){
 		$("#scrollname").remove();
 		$("#now-playing-media .bar-value").hide();
 		$("#now-playing-media").append("<marquee id='scrollname' scrollamount='6'>" + thissong.author + " - " + thissong.title + "</marquee>");
+	}else{
+		$("#scrollname").remove();
+		$("#now-playing-media .bar-value").show();
 	}
 	if (!listlock){
 		listlock = true;
