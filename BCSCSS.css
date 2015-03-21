@@ -167,11 +167,28 @@
 	top: inherit;
 	left: -30px;
 }
+#xvotelist{
+	position: absolute;
+	top: 55px;
+	height: 65%;
+	left: 64%;
+	width: 200px;
+	display: none;
+	background-color: #111317;
+	outline: #000000 solid 1px;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	z-index: 98001;
+}
 #xlist{
 	position: absolute;
 	top: 45px;
-	margin-top: 5px;
 	left: -2px;
+	height: 100%;
+	width: 100%;
+	margin-top: 5px;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 #xwootlist, #xmehlist, #xcurrentdj{margin-left:5px;}
 #xwootlist .user .name, #xmehlist .user .name, #xcurrentdj .user .name{
