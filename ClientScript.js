@@ -1504,7 +1504,7 @@ function advanceStuff(obj){
 	if ($("#now-playing-media .bar-value").width() >= $("#now-playing-media").width()){
 		$("#scrollname").remove();
 		$("#now-playing-media .bar-value").hide();
-		$("#now-playing-media").append("<marquee id='scrollname' scrollamount='6'>" + thissong.author + " - " + thissong.title + "</marquee>");
+		$("#now-playing-media").append("<marquee id='scrollname'>" + thissong.author + " - " + thissong.title + "</marquee>");
 	}else{
 		$("#scrollname").remove();
 		$("#now-playing-media .bar-value").show();
