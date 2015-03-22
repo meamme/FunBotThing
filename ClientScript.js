@@ -316,6 +316,7 @@ var bcs = {
 		turnOn: function(){
 			$("#xlistclose").on('click',bcs.listStuff.toggleList);
 			$("#app-menu .list .votelist").on('click',bcs.listStuff.toggleList);
+			$("#app-menu .list .votelist").hover(function(){$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');},function(){$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-off');});
 		}
 	},
 	turnOn: function(){
@@ -364,7 +365,6 @@ var bcs = {
 		$("#footer-user .bar .value").hide();
 		$("#footer-user .bar").mouseenter(function(){$("#footer-user .percentage").hide();$("#footer-user .bar .value").show();});
 		$("#footer-user .bar").mouseleave(function(){$("#footer-user .percentage").show();$("#footer-user .bar .value").hide();});
-		$("#app-menu .list .votelist").hover(function(){$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-disabled');},function(){$("#app-menu .list .votelist .icon").attr('class','icon icon-woot-off');});
 		$("#search-input-field").attr({"maxlength":256});
 		$(".emoji-trollface").replaceWith("<span style='background: url(https://i.imgur.com/osBR8Jj.png); width: 16px; height: 16px;'></span>");
 		$("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
