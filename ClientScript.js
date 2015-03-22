@@ -1104,12 +1104,12 @@ function appendPerson(user){
 				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + name + '</span>\
 				<br>\
 				<i class="icon icon-woot xlistvoted"></i>\
-				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Lvl: ' + thislevel + wlpos + '</span>\
+				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Lv: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}else if (grab){
 			$("#xwootlist").append('\
-			<div class="user" style="margin-bottom:8px;">\
+			<div class="user grab" style="margin-bottom:8px;">\
 				<i class="icon icon-support-white xlistinfo" idt="' + id + '" title="Info about the user"></i>\
 				' + thisrole + '\
 				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + name + '</span>\
@@ -1134,7 +1134,7 @@ function appendPerson(user){
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}else if (grab){
 			$("#xmehlist").append('\
-			<div class="user" style="margin-bottom:8px;">\
+			<div class="user grab" style="margin-bottom:8px;">\
 				<i class="icon icon-support-white xlistinfo" idt="' + id + '" title="Info about the user"></i>\
 				' + thisrole + '\
 				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + name + '</span>\
