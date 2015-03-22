@@ -198,6 +198,10 @@
 }
 #xwootlist{background-color: rgba(146, 172, 58, 0.05);}
 #xmehlist{background-color: rgba(196, 46, 59, 0.1);}
+#xmehlist .grab, #xwootlist .grab{
+	border-left: 2px solid rgba(166, 112, 254, 1);
+	margin-left: -2px;
+}
 #xcurrentdj{
 	margin-bottom:10px;
 }
