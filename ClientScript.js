@@ -928,21 +928,21 @@ function displayid(){
 		}
 	}
 	var a = "Open Sans";
-	if ($("#id_display").text() == ""){
+	if ($("#bcsUserID").text() == ""){
 		$('#user-rollover .meta .joined').css({top:"64px"});
-		$("#user-rollover .info").append('<div id="id_display" style="position:absolute; top:-21px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
+		$("#user-rollover .meta").append('<div id="bcsUserID" style="position:absolute; bottom:6px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
 	}else{
 		if (typeof t == "undefined" || t == "undefined"){
 			t = "-------";
-			$("#id_display").hide();
+			$("#bcsUserID").hide();
 		}else{
-			$("#id_display").text("ID: " + t);
-			$("#id_display").show();
+			$("#bcsUserID").text("ID: " + t);
+			$("#bcsUserID").show();
 		}
 	}
 	$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/x1DEgOD.png)","top":"6%","left":"88%","width":"30px","height":"30px"});
 	$('#user-rollover .thumb').show();
-	$('#id_display').show();
+	$('#bcsUserID').show();
 	if (e == "Beta Tester" || e == "T98" || e == "CatSnore"){
 		$("#iwannalookcool").show();
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
@@ -980,7 +980,7 @@ function displayid(){
 		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		$('#user-rollover .thumb').hide();
-		$('#id_display').hide();
+		$('#bcsUserID').hide();
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
 	}else{
 		$("#iwannalookcool").hide();
@@ -1504,7 +1504,7 @@ function advanceStuff(obj){
 	if ($("#now-playing-media .bar-value").width() >= $("#now-playing-media").width()){
 		$("#scrollname").remove();
 		$("#now-playing-media .bar-value").hide();
-		$("#now-playing-media").append("<marquee id='scrollname'>" + thissong.author + " - " + thissong.title + "</marquee>");
+		$("#now-playing-media").append("<marquee id='scrollname' scrollamount='3'>" + thissong.author + " - " + thissong.title + "</marquee>");
 	}else{
 		$("#scrollname").remove();
 		$("#now-playing-media .bar-value").show();
