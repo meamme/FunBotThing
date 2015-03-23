@@ -1771,6 +1771,7 @@ function lookfor(id,isityou){
 			case "hiphopset":	var bb = "HipHop Badge (" + data.badge + ")";break;
 			case "countryset":	var bb = "Country Badge (" + data.badge + ")";break;
 			case "dragon01":	var bb = "Dragon Badge (" + data.badge + ")";break;
+			case "dragon02":	var bb = "OP 100$ Badge (" + data.badge + ")";break;
 			case "winter01":	var bb = "Ski Boot (" + data.badge + ")";break;
 			case "winter02":	var bb = "Snowman Badge (" + data.badge + ")";break;
 			case "winter03":	var bb = "Snowflake Badge (" + data.badge + ")";break;
