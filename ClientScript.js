@@ -302,17 +302,17 @@ var bcs = {
 		$("#chat-header").append('\
 		<div id="topInfo">\
 			<div id="topVote" style="display: none;">\
-				<div id="woot" class="crowd-response active selected isTop" style="right: 88px;">\
+				<div id="woot" class="crowd-response active isTop" style="right: 88px;">\
 					<div class="bottom isTop">\
 						<span class="voteTop">0</span>\
 					</div>\
 				</div>\
-				<div id="grab" class="crowd-response active selected isTop" style="right: 53px;">\
+				<div id="grab" class="crowd-response active isTop" style="right: 53px;">\
 					<div class="bottom isTop">\
 						<span class="voteTop">0</span>\
 					</div>\
 				</div>\
-				<div id="meh" class="crowd-response active selected" style="right: 18px;">\
+				<div id="meh" class="crowd-response active isTop" style="right: 18px;">\
 					<div class="bottom isTop">\
 						<span class="voteTop">0</span>\
 					</div>\
@@ -434,7 +434,7 @@ var bcs = {
 		bcs.displayLvl();
 		$("#playlist-panel").on('click',function(){setTimeout(function(){$("#dialog-preview").draggable({ containment: "#app", scroll: false });},500)});
 		favoritism();
-		if ($("#bcsVersionCheck").css('left') != 144){
+		if ($("#bcsVersionCheck").css('left') != "144px"){
 			bcs.addChat("<br>Looks like Github is being slow again. The CSS for this version of BCS has not been updated yet.","#C42E3B",true,true);
 			bcs.addChat("<br>You may use BCS, but some things might show up weird","#eee");
 		}
