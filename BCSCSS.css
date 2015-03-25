@@ -306,3 +306,33 @@
 	margin-top:-1%;
 	cursor:pointer;
 }
+#topInfo{
+	position: absolute;
+	width: 100px;
+	height: 50px;
+	right: 14%;
+	font-size: 12px;
+	margin-top: 2px;
+	right: 7%;
+	top: 10%;
+	opacity: 0.7;
+}
+#topVote{
+	width: 123px;
+	top: 5px;
+	right: -20px;
+}
+.voteTop{
+	top: 25%;
+	left: 30%;
+	position: absolute;
+}
+#woot .isTop, #meh .isTop, #grab .isTop{
+	position: absolute;
+	width: 35px;
+	height: 30px;
+}
+#woot .bottom .isTop, #meh .bottom .isTop, #grab .bottom .isTop{
+	top: 0px;
+	height: 30px;
+}
