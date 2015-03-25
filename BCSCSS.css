@@ -1,3 +1,7 @@
+#bcsVersionCheck {
+	z-index: 144;
+	display: none;
+}
 #xtheone {
 	display: block;
 }
@@ -332,7 +336,7 @@
 	width: 35px;
 	height: 30px;
 }
-#woot .bottom .isTop, #meh .bottom .isTop, #grab .bottom .isTop {
+#woot .bottom .isTop, #meh .bottom .isTop, #grab .bottom .isTop{
 	top: 0px;
 	height: 30px;
 }
