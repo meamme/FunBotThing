@@ -331,12 +331,12 @@
 	left: 30%;
 	position: absolute;
 }
-#woot .isTop, #meh .isTop, #grab .isTop{
+#woot.isTop, #meh.isTop, #grab.isTop{
 	position: absolute;
 	width: 35px;
 	height: 30px;
 }
-#woot .bottom .isTop, #meh .bottom .isTop, #grab .bottom .isTop{
+#woot.bottom.isTop, #meh.bottom.isTop, #grab.bottom.isTop{
 	top: 0px;
 	height: 30px;
 }
