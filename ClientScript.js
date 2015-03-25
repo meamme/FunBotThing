@@ -356,6 +356,7 @@ var bcs = {
 	},
 	turnOn: function(){
 		$("body").css({"background-image":"url(https://i.imgur.com/qOy1afT.png)"});
+		$("body").prepend("<div id='bcsVersionCheck'></div>");
 		$.getScript('https://dl.dropboxusercontent.com/s/y90bayahpfh4odh/jquery-ui-1.10.4.custom.min.js?_=1424626287371');
 		API.on(API.CHAT, chatStuff);
 		API.on(API.VOTE_UPDATE, voteStuff);
@@ -433,6 +434,10 @@ var bcs = {
 		bcs.displayLvl();
 		$("#playlist-panel").on('click',function(){setTimeout(function(){$("#dialog-preview").draggable({ containment: "#app", scroll: false });},500)});
 		favoritism();
+		if ($("#bcsVersionCheck").css({'z-index'}) != 144){
+			bcs.addChat("<br>Looks like Github is being slow again. The CSS for this version of BCS has not been updated yet.","#C42E3B",true,true);
+			bcs.addChat("<br>You may use BCS, but some things might show up weird","#eee");
+		}
 	},
 	turnOff: function(){
 		API.off(API.CHAT);
