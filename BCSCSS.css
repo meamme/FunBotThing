@@ -328,8 +328,9 @@
 }
 .voteTop{
 	top: 25%;
-	left: 30%;
 	position: absolute;
+	width: 100%;
+	text-align: center;
 }
 #woot.isTop, #meh.isTop, #grab.isTop{
 	position: absolute;
