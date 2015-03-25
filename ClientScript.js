@@ -434,10 +434,12 @@ var bcs = {
 		bcs.displayLvl();
 		$("#playlist-panel").on('click',function(){setTimeout(function(){$("#dialog-preview").draggable({ containment: "#app", scroll: false });},500)});
 		favoritism();
-		if ($("#bcsVersionCheck").css('left') != "144px"){
-			bcs.addChat("<br>Looks like Github is being slow again. The CSS for this version of BCS has not been updated yet.","#C42E3B",true,true);
-			bcs.addChat("<br>You may use BCS, but some things might show up weird","#eee");
-		}
+		setTimeout(function(){
+			if ($("#bcsVersionCheck").css('left') != "144px"){
+				bcs.addChat("<br>Looks like Github is being slow again. The CSS for this version of BCS has not been updated yet.","#C42E3B",true,true);
+				bcs.addChat("<br>You may use BCS, but some things might show up weird","#eee");
+			}
+		},5000);
 	},
 	turnOff: function(){
 		API.off(API.CHAT);
