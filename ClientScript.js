@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.3.3</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.4</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -298,6 +298,41 @@ var bcs = {
 			$("#app-menu").on('click',bcs.footerStuff.tansformBack);
 		}
 	},
+	topStuff:function(){
+		$("#chat-header").append('\
+		<div id="topInfo">\
+			<div id="topVote" style="display: none;">\
+				<div id="woot" class="crowd-response active selected isTop" style="right: 88px;">\
+					<div class="bottom isTop">\
+						<span class="voteTop">0</span>\
+					</div>\
+				</div>\
+				<div id="grab" class="crowd-response active selected isTop" style="right: 53px;">\
+					<div class="bottom isTop">\
+						<span class="voteTop">0</span>\
+					</div>\
+				</div>\
+				<div id="meh" class="crowd-response active selected" style="right: 18px;">\
+					<div class="bottom isTop">\
+						<span class="voteTop">0</span>\
+					</div>\
+				</div>\
+			</div>\
+			<div id="curVer" style="display: block;">\
+				<span>plug.dj Version ' + _v + '</span>\
+			</div>\
+		</div>');//border-radius: 0 4px 4px 0;
+		$("#topInfo").hover(function(){
+			$("#topVote").show();
+			$("#curVer").hide();
+		},function(){
+			$("#topVote").hide();
+			$("#curVer").show();
+		});
+		$("#woot .voteTop").text($("#woot .value").text());
+		$("#grab .voteTop").text($("#grab .value").text());
+		$("#meh .voteTop").text($("#meh .value").text());
+	},
 	listStuff: {
 		voteIsOn: false,
 		toggleList: function(){
@@ -394,6 +429,7 @@ var bcs = {
 		bcs.getFriends();
 		bcs.getStaff();
 		bcs.hasp3();
+		bcs.topStuff();
 		bcs.displayLvl();
 		$("#playlist-panel").on('click',function(){setTimeout(function(){$("#dialog-preview").draggable({ containment: "#app", scroll: false });},500)});
 		favoritism();
@@ -1074,18 +1110,18 @@ function appendPerson(user){
 	var vote = user.vote;
 	var grab = user.grab;
 	switch (role){
-		case 0:var thisrole = "";break;
-		case 1:var thisrole = "<i class='icon icon-chat-dj' style='margin-top:2px;'></i>";break;
-		case 2:var thisrole = "<i class='icon icon-chat-bouncer' style='margin-top:2px;'></i>";break;
-		case 3:var thisrole = "<i class='icon icon-chat-manager' style='margin-top:2px;'></i>";break;
-		case 4:case 5:var thisrole = "<i class='icon icon-chat-host' style='margin-top:2px;'></i>";break;
+		case 0:var thisrole = ""; break;
+		case 1:var thisrole = "<i class='icon icon-chat-dj' style='margin-top:2px;'></i>"; break;
+		case 2:var thisrole = "<i class='icon icon-chat-bouncer' style='margin-top:2px;'></i>"; break;
+		case 3:var thisrole = "<i class='icon icon-chat-manager' style='margin-top:2px;'></i>"; break;
+		case 4:case 5:var thisrole = "<i class='icon icon-chat-host' style='margin-top:2px;'></i>"; break;
 	}
 	var namecolor = "#ac76ff";
 	if (role == 0){namecolor = "#eee"};
 	switch (grole){
 		case 0:break;
-		case 3:var thisrole = "<i class='icon icon-chat-ambassador' style='margin-top:2px;'></i>";break;
-		case 5:var thisrole = "<i class='icon icon-chat-admin' style='margin-top:2px;'></i>";break;
+		case 3:var thisrole = "<i class='icon icon-chat-ambassador' style='margin-top:2px;'></i>"; break;
+		case 5:var thisrole = "<i class='icon icon-chat-admin' style='margin-top:2px;'></i>"; break;
 	}
 	if (grole == 3){namecolor = "#89be6c"}else if(grole == 5){namecolor = "#42a5dc"};
 	if (namecolor == "#eee"){var indent = "4px";}else{var indent = "19px";};
@@ -1172,17 +1208,17 @@ function updateList(){
 	if (typeof API.getDJ() != "undefined"){
 		var currentdj = API.getUser(API.getDJ().id);
 		switch (currentdj.role){
-			case 0:var thisrole = "";break;
-			case 1:var thisrole = "<i class='icon icon-chat-dj xlisticon'></i>";break;
-			case 2:var thisrole = "<i class='icon icon-chat-bouncer xlisticon'></i>";break;
-			case 3:var thisrole = "<i class='icon icon-chat-manager xlisticon'></i>";break;
-			case 4:var thisrole = "<i class='icon icon-chat-host xlisticon'></i>";break;
-			case 5:var thisrole = "<i class='icon icon-chat-thehost xlisticon'></i>";break;
+			case 0:var thisrole = ""; break;
+			case 1:var thisrole = "<i class='icon icon-chat-dj xlisticon'></i>"; break;
+			case 2:var thisrole = "<i class='icon icon-chat-bouncer xlisticon'></i>"; break;
+			case 3:var thisrole = "<i class='icon icon-chat-manager xlisticon'></i>"; break;
+			case 4:var thisrole = "<i class='icon icon-chat-host xlisticon'></i>"; break;
+			case 5:var thisrole = "<i class='icon icon-chat-thehost xlisticon'></i>"; break;
 		}
 		switch (currentdj.gRole){
 			case 0:break;
-			case 3:var thisrole = "<i class='icon icon-chat-ambassador xlisticon'></i>";break;
-			case 5:var thisrole = "<i class='icon icon-chat-admin xlisticon''></i>";break;
+			case 3:var thisrole = "<i class='icon icon-chat-ambassador xlisticon'></i>"; break;
+			case 5:var thisrole = "<i class='icon icon-chat-admin xlisticon''></i>"; break;
 		}
 		var namecolor = "#ac76ff";
 		if (currentdj.role == 0){namecolor = "#eee"};
@@ -1496,6 +1532,9 @@ function voteStuff(obj){
 		if (s < 10){s = "0" + s;}
 		if (mehmsg){bcs.addChat("<i class='icon icon-meh' style='left:5px;'></i> " + obj.user.username + " (ID " + obj.user.id + ") meh'ed this <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#ff8585");};
 	}
+	$("#woot .voteTop").text($("#woot .value").text());
+	$("#grab .voteTop").text($("#grab .value").text());
+	$("#meh .voteTop").text($("#meh .value").text());
 }
 
 function advanceStuff(obj){
@@ -1609,9 +1648,9 @@ function leaveStuff(user){
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
 	var userrole = "";
-	switch (user.role){case 0:userrole = "";break;case 1:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>RDJ</b></a> (1) |";break;case 2:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Bouncer</b></a> (2) |";break;case 3:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Manager</b></a> (3) |";break;case 4:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>CoHost</b></a> (4) |";break;case 5:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Host</b></a> (5) |";break;}
+	switch (user.role){case 0:userrole = ""; break;case 1:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>RDJ</b></a> (1) |"; break;case 2:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Bouncer</b></a> (2) |"; break;case 3:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Manager</b></a> (3) |"; break;case 4:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>CoHost</b></a> (4) |"; break;case 5:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Host</b></a> (5) |"; break;}
 	var usergrole = "";
-	switch (user.gRole){case 0:usergrole = "";break;case 3:usergrole = "<a style='color:#89be6c;font-size:11px;'><b>BA</b></a> (3) |";break;case 5:usergrole = " <a style='color:#42a5dc;font-size:11px;'><b>Admin</b></a> (5) |";break;}
+	switch (user.gRole){case 0:usergrole = ""; break;case 3:usergrole = "<a style='color:#89be6c;font-size:11px;'><b>BA</b></a> (3) |"; break;case 5:usergrole = " <a style='color:#42a5dc;font-size:11px;'><b>Admin</b></a> (5) |"; break;}
 	var thename = user.username.split("<").join("&lt;").split(">").join("&gt;");
 	if (joinmsg){bcs.addChat("<a style='color:" + c + ";'>" + f + "<b>" + thename + "</b> left </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
 	if (cap){
@@ -1648,9 +1687,9 @@ function joinStuff(user){
 		var c = "#74afff";
 	}
 	var userrole = "";
-	switch (user.role){case 0:userrole = "";break;case 1:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>RDJ</b></a> (1) |";break;case 2:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Bouncer</b></a> (2) |";break;case 3:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Manager</b></a> (3) |";break;case 4:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>CoHost</b></a> (4) |";break;case 5:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Host</b></a> (5) |";break;}
+	switch (user.role){case 0:userrole = ""; break;case 1:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>RDJ</b></a> (1) |"; break;case 2:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Bouncer</b></a> (2) |"; break;case 3:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Manager</b></a> (3) |"; break;case 4:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>CoHost</b></a> (4) |"; break;case 5:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Host</b></a> (5) |"; break;}
 	var usergrole = "";
-	switch (user.gRole){case 0:usergrole = "";break;case 3:usergrole = "<a style='color:#89be6c;font-size:11px;'><b>BA</b></a> (3) |";break;case 5:usergrole = "<a style='color:#42a5dc;font-size:11px;'><b>Admin</b></a> (5) |";break;}
+	switch (user.gRole){case 0:usergrole = ""; break;case 3:usergrole = "<a style='color:#89be6c;font-size:11px;'><b>BA</b></a> (3) |"; break;case 5:usergrole = "<a style='color:#42a5dc;font-size:11px;'><b>Admin</b></a> (5) |"; break;}
 	var thename = user.username.split("<").join("&lt;").split(">").join("&gt;")
 	if (user.level > 1 && joinmsg){bcs.addChat("<a style='color:" + c + "'> " + f + "<b>" + thename + "</b> joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false, false,true,true);};
 	if (user.level == 1 && joinmsg){bcs.addChat("<a style='color:#fef8a0;'> " + f + "<b>" + thename + "</b> joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
@@ -1753,67 +1792,67 @@ function lookfor(id,isityou){
 
 //BADGE
 		switch(data.badge){
-			case "bt":			var bb = "Beta Tester (" + data.badge + ")";break;
-			case "ss":			var bb = "Plug SuperStar (" + data.badge + ")";break;
-			case "og":			var bb = "Original Gangster (" + data.badge + ")";break;
-			case "ea":			var bb = "Early Adopter (" + data.badge + ")";break;
-			case "ba":			var bb = "Brand Ambassador (" + data.badge + ")";break;
-			case "admin":		var bb = "Admin Badge (" + data.badge + ")";break;
-			case "plot":		var bb = "Translator Badge (" + data.badge + ")";break;
-			case "2015bday":	var bb = "3rd Anniversary Badge (" + data.badge + ")";break;
-			case "2014wbb":		var bb = "Winter Badge (" + data.badge + ")";break;
-			case "raveset":		var bb = "Rave Badge (" + data.badge + ")";break;
-			case "robotset":	var bb = "Robot Badge (" + data.badge + ")";break;
-			case "zooset":		var bb = "Zoo Badge (" + data.badge + ")";break;
-			case "80sset":		var bb = "80's Badge (" + data.badge + ")";break;
-			case "rockset":		var bb = "Rock Badge (" + data.badge + ")";break;
-			case "2014hwset":	var bb = "Halloween Badge (" + data.badge + ")";break;
-			case "hiphopset":	var bb = "HipHop Badge (" + data.badge + ")";break;
-			case "countryset":	var bb = "Country Badge (" + data.badge + ")";break;
-			case "dragon01":	var bb = "Dragon Badge (" + data.badge + ")";break;
-			case "dragon02":	var bb = "OP 100$ Badge (" + data.badge + ")";break;
-			case "winter01":	var bb = "Ski Boot (" + data.badge + ")";break;
-			case "winter02":	var bb = "Snowman Badge (" + data.badge + ")";break;
-			case "winter03":	var bb = "Snowflake Badge (" + data.badge + ")";break;
-			case "winter04":	var bb = "Reindeer Badge (" + data.badge + ")";break;
-			case "winter05":	var bb = "Penguin Badge (" + data.badge + ")";break;
-			case "winter06":	var bb = "Tree Badge (" + data.badge + ")";break;
-			case "winter07":	var bb = "Ski Badge (" + data.badge + ")";break;
-			case "winter08":	var bb = "Snowboard Badge (" + data.badge + ")";break;
-			case "winter09":	var bb = "Ice Skating (" + data.badge + ")";break;
-			case "winter10":	var bb = "Hockey Badge (" + data.badge + ")";break;
-			case "music01":		var bb = "Record Player (" + data.badge + ")";break;
-			case "music02":		var bb = "Musical Keyboard (" + data.badge + ")";break;
-			case "music03":		var bb = "Compact Cassette (" + data.badge + ")";break;
-			case "music04":		var bb = "Disco Ball (" + data.badge + ")";break;
-			case "music05":		var bb = "Glowsticks Badge (" + data.badge + ")";break;
-			case "music06":		var bb = "Ferris Wheel (" + data.badge + ")";break;
-			case "music07":		var bb = "Baloons Badge (" + data.badge + ")";break;
-			case "food01":		var bb = "Pizza Badge (" + data.badge + ")";break;
-			case "food02":		var bb = "Ice Cream Badge (" + data.badge + ")";break;
-			case "food03":		var bb = "Drink Badge (" + data.badge + ")";break;
-			case "food04":		var bb = "Donut Badge (" + data.badge + ")";break;
-			case "food05":		var bb = "Sushi Badge (" + data.badge + ")";break;
-			case "food06":		var bb = "Hamburguer Badge (" + data.badge + ")";break;
-			case "food07":		var bb = "Fries Badge (" + data.badge + ")";break;
-			case "food08":		var bb = "Coffee Badge (" + data.badge + ")";break;
-			case "food09":		var bb = "Beef Badge (" + data.badge + ")";break;
-			case "animals01":	var bb = "Wolf Badge (" + data.badge + ")";break;
-			case "animals02":	var bb = "Cat Badge (" + data.badge + ")";break;
-			case "animals03":	var bb = "Chicken Badge (" + data.badge + ")";break;
-			case "animals04":	var bb = "Boxer Badge (" + data.badge + ")";break;
-			case "style01":		var bb = "Shoe Badge (" + data.badge + ")";break;
-			case "style02":		var bb = "Joystick Badge (" + data.badge + ")";break;
-			case "style03":		var bb = "Cap Badge (" + data.badge + ")";break;
-			case "style04":		var bb = "Funky Glasses Badge (" + data.badge + ")";break;
-			case "style05":		var bb = "Necklace Badge (" + data.badge + ")";break;
-			case "style06":		var bb = "Cowboy Hat Badge (" + data.badge + ")";break;
-			case "style07":		var bb = "Color Palette Badge (" + data.badge + ")";break;
-			case "style08":		var bb = "Astronaut Badge (" + data.badge + ")";break;
-			case "tiki01":		var bb = "Fat Tiki Mask (" + data.badge + ")";break;
-			case "tiki02":		var bb = "Slim Tiki Mask (" + data.badge + ")";break;
-			case "tiki03":		var bb = "Green Tree (" + data.badge + ")";break;
-			case "tiki04":		var bb = "Purple Tree (" + data.badge + ")";break;
+			case "bt":			var bb = "Beta Tester (" + data.badge + ")"; break;
+			case "ss":			var bb = "Plug SuperStar (" + data.badge + ")"; break;
+			case "og":			var bb = "Original Gangster (" + data.badge + ")"; break;
+			case "ea":			var bb = "Early Adopter (" + data.badge + ")"; break;
+			case "ba":			var bb = "Brand Ambassador (" + data.badge + ")"; break;
+			case "admin":		var bb = "Admin Badge (" + data.badge + ")"; break;
+			case "plot":		var bb = "Translator Badge (" + data.badge + ")"; break;
+			case "2015bday":	var bb = "3rd Anniversary Badge (" + data.badge + ")"; break;
+			case "2014wbb":		var bb = "Winter Badge (" + data.badge + ")"; break;
+			case "raveset":		var bb = "Rave Badge (" + data.badge + ")"; break;
+			case "robotset":	var bb = "Robot Badge (" + data.badge + ")"; break;
+			case "zooset":		var bb = "Zoo Badge (" + data.badge + ")"; break;
+			case "80sset":		var bb = "80's Badge (" + data.badge + ")"; break;
+			case "rockset":		var bb = "Rock Badge (" + data.badge + ")"; break;
+			case "2014hwset":	var bb = "Halloween Badge (" + data.badge + ")"; break;
+			case "hiphopset":	var bb = "HipHop Badge (" + data.badge + ")"; break;
+			case "countryset":	var bb = "Country Badge (" + data.badge + ")"; break;
+			case "dragon01":	var bb = "Dragon Badge (" + data.badge + ")"; break;
+			case "dragon02":	var bb = "OP 100$ Badge (" + data.badge + ")"; break;
+			case "winter01":	var bb = "Ski Boot (" + data.badge + ")"; break;
+			case "winter02":	var bb = "Snowman Badge (" + data.badge + ")"; break;
+			case "winter03":	var bb = "Snowflake Badge (" + data.badge + ")"; break;
+			case "winter04":	var bb = "Reindeer Badge (" + data.badge + ")"; break;
+			case "winter05":	var bb = "Penguin Badge (" + data.badge + ")"; break;
+			case "winter06":	var bb = "Tree Badge (" + data.badge + ")"; break;
+			case "winter07":	var bb = "Ski Badge (" + data.badge + ")"; break;
+			case "winter08":	var bb = "Snowboard Badge (" + data.badge + ")"; break;
+			case "winter09":	var bb = "Ice Skating (" + data.badge + ")"; break;
+			case "winter10":	var bb = "Hockey Badge (" + data.badge + ")"; break;
+			case "music01":		var bb = "Record Player (" + data.badge + ")"; break;
+			case "music02":		var bb = "Musical Keyboard (" + data.badge + ")"; break;
+			case "music03":		var bb = "Compact Cassette (" + data.badge + ")"; break;
+			case "music04":		var bb = "Disco Ball (" + data.badge + ")"; break;
+			case "music05":		var bb = "Glowsticks Badge (" + data.badge + ")"; break;
+			case "music06":		var bb = "Ferris Wheel (" + data.badge + ")"; break;
+			case "music07":		var bb = "Baloons Badge (" + data.badge + ")"; break;
+			case "food01":		var bb = "Pizza Badge (" + data.badge + ")"; break;
+			case "food02":		var bb = "Ice Cream Badge (" + data.badge + ")"; break;
+			case "food03":		var bb = "Drink Badge (" + data.badge + ")"; break;
+			case "food04":		var bb = "Donut Badge (" + data.badge + ")"; break;
+			case "food05":		var bb = "Sushi Badge (" + data.badge + ")"; break;
+			case "food06":		var bb = "Hamburguer Badge (" + data.badge + ")"; break;
+			case "food07":		var bb = "Fries Badge (" + data.badge + ")"; break;
+			case "food08":		var bb = "Coffee Badge (" + data.badge + ")"; break;
+			case "food09":		var bb = "Beef Badge (" + data.badge + ")"; break;
+			case "animals01":	var bb = "Wolf Badge (" + data.badge + ")"; break;
+			case "animals02":	var bb = "Cat Badge (" + data.badge + ")"; break;
+			case "animals03":	var bb = "Chicken Badge (" + data.badge + ")"; break;
+			case "animals04":	var bb = "Boxer Badge (" + data.badge + ")"; break;
+			case "style01":		var bb = "Shoe Badge (" + data.badge + ")"; break;
+			case "style02":		var bb = "Joystick Badge (" + data.badge + ")"; break;
+			case "style03":		var bb = "Cap Badge (" + data.badge + ")"; break;
+			case "style04":		var bb = "Funky Glasses Badge (" + data.badge + ")"; break;
+			case "style05":		var bb = "Necklace Badge (" + data.badge + ")"; break;
+			case "style06":		var bb = "Cowboy Hat Badge (" + data.badge + ")"; break;
+			case "style07":		var bb = "Color Palette Badge (" + data.badge + ")"; break;
+			case "style08":		var bb = "Astronaut Badge (" + data.badge + ")"; break;
+			case "tiki01":		var bb = "Fat Tiki Mask (" + data.badge + ")"; break;
+			case "tiki02":		var bb = "Slim Tiki Mask (" + data.badge + ")"; break;
+			case "tiki03":		var bb = "Green Tree (" + data.badge + ")"; break;
+			case "tiki04":		var bb = "Purple Tree (" + data.badge + ")"; break;
 			default:
 				if (data.badge == null){var bb = "None (<a style='color:#b8e0ff;'><em>null</em></a>)";}
 				else{var bb = "Unregistered - " + data.badge;}
@@ -1822,27 +1861,27 @@ function lookfor(id,isityou){
 
 //LANGUAGE
 		switch (data.language){
-			case "bg":	var lan = "Bulgarian <img title='Flag of Bulgaria' src='https://i.imgur.com/vd7Q54y.png' height='13px'></img>";break;
-			case "cs":	var lan = "Czech <img title='Flag of Czech Republic' src='https://i.imgur.com/myeQpZg.png' height='13px'></img>";break;
-			case "da":	var lan = "Danish <img title='Flag of Denmark' src='https://i.imgur.com/G2zlI4m.png' height='13px'></img>";break;
-			case "de":	var lan = "German <img title='Flag of Germany' src='https://i.imgur.com/ET2npvp.png' height='13px'></img>";break;
-			case "en":	var lan = "English <img title='Flag of The United States' src='https://i.imgur.com/IaxwAn7.png' height='13px'></img><img title='Flag of The United Kingdom' src='https://i.imgur.com/rknRtyL.png' height='13px'></img>";break;
-			case "es":	var lan = "Spanish <img title='Flag of Spain' src='https://i.imgur.com/mGFlRq3.png' height='13px'></img>";break;
-			case "fi":	var lan = "Finnish <img title='Flag of Finland' src='https://i.imgur.com/Hcu7KE7.png' height='13px'></img>";break;
-			case "fr":	var lan = "French <img title='Flag of France' src='https://i.imgur.com/nZAaWyV.png' height='13px'></img>";break;
-			case "hr":	var lan = "Croatian <img title='Flag of Croatia' src='https://i.imgur.com/5p7E9yn.png' height='13px'></img>";break;
-			case "it":	var lan = "Italian <img title='Flag of Italy' src='https://i.imgur.com/s2EY2Sw.png' height='13px'></img>";break;
-			case "ko":	var lan = "Korean <img title='Flag of North Korea' src='https://i.imgur.com/OTStsvw.png' height='13px'></img><img title='Flag of South Korea' src='https://i.imgur.com/LBOlA1K.png' height='13px'></img>";break;
-			case "lt":	var lan = "Lithuanian <img title='Flag of Lithuania' src='https://i.imgur.com/Axr4ba6.png' height='13px'></img>";break;
-			case "ms":	var lan = "Malay <img title='Flag of Malaysia' src='http://i.imgur.com/dbSl3H1.png' height='13px'></img>";break;
-			case "nl":	var lan = "Dutch <img title='Flag of Netherlands' src='http://i.imgur.com/soj7PT7.png' height='13px'></img>";break;
-			case "pl":	var lan = "Polish <img title='Flag of Poland' src='https://i.imgur.com/IOJdJly.png' height='13px'></img>";break;
-			case "pt":	var lan = "Portuguese <img title='Flag of Brazil' src='https://i.imgur.com/qg8RKSZ.png' height='13px'></img><img title='Flag of Portugal' src='https://i.imgur.com/OizJHOL.png' height='13px'></img>";break;
-			case "sk":	var lan = "Slovak <img title='Flag of Slovakia' src='https://i.imgur.com/YNTVgl3.png' height='13px'></img>";break;
-			case "sl":	var lan = "Slovenian <img title='Flag of Slovenia' src='https://i.imgur.com/OGVamtC.png' height='13px'></img>";break;
-			case "sr":	var lan = "Serbian <img title='Flag of Serbia' src='https://i.imgur.com/WOb4q8V.png' height='13px'></img>";break;
-			case "zh":	var lan = "Chinese <img title='Flag of China' src='https://i.imgur.com/VW4XYiF.png' height='16px'></img>";break;
-			default:	var lan = "Unknown (" + data.language + ")";break;
+			case "bg":	var lan = "Bulgarian <img title='Flag of Bulgaria' src='https://i.imgur.com/vd7Q54y.png' height='13px'></img>"; break;
+			case "cs":	var lan = "Czech <img title='Flag of Czech Republic' src='https://i.imgur.com/myeQpZg.png' height='13px'></img>"; break;
+			case "da":	var lan = "Danish <img title='Flag of Denmark' src='https://i.imgur.com/G2zlI4m.png' height='13px'></img>"; break;
+			case "de":	var lan = "German <img title='Flag of Germany' src='https://i.imgur.com/ET2npvp.png' height='13px'></img>"; break;
+			case "en":	var lan = "English <img title='Flag of The United States' src='https://i.imgur.com/IaxwAn7.png' height='13px'></img><img title='Flag of The United Kingdom' src='https://i.imgur.com/rknRtyL.png' height='13px'></img>"; break;
+			case "es":	var lan = "Spanish <img title='Flag of Spain' src='https://i.imgur.com/mGFlRq3.png' height='13px'></img>"; break;
+			case "fi":	var lan = "Finnish <img title='Flag of Finland' src='https://i.imgur.com/Hcu7KE7.png' height='13px'></img>"; break;
+			case "fr":	var lan = "French <img title='Flag of France' src='https://i.imgur.com/nZAaWyV.png' height='13px'></img>"; break;
+			case "hr":	var lan = "Croatian <img title='Flag of Croatia' src='https://i.imgur.com/5p7E9yn.png' height='13px'></img>"; break;
+			case "it":	var lan = "Italian <img title='Flag of Italy' src='https://i.imgur.com/s2EY2Sw.png' height='13px'></img>"; break;
+			case "ko":	var lan = "Korean <img title='Flag of North Korea' src='https://i.imgur.com/OTStsvw.png' height='13px'></img><img title='Flag of South Korea' src='https://i.imgur.com/LBOlA1K.png' height='13px'></img>"; break;
+			case "lt":	var lan = "Lithuanian <img title='Flag of Lithuania' src='https://i.imgur.com/Axr4ba6.png' height='13px'></img>"; break;
+			case "ms":	var lan = "Malay <img title='Flag of Malaysia' src='http://i.imgur.com/dbSl3H1.png' height='13px'></img>"; break;
+			case "nl":	var lan = "Dutch <img title='Flag of Netherlands' src='http://i.imgur.com/soj7PT7.png' height='13px'></img>"; break;
+			case "pl":	var lan = "Polish <img title='Flag of Poland' src='https://i.imgur.com/IOJdJly.png' height='13px'></img>"; break;
+			case "pt":	var lan = "Portuguese <img title='Flag of Brazil' src='https://i.imgur.com/qg8RKSZ.png' height='13px'></img><img title='Flag of Portugal' src='https://i.imgur.com/OizJHOL.png' height='13px'></img>"; break;
+			case "sk":	var lan = "Slovak <img title='Flag of Slovakia' src='https://i.imgur.com/YNTVgl3.png' height='13px'></img>"; break;
+			case "sl":	var lan = "Slovenian <img title='Flag of Slovenia' src='https://i.imgur.com/OGVamtC.png' height='13px'></img>"; break;
+			case "sr":	var lan = "Serbian <img title='Flag of Serbia' src='https://i.imgur.com/WOb4q8V.png' height='13px'></img>"; break;
+			case "zh":	var lan = "Chinese <img title='Flag of China' src='https://i.imgur.com/VW4XYiF.png' height='16px'></img>"; break;
+			default:	var lan = "Unknown (" + data.language + ")"; break;
 		}
 
 //JOINED
@@ -1850,24 +1889,24 @@ function lookfor(id,isityou){
 		var lk = jin[2].split(' ');
 		var lj = lk[1].split('.');
 		switch (jin[1]){
-			case "01":	var mnt = "Jan";break;
-			case "02":	var mnt = "Feb";break;
-			case "03":	var mnt = "Mar";break;
-			case "04":	var mnt = "Apr";break;
-			case "05":	var mnt = "May";break;
-			case "06":	var mnt = "Jun";break;
-			case "07":	var mnt = "Jul";break;
-			case "08":	var mnt = "Aug";break;
-			case "09":	var mnt = "Sep";break;
-			case "10":	var mnt = "Oct";break;
-			case "11":	var mnt = "Nov";break;
-			case "12":	var mnt = "Dec";break;
+			case "01":	var mnt = "Jan"; break;
+			case "02":	var mnt = "Feb"; break;
+			case "03":	var mnt = "Mar"; break;
+			case "04":	var mnt = "Apr"; break;
+			case "05":	var mnt = "May"; break;
+			case "06":	var mnt = "Jun"; break;
+			case "07":	var mnt = "Jul"; break;
+			case "08":	var mnt = "Aug"; break;
+			case "09":	var mnt = "Sep"; break;
+			case "10":	var mnt = "Oct"; break;
+			case "11":	var mnt = "Nov"; break;
+			case "12":	var mnt = "Dec"; break;
 			default:	var mnt = "???";
 		}
 		switch (lk[0]){
-			case "01":	var day = "st";break;
-			case "02":	var day = "nd";break;
-			case "03":	var day = "rd";break;
+			case "01":	var day = "st"; break;
+			case "02":	var day = "nd"; break;
+			case "03":	var day = "rd"; break;
 			default:	var day = "th";
 		}
 		var jnd = mnt + " " + lk[0] + day +  " " + jin[0] + " at " + lj[0];
@@ -2062,9 +2101,10 @@ function commandStuff(data){
 					<a style='color: #d4d4d4;'>⊱ <del>Have WL position on vote list (cuz why not)</del> <b>[DONE]</b></a><br>\
 					<a style='color: #d4d4d4;'>⊱ <del>Force skip at the end of songs</del> <b>[DONE / Hard to test]</b></a><br>\
 					<a style='color: #D04545;'>⊱ <del>Change all avatars to only one</del> <b>[Ruled out]</b></a><br>\
-					<a style='color: #b8e0ff;'>⊱ Check if I can raise the cap to over 200 <b>[Pending]</b></a><br>\
-					<a style='color: #8bdb85;'>⊱ Meh count per user (automeh check)</a><br>\
-					<a style='color: #d4d4d4;'>⊱ <del>Make vote list prettier</del> <b>[DONE]</b></a><br>","#CCCCCC",false,false,true);
+					<a style='color: #D04545;'>⊱ Check if I can raise the cap to over 200 <b>[Ruled out]</b></a><br>\
+					<a style='color: #b8e0ff;'>⊱ Meh count per user (automeh check)</a><br>\
+					<a style='color: #d4d4d4;'>⊱ <del>Make vote list prettier</del> <b>[DONE]</b></a><br>\
+					<a style='color: #d4d4d4;'>⊱ <del>Make vote count show up on chat</del> <b>[DONE]</b></a><br>","#CCCCCC",false,false,true);
 			break;
 
 		case "author":
@@ -2735,7 +2775,4 @@ function commandStuff(data){
 	};
 }
 bcs.turnOn();
-$("#chat-header").append('<div id="curVer" style="margin-top: 2px;">\
-	<span style="font-size:10px; color:#ccc;"><b>plug.dj Version ' + _v + '</b></span>\
-</div>');
 }
