@@ -2779,5 +2779,5 @@ function commandStuff(data){
 			break;
 	};
 }
-bcs.turnOn();
+bcs.turnOn();//Github pls
 }
