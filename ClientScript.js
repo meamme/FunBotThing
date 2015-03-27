@@ -1545,6 +1545,10 @@ function voteStuff(obj){
 }
 
 function advanceStuff(obj){
+	var vol = $("#volume span").text().split("%")[0];
+	API.setVolume(1);
+	setTimeout(function(){API.setVolume(vol);},1000);
+
 	updateList();
 	var thissong = API.getMedia();
 	if ($("#now-playing-media .bar-value").width() >= $("#now-playing-media").width()){
