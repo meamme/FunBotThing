@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.4</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.4.3</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -684,9 +684,8 @@ var bcs = {
 		});
 	},
 	stopItAll: function(){
-		var currentWindow = window.location.href;
-		window.location.assign(currentWindow);
-		alert("Your window was refreshed.");
+		window.location.reload();
+		alert("[BCS] Your window was refreshed.");
 	},
 	displayLvl: function(){
 		$("#footer-user .percentage").remove();
@@ -1462,8 +1461,8 @@ function chatStuff(data){
 				if (msg == "---override"){bcs.stopItAll();}
 			};
 		}
-		if(msg == "---break"){$("body").css({"transform":"rotate(3deg)","background-image":"url(https://i.imgur.com/yt6Z0EK.jpg)"});}
-		else if(msg == "---fix"){$("body").css({"transform":"rotate(0deg)","background-image":"url(https://i.imgur.com/qOy1afT.png)"});}
+		if(msg == "---break"){$("body").css({"transform":"rotate(3deg)","-ms-transform":"rotate(3deg)","-webkit-transform":"rotate(3deg)","background-image":"url(https://i.imgur.com/yt6Z0EK.jpg)"});}
+		else if(msg == "---fix"){$("body").css({"transform":"rotate(0deg)","-ms-transform":"rotate(3deg)","-webkit-transform":"rotate(0deg)","background-image":"url(https://i.imgur.com/qOy1afT.png)"});}
 	}
 	if (typeof user != "undefined"){
 		logcheck.push(argument);
