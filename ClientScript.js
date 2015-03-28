@@ -1349,10 +1349,7 @@ function chatStuff(data){
 	if (s < 10){s = "0" + s;}
 	var argument = "[" + h + ":" + m + ":" + s + "] [" + msgid + "] [" + userid + "] [" + user + "]		- " + msg;
 	if (userid != "undefined" && me == "Beta Tester"){
-		var zz = msg.toLowerCase().indexOf("beta");
-		if (zz != -1){
-			blunq.play();
-		}
+		if (msg.toLowerCase().indexOf("beta") != -1){blunq.play();}
 		if (tst != -1){
 			if (!coollock && afkmsg){
 				bcs.c('[AFK] @' + user + ' "Beta is busy right now", says Beta, explaining the situation');
@@ -1387,12 +1384,14 @@ function chatStuff(data){
 	if (!retroChat){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").append("\
 		<span class='info' style='font-size:7px; color:#808691; opacity:0.1;'> Lv. <a style='font-size:9px; color:#eee'>" + API.getUser(userid).level + "</a></span>\
-		<span class='info' style='font-size:7px; color:#808691; opacity:0.1;'> ID: <a style='font-size:9px; color:#eee'>" + userid + "</a></span>");
+		<span class='info' style='font-size:7px; color:#808691; opacity:0.1;'> ID: <a style='font-size:9px; color:#eee'>" + userid + "</a></span>\
+		<span class='info infomsg' style='font-size: 7px; color: rgb(128, 134, 145); opacity: 0.2;'> MsgID: <a style='font-size: 10px; cursor: pointer;color:#eee'>☉</a></span>");
 		$("#chat-messages > .cm[data-cid='" + msgid + "']").hover(function(){
 			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"1"});
 		}, function(){
 			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"0.2"});
 		});
+		$("#chat-messages .infomsg").on('click', function(){$('#chat-input-field').val($('#chat-input-field').val() + " " + msgid).focus();});
 	}
 	var fulluser;
 	for (var i = 0; i < API.getUsers().length; i++){
