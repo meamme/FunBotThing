@@ -127,6 +127,7 @@ var bcs = {
 				$('#chat-input-field').animate({width:"360"});
 				$("#chat-input").animate({width:"380"});
 				$("#curVer").css({"margin-top":"11px"});
+				$("#topInfo").animate({"width":"170px"});
 			}else if (!bigchat){
 				bcs.toggle.chatShrink();
 			}
@@ -139,6 +140,7 @@ var bcs = {
 			$('#chat-input-field').animate({width:"305"});
 			$("#chat-input").animate({width:"326"});
 			$("#curVer").css({"margin-top":"2px"});
+			$("#topInfo").animate({"width":"100px"});
 			setTimeout(function(){bcs.scrollChat();},250);
 		},
 		cuteVoting: function(){
