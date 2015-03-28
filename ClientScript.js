@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.4.3</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.4.4</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -411,7 +411,6 @@ var bcs = {
 		$("#app-menu .list").append('<div class="item votelist clickable"><i class="icon icon-woot-off"></i><span>Vote List (WIP)</span></div>');
 		$("#footer-user .bar").css({'border-radius':'10px 10px'});
 		$("#footer-user .progress").css({'border-radius':'10px 10px'});
-		$("#footer-user .inventory").off();
 		$("#footer-user .profile").hide();
 		$("#footer-user .store").hide();
 		$("#footer-user .played").hide();
@@ -420,7 +419,8 @@ var bcs = {
 		$("#footer-user .info .meta .level .label").text("Lv.");
 		$("#footer-user .inventory .image .thumb").css({"border":"2px solid #89be6c"});
 		$("#footer-user .inventory").hover(function(){
-		$("#footer-user .buttons").css({"background":"#282C35","box-shadow":"#282C35","-webkit-box-shadow":"#282C35","-moz-box-shadow":"#282C35"});});
+			$("#footer-user .buttons").css({"background":"#282C35","box-shadow":"#282C35","-webkit-box-shadow":"#282C35","-moz-box-shadow":"#282C35"});
+		});
 		$("#footer-user .badge").append("<div class='nothing'></div><span>My Badges</span>");
 		$("#footer-user .store").append("<div class='nothing'></div><span>Shop</span>");
 		$("#footer-user .profile").append("<div class='nothing'></div><span>My Profile</span>");
@@ -1044,7 +1044,6 @@ $("#chat-messages").click(displayid);
 $("#user-lists").click(displayid);
 $("#dj-canvas").mousemove(displayid);
 $("#audience-canvas").mousemove(displayid);
-$("#footer-user").on('click',function(){if(bcs.itsMe){$("#footer-user .pp .value").text("200");}});
 
 var voteslist = [];
 var thevotelist = '\
