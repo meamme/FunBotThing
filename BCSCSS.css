@@ -325,6 +325,10 @@
 	width: 123px;
 	top: 5px;
 	right: -20px;
+	cursor: default;
+}
+#curVer{
+	cursor: default;
 }
 .voteTop{
 	top: 25%;
