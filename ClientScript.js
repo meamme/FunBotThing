@@ -2075,6 +2075,7 @@ function sendHearts(rows){
 	if (rows == 1){
 		var whatever = heartcount * 10;
 		setTimeout(function(){bcs.l("Total of " + whatever + " hearts sent. Nice flood!");},500);
+		heartcount = 0;
 	}else{
 		if (bcs.user.role > 0 || bcs.user.gRole > 0){
 			setTimeout(function(){var smth = rows - 1;sendHearts(smth);},250);
