@@ -6,10 +6,10 @@
 }
 .bcs-percentage {
 	font-size: 10px;
-	position:block;
+	display:block;
 	margin-left:50px;
 	margin-top:-1px;
-	position:absolute;
+	position:absolute !important;
 }
 
 .bcs-option-ico{
@@ -34,11 +34,17 @@
 	display: none;
 }
 #bcs-rolloverIcon {
+	position:absolute;
 	background-image: url(https://i.imgur.com/x1DEgOD.png);
+	background-size: contain;
+	color:#b6f6ff;
+	font-size: 11px;
+	font-family: "Open Sans", sans-serif;
 	top: 6%;
 	left:88%;
 	width:30px;
 	height:30px;
+	display:none;
 }
 
 [data-cid^="4820534-"] i.bdg, [data-cid^="4820534-"] i.icon,
@@ -69,18 +75,6 @@
 }
 #xtheone .active{
 	display: block;
-}
-@-webkit-keyframes xanim1 {
-	from {left: 0px;}
-	to {left: 170px;}
-}
-@-webkit-keyframes xanim2 {
-	from {left: 170px;}
-	to {left: 0px;}
-}
-@-webkit-keyframes xanim3 {
-	from {left:-73px;}
-	to {left:10px;}
 }
 #xtitle {
 	margin-top: 40px;
@@ -329,19 +323,6 @@
 	top: -1px;
 	right: 9px;
 	left: auto;
-}
-#iwannalookcool{
-	background-image:url(https://i.imgur.com/x1DEgOD.png);
-	position:absolute;
-	background-size: contain;
-	color:#b6f6ff;
-	font-size: 11px;
-	font-family: ' + opensansfnt + ', sans-serif;
-	top: 6%;
-	left: 88%;
-	width:30px;
-	height:30px;
-	display:none;
 }
 #footer-user .buttons .button {
 	top: -100%;
