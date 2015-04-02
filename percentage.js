@@ -8,8 +8,8 @@ function hideFooter(){
 	}
 }
 function toggleFooter(){
-	if ($("#footer-user .back").css('display') == "none"){
-		if ($("#footer-user .badge").css('display') == "none"){
+	if ($("#footer-user .back").css('display').indexOf("none") != -1){
+		if ($("#footer-user .badge").css('display').indexOf("none") != -1){
 			$("#footer-user .badge").show();
 			$("#footer-user .store").show();
 			$("#footer-user .profile").show();
@@ -132,12 +132,12 @@ $("#app").on('click', function(e) {
 });
 $("#footer-user .bar .value").hide();
 $("#footer-user .bar").mouseenter(function(){
-	$("#footer-user .percentage").hide();
-	$("#footer-user .bar .value").show();
+	$("#footer-user .percentage").css({"display":"none !important"});
+	$("#footer-user .bar .value").css({"display":"block !important"});
 });
 $("#footer-user .bar").mouseleave(function(){
-	$("#footer-user .percentage").show();
-	$("#footer-user .bar .value").hide();
+	$("#footer-user .percentage").css({"display":"block !important"});
+	$("#footer-user .bar .value").css({"display":"none !important"});
 });
 
 API.on(API.ADVANCE,displayLvl);
