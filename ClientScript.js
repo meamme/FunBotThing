@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15.0.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15.0.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -977,6 +977,7 @@ function displayid(){
 	}
 	$('#user-rollover .thumb').show();
 	$('#bcs-rolloverUserID').show();
+	$('#bcs-rolloverIcon').attr("style","");
 	if (e == "Beta Tester" || e == "T98" || e == "CatSnore"){
 		$("#bcs-rolloverIcon").show();
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
@@ -1041,14 +1042,7 @@ var thevotelist = '\
 	<div id="xlistrefresh">\
 			<i class="icon icon-refresh-video bcs-votelist-refresh"></i>\
 	</div>\
-	<div id="xlistback" style="\
-		position: absolute;\
-		height: 45px;\
-		width: 33%;\
-		left: 33%;\
-		background-color: #0A0A0A;\
-		outline: #1C1F25 solid 1px;\
-		cursor: pointer;">\
+	<div id="xlistclose">\
 			<i class="icon icon-arrow-up bcs-votelist-zindex"></i>\
 	</div>\
 	<div id="xlistclose">\
@@ -1064,13 +1058,13 @@ var thevotelist = '\
 $("#xvotelist").css({"left":$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
 $("#room").append(thevotelist);
 $("#xlistrefresh").on('click',function(){updateList();});
-$("#xlistback").on('click',function(){
+$("#xlistclose").on('click',function(){
 	if ($("#xvotelist").css("z-index") == "98001"){
 		$("#xvotelist").css({"z-index":"17"});
-		$("#xlistback .icon").attr("class","icon icon-arrow-down bcs-votelist-zindex");
+		$("#xlistclose .icon").attr("class","icon icon-arrow-down bcs-votelist-zindex");
 	}else if ($("#xvotelist").css("z-index") == "17"){
 		$("#xvotelist").css({"z-index":"98001"});
-		$("#xlistback .icon").attr("class","icon icon-arrow-up bcs-votelist-zindex");
+		$("#xlistclose .icon").attr("class","icon icon-arrow-up bcs-votelist-zindex");
 	}
 });
 
@@ -1460,7 +1454,11 @@ function voteStuff(obj){
 
 function advanceStuff(obj){
 	var vol = $("#volume span").text().split("%")[0];
-	API.setVolume(1);
+	if (vol != 0){
+		API.setVolume(0);
+	}else{
+		API.setVolume(1);
+	}
 	setTimeout(function(){API.setVolume(vol);},1500);
 
 	updateList();
