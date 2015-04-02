@@ -248,13 +248,22 @@
 	outline: #1C1F25 solid 1px;
 	cursor: pointer;
 }
+#xlistback {
+	position: absolute;
+	height: 45px;
+	width: 33%;
+	left: 66%;
+	background-color: #0A0A0A;
+	outline: #1C1F25 solid 1px;
+	cursor: pointer;
+}
 #xlistclose {
-	position: absolute;\
-	height: 45px;\
-	width: 33%;\
-	left: 66%;\
-	background-color: #0A0A0A;\
-	outline: #1C1F25 solid 1px;\
+	position: absolute;
+	height: 45px;
+	width: 33%;
+	left: 33%;
+	background-color: #0A0A0A;
+	outline: #1C1F25 solid 1px;
 	cursor: pointer;
 }
 .bcs-votelist-xr{

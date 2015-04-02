@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15.0.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15.0.3</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1042,7 +1042,7 @@ var thevotelist = '\
 	<div id="xlistrefresh">\
 			<i class="icon icon-refresh-video bcs-votelist-refresh"></i>\
 	</div>\
-	<div id="xlistclose">\
+	<div id="xlistback">\
 			<i class="icon icon-arrow-up bcs-votelist-zindex"></i>\
 	</div>\
 	<div id="xlistclose">\
@@ -1058,13 +1058,13 @@ var thevotelist = '\
 $("#xvotelist").css({"left":$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
 $("#room").append(thevotelist);
 $("#xlistrefresh").on('click',function(){updateList();});
-$("#xlistclose").on('click',function(){
+$("#xlistback").on('click',function(){
 	if ($("#xvotelist").css("z-index") == "98001"){
 		$("#xvotelist").css({"z-index":"17"});
-		$("#xlistclose .icon").attr("class","icon icon-arrow-down bcs-votelist-zindex");
+		$("#xlistback .icon").attr("class","icon icon-arrow-down bcs-votelist-zindex");
 	}else if ($("#xvotelist").css("z-index") == "17"){
 		$("#xvotelist").css({"z-index":"98001"});
-		$("#xlistclose .icon").attr("class","icon icon-arrow-up bcs-votelist-zindex");
+		$("#xlistback .icon").attr("class","icon icon-arrow-up bcs-votelist-zindex");
 	}
 });
 
