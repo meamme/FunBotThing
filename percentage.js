@@ -30,7 +30,7 @@ function displayLvl(){
 	var lvlPc = lvl.substring(6,lvl.indexOf('%') + 1);
 	$("#footer-user .bar").append('\
 	<div class="percentage" style="font-size: 10px;\
-		position:block;\
+		display:block !important;\
 		margin-left:50px;\
 		margin-top:-1px;\
 		position:absolute;"><b>' + lvlPc + '</b></div>');
