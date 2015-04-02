@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.14.4.4</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -13,22 +13,22 @@ var bcs = {
 			if (color == undefined){color = "#99ffd7";}
 			if (isNotCenter){
 				if (!hasMargin){
-					chat.append("<div class='betabot-update' style='background-color:#0a0a0a;'><div class='text-margin' style='margin-left: 10px;'><span class='betatext' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></div></div>");
+					chat.append("<div class='betabot-update'><div class='text-margin' style='margin-left: 10px;'><span class='betatext' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></div></div>");
 				}else{
-					chat.append("<div class='betabot-update' style='background-color:#0a0a0a; margin-top:10px;margin-bottom:10px;'><div class='text-margin' style='margin-left: 10px;'><span class='betatext' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></div></div>");
+					chat.append("<div class='betabot-update' style='margin-top:10px;margin-bottom:10px;'><div class='text-margin' style='margin-left: 10px;'><span class='betatext' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></div></div>");
 				}
 			}else{
 				if (hasBottom){
 					if (hasLeft){
-						chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; border-bottom: double 6px " + color + "'><center><span class='betatext' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
+						chat.append("<div class='betabot-update' style='border-left: double 6px " + color + "; border-bottom: double 6px " + color + "'><center><span class='betatext' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
 					}else{
-						chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-bottom: double 6px " + color + ";'><center><span class='betatext' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
+						chat.append("<div class='betabot-update' style='border-bottom: double 6px " + color + ";'><center><span class='betatext' style='color: " + color + "; font-size: 13px;'>" + text + "<br></span></center></div>");
 					}
 				}else{
 					if (hasLeft){
-						chat.append("<div class='betabot-update' style='background-color:#0a0a0a; border-left: double 6px " + color + "; margin-top:5px;margin-bottom:5px;'><center><span class='betatext' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></center></div>");
+						chat.append("<div class='betabot-update' style='border-left: double 6px " + color + "; margin-top:5px;margin-bottom:5px;'><center><span class='betatext' style='color: " + color + "; font-size: 12px;'>" + text + "<br></span></center></div>");
 					}else{
-						chat.append("<div class='betabot-update' style='background-color:#0a0a0a; margin-top:5px;margin-bottom:5px;'><center><span class='betatext' style='color: " + color + ";'>" + text + "<br></span></center></div>");
+						chat.append("<div class='betabot-update' style='margin-top:5px;margin-bottom:5px;'><center><span class='betatext' style='color: " + color + ";'>" + text + "<br></span></center></div>");
 					}
 				}
 			}
@@ -188,7 +188,7 @@ var bcs = {
 		afk: function(){
 			afkmsg = !afkmsg;
 			if (afkmsg){
-				$("#chat-input .afkIsOn").show();
+				$("#chat-input .bcs-afkIsOn").show();
 				$("#chat-input-field").css({color:'#fef8a0'});
 				if (bcs.user.id != 4820534){
 					$("#xafkenter").show();
@@ -196,7 +196,7 @@ var bcs = {
 					$("#xmod").css({'top':'460px'});
 				}
 			}else{
-				$("#chat-input .afkIsOn").hide();
+				$("#chat-input .bcs-afkIsOn").hide();
 				$("#chat-input-field").css({color:'#eee'});
 				notifyAFK = 0;
 				$("#chat-input .afknotifications").text(notifyAFK);
@@ -401,8 +401,8 @@ var bcs = {
 		$("#room-bar").animate({left:'106px'});
 		$("#room-bar .favorite").animate({right:'55px'});
 		$("#footer-user .bar .value").hide();
-		$("#footer-user .bar").mouseenter(function(){$("#footer-user .percentage").hide();$("#footer-user .bar .value").show();});
-		$("#footer-user .bar").mouseleave(function(){$("#footer-user .percentage").show();$("#footer-user .bar .value").hide();});
+		$("#footer-user .bar").mouseenter(function(){$("#footer-user .bcs-percentage").hide();$("#footer-user .bar .value").show();});
+		$("#footer-user .bar").mouseleave(function(){$("#footer-user .bcs-percentage").show();$("#footer-user .bar .value").hide();});
 		$("#search-input-field").attr({"maxlength":256});
 		$(".emoji-trollface").replaceWith("<span style='background: url(https://i.imgur.com/osBR8Jj.png); width: 16px; height: 16px;'></span>");
 		$("#dialog-container").css({left:"300px",top:"100px",width:"0px",height:"0px"});
@@ -688,15 +688,11 @@ var bcs = {
 		alert("[BCS] Your window was refreshed.");
 	},
 	displayLvl: function(){
-		$("#footer-user .percentage").remove();
+		$("#footer-user .bcs-percentage").remove();
 		var lvl = $("#footer-user .progress").attr('style');
 		var lvlPc = lvl.substring(6,lvl.indexOf('%') + 1);
 		$("#footer-user .bar").append('\
-		<div class="percentage" style="font-size: 10px;\
-			position:block;\
-			margin-left:50px;\
-			margin-top:-1px;\
-			position:absolute;"><b>' + lvlPc + '</b></div>');
+		<div class="bcs-percentage"><b>' + lvlPc + '</b></div>');
 		if (parseInt(lvlPc) >= 95){
 			$("#footer-user .progress").css({'border-radius':'10px 10px'});
 		}else{
@@ -762,7 +758,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>Really. I got nothing to say here. :/","#ececec",false,true);
+bcs.addChat("<br>Updates! May have broken BCS c:","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
@@ -784,7 +780,6 @@ if (d.getDate() == 2 && d.getMonth() == 9){
 var messages = [];
 var logcheck = [];
 var logged = [];
-var chatIcons = true;
 var antilag = false;
 
 var menu = '\
@@ -796,86 +791,86 @@ var menu = '\
 			</section>\
 			<section id="xmain">\
 				<div id="xmoddescrip" class="xtxt">\
-					<span class="xtxt" style="color:#ac76ff; font-size:16px; margin:-5px;"><b><em>User Stuff</em></b></span><br>\
+					<span class="xtxt bcs-option-header"><b><em>User Stuff</em></b></span><br>\
 				</div>\
 				<div id="xjoinmsg" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">Join Message</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">Join Message</span>\
 				</div>\
 				<div id="xgrabmsg" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">Grab Message</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">Grab Message</span>\
 				</div>\
 				<div id="xmehmsg" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">Meh Message</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">Meh Message</span>\
 				</div>\
 				<div id="xsongup" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">Song Updates</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">Song Updates</span>\
 				</div>\
 				<div id="xautowoot" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">AutoWoot</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">AutoWoot</span>\
 				</div>\
 				<div id="xautojoin" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">AutoJoin</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">AutoJoin</span>\
 				</div>\
 				<div id="xautograb" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">AutoGrab</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">AutoGrab</span>\
 				</div>\
 				<div id="xautocap" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">AutoCap</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">AutoCap</span>\
 				</div>\
 				<div id="xafk" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">AFK</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">AFK</span>\
 				</div>\
 				<input id="xafkenter" style="display:none;"></input>\
 				<button id="xafkbutton" onclick="afkUpdate()" style="color:#cccccc; background-color:#141414; border: solid 1px #b0b0b0; font-family:' + opensansfnt + '; margin:2px; display:none;">&nbsp;Ok&nbsp;</button>\
 				<div id="xline" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">Bootleg Inline</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">Bootleg Inline</span>\
 				</div>\
 				<div id="xbig" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">Large Chat</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">Large Chat</span>\
 				</div>\
 				<div id="xvotes" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">Fancy Buttons</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">Fancy Buttons</span>\
 				</div>\
 				<div id="xpreviews" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">Fancy Previews</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">Fancy Previews</span>\
 				</div>\
 				<div id="xsave" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;">Save Settings</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info">Save Settings</span>\
 				</div>\
 			</section>\
 			<section id="xmod">\
 				<div id="xmoddescrip" class="xtxt">\
-					<span class="xtxt" style="color:#ac76ff; font-size:16px; margin:-5px;"><b><em>Mod Stuff</em></b></span><br>\
+					<span class="xtxt bcs-option-header"><b><em>Mod Stuff</em></b></span><br>\
 				</div>\
 				<div id="xtimeskip" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;" title="Warns if a song is over 8min">8min warning</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info" title="Warns if a song is over 8min">8min warning</span>\
 				</div>\
 				<div id="xdel" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;" title="Well duh">Delete All Chat</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info" title="Well duh">Delete All Chat</span>\
 				</div>\
 				<div id="xlockdown" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;" title="Deletes any chat from non-staff">Lockdown</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info" title="Deletes any chat from non-staff">Lockdown</span>\
 				</div>\
 				<div id="xspammer" class="xbutton">\
-					<i class="icon icon-check-blue" style="margin-top:2px;"></i>\
-					<span class="xclickable" style="margin-left:25px;" title="Deletes spammy words">AntiSpam</span>\
+					<i class="icon icon-check-blue bcs-option-ico"></i>\
+					<span class="xclickable bcs-option-info" title="Deletes spammy words">AntiSpam</span>\
 				</div>\
 			</section>\
 		</div>\
@@ -891,12 +886,10 @@ var joinmsg = false;
 var grabmsg = false;
 var mehmsg = false;
 var songup = false;
-var lockPuff = false;
 var autolock = false;
 var cap = false;
 var autograb = false;
 var dapreview = false;
-var pufflock = false;
 var afkmsg = false;
 var timeskip = false;
 var inlineOn = false;
@@ -906,7 +899,6 @@ var lockdown = false;
 var spamon = false;
 var hasArrow = false;
 var listlock = false;
-var retroChat = false;
 
 function safetyFirst(){
 	if (API.getUsers().length > 250){
@@ -936,7 +928,7 @@ function favoritism(){
 }
 
 $("#chat-input .chat-input-form").append("\
-	<div class='afkIsOn' style='width:7px; height:30px; display:none; background-color:#fef8a0'>\
+	<div class='bcs-afkIsOn'>\
 		<span class='afknotifications'>" + notifyAFK + "</span>\
 	</div>");
 
@@ -953,10 +945,10 @@ if (notifyAFK == 0){
 }
 
 function attemptappend(){
-	if ($("#iwannalookcool").text() == ""){
-		$("#user-rollover .meta").append('<div id="iwannalookcool"> </div>');
+	if ($("#bcs-rolloverIcon").text() == ""){
+		$("#user-rollover .meta").append('<div id="bcs-rolloverIcon"> </div>');
 		setTimeout(function(){attemptappend();},250);
-	}else if ($("#iwannalookcool").text() == " "){
+	}else if ($("#bcs-rolloverIcon").text() == " "){
 		console.log('Appended.');
 	}
 }
@@ -971,24 +963,22 @@ function displayid(){
 			t = n[i].id
 		}
 	}
-	var a = "Open Sans";
-	if ($("#bcsUserID").text() == ""){
+	if ($("#bcs-rolloverUserID").text() == ""){
 		$('#user-rollover .meta .joined').css({top:"64px"});
-		$("#user-rollover .meta").append('<div id="bcsUserID" style="position:absolute; bottom:6px; left:108px; color:#808691; font-size: 11px; font-family: ' + a + ', sans-serif;">ID: ' + t + "</div>");
+		$("#user-rollover .meta").append('<div id="bcs-rolloverUserID">ID: ' + t + "</div>");
 	}else{
-		if (typeof t == "undefined" || t == "undefined"){
+		if (typeof t == "undefined" || t == undefined){
 			t = "-------";
-			$("#bcsUserID").hide();
+			$("#bcs-rolloverUserID").hide();
 		}else{
-			$("#bcsUserID").text("ID: " + t);
-			$("#bcsUserID").show();
+			$("#bcs-rolloverUserID").text("ID: " + t);
+			$("#bcs-rolloverUserID").show();
 		}
 	}
-	$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/x1DEgOD.png)","top":"6%","left":"88%","width":"30px","height":"30px"});
 	$('#user-rollover .thumb').show();
-	$('#bcsUserID').show();
+	$('#bcs-rolloverUserID').show();
 	if (e == "Beta Tester" || e == "T98" || e == "CatSnore"){
-		$("#iwannalookcool").show();
+		$("#bcs-rolloverIcon").show();
 		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
 		$("#user-rollover .username").css({color:'rgb(0, 190, 232)'});
@@ -1000,7 +990,7 @@ function displayid(){
 		}
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").toggleClass("can-staff");}
 	}else if (e == "Kwiztech" || e == "DCV" || e == "Wumbology" || e == "Newcool"  || e == "Mix_God"){
-		$("#iwannalookcool").show();
+		$("#bcs-rolloverIcon").show();
 		$('#user-rollover .meta').css({'background':'linear-gradient(rgb(40, 44, 53) 10%, rgb(28, 31, 37) 85%) 100% 50%'});
 		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
 		$("#user-rollover .username").css({color:'rgb(84, 249, 236)'});
@@ -1009,25 +999,25 @@ function displayid(){
 		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
 	}else if(e == "B‌2"){
-		$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/w3cXqFU.png)"});
-		$("#iwannalookcool").show();
+		$("#bcs-rolloverIcon").css({"background-image":"url(https://i.imgur.com/w3cXqFU.png)"});
+		$("#bcs-rolloverIcon").show();
 		$('#user-rollover .meta').css({'background':'#000'});
 		$("#user-rollover .info").css({background:'#111317'});
 		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
 	}else if(e == "Legend"){
-		$("#iwannalookcool").css({"background-image":"url(https://i.imgur.com/15HnmWz.png)","width":"300px","height":"103px","left":"0px","top":"0px"});
-		$("#iwannalookcool").show();
+		$("#bcs-rolloverIcon").css({"background-image":"url(https://i.imgur.com/15HnmWz.png)","width":"300px","height":"103px","left":"0px","top":"0px"});
+		$("#bcs-rolloverIcon").show();
 		$('#user-rollover .meta').css({'background':'#000'});
 		$("#user-rollover .info").css({background:'#111317'});
 		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
 		$('#user-rollover .thumb').hide();
-		$('#bcsUserID').hide();
+		$('#bcs-rolloverUserID').hide();
 		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
 	}else{
-		$("#iwannalookcool").hide();
+		$("#bcs-rolloverIcon").hide();
 		$('#user-rollover .meta').css({'background':'#282C35'});
 		$('#user-rollover .background').css({'background':'#282c35'});
 		$("#user-rollover .username").css({color:'#eee'});
@@ -1047,26 +1037,9 @@ $("#audience-canvas").mousemove(displayid);
 
 var voteslist = [];
 var thevotelist = '\
-<div id="xvotelist" style="\
-	position: absolute;\
-	top: 55px;\
-	height: 65%;\
-	left: 64%;\
-	width: 200px;\
-	display: none;\
-	background-color: #111317;\
-	outline: #000000 solid 1px;\
-	overflow-x: hidden;\
-	overflow-y: hidden;\
-	z-index: 98001;">\
-	<div id="xlistrefresh" style="\
-		position: absolute;\
-		height: 45px;\
-		width: 33%;\
-		background-color: #0A0A0A;\
-		outline: #1C1F25 solid 1px;\
-		cursor: pointer;">\
-			<i class="icon icon-refresh-video" style="margin-left:30%;margin-top:7%;"></i>\
+<div id="xvotelist">\
+	<div id="xlistrefresh">\
+			<i class="icon icon-refresh-video bcs-votelist-refresh"></i>\
 	</div>\
 	<div id="xlistback" style="\
 		position: absolute;\
@@ -1076,18 +1049,11 @@ var thevotelist = '\
 		background-color: #0A0A0A;\
 		outline: #1C1F25 solid 1px;\
 		cursor: pointer;">\
-			<i class="icon icon-arrow-up" style="margin-left:30%;margin-top:7%;"></i>\
+			<i class="icon icon-arrow-up bcs-votelist-zindex"></i>\
 	</div>\
-	<div id="xlistclose" style="\
-		position: absolute;\
-		height: 45px;\
-		width: 33%;\
-		left: 66%;\
-		background-color: #0A0A0A;\
-		outline: #1C1F25 solid 1px;\
-		cursor: pointer;">\
-			<i class="icon icon-arrow-right" style="margin-left:26%;margin-top:7%;"></i>\
-			<i class="icon icon-arrow-left" style="margin-left:36%;margin-top:7%;"></i>\
+	<div id="xlistclose">\
+			<i class="icon icon-arrow-right bcs-votelist-xr"></i>\
+			<i class="icon icon-arrow-left bcs-votelist-xl"></i>\
 	</div>\
 	<div id="xlist">\
 		<div id="xcurrentdj"></div>\
@@ -1095,16 +1061,16 @@ var thevotelist = '\
 		<div id="xwootlist"></div>\
 	</div>\
 </div>';
-$("#xvotelist").css({left:$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
+$("#xvotelist").css({"left":$("#room").width() - $("#chat").width() - $("#xvotelist").width() + "px"});
 $("#room").append(thevotelist);
 $("#xlistrefresh").on('click',function(){updateList();});
 $("#xlistback").on('click',function(){
-	if ($("#xvotelist").css('z-index') == "98001"){
-		$("#xvotelist").css({'z-index':"17"});
-		$("#xlistback .icon").attr("class","icon icon-arrow-down");
-	}else if ($("#xvotelist").css('z-index') == "17"){
-		$("#xvotelist").css({'z-index':"98001"});
-		$("#xlistback .icon").attr("class","icon icon-arrow-up");
+	if ($("#xvotelist").css("z-index") == "98001"){
+		$("#xvotelist").css({"z-index":"17"});
+		$("#xlistback .icon").attr("class","icon icon-arrow-down bcs-votelist-zindex");
+	}else if ($("#xvotelist").css("z-index") == "17"){
+		$("#xvotelist").css({"z-index":"98001"});
+		$("#xlistback .icon").attr("class","icon icon-arrow-up bcs-votelist-zindex");
 	}
 });
 
@@ -1118,17 +1084,17 @@ function appendPerson(user){
 	var grab = user.grab;
 	switch (role){
 		case 0:var thisrole = ""; break;
-		case 1:var thisrole = "<i class='icon icon-chat-dj' style='margin-top:2px;'></i>"; break;
-		case 2:var thisrole = "<i class='icon icon-chat-bouncer' style='margin-top:2px;'></i>"; break;
-		case 3:var thisrole = "<i class='icon icon-chat-manager' style='margin-top:2px;'></i>"; break;
-		case 4:case 5:var thisrole = "<i class='icon icon-chat-host' style='margin-top:2px;'></i>"; break;
+		case 1:var thisrole = "<i class='icon icon-chat-dj bcs-votelist-rank'></i>"; break;
+		case 2:var thisrole = "<i class='icon icon-chat-bouncer bcs-votelist-rank'></i>"; break;
+		case 3:var thisrole = "<i class='icon icon-chat-manager bcs-votelist-rank'></i>"; break;
+		case 4:case 5:var thisrole = "<i class='icon icon-chat-host bcs-votelist-rank'></i>"; break;
 	}
 	var namecolor = "#ac76ff";
 	if (role == 0){namecolor = "#eee"};
 	switch (grole){
 		case 0:break;
-		case 3:var thisrole = "<i class='icon icon-chat-ambassador' style='margin-top:2px;'></i>"; break;
-		case 5:var thisrole = "<i class='icon icon-chat-admin' style='margin-top:2px;'></i>"; break;
+		case 3:var thisrole = "<i class='icon icon-chat-ambassador bcs-votelist-rank'></i>"; break;
+		case 5:var thisrole = "<i class='icon icon-chat-admin bcs-votelist-rank'></i>"; break;
 	}
 	if (grole == 3){namecolor = "#89be6c"}else if(grole == 5){namecolor = "#42a5dc"};
 	if (namecolor == "#eee"){var indent = "4px";}else{var indent = "19px";};
@@ -1141,50 +1107,50 @@ function appendPerson(user){
 	if (vote == 1){
 		if (!grab){
 			$("#xwootlist").append('\
-			<div class="user" style="margin-bottom:8px;"> \
+			<div class="user bcs-votelist-user"> \
 				<i class="icon icon-support-white xlistinfo" idt="' + id + '" title="User info"></i>\
 				' + thisrole + '\
 				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + name + '</span>\
 				<br>\
 				<i class="icon icon-woot xlistvoted"></i>\
-				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Lv: ' + thislevel + wlpos + '</span>\
+				<span class="details bcs-votelist-details">ID: ' + id + ' | Lv: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}else if (grab){
 			$("#xwootlist").append('\
-			<div class="user grab" style="margin-bottom:8px;">\
+			<div class="user bcs-votelist-user bcs-votelist-user grab">\
 				<i class="icon icon-support-white xlistinfo" idt="' + id + '" title="Info about the user"></i>\
 				' + thisrole + '\
 				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + name + '</span>\
 				<br>\
 				<i class="icon icon-grab xlistgrabbed"></i>\
 				<i class="icon icon-woot xlistvoted"></i>\
-				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Lv: ' + thislevel + wlpos + '</span>\
+				<span class="details bcs-votelist-details">ID: ' + id + ' | Lv: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}
 	}else if (vote == -1){
 		if (!grab){
 			$("#xmehlist").append('\
-			<div class="user" style="margin-bottom:8px;">\
+			<div class="user bcs-votelist-user">\
 				<i class="icon icon-support-white xlistinfo" idt="' + id + '" title="Info about the user"></i>\
 				' + thisrole + '\
 				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + name + '</span>\
 				<br>\
 				<i class="icon icon-meh xlistvoted"></i>\
-				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Lv: ' + thislevel + wlpos + '</span>\
+				<span class="details bcs-votelist-details">ID: ' + id + ' | Lv: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}else if (grab){
 			$("#xmehlist").append('\
-			<div class="user grab" style="margin-bottom:8px;">\
+			<div class="user bcs-votelist-user grab">\
 				<i class="icon icon-support-white xlistinfo" idt="' + id + '" title="Info about the user"></i>\
 				' + thisrole + '\
 				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + name + '</span>\
 				<br>\
 				<i class="icon icon-grab"></i>\
 				<i class="icon icon-meh"></i>\
-				<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + id + ' | Lv: ' + thislevel + wlpos + '</span>\
+				<span class="details bcs-votelist-details">ID: ' + id + ' | Lv: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
 		}
@@ -1233,13 +1199,13 @@ function updateList(){
 		if (namecolor == "#eee"){var indent = "4px";}else{var indent = "19px";};
 		var quote = "'";
 		$("#xcurrentdj").append('\
-		<div class="user" style="margin-bottom:10px;">\
+		<div class="user bcs-votelist-user" style="margin-bottom:10px;">\
 			<i class="icon icon-support-white xlistinfo" idt="' + currentdj.id + '" title="Info about the user"></i>\
 			' + thisrole + '\
 			<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + currentdj.username + '</span>\
 			<br>\
 			<i class="icon icon-join-booth xlistdjing"></i>\
-			<span class="details" style="color:#ccc;font-size:10px;margin-left:36px;">ID: ' + currentdj.id + ' | Lv: ' + currentdj.level + ' | <b>(DJ' + quote + 'ing)</b></span>\
+			<span class="details bcs-votelist-details">ID: ' + currentdj.id + ' | Lv: ' + currentdj.level + ' | <b>(DJ' + quote + 'ing)</b></span>\
 		</div>\
 		<div class="xlistbreak" style="box-shadow: inset 0 5px 0 0 #555d70;height: 3px;"></div>');
 	}
@@ -1283,13 +1249,13 @@ function readd(id){
 		API.moderateAddDJ(id);
 		setTimeout(function(){
 			if (readdcount <= 5){
-			if (API.getWaitListPosition(id) != -1){
-				API.moderateMoveDJ(id, 1);
-			}else{
-				API.moderateAddDJ(id);
-				readd(id);
-				readdcount++;
-			}
+				if (API.getWaitListPosition(id) != -1){
+					API.moderateMoveDJ(id, 1);
+				}else{
+					API.moderateAddDJ(id);
+					readd(id);
+					readdcount++;
+				}
 			}else{
 				bcs.l("Attempted to readd user " + API.getUser(id).username + "(ID " + id + ") 5 times. Giving up now.");
 			}
@@ -1300,43 +1266,42 @@ function readd(id){
 
 var coollock = false;
 
-if (localStorage.getItem('leMessage')){
-	themessage = localStorage.getItem('leMessage');
+if (localStorage.getItem("bcs-afk-message")){
+	themessage = localStorage.getItem("bcs-afk-message");
 }else{
 	themessage = "I'm away from keyboard.";
 }
 
 function afkUpdate(){
 	var whatchawrote = document.getElementById("xafkenter").value;
-	localStorage.setItem('leMessage',whatchawrote);
+	localStorage.setItem("bcs-afk-message",whatchawrote);
 	themessage = whatchawrote;
 	bcs.addChat("AFK message set to <b>" + themessage + "</b>","#CCCCCC");
 }
 
+/*
 function chatHTML(data) {
-	//if (data.hasClass('user-action') && data['0'].innerText.indexOf("a gift") != -1) {
-		//tada.play();
-	//}
+	if (data.hasClass('user-action') && data['0'].innerText.indexOf("a gift") != -1) {
+		tada.play();
+	}
 }
 
 var chatObs = new MutationObserver(function(divs){chatHTML($(divs[0].addedNodes[0]));});
-chatObs.observe(document.querySelector('#chat-messages'),{childList:true});
+chatObs.observe(document.querySelector('#chat-messages'),{childList:true});*/
 
-var spam = ["auehuaehaeuhaeuahuae","hsauhsauhsau","kkkkkkkkkkkkkkk","aaaaaaaaaaaaaaa","eeeeeeeeeeeeee","ajajajajajajaj","ด","░"];
+var spam = ["kkkkkkkkkkk","aaaaaaaaaa","eeeeeeee","jajajaj","ด","░"];
 function chatStuff(data){
+	var user;
+	for (var i = 0; i < API.getUsers().length; i++){
+		if (API.getUsers()[i].username == data.un){
+			user = API.getUsers()[i];
+			break;
+		}
+	}
 	var msg = data.message;
 	var msgid = data.cid;
-	var user = data.un;
-	var userid = data.uid;
-	if (retroChat){
-		bcs.l(' ');
-		$(".log").remove();
-		$(".badge-box").remove();
-		$(".text").remove();
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").append("<span class='oldmessage' style='margin-left:5px;color:#eee;'>" + msg + "</a></span>");
-	}
 	var me = bcs.user.username;
-	var tst = msg.indexOf('@' + me);
+	var tst = msg.indexOf("@" + me);
 	var ourids = [3951373,4820534];
 	var d = new Date();
 	var h = d.getHours();
@@ -1345,30 +1310,30 @@ function chatStuff(data){
 	if (h < 10){h = "0" + h;}
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
-	var argument = "[" + h + ":" + m + ":" + s + "] [" + msgid + "] [" + userid + "] [" + user + "]		- " + msg;
+	var argument = "[" + h + ":" + m + ":" + s + "] [" + msgid + "] [" + user.id + "] [" + user.username + "] - " + msg;
 	if (userid != "undefined" && me == "Beta Tester"){
 		if (msg.toLowerCase().indexOf("beta") != -1){blunq.play();}
 		if (tst != -1){
 			if (!coollock && afkmsg){
-				bcs.c('[AFK] @' + user + ' "Beta is busy right now", says Beta, explaining the situation');
+				bcs.c('[AFK] @' + user.username + ' "Beta is busy right now", says Beta, explaining the situation');
 				coollock = true;
 				setTimeout(function(){coollock = false},60000);
 			}
 			if (afkmsg){
 				notifyAFK++;
-				mentioned.push("[" + h + ":" + m + ":" + s + "] " + user + " - " + msg);
+				mentioned.push("[" + h + ":" + m + ":" + s + "] " + user.username + " - " + msg);
 				$("#chat-input .afknotifications").text(notifyAFK);
 			}
 		}
 	}else if (userid != "undefined" && tst != -1){
 		if (!coollock && afkmsg){
-			bcs.c("[AFK] @" + user + " - " + themessage);
+			bcs.c("[AFK] @" + user.username + " - " + themessage);
 			coollock = true;
 			setTimeout(function(){coollock = false},60000);
 		}
 		if (afkmsg){
 			notifyAFK++;
-			mentioned.push("[" + h + ":" + m + ":" + s + "] " + user + " - " + msg);
+			mentioned.push("[" + h + ":" + m + ":" + s + "] " + user.username + " - " + msg);
 			$("#chat-input .afknotifications").text(notifyAFK);
 		}
 	}
@@ -1379,58 +1344,42 @@ function chatStuff(data){
 			$("#chat-input .afknotifications").show();
 		}
 	}
-	if (!retroChat){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").append("\
-		<span class='info' style='font-size:7px; color:#808691; opacity:0.1;'> Lv. <a style='font-size:9px; color:#eee'>" + API.getUser(userid).level + "</a></span>\
-		<span class='info' style='font-size:7px; color:#808691; opacity:0.1;'> ID: <a style='font-size:9px; color:#eee'>" + userid + "</a></span>");
-		$("#chat-messages > .cm[data-cid='" + msgid + "']").hover(function(){
-			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"1"});
-		}, function(){
-			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"0.2"});
-		});
-	}
-	var fulluser;
-	for (var i = 0; i < API.getUsers().length; i++){
-		if (API.getUsers()[i].username == user){
-			fulluser = API.getUsers()[i];
-			break;
-		}
-	}
+	$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").append("\
+		<span class='bcs-chat-info'> Lv. <a class='bcs-chat-lv'>" + user.level + "</a></span>\
+		<span class='bcs-chat-info'> ID: <a class='bcs-chat-id'>" + user.id + "</a></span>");
+	$("#chat-messages > .cm[data-cid='" + msgid + "']").hover(function(){
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"1"});
+	}, function(){
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"0.2"});
+	});
 
 	if (lockdown){
-		if (fulluser && fulluser.role == 0 && fulluser.gRole == 0){
+		if (user && user.role == 0 && user.gRole == 0){
 			$.ajax({type: 'DELETE',url: '/_/chat/' + msgid});
 		}
 	}
-	if (fulluser && fulluser.role == 5){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon-chat-host").hide();
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-thehost'></i>");
+
+	if (user && user.role == 5){
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").removeClass("icon-chat-host").addClass("icon-chat-thehost");
 	}
 
-	if(user == "Beta Tester" || user == "CatSnore" || user == "T98" || user == "DCV" || user == "Wumbology" || user == "Kwiztech" || user == "Newcool"  || user == "Legend" || user == "Mix_God"){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .badge-box .bdg").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
-	}
-
-	if (chatIcons){
-		if (user == "EDMC"){
-			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
-			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
-			$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").css({color:'#0097cd'});
-		}else if (user == "Roms Kidd" || user == "Zuchku" || user == "81supernova"){
-			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
-			$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
-			$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").text('');
-			if (user == "Roms Kidd"){
-				$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
+	if (user == "EDMC"){
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").css({color:'#0097cd'});
+	}else if (user == "Roms Kidd" || user == "Zuchku" || user == "81supernova"){
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").text('');
+		if (user == "Roms Kidd"){
+			$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
 <a style="color:#d40000">R</a><a style="color:#d49b00">o</a><a style="color:#78d400">m</a><a style="color:#00d437">s</a><a style="color:#000000"> </a><a style="color:#00a5d4">K</a><a style="color:#0f00d4">i</a><a style="color:#d100d4">d</a><a style="color:#d40064">d</a>');
-			}else if (user == "Zuchku"){
-				$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
+		}else if (user == "Zuchku"){
+			$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
 <a style="color:#d40000">Z</a><a style="color:#d49b00">u</a><a style="color:#78d400">c</a><a style="color:#00d437">h</a><a style="color:#00a5d4">k</a><a style="color:#0f00d4">u</a>');
-			}else if (user == "81supernova"){
-				$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
+		}else if (user == "81supernova"){
+			$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
 <a style="color:#d40000">8</a><a style="color:#d49b00">1</a><a style="color:#78d400">s</a><a style="color:#00d437">u</a><a style="color:#00a5d4">p</a><a style="color:#0f00d4">e</a><a style="color:#d100d4">r</a><a style="color:#d4003c">n</a><a style="color:#d40000">o</a><a style="color:#d49b00">v</a><a style="color:#78d400">a</a>');
-			}
 		}
 	}
 
@@ -1444,7 +1393,7 @@ function chatStuff(data){
 			if (linked != "" && isItTheSame != -1 && isItAPic != -1){
 				var hts = $($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).text();
 				hts.split("http").join("https").split("httpss").join("https").split("gifv").join("gif");
-				$($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).append("<br><img style='margin:5px; max-width:300px; margin-left: -28px;' src='" + hts + "'></img><br>");
+				$($("#chat-messages .cid-" + msgid + " a")[$("#chat-messages .cid-" + msgid + " a").length - 1]).append("<br><img class='bcs-chat-img' src='" + hts + "'></img><br>");
 				setTimeout(function(){bcs.scrollChat()},2000);
 				setTimeout(function(){
 				if ($("#chat-messages .cid-" + msgid + " img").width() == 18 && $("#chat-messages .cid-" + msgid + " img").height() == 20){
@@ -1474,46 +1423,14 @@ function chatStuff(data){
 					type: 'DELETE',
 					url: '/_/chat/' + msgid
 				});
+				break;
 			}
 		}
 	}
-	if (userid == bcs.user.id){
+	if (user.id == bcs.user.id){
 		logged.unshift(msgid);
 		console.log(msgid);
 	};
-	if (pufflock){
-		if (user == "THe Puff" || user == "Epiphainein"){
-			var puff = msg.toLowerCase().split(" ");
-			var tag = ["beta","beta tester","@beta tester","all","people","everyone","ppl","peeps","guys","guise","bros"];
-			switch (puff[0]){
-
-				case "hi":case "hello":case "greetings":case "salutations":
-				case "howdy":case "ciao":case "salut":case "hai":case "hey":
-				case "hay":case "ohai":case "ohaio":case "ohay":case "ohei":
-				case "oheio":case "ohey":case "haider":case "oy":case "ohoy":
-				case "hola":case "holla":case "hyao": case "hoy":
-
-					for (var i = 0;i < tag.length; i++){
-						if (!lockPuff){
-							if (typeof puff[1] != "undefined" && puff[1] == tag[i]
-							|| typeof puff[1] == "undefined"){
-								//bcs.addChat("Like wtf how'd you get Steven to say hi","#AA3333");
-								if (user == "THe Puff"){
-									bcs.c("Heya shmoobey butt! - Credits to 'THe Puff' for suggesting a sentence. (C) 2014 All Rights Reserved | Protected by Creative Commons 4.0");
-									lockPuff = true;
-									setTimeout(function(){lockPuff = false;},3000);
-								}else if (user == "Epiphainein"){
-									bcs.c("Hey Pippy!");
-									lockPuff = true;
-									setTimeout(function(){lockPuff = false;},3000);
-								}
-							}
-						}
-					}
-					break;
-			}
-		};
-	}
 }
 
 function voteStuff(obj){
@@ -1523,7 +1440,7 @@ function voteStuff(obj){
 		if (API.getUsers().length >= 100){
 			setTimeout(function(){listlock = false;},10000);
 		}else{
-			setTimeout(function(){listlock = false;},5000);
+			setTimeout(function(){listlock = false;},1000);
 		}
 	}
 	if (obj.vote == -1){
@@ -1542,18 +1459,18 @@ function voteStuff(obj){
 }
 
 function advanceStuff(obj){
-	//var vol = $("#volume span").text().split("%")[0];
-	//API.setVolume(1);
-	//setTimeout(function(){API.setVolume(vol);},1000);
+	var vol = $("#volume span").text().split("%")[0];
+	API.setVolume(1);
+	setTimeout(function(){API.setVolume(vol);},1500);
 
 	updateList();
-	var thissong = API.getMedia();
+	var currentSong = API.getMedia();
 	if ($("#now-playing-media .bar-value").width() >= $("#now-playing-media").width()){
-		$("#scrollname").remove();
+		$("#bcs-media-scroll").remove();
 		$("#now-playing-media .bar-value").hide();
-		$("#now-playing-media").append("<marquee id='scrollname' scrollamount='3'>" + thissong.author + " - " + thissong.title + "</marquee>");
+		$("#now-playing-media").append("<marquee id='bcs-media-scroll' scrollamount='3'>" + currentSong.author + " - " + currentSong.title + "</marquee>");
 	}else{
-		$("#scrollname").remove();
+		$("#bcs-media-scroll").remove();
 		$("#now-playing-media .bar-value").show();
 	}
 	if (!listlock){
@@ -1577,7 +1494,7 @@ function advanceStuff(obj){
 	if (autowoot){setTimeout(bcs.getHistoryID,1000);}
 	if (autoskip && hasPerms){
 		clearTimeout(songtick);
-		var songsover = thissong.duration;
+		var songsover = currentSong.duration;
 		var songtick = setTimeout(function() {API.moderateForceSkip()}, songsover * 1000 + 20000);
 	}
 	if (autolock){
@@ -1600,7 +1517,7 @@ function advanceStuff(obj){
 	}
 	setTimeout(function(){
 	for (var i = 0; i< API.getHistory().length; i++){
-		if (API.getHistory()[i].media.cid == thissong.cid){
+		if (API.getHistory()[i].media.cid == currentSong.cid){
 			var previous = API.getHistory()[i];
 			var pos = i + 1;
 			var stats = previous.user.username + " (ID " + previous.user.id + ")";
@@ -1611,21 +1528,21 @@ function advanceStuff(obj){
 		}
 	}
 	},250);
-	var thistime = thissong.duration;
-	var thehours = "";
-	var theminutes = Math.floor(thistime / 60);
-	if (theminutes >= 60){
-		thehours = Math.floor(theminutes / 60);
-		theminutes = theminutes % 60;
+	var hoursLong = "";
+	var minutesLong = Math.floor(currentSong.duration / 60);
+	var secondsLong = currentSong.duration % 60;
+
+	if (minutesLong >= 60){
+		hoursLong = Math.floor(minutesLong / 60);
+		minutesLong = minutesLong % 60;
 	};
-	if (thehours != ""){thehours = thehours + ":";};
-	var theseconds = thistime % 60;
-	if (theseconds < 10){theseconds = "0" + theseconds;}
-	if (theminutes < 10){theminutes = "0" + theminutes;}
-	var actuallength = thehours + theminutes + ":" + theseconds;
+	if (hoursLong != ""){hoursLong = hoursLong + ":";};
+	if (secondsLong < 10){secondsLong = "0" + secondsLong;}
+	if (minutesLong < 10){minutesLong = "0" + minutesLong;}
+	var actuallength = hoursLong + minutesLong + ":" + secondsLong;
 	if (timeskip && songup){
 		if (hasPerms){
-			if (thistime > 480){
+			if (currentSong.duration > 480){
 				blunq.play();
 				bcs.addChat("<b><a style='color:#ff3535;'>Song is over 8 minutes</a></b><br> Song length: " + actuallength,"#D04545",true);
 			}
@@ -1644,10 +1561,13 @@ function advanceStuff(obj){
 function leaveStuff(user){
 	updateList();
 	if (user.friend){
-		var f = "Your friend ";var c = "#c5ffcc";
+		var f = "Your friend ";
+		var c = "#c5ffcc";
 	}else{
-		var f = "";var c = "#7774ff";
+		var f = "";
+		var c = "#7774ff";
 	}
+
 	var d = new Date();
 	var h = d.getHours();
 	var m = d.getMinutes();
@@ -1655,19 +1575,36 @@ function leaveStuff(user){
 	if (h < 10){h = "0" + h;}
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
+
 	var userrole = "";
-	switch (user.role){case 0:userrole = ""; break;case 1:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>RDJ</b></a> (1) |"; break;case 2:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Bouncer</b></a> (2) |"; break;case 3:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Manager</b></a> (3) |"; break;case 4:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>CoHost</b></a> (4) |"; break;case 5:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Host</b></a> (5) |"; break;}
-	var usergrole = "";
-	switch (user.gRole){case 0:usergrole = ""; break;case 3:usergrole = "<a style='color:#89be6c;font-size:11px;'><b>BA</b></a> (3) |"; break;case 5:usergrole = " <a style='color:#42a5dc;font-size:11px;'><b>Admin</b></a> (5) |"; break;}
-	var thename = user.username.split("<").join("&lt;").split(">").join("&gt;");
-	if (joinmsg){bcs.addChat("<a style='color:" + c + ";'>" + f + "<b>" + thename + "</b> left </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
-	if (cap){
-		if (user.role != 0){
-			var thiscap = API.getStaff().length;
-			bcs.c('/cap ' + thiscap);
-			bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
-		}
+	switch (user.role){
+		case 0:	userrole = ""; break;
+		case 1:	userrole = "<a style='color:#ac76ff;font-size:11px;'><b>RDJ</b></a> (1) |";		break;
+		case 2:	userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Bouncer</b></a> (2) |";	break;
+		case 3:	userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Manager</b></a> (3) |";	break;
+		case 4:	userrole = "<a style='color:#ac76ff;font-size:11px;'><b>CoHost</b></a> (4) |";	break;
+		case 5:	userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Host</b></a> (5) |";	break;
 	}
+
+	var usergrole = "";
+	switch (user.gRole){
+		case 0:	usergrole = ""; break;
+		case 3:	usergrole = " <a style='color:#89be6c;font-size:11px;'><b>BA</b></a> (3) |";	break;
+		case 5:	usergrole = " <a style='color:#42a5dc;font-size:11px;'><b>Admin</b></a> (5) |";	break;
+	}
+
+	var thename = user.username.split("<").join("&lt;").split(">").join("&gt;");
+
+	if (joinmsg){
+		bcs.addChat("<a style='color:" + c + ";'>" + f + "<b>" + thename + "</b> left </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);
+	};
+
+	if (cap && user.role != 0){
+		var thiscap = API.getStaff().length;
+		bcs.c('/cap ' + thiscap);
+		bcs.addChat('Cap set to ' + thiscap,"#c5b5ff");
+	}
+
 	for (var i = 0; i < bcs.userslist.length; i++){
 		if (thename == bcs.userslist[i].name){
 			bcs.userslist.splice(i,1);
@@ -1677,6 +1614,14 @@ function leaveStuff(user){
 };
 
 function joinStuff(user){
+	if (user.friend){
+		var f = "Your friend ";
+		var c = "#c5ffcc";
+	}else{
+		var f = "";
+		var c = "#74afff";
+	}
+
 	var d = new Date();
 	var h = d.getHours();
 	var m = d.getMinutes();
@@ -1685,29 +1630,39 @@ function joinStuff(user){
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
 
-	bcs.userslist.push({"name":user.username,"id":user.id,"time":"[" + h + ":" + m + ":" + s + "]"});
-
-	if (user.friend){
-		var f = "Your friend ";
-		var c = "#c5ffcc";
-	}else{
-		var f = "";
-		var c = "#74afff";
-	}
 	var userrole = "";
-	switch (user.role){case 0:userrole = ""; break;case 1:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>RDJ</b></a> (1) |"; break;case 2:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Bouncer</b></a> (2) |"; break;case 3:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Manager</b></a> (3) |"; break;case 4:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>CoHost</b></a> (4) |"; break;case 5:userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Host</b></a> (5) |"; break;}
-	var usergrole = "";
-	switch (user.gRole){case 0:usergrole = ""; break;case 3:usergrole = "<a style='color:#89be6c;font-size:11px;'><b>BA</b></a> (3) |"; break;case 5:usergrole = "<a style='color:#42a5dc;font-size:11px;'><b>Admin</b></a> (5) |"; break;}
-	var thename = user.username.split("<").join("&lt;").split(">").join("&gt;")
-	if (user.level > 1 && joinmsg){bcs.addChat("<a style='color:" + c + "'> " + f + "<b>" + thename + "</b> joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false, false,true,true);};
-	if (user.level == 1 && joinmsg){bcs.addChat("<a style='color:#fef8a0;'> " + f + "<b>" + thename + "</b> joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);};
-	if (cap){
-		if (user.role != 0){
-			var thiscap = API.getStaff().length;
-			bcs.c('/cap ' + thiscap);
-			bcs.addChat('Cap set to ' + thiscap + ' (' + thename + ' - ' + user.role + ')',"#c5b5ff");
-		}
+	switch (user.role){
+		case 0:	userrole = ""; break;
+		case 1:	userrole = "<a style='color:#ac76ff;font-size:11px;'><b>RDJ</b></a> (1) |";		break;
+		case 2:	userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Bouncer</b></a> (2) |";	break;
+		case 3:	userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Manager</b></a> (3) |";	break;
+		case 4:	userrole = "<a style='color:#ac76ff;font-size:11px;'><b>CoHost</b></a> (4) |";	break;
+		case 5:	userrole = "<a style='color:#ac76ff;font-size:11px;'><b>Host</b></a> (5) |";	break;
 	}
+
+	var usergrole = "";
+	switch (user.gRole){
+		case 0:	usergrole = ""; break;
+		case 3:	usergrole = " <a style='color:#89be6c;font-size:11px;'><b>BA</b></a> (3) |";	break;
+		case 5:	usergrole = " <a style='color:#42a5dc;font-size:11px;'><b>Admin</b></a> (5) |";	break;
+	}
+
+	var thename = user.username.split("<").join("&lt;").split(">").join("&gt;")
+	if (user.level > 1 && joinmsg){
+		bcs.addChat("<a style='color:" + c + "'> " + f + "<b>" + thename + "</b> joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false, false,true,true);
+	};
+
+	if (user.level == 1 && joinmsg){
+		bcs.addChat("<a style='color:#fef8a0;'> " + f + "<b>" + thename + "</b> joined </a><br> <a style='font-size:11px;'><b>ID</b> " + user.id + " |</a> " + userrole + " " + usergrole + " <a style='font-size:11px;'><b>Level</b> " + user.level + " | " + h + ":" + m + ":" + s + "</a>","#ddd",false,false,true,true);
+	};
+
+	if (cap && user.role != 0){
+		var thiscap = API.getStaff().length;
+		bcs.c('/cap ' + thiscap);
+		bcs.addChat('Cap set to ' + thiscap + ' (' + thename + ' - ' + user.role + ')',"#c5b5ff");
+	}
+
+	bcs.userslist.push({"name":user.username,"id":user.id,"time":"[" + h + ":" + m + ":" + s + "]"});
 }
 
 function deleteAll(){
@@ -2100,10 +2055,6 @@ function commandStuff(data){
 	console.log("[COMMAND] " + command[0] + " || [ARGUMENT] " + command[1]);
 
 	switch(command[0].toLowerCase()){
-		case "level":
-			bcs.l("http://i.imgur.com/aRU9YZk.png");
-			break;
-
 		case "todo":
 			bcs.addChat("<br><a style='color:#c2f3bf;'><b>Todo list:</b></a><br><br>\
 					<a style='color: #d4d4d4;'>⊱ <del>Fix inline images bug</del> <b>[DONE]</b></a><br>\
@@ -2166,27 +2117,6 @@ function commandStuff(data){
 			if (!doubleFound){
 				bcs.addChat("User " + command[1] + " is either not in the room or joined before you did.","#c42e3b");
 			}
-			break;
-
-		case "retro":
-			retroChat = !retroChat;
-			bcs.c("/clear");
-			if (retroChat){
-				var retrostyle = "<style id='retrostyle'>\
-					#chat-messages .msg{\
-						padding:5px 8px 6px 10px\
-					}\
-					#chat-messages .message{\
-						min-height:0px;\
-					}\
-				</style>";
-				$("body").prepend(retrostyle);
-				var isRetro = "<a style='color:#90ad2f'><b>on</b></a>";
-			}else{
-				$("#retrostyle").remove();
-				var isRetro = "<a style='color:#c42e3b'><b>off</b></a>. Thank god.";
-			}
-			bcs.addChat("Poorly made bootleg beaten up pre-alpha retro chat is now " + isRetro,"#ccc");
 			break;
 
 		case "antilag":
@@ -2274,13 +2204,6 @@ function commandStuff(data){
 			bcs.c("NOT REKT ☐ | REKT ☑");
 			break;
 
-		case "icon":
-		case "icons":
-			chatIcons = !chatIcons;
-			var iconsOn = chatIcons ? "<a style='color:#90ad2f'><b>on</b></a>" : "<a style='color:#c42e3b'><b>off</b></a>";
-			bcs.addChat("BCS chat icons are now " + iconsOn,"#ccc");
-			break;
-
 		case "ooo":
 			ct("http://youtu.be/MeB3eYk1Ze0?t=1m16s");
 			break;
@@ -2327,10 +2250,6 @@ function commandStuff(data){
 		case "emojisheet":
 		case "emojicheat":
 			ct("http://www.emoji-cheat-sheet.com/");
-			break;
-
-		case "thepuff":
-			pufflock = !pufflock;
 			break;
 
 		case "sacrifice":
