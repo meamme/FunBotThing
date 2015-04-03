@@ -7,7 +7,7 @@
 * list is separated from the main script.
 */
 
-var bwcVersion = "Version 2.3.3";
+var bwcVersion = "Version 2.3.5";
 
 if (API.getUser().role === 0 && API.getUser().gRole === 0){
 	API.chatLog("[Bad Words Counter] Warning! Not all rooms allow non-staff to run bots! Please make sure to get the Host's persmission first.");
@@ -29,11 +29,10 @@ $.getScript("https://rawgit.com/Tetheu98/FunBotThing/master/badWordsList.js"); /
 API.on(API.CHAT, function(data){
 	var message = data.message.toLowerCase();
 	for (var i in badWords){
-		if (message.indexOf(badWords[i].toLowerCase() + " ") != -1 || message.indexOf(" " + badWords[i].toLowerCase()) != -1){
+		if (message.indexOf(badWords[i].toLowerCase()) != -1){
 			badWordsCounter++;
 			localStorage.setItem("badWordsCounter", badWordsCounter);
-			$("#chat-messages > .cm[data-cid^='" + data.cid + "'] .text").parent(".cm").css({"background-color":"rgba(100, 0, 0, 0.25)"});
-			$("#chat-messages > .cm .cid-" + data.cid).parent().parent().css({"background-color":"rgba(100, 0, 0, 0.25)"});
+			$("#chat-messages > .cm .text.cid-" + data.cid).parent().parent().css({"background-color":"rgba(100, 0, 0, 0.25)"});
 			if (shouldDelete){
 				$.ajax({type: "DELETE",url: "/_/chat/" + data.cid});
 			}
@@ -61,6 +60,7 @@ API.on(API.CHAT, function(data){
 				
 				case "reset":
 					API.sendChat("[Bad Words Counter] @" + data.un + " - Current streak (" + badWordsCounter + ") is now set to 0.");
+					badWordsCounter = 0;
 					break;
 				
 				case "toggledelete":
