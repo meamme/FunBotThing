@@ -5,6 +5,8 @@
 * this offended anyone, and it is not my intention to have this directed
 * at anyone whatsoever. Because of the potential offensive content, the words
 * list is separated from the main script.
+*
+* Version 1.0.1
 */
 
 var shouldDelete = false;
@@ -17,7 +19,7 @@ if (localStorage.getItem("badWordsCounter")){
 
 $.getScript("https://rawgit.com/Tetheu98/FunBotThing/master/badWordsList.js"); //List of bad words [NSFW]
 
-API.on(API.CHAT, function(){
+API.on(API.CHAT, function(data){
 	for (var i in badWords){
 		if (data.message.toLowerCase().indexOf(badWords[i].toLowerCase()) != -1){
 			badWordsCounter++;
