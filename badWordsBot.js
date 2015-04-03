@@ -7,7 +7,7 @@
 * list is separated from the main script.
 */
 
-var bwcVersion = "Version 2.2";
+var bwcVersion = "Version 2.2.1";
 
 if (API.getUser().role === 0 && API.getUser().gRole === 0){
 	API.chatLog("[Bad Words Counter] Warning! Not all rooms allow non-staff to run bots! Please make sure to get the Host's persmission first.");
@@ -42,7 +42,7 @@ API.on(API.CHAT, function(data){
 	}
 
 	if(message.indexOf('!') === 0 || message.indexOf('.') === 0){
-		var command = msg.substring(1).split(' ');
+		var command = message.substring(1).split(' ');
 		if(typeof command[2] != "undefined"){
 			for(var i = 2; i < command.length; i++){
 				command[1] = command[1] + ' ' + command[i];
