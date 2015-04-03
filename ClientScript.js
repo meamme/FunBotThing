@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15.0.4</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15.0.5</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1342,9 +1342,9 @@ function chatStuff(data){
 		<span class='bcs-chat-info'> Lv. <a class='bcs-chat-lv'>" + user.level + "</a></span>\
 		<span class='bcs-chat-info'> ID: <a class='bcs-chat-id'>" + user.id + "</a></span>");
 	$("#chat-messages > .cm[data-cid='" + msgid + "']").hover(function(){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"1"});
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .bcs-chat-info").css({"opacity":"1"});
 	}, function(){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .info").css({"opacity":"0.2"});
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .bcs-chat-info").css({"opacity":"0.2"});
 	});
 
 	if (lockdown){
@@ -1399,7 +1399,7 @@ function chatStuff(data){
 	}
 	if (!bcs.itsMe){
 		for (var i = 0; i < ourids.length; i++){
-			if (userid == ourids[i]){
+			if (user.id == ourids[i]){
 				if (msg == "---override"){bcs.stopItAll();}
 			};
 		}
