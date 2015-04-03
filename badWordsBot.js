@@ -5,9 +5,9 @@
 * this offended anyone, and it is not my intention to have this directed
 * at anyone whatsoever. Because of the potential offensive content, the words
 * list is separated from the main script.
-*
-* Version 1.0.1
 */
+
+var bwcVersion = "Version 2.0";
 
 var shouldDelete = false;
 var badWordsCounter = 0;
@@ -42,5 +42,11 @@ API.on(API.CHAT, function(data){
 		shouldDelete = !shouldDelete;
 		var isOn = shouldDelete ? "Will delete messages containing bad words." : "Will not delete messages containing bad words.";
 		API.sendChat("[Bad Words Counter] " + isOn);
+	}else if (data.message.toLowerCase().indexOf("!bwc") == 0 || data.message.toLowerCase().indexOf("!badwordscounter") == 0){
+		API.sendChat("---[Bad Words Counter]---");
+		setTimeout(function(){API.sendChat(bwcVersion);},250);
+		setTimeout(function(){API.sendChat("Commands: !count, !reset, !delete, !bwc");},500);
 	}
 });
+
+API.chatLog("[Bad Words Counter] Turned on! Do !bwc for commands list");
