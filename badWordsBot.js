@@ -34,6 +34,9 @@ API.on(API.CHAT, function(data){
 			localStorage.setItem("badWordsCounter", badWordsCounter);
 			if (shouldDelete){
 				$.ajax({type: "DELETE",url: "/_/chat/" + data.cid});
+			}else{
+				$("[data-cid^='" + data.cid + "']").css({"background-color":"rgba(100, 0, 0, 0.25)"});
+				$("[data-cid^='" + data.cid + "'] .text").text() = this.split(badWords[i]).join("<span class='name'>" + badWords[i] + "</span>");
 			}
 		}
 	}
