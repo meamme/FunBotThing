@@ -7,6 +7,7 @@
 * list is separated from the main script.
 */
 
+var bwcVersion = "Version 2.3.3";
 
 if (API.getUser().role === 0 && API.getUser().gRole === 0){
 	API.chatLog("[Bad Words Counter] Warning! Not all rooms allow non-staff to run bots! Please make sure to get the Host's persmission first.");
@@ -32,6 +33,7 @@ API.on(API.CHAT, function(data){
 			badWordsCounter++;
 			localStorage.setItem("badWordsCounter", badWordsCounter);
 			$("#chat-messages > .cm[data-cid^='" + data.cid + "'] .text").parent(".cm").css({"background-color":"rgba(100, 0, 0, 0.25)"});
+			$("#chat-messages > .cm .cid-" + data.cid).parent().parent().css({"background-color":"rgba(100, 0, 0, 0.25)"});
 			if (shouldDelete){
 				$.ajax({type: "DELETE",url: "/_/chat/" + data.cid});
 			}
