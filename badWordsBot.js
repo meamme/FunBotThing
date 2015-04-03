@@ -7,7 +7,7 @@
 * list is separated from the main script.
 */
 
-var bwcVersion = "Version 2.0";
+var bwcVersion = "Version 2.1";
 
 var shouldDelete = false;
 var badWordsCounter = 0;
@@ -30,7 +30,7 @@ API.on(API.CHAT, function(data){
 		}
 	}
 
-	if (data.message.toLowerCase().indexOf("!counter") == 0 || data.message.toLowerCase().indexOf("!count") == 0){
+	if (data.message.toLowerCase().indexOf("!counter") == 0 || data.message.toLowerCase().indexOf("!count") == 0 || data.message.toLowerCase().indexOf("!streak") == 0){
 		if (badWordsCounter != 0){
 			API.sendChat("[Bad Words Counter] Current bad word streak is " + badWordsCounter);
 		}else{
@@ -45,7 +45,7 @@ API.on(API.CHAT, function(data){
 	}else if (data.message.toLowerCase().indexOf("!bwc") == 0 || data.message.toLowerCase().indexOf("!badwordscounter") == 0){
 		API.sendChat("---[Bad Words Counter]---");
 		setTimeout(function(){API.sendChat(bwcVersion);},250);
-		setTimeout(function(){API.sendChat("Commands: !count, !reset, !delete, !bwc");},500);
+		setTimeout(function(){API.sendChat("Commands: !streak, !reset, !delete, !bwc");},500);
 	}
 });
 
