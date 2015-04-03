@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15.0.6</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15.0.7</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1305,7 +1305,7 @@ function chatStuff(data){
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
 	var argument = "[" + h + ":" + m + ":" + s + "] [" + msgid + "] [" + user.id + "] [" + user.username + "] - " + msg;
-	if (userid != "undefined" && me == "Beta Tester"){
+	if (user.id != "undefined" && me == "Beta Tester"){
 		if (msg.toLowerCase().indexOf("beta") != -1){blunq.play();}
 		if (tst != -1){
 			if (!coollock && afkmsg){
@@ -1319,7 +1319,7 @@ function chatStuff(data){
 				$("#chat-input .afknotifications").text(notifyAFK);
 			}
 		}
-	}else if (userid != "undefined" && tst != -1){
+	}else if (user.id != "undefined" && tst != -1){
 		if (!coollock && afkmsg){
 			bcs.c("[AFK] @" + user.username + " - " + themessage);
 			coollock = true;
