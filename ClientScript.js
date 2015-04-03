@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15.0.5</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15.0.6</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1348,30 +1348,30 @@ function chatStuff(data){
 	});
 
 	if (lockdown){
-		if (user && user.role == 0 && user.gRole == 0){
+		if (user.username && user.role == 0 && user.gRole == 0){
 			$.ajax({type: 'DELETE',url: '/_/chat/' + msgid});
 		}
 	}
 
-	if (user && user.role == 5){
+	if (user.username && user.role == 5){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").removeClass("icon-chat-host").addClass("icon-chat-thehost");
 	}
 
-	if (user == "EDMC"){
+	if (user.username == "EDMC"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").css({color:'#0097cd'});
-	}else if (user == "Roms Kidd" || user == "Zuchku" || user == "81supernova"){
+	}else if (user.username == "Roms Kidd" || user.username == "Zuchku" || user.username == "81supernova"){
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").hide();
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from").prepend("<i class='icon icon-chat-baS'></i>");
 		$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").text('');
-		if (user == "Roms Kidd"){
+		if (user.username == "Roms Kidd"){
 			$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
 <a style="color:#d40000">R</a><a style="color:#d49b00">o</a><a style="color:#78d400">m</a><a style="color:#00d437">s</a><a style="color:#000000"> </a><a style="color:#00a5d4">K</a><a style="color:#0f00d4">i</a><a style="color:#d100d4">d</a><a style="color:#d40064">d</a>');
-		}else if (user == "Zuchku"){
+		}else if (user.username == "Zuchku"){
 			$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
 <a style="color:#d40000">Z</a><a style="color:#d49b00">u</a><a style="color:#78d400">c</a><a style="color:#00d437">h</a><a style="color:#00a5d4">k</a><a style="color:#0f00d4">u</a>');
-		}else if (user == "81supernova"){
+		}else if (user.username == "81supernova"){
 			$("#chat-messages > .cm[data-cid='" + msgid + "'] .un").append('\
 <a style="color:#d40000">8</a><a style="color:#d49b00">1</a><a style="color:#78d400">s</a><a style="color:#00d437">u</a><a style="color:#00a5d4">p</a><a style="color:#0f00d4">e</a><a style="color:#d100d4">r</a><a style="color:#d4003c">n</a><a style="color:#d40000">o</a><a style="color:#d49b00">v</a><a style="color:#78d400">a</a>');
 		}
