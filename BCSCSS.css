@@ -64,10 +64,6 @@
 	transform: rotate(180deg);
 }
 
-.bcs-isHost{
-	background-image:url(https://i.imgur.com/g8NkPge.png);
-}
-
 .bcs-afkIsOn {
 	width:7px;
 	height:30px;
@@ -213,6 +209,11 @@
 	height:49px;
 	width:49px;
 	background-image:url(https://i.imgur.com/x1DEgOD.png);
+}
+.icon-chat-thehost{
+	height:15px;
+	width:15px;
+	background-image:url(https://i.imgur.com/g8NkPge.png);
 }
 .betabot-update {
 	position:relative;
