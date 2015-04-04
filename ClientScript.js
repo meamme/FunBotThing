@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15.0.7</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15.0.8</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1354,7 +1354,7 @@ function chatStuff(data){
 	}
 
 	if (user.username && user.role == 5){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").removeClass("icon-chat-host").addClass("icon-chat-thehost");
+		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").removeClass("icon-chat-host").removeClass("icon-chat-ambassador").removeClass("icon-chat-admin").addClass("icon-chat-thehost");
 	}
 
 	if (user.username == "EDMC"){
