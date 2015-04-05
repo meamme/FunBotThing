@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.15.0.8</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.16</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1211,7 +1211,7 @@ function updateList(){
 			var itsYou = false;
 			var theirid = $(this).attr('idt');
 			if (theirid == bcs.user.id){itsYou = true;}
-			lookfor(theirid,itsYou);
+			intersitial(theirid,itsYou);
 		});
 	}
 }
@@ -1740,7 +1740,20 @@ function grab(){
 	setTimeout(function(){$($(".grab .menu ul li")[0]).mousedown();}, 2050);
 }
 
-function lookfor(id,isityou){
+function intersitial(id,isityou){
+	var idf = id;
+	var isYou = isityou;
+	var rooms = "";
+	$.ajax({
+		type: 'GET',
+		url: 'https://plug.dj/_/rooms?q=' + id + '&page=1&limit=50'
+	}).done(function(room) {
+		rooms = room.data;
+		lookfor(idf,isYou,rooms);
+	});
+}
+
+function lookfor(id,isityou,rooms){
 	$.ajax({
 		type: 'GET',
 		url: 'https://plug.dj/_/users/' + id
@@ -1958,6 +1971,22 @@ function lookfor(id,isityou){
 			profileColor = "#aec9ea";
 		}
 
+//ROOMS
+		var roomCount = 0;
+		var roomNames = "";
+		if (rooms != "" && rooms.length != 0){
+			for (var i = 0; i < rooms.length; i++){
+				if (rooms[i].host == data.username){
+					roomCount++;
+					roomNames += " | <a style='color: #b8e0ff;' href='/" + rooms[i].slug + "' target='_blank'>" + rooms[i].name + "</a>";
+				}
+			}
+		}
+		var roomTotal = "No rooms";
+		if (roomCount != 0 && roomNames != ""){
+			roomTotal = "(" + roomCount + ") " + roomNames + " |";
+		}
+
 		bcs.addChat("<br><a style='color:#42a5dc;'><b>Name:</b></a> " + data.username + "<br><b>\
 		<a style='color:#42a5dc;'>Slug:</b></a> <a style='color: " + profileColor + ";' href='/@/" + data.slug + "' target='_blank'>" + data.slug + "</a> " + hasProfile + "<br><b>\
 		<a style='color:#42a5dc;'>ID:</b></a> " + data.id + "<br><b>\
@@ -1968,6 +1997,7 @@ function lookfor(id,isityou){
 		<a style='color:#42a5dc;'>Role:</b></a> " + lr + "<br><b>\
 		<a style='color:#42a5dc;'>Global Role:</b></a> " + g + "<br><b>\
 		<a style='color:#42a5dc;'>Joined:</b></a> " + jnd + "<br><b>\
+		<a style='color:#42a5dc;'>Rooms:</b></a> " + roomTotal + "<br><b>\
 		<a style='color:#42a5dc;'>Friend:</b></a> " + isFriend + "<br><b>\
 		<a style='color:#42a5dc;'>Vote:</b></a> " + votestats + grabstats + "<br><b>\
 		<a style='color:#42a5dc;'>WaitList Position:</b></a> " + posstats + "<br>","#CCCCCC",false,false,true);
@@ -2297,7 +2327,7 @@ function commandStuff(data){
 		case "l":
 			var itsYou = false;
 			if (command[1] == bcs.user.id){itsYou = true;}
-			lookfor(command[1],itsYou);
+			intersitial(command[1],itsYou);
 			break;
 
 		case "search":
@@ -2311,7 +2341,7 @@ function commandStuff(data){
 			console.log(xname + "||" + uname + "||" + oname);
 			for (var i = 0; i < API.getUsers().length; i++){
 				if (oname == API.getUsers()[i].username){
-					lookfor(API.getUsers()[i].id,itsYou);
+					intersitial(API.getUsers()[i].id,itsYou);
 					foundIt = true;
 					break;
 				}
