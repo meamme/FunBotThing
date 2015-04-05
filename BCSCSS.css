@@ -41,7 +41,7 @@
 #bcs-rolloverIcon {
 	position:absolute;
 	background-image: url(https://i.imgur.com/x1DEgOD.png);
-	background-size: contain;
+	background-size: cover;
 	color:#b6f6ff;
 	font-size: 11px;
 	font-family: "Open Sans", sans-serif;
@@ -59,6 +59,7 @@
 [data-cid^="4764565-"] i.bdg, [data-cid^="4764565-"] i.icon,
 [data-cid^="3994406-"] i.bdg, [data-cid^="3994406-"] i.icon,
 [data-cid^="4929822-"] i.bdg, [data-cid^="4929822-"] i.icon,
+[data-cid^="3542315-"] i.bdg, [data-cid^="3542315-"] i.icon,
 [data-cid^="5418525-"] i.bdg, [data-cid^="5418525-"] i.icon {
 	-webkit-transform: rotate(180deg);
 	transform: rotate(180deg);
