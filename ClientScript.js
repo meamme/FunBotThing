@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.16.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.16.1.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -2007,7 +2007,7 @@ function lookfor(id,isityou,rooms){
 		<a style='color:#42a5dc;'>Role:</b></a> " + lr + "<br><b>\
 		<a style='color:#42a5dc;'>Global Role:</b></a> " + g + "<br><b>\
 		<a style='color:#42a5dc;'>Joined:</b></a> " + jnd + "<br><b>\
-		<a style='color:#42a5dc;'>Rooms:</b></a> " + roomTotal + "<br><b>\
+		<a style='color:#42a5dc;'>Hosts:</b></a> " + roomTotal + "<br><b>\
 		<a style='color:#42a5dc;'>Friend:</b></a> " + isFriend + "<br><b>\
 		<a style='color:#42a5dc;'>Vote:</b></a> " + votestats + grabstats + "<br><b>\
 		<a style='color:#42a5dc;'>WaitList Position:</b></a> " + posstats + "<br>","#CCCCCC",false,false,true);
