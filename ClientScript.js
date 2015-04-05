@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.16</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.16.0.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1977,14 +1977,19 @@ function lookfor(id,isityou,rooms){
 		if (rooms != "" && rooms.length != 0){
 			for (var i = 0; i < rooms.length; i++){
 				if (rooms[i].host == data.username){
+					var roomdj = "";
+					var roompop = "";
 					roomCount++;
-					roomNames += " | <a style='color: #b8e0ff;' href='/" + rooms[i].slug + "' target='_blank'>" + rooms[i].name + "</a>";
+					if (rooms[i].dj != ""){roomdj = " title='Current DJ: " + rooms[i].dj + "&#013;Playing: " + rooms[i].media + "'";}
+					if (rooms[i].population != 1){roompop = "(" + rooms[i].population + " users)";}
+					else{roompop = "(" + rooms[i].population + " user)";}
+					roomNames += "<li><a style='color: #b8e0ff;' href='/" + rooms[i].slug + "' target='_blank'" + roomdj + ">" + rooms[i].name + "</a> " + roompop;
 				}
 			}
 		}
 		var roomTotal = "No rooms";
 		if (roomCount != 0 && roomNames != ""){
-			roomTotal = "(" + roomCount + ") " + roomNames + " |";
+			roomTotal = "(" + roomCount + ") " + roomNames;
 		}
 
 		bcs.addChat("<br><a style='color:#42a5dc;'><b>Name:</b></a> " + data.username + "<br><b>\
