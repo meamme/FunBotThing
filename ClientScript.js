@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.16.1.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.16.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1982,13 +1982,14 @@ function lookfor(id,isityou,rooms){
 		if (rooms != "" && rooms.length != 0){
 			for (var i = 0; i < rooms.length; i++){
 				if (rooms[i].host == data.username){
-					var roomdj = "";
-					var roompop = "";
+					var roomDJ = "";
+					var roomPopulation = "";
+					var roomHasDJ = "";
 					roomCount++;
-					if (rooms[i].dj != ""){roomdj = " title='Current DJ: " + rooms[i].dj + "&#013;Playing: " + rooms[i].media + "'";}
-					if (rooms[i].population != 1){roompop = "(" + rooms[i].population + " users)";}
-					else{roompop = "(" + rooms[i].population + " user)";}
-					roomNames += "<li><a style='color: #b8e0ff;' href='/" + rooms[i].slug + "' target='_blank'" + roomdj + ">" + rooms[i].name + "</a> " + roompop;
+					if (rooms[i].dj != ""){roomDJ = " title='Current DJ: " + rooms[i].dj + "&#013;Playing: " + rooms[i].media + "'"; roomHasDJ = " (has DJ)"}
+					if (rooms[i].population != 1){roomPopulation = "(" + rooms[i].population + " users)" + roomHasDJ;}
+					else{roomPopulation = "(" + rooms[i].population + " user)" + roomHasDJ;}
+					roomNames += "<li><a style='color: #b8e0ff;' href='/" + rooms[i].slug + "' target='_blank'" + roomDJ + ">" + rooms[i].name + "</a> " + roomPopulation;
 				}
 			}
 		}
