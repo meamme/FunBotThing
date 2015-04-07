@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.16.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1745,6 +1745,40 @@ function grab(){
 	setTimeout(function(){$($(".grab .menu ul li")[0]).mousedown();}, 2050);
 }
 
+var totalUserCount = 0;
+var totalRoomCount = 0;
+function getAllUsers(pageNumber){
+	var localUserCount = 0;
+	var localRoomInfo = "";
+	$.ajax({
+		type: 'GET',
+		url: 'https://plug.dj/_/rooms?page=' + pageNumber + '&limit=1000'
+	}).done(function(allRooms) {
+		localRoomInfo = allRooms.data;
+		for (var i = 0; i < localRoomInfo.length; i++){
+			localUserCount += localRoomInfo[i].population;
+			console.log(localUserCount + " || " + totalUserCount + " ||| +" + localRoomInfo[i].population + " @ " + localRoomInfo[i].name + " (plug.dj/" + localRoomInfo[i].slug + ")");
+			if (i == localRoomInfo.length - 1 || localRoomInfo[i].population == 0){
+				console.log("User count for this page: " + localUserCount + " || Total User Count: " + totalUserCount + " ]---------- END OF PAGE ------------");
+				totalUserCount += localUserCount;
+				localUserCount = 0;
+				if (localRoomInfo[i].population != 0){
+					console.log("Page #" + pageNumber + " done - " + totalUserCount + " users detected so far") ;
+					bcs.addChat("<a style='color:#2975ff;'><b>[GUC]</b></a> <b>Page #" + pageNumber + " done</b> - " + totalUserCount + " users detected so far","#CCC",false,false,true);
+					getAllUsers(pageNumber + 1);
+					break;
+				}else{
+					bcs.addChat("<a style='color:#2975ff;'><b>[GUC]</b></a> <b>Total user count is</b> " + totalUserCount,"#CCC",false,false,true);
+					totalUserCount = 0;
+					break;
+				}
+			}else{
+				totalRoomCount++;
+			}
+		}
+	});
+}
+
 function intersitial(id,isityou){
 	var idf = id;
 	var isYou = isityou;
@@ -2122,6 +2156,12 @@ function commandStuff(data){
 
 		case "spiderpig":
 			ct(" http://youtu.be/714-Ioa4XQw");
+			break;
+
+		case "online":
+		case "users":
+			bcs.addChat("<a style='color:#2975ff;'><b>[Global User Count]</b></a> Started!","#CCC",false,false,true);
+			getAllUsers(1);
 			break;
 
 		case "j":
@@ -2609,7 +2649,7 @@ function commandStuff(data){
 			bcs.addChat('~=[,,_,,]:3     ||     ¬_¬     ||     ಠ_ಠ',"#ececec");
 			bcs.addChat('ლ(ಥ益ಥლ     ||     (っ◔‿◔)っ     ||     (╥﹏╥)',"#ececec");
 			bcs.addChat('(─‿‿─)   ||   (ʃƪ ˘ ³˘)   ||   ( ͡° ͜ʖ ͡°)',"#ececec");
-			bcs.addChat('(ᕗ ಠ益ಠ)ᕗ ︵﻿ ┻━┻   ||   (╯°□°)╯︵ ┻━┻',"#ececec");
+			bcs.addChat('(ᕗ ಠ益ಠ)ᕗ ︵﻿ ┻━┻   ||   (╯°□°)╯︵ ┻━┻ || (づ￣ ³￣)づ',"#ececec");
 			bcs.addChat('¯\\_(ツ)_/¯',"#ececec");
 			break;
 
