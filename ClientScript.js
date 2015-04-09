@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.2.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -2051,7 +2051,7 @@ function lookfor(id,isityou,rooms){
 		if (roomCount != 0 && roomNames != ""){roomTotal = "(" + roomCount + ") " + roomNames;}
 
 //SUBSCRIBER
-		var subbed = "Didn't subscribe";
+		var subbed = "No";
 		if (data.sub == 1){subbed = "<a style='color: #c59840;'>Subscriber</a>";}
 
 		bcs.addChat("<br><a style='color:#42a5dc;'><b>Name:</b></a> " + data.username + "<br><b>\
@@ -2066,6 +2066,7 @@ function lookfor(id,isityou,rooms){
 		<a style='color:#42a5dc;'>Joined:</b></a> " + jnd + "<br><b>\
 		<a style='color:#42a5dc;'>Hosts:</b></a> " + roomTotal + "<br><b>\
 		<a style='color:#42a5dc;'>Friend:</b></a> " + isFriend + "<br><b>\
+		<a style='color:#42a5dc;'>Subscriber:</b></a> " + subbed + "<br><b>\
 		<a style='color:#42a5dc;'>Vote:</b></a> " + votestats + grabstats + "<br><b>\
 		<a style='color:#42a5dc;'>WaitList Position:</b></a> " + posstats + "<br>","#CCCCCC",false,false,true);
 		}
