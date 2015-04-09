@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -2048,9 +2048,11 @@ function lookfor(id,isityou,rooms){
 			}
 		}
 		var roomTotal = "No rooms";
-		if (roomCount != 0 && roomNames != ""){
-			roomTotal = "(" + roomCount + ") " + roomNames;
-		}
+		if (roomCount != 0 && roomNames != ""){roomTotal = "(" + roomCount + ") " + roomNames;}
+
+//SUBSCRIBER
+		var subbed = "Didn't subscribe";
+		if (data.sub == 1){subbed = "<a style='color: #c59840;'>Subscriber</a>";}
 
 		bcs.addChat("<br><a style='color:#42a5dc;'><b>Name:</b></a> " + data.username + "<br><b>\
 		<a style='color:#42a5dc;'>Slug:</b></a> <a style='color: " + profileColor + ";' href='/@/" + data.slug + "' target='_blank'>" + data.slug + "</a> " + hasProfile + "<br><b>\
@@ -2666,9 +2668,9 @@ function commandStuff(data){
 			break;
 
 		case "emojis":
-			bcs.addChat('~=[,,_,,]:3     ||     ¬_¬     ||     ಠ_ಠ',"#ececec");
-			bcs.addChat('ლ(ಥ益ಥლ     ||     (っ◔‿◔)っ     ||     (╥﹏╥)',"#ececec");
-			bcs.addChat('(─‿‿─)   ||   (ʃƪ ˘ ³˘)   ||   ( ͡° ͜ʖ ͡°)',"#ececec");
+			bcs.addChat('~=[,,_,,]:3      ¬_¬     ಠ_ಠ',"#ececec");
+			bcs.addChat('ლ(ಥ益ಥლ    (っ◔‿◔)っ    (╥﹏╥)',"#ececec");
+			bcs.addChat('(─‿‿─)    (ʃƪ ˘ ³˘)    ( ͡° ͜ʖ ͡°)    ┬┴┬┴┤(･_├┬┴┬┴',"#ececec");
 			bcs.addChat('(ᕗ ಠ益ಠ)ᕗ ︵﻿ ┻━┻   ||   (╯°□°)╯︵ ┻━┻ || (づ￣ ³￣)づ',"#ececec");
 			bcs.addChat('¯\\_(ツ)_/¯',"#ececec");
 			break;
