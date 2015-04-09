@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.2.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.2.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -2051,24 +2051,25 @@ function lookfor(id,isityou,rooms){
 		if (roomCount != 0 && roomNames != ""){roomTotal = "(" + roomCount + ") " + roomNames;}
 
 //SUBSCRIBER
-		var subbed = "No";
-		if (data.sub == 1){subbed = "<a style='color: #c59840;'>Subscriber</a>";}
+		var subbed = "No (" + data.sub + ")";
+		if (data.sub == 1){subbed = "<a class='bcs-user-info-sub'>Yes</a> (" + data.sub + ")";}
 
-		bcs.addChat("<br><a style='color:#42a5dc;'><b>Name:</b></a> " + data.username + "<br><b>\
-		<a style='color:#42a5dc;'>Slug:</b></a> <a style='color: " + profileColor + ";' href='/@/" + data.slug + "' target='_blank'>" + data.slug + "</a> " + hasProfile + "<br><b>\
-		<a style='color:#42a5dc;'>ID:</b></a> " + data.id + "<br><b>\
-		<a style='color:#42a5dc;'>Level:</b></a> " + data.level + "<br><b>\
-		<a style='color:#42a5dc;'>Avatar:</b></a> " + data.avatarID + "<br><b>\
-		<a style='color:#42a5dc;'>Badge:</b></a> " + bb + "<br><b>\
-		<a style='color:#42a5dc;'>Language:</b></a> " + lan + "<br><b>\
-		<a style='color:#42a5dc;'>Role:</b></a> " + lr + "<br><b>\
-		<a style='color:#42a5dc;'>Global Role:</b></a> " + g + "<br><b>\
-		<a style='color:#42a5dc;'>Joined:</b></a> " + jnd + "<br><b>\
-		<a style='color:#42a5dc;'>Hosts:</b></a> " + roomTotal + "<br><b>\
-		<a style='color:#42a5dc;'>Friend:</b></a> " + isFriend + "<br><b>\
-		<a style='color:#42a5dc;'>Subscriber:</b></a> " + subbed + "<br><b>\
-		<a style='color:#42a5dc;'>Vote:</b></a> " + votestats + grabstats + "<br><b>\
-		<a style='color:#42a5dc;'>WaitList Position:</b></a> " + posstats + "<br>","#CCCCCC",false,false,true);
+		bcs.addChat("<br>\
+		<a class='bcs-user-info-main'>Name:</a> "			+ data.username + "<br>\
+		<a class='bcs-user-info-main'>Slug:</a> <a style='color: " + profileColor + ";' href='/@/" + data.slug + "' target='_blank'>" + data.slug + "</a> " + hasProfile + "<br>\
+		<a class='bcs-user-info-main'>ID:</a> "				+ data.id + "<br>\
+		<a class='bcs-user-info-main'>Level:</a> "			+ data.level + "<br>\
+		<a class='bcs-user-info-main'>Avatar:</a> "			+ data.avatarID + "<br>\
+		<a class='bcs-user-info-main'>Badge:</a> "			+ bb + "<br>\
+		<a class='bcs-user-info-main'>Language:</a> "		+ lan + "<br>\
+		<a class='bcs-user-info-main'>Role:</a> "			+ lr + "<br>\
+		<a class='bcs-user-info-main'>Global Role:</a> "	+ g + "<br>\
+		<a class='bcs-user-info-main'>Joined:</a> "			+ jnd + "<br>\
+		<a class='bcs-user-info-main'>Hosts:</a> "			+ roomTotal + "<br>\
+		<a class='bcs-user-info-main'>Friend:</a> "			+ isFriend + "<br>\
+		<a class='bcs-user-info-main'>Subscriber:</a> "		+ subbed + "<br>\
+		<a class='bcs-user-info-main'>Vote:</a> "			+ votestats + grabstats + "<br>\
+		<a class='bcs-user-info-main'>WaitList Position:</a> "+ posstats + "<br>","#CCCCCC",false,false,true);
 		}
 	});
 }

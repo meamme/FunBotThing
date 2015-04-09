@@ -310,6 +310,14 @@
 	max-width:300px;
 	margin-left: -28px;
 }
+.bcs-user-info-main {
+	color:#42a5dc;
+	font-weight: bold;
+}
+.bcs-user-info-sub {
+	color: #c59840;
+	font-weight: bold;
+}
 #xlist{
 	position: absolute;
 	top: 10%;
