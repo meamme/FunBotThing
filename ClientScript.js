@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.0.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -426,6 +426,9 @@ var bcs = {
 		$("#footer-user .profile").append("<div class='nothing'></div><span>My Profile</span>");
 		$("#footer-user .settings").append("<div class='nothing'></div><span>Settings</span>");
 		$("#footer-user .button").hover(function(){$("#tooltip").remove();});
+		$('#volume > .slider').bind('mousewheel', function(a){
+			if (a.originalEvent.wheelDelta == 120){API.setVolume(API.getVolume() + 4);}
+			else {API.setVolume(API.getVolume() - 4);}});
 		setTimeout(function(){bcs.settings.load();},1000);
 		bcs.footerStuff.turnOn();
 		bcs.listStuff.turnOn();
@@ -1818,6 +1821,10 @@ function lookfor(id,isityou,rooms){
 			case "og":			var bb = "Original Gangster (" + data.badge + ")"; break;
 			case "ea":			var bb = "Early Adopter (" + data.badge + ")"; break;
 			case "ba":			var bb = "Brand Ambassador (" + data.badge + ")"; break;
+			case "s20-g":		var bb = "$20 Subscriber Badge (" + data.badge + ")"; break;
+			case "s50-g":		var bb = "$50 Subscriber Badge (" + data.badge + ")"; break;
+			case "s100-g":		var bb = "$100 Subscriber Badge (" + data.badge + ")"; break;
+			case "s200-g":		var bb = "$200 Subscriber Badge (" + data.badge + ")"; break;
 			case "admin":		var bb = "Admin Badge (" + data.badge + ")"; break;
 			case "plot":		var bb = "Translator Badge (" + data.badge + ")"; break;
 			case "2015bday":	var bb = "3rd Anniversary Badge (" + data.badge + ")"; break;
@@ -1832,6 +1839,11 @@ function lookfor(id,isityou,rooms){
 			case "countryset":	var bb = "Country Badge (" + data.badge + ")"; break;
 			case "dragon01":	var bb = "Dragon Badge (" + data.badge + ")"; break;
 			case "dragon02":	var bb = "OP 100$ Badge (" + data.badge + ")"; break;
+			case "isle-s01":	var bb = "Island Pink Pirate Hat Badge (" + data.badge + ")"; break;
+			case "isle-s02":	var bb = "Island Red Pirate Hat Badge (" + data.badge + ")"; break;
+			case "isle-s03":	var bb = "Island Black Pirate Hat Badge (" + data.badge + ")"; break;
+			case "isle-s04":	var bb = "Island Tiki Badge (" + data.badge + ")"; break;
+			case "isle-s05":	var bb = "Island Beach Badge (" + data.badge + ")"; break;
 			case "winter01":	var bb = "Ski Boot (" + data.badge + ")"; break;
 			case "winter02":	var bb = "Snowman Badge (" + data.badge + ")"; break;
 			case "winter03":	var bb = "Snowflake Badge (" + data.badge + ")"; break;
