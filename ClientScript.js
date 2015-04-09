@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.0.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1359,7 +1359,13 @@ function chatStuff(data){
 	}
 
 	if (user.username && user.role == 5){
-		$("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon").removeClass("icon-chat-host").removeClass("icon-chat-ambassador").removeClass("icon-chat-admin").addClass("icon-chat-thehost");
+		if ($($("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon")[0]).hasClass("host")){
+			$(this).removeClass("icon-chat-host").addClass("icon-chat-thehost");
+		}else if ($($("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon")[1]).hasClass("host")){
+			$(this).removeClass("icon-chat-host").addClass("icon-chat-thehost");
+		}else if ($($("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon")[2]).hasClass("host")){
+			$(this).removeClass("icon-chat-host").addClass("icon-chat-thehost");
+		}
 	}
 
 	if (user.username == "EDMC"){
@@ -1763,13 +1769,15 @@ function getAllUsers(pageNumber){
 				totalUserCount += localUserCount;
 				localUserCount = 0;
 				if (localRoomInfo[i].population != 0){
-					console.log("Page #" + pageNumber + " done - " + totalUserCount + " users detected so far") ;
+					totalRoomCount++;
+					console.log("Page #" + pageNumber + " done - " + totalUserCount + " users detected so far");
 					bcs.addChat("<a style='color:#2975ff;'><b>[GUC]</b></a> <b>Page #" + pageNumber + " done</b> - " + totalUserCount + " users detected so far","#CCC",false,false,true);
 					getAllUsers(pageNumber + 1);
 					break;
 				}else{
-					bcs.addChat("<a style='color:#2975ff;'><b>[GUC]</b></a> <b>Total user count is</b> " + totalUserCount,"#CCC",false,false,true);
+					bcs.addChat("<a style='color:#2975ff;'><b>[GUC]</b></a> <b>Total user count is</b> " + totalUserCount + "<br> Out of " + totalRoomCount + " rooms scanned.","#CCC",false,false,true);
 					totalUserCount = 0;
+					totalRoomCount = 0;
 					break;
 				}
 			}else{
