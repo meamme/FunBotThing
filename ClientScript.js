@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.3</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.3.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1831,6 +1831,7 @@ function lookfor(id,isityou,rooms){
 			case "s100-g":		bb = "$100 Subscriber Badge (" + data.badge + ")"; break;
 			case "s200-g":		bb = "$200 Subscriber Badge (" + data.badge + ")"; break;
 			case "ss-g":		bb = "Plug SuperStar (" + data.badge + ")"; break;
+			case "subyearly":	bb = "Yearly Subscriber Badge (" + data.badge + ")"; break;
 		//SETS
 			case "2014hwset-g":	bb = "Halloween Badge (" + data.badge + ")"; break;
 			case "80sset-g":	bb = "80's Badge (" + data.badge + ")"; break;
@@ -2687,11 +2688,10 @@ function commandStuff(data){
 			break;
 
 		case "emojis":
-			bcs.addChat('~=[,,_,,]:3      ¬_¬     ಠ_ಠ',"#ececec");
-			bcs.addChat('ლ(ಥ益ಥლ    (っ◔‿◔)っ    (╥﹏╥)',"#ececec");
-			bcs.addChat('(─‿‿─)    (ʃƪ ˘ ³˘)    ( ͡° ͜ʖ ͡°)    ┬┴┬┴┤(･_├┬┴┬┴',"#ececec");
-			bcs.addChat('(ᕗ ಠ益ಠ)ᕗ ︵﻿ ┻━┻   ||   (╯°□°)╯︵ ┻━┻ || (づ￣ ³￣)づ',"#ececec");
-			bcs.addChat('¯\\_(ツ)_/¯',"#ececec");
+			bcs.addChat('~=[,,_,,]:3<br>¬_¬<br>ಠ_ಠ<br>(っ◔‿◔)っ',"#ececec");
+			bcs.addChat('ლ(ಥ益ಥლ<br>(╥﹏╥)<br>(ʃƪ ˘ ³˘)<br>( ͡° ͜ʖ ͡°)',"#ececec");
+			bcs.addChat('(─‿‿─)<br>┬┴┬┴┤(･_├┬┴┬┴<br>(ᕗ ಠ益ಠ)ᕗ ︵﻿ ┻━┻',"#ececec");
+			bcs.addChat('(╯°□°)╯︵ ┻━┻<br>(づ￣ ³￣)づ<br>¯\\_(ツ)_/¯',"#ececec");
 			break;
 
 		case "readd":
