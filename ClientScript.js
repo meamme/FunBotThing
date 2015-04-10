@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.3.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.3.3</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -2025,16 +2025,19 @@ function lookfor(id,isityou,rooms){
 		if (votestats == "<a style='color:#646b7e;'>Is currently DJ'ing</a>"){posstats = votestats;}
 
 //FRIEND
+		var friendroom = "<a style='color:#808691;'>Offline</a>";
 		var isFriend = "No (<em>false</em>)";
 		for (var i = 0; i < bcs.friendsList.length; i++){
 			if (data.username == bcs.friendsList[i].username){
 				if (typeof bcs.friendsList[i].room != "undefined"){
-					var friendroom = "<a href='https://plug.dj/" + bcs.friendsList[i].room.slug + "' style='color:#aec9ea;'>" + bcs.friendsList[i].room.name + "</a>";
-				}else{
-					var friendroom = "<a style='color:#808691;'>Offline</a>";
+					if (typeof bcs.friendsList[i].room.name == "undefined"){
+						friendroom = "<a style='color:#808691;'>Dashboard</a>";
+					}else{
+						friendroom = "<a href='https://plug.dj/" + bcs.friendsList[i].room.slug + "' style='color:#aec9ea;'>" + bcs.friendsList[i].room.name + "</a>";
+					}
 				}
 				isFriend = "<a style='color:#ffc4f9;'>Yes</a> (<em>true</em>)<br><b>\
-					<a style='color:#42a5dc;'>Room:</b></a> " + friendroom;
+					<a class='bcs-user-info-main'>Room:</a> " + friendroom;
 				break;
 			}
 		}
