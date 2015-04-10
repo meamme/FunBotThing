@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.3.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.3.2</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1831,7 +1831,7 @@ function lookfor(id,isityou,rooms){
 			case "s100-g":		bb = "$100 Subscriber Badge (" + data.badge + ")"; break;
 			case "s200-g":		bb = "$200 Subscriber Badge (" + data.badge + ")"; break;
 			case "ss-g":		bb = "Plug SuperStar (" + data.badge + ")"; break;
-			case "subyearly":	bb = "Yearly Subscriber Badge (" + data.badge + ")"; break;
+			case "subyearly-g":	bb = "Yearly Subscriber Badge (" + data.badge + ")"; break;
 		//SETS
 			case "2014hwset-g":	bb = "Halloween Badge (" + data.badge + ")"; break;
 			case "80sset-g":	bb = "80's Badge (" + data.badge + ")"; break;
