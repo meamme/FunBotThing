@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.2.2</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.3</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1815,80 +1815,96 @@ function lookfor(id,isityou,rooms){
 	}else{
 
 //BADGE
+		var bb = "Unregistered (" + data.badge + ")";
 		switch(data.badge){
-			case "bt":			var bb = "Beta Tester (" + data.badge + ")"; break;
-			case "ss":			var bb = "Plug SuperStar (" + data.badge + ")"; break;
-			case "og":			var bb = "Original Gangster (" + data.badge + ")"; break;
-			case "ea":			var bb = "Early Adopter (" + data.badge + ")"; break;
-			case "ba":			var bb = "Brand Ambassador (" + data.badge + ")"; break;
-			case "s20-g":		var bb = "$20 Subscriber Badge (" + data.badge + ")"; break;
-			case "s50-g":		var bb = "$50 Subscriber Badge (" + data.badge + ")"; break;
-			case "s100-g":		var bb = "$100 Subscriber Badge (" + data.badge + ")"; break;
-			case "s200-g":		var bb = "$200 Subscriber Badge (" + data.badge + ")"; break;
-			case "admin":		var bb = "Admin Badge (" + data.badge + ")"; break;
-			case "plot":		var bb = "Translator Badge (" + data.badge + ")"; break;
-			case "2015bday":	var bb = "3rd Anniversary Badge (" + data.badge + ")"; break;
-			case "2014wbb":		var bb = "Winter Badge (" + data.badge + ")"; break;
-			case "raveset":		var bb = "Rave Badge (" + data.badge + ")"; break;
-			case "robotset":	var bb = "Robot Badge (" + data.badge + ")"; break;
-			case "zooset":		var bb = "Zoo Badge (" + data.badge + ")"; break;
-			case "80sset":		var bb = "80's Badge (" + data.badge + ")"; break;
-			case "rockset":		var bb = "Rock Badge (" + data.badge + ")"; break;
-			case "2014hwset":	var bb = "Halloween Badge (" + data.badge + ")"; break;
-			case "hiphopset":	var bb = "HipHop Badge (" + data.badge + ")"; break;
-			case "countryset":	var bb = "Country Badge (" + data.badge + ")"; break;
-			case "dragon01":	var bb = "Dragon Badge (" + data.badge + ")"; break;
-			case "dragon02":	var bb = "OP 100$ Badge (" + data.badge + ")"; break;
-			case "isle-s01":	var bb = "Island Pink Pirate Hat Badge (" + data.badge + ")"; break;
-			case "isle-s02":	var bb = "Island Red Pirate Hat Badge (" + data.badge + ")"; break;
-			case "isle-s03":	var bb = "Island Black Pirate Hat Badge (" + data.badge + ")"; break;
-			case "isle-s04":	var bb = "Island Tiki Badge (" + data.badge + ")"; break;
-			case "isle-s05":	var bb = "Island Beach Badge (" + data.badge + ")"; break;
-			case "winter01":	var bb = "Ski Boot (" + data.badge + ")"; break;
-			case "winter02":	var bb = "Snowman Badge (" + data.badge + ")"; break;
-			case "winter03":	var bb = "Snowflake Badge (" + data.badge + ")"; break;
-			case "winter04":	var bb = "Reindeer Badge (" + data.badge + ")"; break;
-			case "winter05":	var bb = "Penguin Badge (" + data.badge + ")"; break;
-			case "winter06":	var bb = "Tree Badge (" + data.badge + ")"; break;
-			case "winter07":	var bb = "Ski Badge (" + data.badge + ")"; break;
-			case "winter08":	var bb = "Snowboard Badge (" + data.badge + ")"; break;
-			case "winter09":	var bb = "Ice Skating (" + data.badge + ")"; break;
-			case "winter10":	var bb = "Hockey Badge (" + data.badge + ")"; break;
-			case "music01":		var bb = "Record Player (" + data.badge + ")"; break;
-			case "music02":		var bb = "Musical Keyboard (" + data.badge + ")"; break;
-			case "music03":		var bb = "Compact Cassette (" + data.badge + ")"; break;
-			case "music04":		var bb = "Disco Ball (" + data.badge + ")"; break;
-			case "music05":		var bb = "Glowsticks Badge (" + data.badge + ")"; break;
-			case "music06":		var bb = "Ferris Wheel (" + data.badge + ")"; break;
-			case "music07":		var bb = "Baloons Badge (" + data.badge + ")"; break;
-			case "food01":		var bb = "Pizza Badge (" + data.badge + ")"; break;
-			case "food02":		var bb = "Ice Cream Badge (" + data.badge + ")"; break;
-			case "food03":		var bb = "Drink Badge (" + data.badge + ")"; break;
-			case "food04":		var bb = "Donut Badge (" + data.badge + ")"; break;
-			case "food05":		var bb = "Sushi Badge (" + data.badge + ")"; break;
-			case "food06":		var bb = "Hamburguer Badge (" + data.badge + ")"; break;
-			case "food07":		var bb = "Fries Badge (" + data.badge + ")"; break;
-			case "food08":		var bb = "Coffee Badge (" + data.badge + ")"; break;
-			case "food09":		var bb = "Beef Badge (" + data.badge + ")"; break;
-			case "animals01":	var bb = "Wolf Badge (" + data.badge + ")"; break;
-			case "animals02":	var bb = "Cat Badge (" + data.badge + ")"; break;
-			case "animals03":	var bb = "Chicken Badge (" + data.badge + ")"; break;
-			case "animals04":	var bb = "Boxer Badge (" + data.badge + ")"; break;
-			case "style01":		var bb = "Shoe Badge (" + data.badge + ")"; break;
-			case "style02":		var bb = "Joystick Badge (" + data.badge + ")"; break;
-			case "style03":		var bb = "Cap Badge (" + data.badge + ")"; break;
-			case "style04":		var bb = "Funky Glasses Badge (" + data.badge + ")"; break;
-			case "style05":		var bb = "Necklace Badge (" + data.badge + ")"; break;
-			case "style06":		var bb = "Cowboy Hat Badge (" + data.badge + ")"; break;
-			case "style07":		var bb = "Color Palette Badge (" + data.badge + ")"; break;
-			case "style08":		var bb = "Astronaut Badge (" + data.badge + ")"; break;
-			case "tiki01":		var bb = "Fat Tiki Mask (" + data.badge + ")"; break;
-			case "tiki02":		var bb = "Slim Tiki Mask (" + data.badge + ")"; break;
-			case "tiki03":		var bb = "Green Tree (" + data.badge + ")"; break;
-			case "tiki04":		var bb = "Purple Tree (" + data.badge + ")"; break;
+	//'UNBUYABLE' (-g)
+			case "2015bday-g":	bb = "3rd Anniversary Badge (" + data.badge + ")"; break;
+			case "2014wbb-g":	bb = "Winter Badge (" + data.badge + ")"; break;
+			case "admin-g":		bb = "Admin Badge (" + data.badge + ")"; break;
+			case "bt-g":		bb = "Beta Tester (" + data.badge + ")"; break;
+			case "ba-g":		bb = "Brand Ambassador (" + data.badge + ")"; break;
+			case "ea-g":		bb = "Early Adopter (" + data.badge + ")"; break;
+			case "og-g":		bb = "Original Gangster (" + data.badge + ")"; break;
+			case "plot-g":		bb = "Translator Badge (" + data.badge + ")"; break;
+			case "s20-g":		bb = "$20 Subscriber Badge (" + data.badge + ")"; break;
+			case "s50-g":		bb = "$50 Subscriber Badge (" + data.badge + ")"; break;
+			case "s100-g":		bb = "$100 Subscriber Badge (" + data.badge + ")"; break;
+			case "s200-g":		bb = "$200 Subscriber Badge (" + data.badge + ")"; break;
+			case "ss-g":		bb = "Plug SuperStar (" + data.badge + ")"; break;
+		//SETS
+			case "2014hwset-g":	bb = "Halloween Badge (" + data.badge + ")"; break;
+			case "80sset-g":	bb = "80's Badge (" + data.badge + ")"; break;
+			case "countryset-g":bb = "Country Badge (" + data.badge + ")"; break;
+			case "hiphopset-g":	bb = "HipHop Badge (" + data.badge + ")"; break;
+			case "raveset-g":	bb = "Rave Badge (" + data.badge + ")"; break;
+			case "robotset-g":	bb = "Robot Badge (" + data.badge + ")"; break;
+			case "rockset-g":	bb = "Rock Badge (" + data.badge + ")"; break;
+			case "warriorset-g":bb = "Warrior Badge (" + data.badge + ")"; break;
+			case "zooset-g":	bb = "Zoo Badge (" + data.badge + ")"; break;
+
+	//'SUBSCRIBER' (-s)
+			case "animals-s01":	bb = "Wolf Badge (" + data.badge + ")"; break;
+			case "animals-s02":	bb = "Cat Badge (" + data.badge + ")"; break;
+			case "animals-s03":	bb = "Chicken Badge (" + data.badge + ")"; break;
+			case "dragon-s01":	bb = "Dragon Badge (" + data.badge + ")"; break;
+			case "dragon-s02":	bb = "OP 100$ Badge (" + data.badge + ")"; break;
+			case "food-s01":	bb = "Pizza Badge (" + data.badge + ")"; break;
+			case "food-s02":	bb = "Ice Cream Badge (" + data.badge + ")"; break;
+			case "food-s03":	bb = "Donut Badge (" + data.badge + ")"; break;
+			case "food-s04":	bb = "Beef Badge (" + data.badge + ")"; break;
+			case "isle-s01":	bb = "Island Pink Pirate Badge (" + data.badge + ")"; break;
+			case "isle-s02":	bb = "Island Red Pirate Badge (" + data.badge + ")"; break;
+			case "isle-s03":	bb = "Island Black Pirate Badge (" + data.badge + ")"; break;
+			case "isle-s04":	bb = "Island Tiki Badge (" + data.badge + ")"; break;
+			case "isle-s05":	bb = "Island Beach Badge (" + data.badge + ")"; break;
+			case "music-s01":	bb = "Record Player (" + data.badge + ")"; break;
+			case "music-s02":	bb = "Musical Keyboard (" + data.badge + ")"; break;
+			case "music-s03":	bb = "Compact Cassette (" + data.badge + ")"; break;
+			case "music-s04":	bb = "Disco Ball (" + data.badge + ")"; break;
+			case "style-s01":	bb = "Joystick Badge (" + data.badge + ")"; break;
+			case "style-s02":	bb = "Cap Badge (" + data.badge + ")"; break;
+			case "style-s03":	bb = "Funky Glasses Badge (" + data.badge + ")"; break;
+			case "style-s04":	bb = "Cowboy Hat Badge (" + data.badge + ")"; break;
+			case "style-s05":	bb = "Color Palette Badge (" + data.badge + ")"; break;
+			case "style-s06":	bb = "Astronaut Badge (" + data.badge + ")"; break;
+			case "tiki-s01":	bb = "Fat Tiki Mask (" + data.badge + ")"; break;
+			case "tiki-s02":	bb = "Slim Tiki Mask (" + data.badge + ")"; break;
+			case "winter-s01":	bb = "Snowflake Badge (" + data.badge + ")"; break;
+			case "winter-s02":	bb = "Penguin Badge (" + data.badge + ")"; break;
+			case "winter-s03":	bb = "Tree Badge (" + data.badge + ")"; break;
+
+	//'EPIC' (-e)
+			case "isle-e01":	bb = "Squid Badge (" + data.badge + ")"; break;
+			case "isle-e02":	bb = "Eye Badge (" + data.badge + ")"; break;
+
+	//'BUYABLE' ()
+			case "animals01":	bb = "Boxer Badge (" + data.badge + ")"; break;
+			case "food01":		bb = "Drink Badge (" + data.badge + ")"; break;
+			case "food02":		bb = "Sushi Badge (" + data.badge + ")"; break;
+			case "food03":		bb = "Hamburguer Badge (" + data.badge + ")"; break;
+			case "food04":		bb = "Fries Badge (" + data.badge + ")"; break;
+			case "food05":		bb = "Coffee Badge (" + data.badge + ")"; break;
+			case "isle01":		bb = "Sword Badge (" + data.badge + ")"; break;
+			case "isle02":		bb = "Wooden Sword Badge (" + data.badge + ")"; break;
+			case "isle03":		bb = "Vegetation Badge (" + data.badge + ")"; break;
+			case "isle04":		bb = "Coconut Badge (" + data.badge + ")"; break;
+			case "music05":		bb = "Glowsticks Badge (" + data.badge + ")"; break;
+			case "music06":		bb = "Ferris Wheel (" + data.badge + ")"; break;
+			case "music07":		bb = "Baloons Badge (" + data.badge + ")"; break;
+			case "style01":		bb = "Shoe Badge (" + data.badge + ")"; break;
+			case "style02":		bb = "Necklace Badge (" + data.badge + ")"; break;
+			case "tiki01":		bb = "Green Tree (" + data.badge + ")"; break;
+			case "tiki02":		bb = "Purple Tree (" + data.badge + ")"; break;
+			case "winter01":	bb = "Ski Boot Badge (" + data.badge + ")"; break;
+			case "winter02":	bb = "Snowman Badge (" + data.badge + ")"; break;
+			case "winter03":	bb = "Reindeer Badge (" + data.badge + ")"; break;
+			case "winter04":	bb = "Ski Badge (" + data.badge + ")"; break;
+			case "winter05":	bb = "Snowboard Badge (" + data.badge + ")"; break;
+			case "winter06":	bb = "Ice Skating (" + data.badge + ")"; break;
+			case "winter07":	bb = "Hockey Badge (" + data.badge + ")"; break;
+
 			default:
-				if (data.badge == null){var bb = "None (<a style='color:#b8e0ff;'><em>null</em></a>)";}
-				else{var bb = "Unregistered - " + data.badge;}
+				if (data.badge == null){bb = "None (<a style='color:#b8e0ff; font-style: oblique;'>null</a>)";}
 				break;
 		}
 
@@ -1908,6 +1924,7 @@ function lookfor(id,isityou,rooms){
 			case "lt":	var lan = "Lithuanian <img title='Flag of Lithuania' src='https://i.imgur.com/Axr4ba6.png' height='13px'></img>"; break;
 			case "ms":	var lan = "Malay <img title='Flag of Malaysia' src='http://i.imgur.com/dbSl3H1.png' height='13px'></img>"; break;
 			case "nl":	var lan = "Dutch <img title='Flag of Netherlands' src='http://i.imgur.com/soj7PT7.png' height='13px'></img>"; break;
+			case "pi":	var lan = "Pirate <img title='THE KRAKEN' src='https://i.imgur.com/VpUKe8m.png' height='13px'></img>"; break;
 			case "pl":	var lan = "Polish <img title='Flag of Poland' src='https://i.imgur.com/IOJdJly.png' height='13px'></img>"; break;
 			case "pt":	var lan = "Portuguese <img title='Flag of Brazil' src='https://i.imgur.com/qg8RKSZ.png' height='13px'></img><img title='Flag of Portugal' src='https://i.imgur.com/OizJHOL.png' height='13px'></img>"; break;
 			case "sk":	var lan = "Slovak <img title='Flag of Slovakia' src='https://i.imgur.com/YNTVgl3.png' height='13px'></img>"; break;
