@@ -318,6 +318,21 @@
 	color: #c59840;
 	font-weight: bold;
 }
+.bcs-todo-done {
+	font-weight: bold;
+	color: #d4d4d4;
+}
+.bcs-todo-ruledOut {
+	font-weight: bold;
+	color: #D04545;
+	text-decoration: line-through;
+}
+.bcs-todo-todo {
+	font-weight: bold;
+	color: #b8e0ff;
+}
+
+
 #xlist{
 	position: absolute;
 	top: 10%;

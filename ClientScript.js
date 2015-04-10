@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.3.3</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.4</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1362,12 +1362,13 @@ function chatStuff(data){
 	}
 
 	if (user.username && user.role == 5){
-		if ($($("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon")[0]).hasClass("host")){
-			$(this).removeClass("icon-chat-host").addClass("icon-chat-thehost");
-		}else if ($($("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon")[1]).hasClass("host")){
-			$(this).removeClass("icon-chat-host").addClass("icon-chat-thehost");
-		}else if ($($("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon")[2]).hasClass("host")){
-			$(this).removeClass("icon-chat-host").addClass("icon-chat-thehost");
+		var hostIcon = $("#chat-messages > .cm[data-cid='" + msgid + "'] .from .icon");
+		if ($(hostIcon[0]).hasClass("icon-chat-host")){
+			$(hostIcon[0]).removeClass("icon-chat-host").addClass("icon-chat-thehost");
+		}else if ($(hostIcon[1]).hasClass("icon-chat-host")){
+			$(hostIcon[1]).removeClass("icon-chat-host").addClass("icon-chat-thehost");
+		}else if ($(hostIcon[2]).hasClass("icon-chat-host")){
+			$(hostIcon[2]).removeClass("icon-chat-host").addClass("icon-chat-thehost");
 		}
 	}
 
@@ -2174,15 +2175,16 @@ function commandStuff(data){
 
 	switch(command[0].toLowerCase()){
 		case "todo":
-			bcs.addChat("<br><a style='color:#c2f3bf;'><b>Todo list:</b></a><br><br>\
-					<a style='color: #d4d4d4;'>⊱ <del>Fix inline images bug</del> <b>[DONE]</b></a><br>\
-					<a style='color: #d4d4d4;'>⊱ <del>Have WL position on vote list (cuz why not)</del> <b>[DONE]</b></a><br>\
-					<a style='color: #d4d4d4;'>⊱ <del>Force skip at the end of songs</del> <b>[DONE / Hard to test]</b></a><br>\
-					<a style='color: #D04545;'>⊱ <del>Change all avatars to only one</del> <b>[Ruled out]</b></a><br>\
-					<a style='color: #D04545;'>⊱ Check if I can raise the cap to over 200 <b>[Ruled out]</b></a><br>\
-					<a style='color: #b8e0ff;'>⊱ Meh count per user (automeh check)</a><br>\
-					<a style='color: #d4d4d4;'>⊱ <del>Make vote list prettier</del> <b>[DONE]</b></a><br>\
-					<a style='color: #d4d4d4;'>⊱ <del>Make vote count show up on chat</del> <b>[DONE]</b></a><br>","#CCCCCC",false,false,true);
+			bcs.addChat("<br><a style='color:#c2f3bf;'>Todo list:</a><br><br>\
+					<a class='bcs-todo-done'>⊱ Fix inline images bug [DONE]</a><br>\
+					<a class='bcs-todo-done'>⊱ Have WL position on vote list (cuz why not) [DONE]</a><br>\
+					<a class='bcs-todo-done'>⊱ Force skip at the end of songs [DONE / Hard to test]</a><br>\
+					<a class='bcs-todo-done'>⊱ Make vote list prettier [DONE]</a><br>\
+					<a class='bcs-todo-done'>⊱ Make vote count show up on chat[DONE]</a><br>\
+					<a class='bcs-todo-ruledOut'>⊱ Change all avatars to only one [Ruled out]</a><br>\
+					<a class='bcs-todo-ruledOut'>⊱ Check if I can raise the cap to over 200 [Ruled out]</a><br>\
+					<a class='bcs-todo-todo'>⊱ Mentioning user when clicking Meh/Grab msg</a><br>\
+					<a class='bcs-todo-todo'>⊱ Meh count per user (automeh check)</a><br>","#CCCCCC",false,false,true);
 			break;
 
 		case "author":
