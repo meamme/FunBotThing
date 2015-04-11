@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.17.4</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.18</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -2566,11 +2566,6 @@ function commandStuff(data){
 			ct("The website check every minute what you did in the website during that time (such as Wooting, chatting, etc), and then generates a proportional amount of XP and PP for it. XP, however, has a daily cap, so you can't farm it.");
 			break;
 
-		case "pn":
-		case "notes":
-			ct("Plug Notes (PNs) are a reward for donating to plug.dj. Everyone gets free 350PNs though, for testing how they work");
-			break;
-
 		case "rank":
 		case "ranks":
 			ct("Help people out, be active and be online often, and you'll eventually be noticed by our staff. We'll watch you for some time, then decide whether you deserve a rank or not.");
@@ -2658,6 +2653,30 @@ function commandStuff(data){
 				}
 			}else{
 				sendHearts(rows);
+			}
+			break;
+
+		case "rose":
+		case "rosify":
+		case "pink":
+		case "pinkify":
+			if (document.getElementById("bcs-style-rose") == null){
+				$("body").append("<style id='bcs-style-rose'>\
+					#chat .emote:nth-child(2n+1), #chat .log:nth-child(2n+1), #chat .message:nth-child(2n+1), #chat .moderation:nth-child(2n+1), #chat .user-action:nth-child(2n+1), #chat .welcome:nth-child(2n+1), #chat .mention:nth-child(2n+1){\
+						background-color: #91287C !important;\
+					}\
+					#room .app-right{\
+						background-color: #692171 !important;\
+					}\
+					.betabot-update{\
+						background-color: #FF6DED !important;\
+					}\
+					#chat-input {\
+						background-color: #4C0A4B !important;\
+					}\
+				</style>");
+			}else{
+				$("#bcs-style-rose").remove();
 			}
 			break;
 
@@ -2809,12 +2828,12 @@ function commandStuff(data){
 			break;
 
 		//Stuff that shouldn't get a 'doesnt exist' warning (mostly p3)
-		case "lockskip":case "skip":case "commands":case "nick":case "avail":
-		case "afk":case "work":case "sleep":case "join":case "leave":case "whoami":
-		case "refresh":case "version":case "mute":case "link":case "unmute":case "no":
-		case "nextsong":case "automute":case "alertson":case "alertsoff":case "yes":
-		case "getpos":case "ignore":case "whois":case "kick":case "add":
-		case "remove":case "lock":case "unlock":case "help":case "me":case "em":
+		case "lockskip":case "skip":case "commands":case "nick":case "sleep":
+		case "join":case "leave":case "whoami":case "refresh":case "version":
+		case "mute":case "link":case "unmute":case "no":case "nextsong":
+		case "automute":case "alertson":case "alertsoff":case "yes":case "getpos":
+		case "ignore":case "whois":case "kick":case "add":case "remove":
+		case "lock":case "unlock":case "help":case "me":case "em":
 			break;
 		
 		case "cmds":
