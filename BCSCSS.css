@@ -29,15 +29,29 @@
 	margin:-5px;
 }
 
+.bcs-refresh-sucks {
+	bottom: 0px;
+	position: absolute;
+	color: #00BEE8;
+	font-weight: bold;
+	font-size: 9px;
+	font-style: normal;
+}
+
+/* ROLLOVER STUFF */
 #bcs-rolloverUserID {
 	position:absolute;
 	bottom:6px;
 	left:108px;
 	color:#808691;
+	text-shadow: rgb(68, 68, 68) 1px 1px 0px;
 	font-size: 11px;
 	font-family: "Open Sans", sans-serif;
-	display: none;
+	display: block;
+	text-shadow: rgb(68, 68, 68) 1px 1px 0px;
+	z-index: 1;
 }
+
 #bcs-rolloverIcon {
 	position:absolute;
 	background-image: url(https://i.imgur.com/x1DEgOD.png);
@@ -50,6 +64,90 @@
 	width:30px;
 	height:30px;
 	display:none;
+}
+
+#user-rollover .meta .joined{
+	top: 64px;
+	z-index: 1;
+}
+
+#user-rollover .meta.bcs-op{
+	background: right linear-gradient(#1b1e24 10%, #111317 85%) !important;
+}
+#user-rollover .bacgkround.bcs-op{
+	background: rgba(0, 190, 232, 0.14) !important;
+}
+#user-rollover .username.bcs-op{
+	color: rgb(0, 190, 232);
+}
+#user-rollover .info.bcs-op{
+	background: #111317 !important;
+}
+#user-rollover .info .role .icon.bcs-op, #user-rollover .info .badge-box .bdg.bcs-op {
+	-webkit-transform: rotate(180deg) !important;
+	transform: rotate(180deg) !important;
+}
+
+#user-rollover .username, #user-rollover .meta .status, #user-rollover .meta .joined {
+	z-index: 1 !important;
+	text-shadow: rgb(68, 68, 68) 1px 1px 0px !important;
+}
+
+#bcs-rolloverIcon.bcs-full {
+	display: block;
+	width: 300px;
+	height: 103px;
+	left: 0px;
+	top: 0px;
+}
+
+#bcs-rolloverUserID.bcs-b2{
+	color: rgb(238, 238, 238);
+}
+#bcs-rolloverIcon.bcs-b2{
+	background-image: url(https://i.imgur.com/w3cXqFU.png);
+}
+
+#bcs-rolloverUserID.bcs-vital{
+	color: rgb(238, 238, 238);
+	text-shadow: rgb(68, 68, 68) 1px 1px 0px;
+}
+#bcs-rolloverIcon.bcs-vital{
+	background-image: url(https://i.imgur.com/AM49qCd.jpg);
+}
+
+#bcs-rolloverIcon.bcs-legend{
+	background-image: url(https://i.imgur.com/15HnmWz.png);
+	z-index: 2;
+}
+
+.bcs-inverted{
+	-webkit-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+
+#user-rollover .info.bcs-special{
+	background: #111317;
+}
+#user-rollover .meta.bcs-special{
+	background: #000;
+}
+
+#user-rollover .meta .joined.bcs-vital, #bcs-rolloverUserID.bcs-vital{
+	color: #fff;
+}
+
+#user-rollover .background.bcs-standard{
+	background: rgba(0, 190, 232, 0.14);
+}
+#user-rollover .meta.bcs-standard{
+	background: linear-gradient(rgb(40, 44, 53) 10% rgb(28, 31, 37) 85%) 100% 50%;
+}
+#user-rollover .username.bcs-standard{
+	color: rgb(84, 249, 236);
+}
+#user-rollover .info.bcs-standard{
+	background: #1c1f25;
 }
 
 [data-cid^="4820534-"] i.bdg, [data-cid^="4820534-"] i.icon, /* Beta Tester */

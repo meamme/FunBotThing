@@ -754,10 +754,10 @@ var BrowserDetect = {
 BrowserDetect.init();
 
 if (betaWasOn){
-	bcs.addChat("<i class='icon icon-chat-bcs' style='left:5px;'></i> It seems like you would you like to restart BCS.<br><a style='color:#ff7575'> Restarting it <b>may turn off other scripts</b></a>. We recommend you refresh the page instead of just restarting the script.","#ccc",true,false);
-	bcs.addChat("<br><b><a style='color:#42a5dc;'>/yes</b></a>, restart BCS, who cares about other scripts!<br><b>\
-		<a style='color:#42a5dc;'>/no</b></a>, continue using this version of BCS<br><br>","#ccc",false,false,true);
-	bcs.attemptRefresh = true;
+	bcs.addChat("<br>\
+		<i class='icon icon-chat-bcslogo' style='left:80%;'><a class='bcs-refresh-sucks'>SUCKS</a></i>\
+		<b><a style='color:#42a5dc;'>Dood!</b></a> What are you doing!<br>\
+		Reclicking the bookmark doesn't work.<br><b><a style='color:#42a5dc;'>Refresh the page if you want to reload <br> or turn off BCS.</a></b><br><br>","#eee",false,true,true);
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
@@ -967,7 +967,6 @@ function displayid(){
 		}
 	}
 	if ($("#bcs-rolloverUserID").text() == ""){
-		$('#user-rollover .meta .joined').css({top:"64px"});
 		$("#user-rollover .meta").append('<div id="bcs-rolloverUserID">ID: ' + t + "</div>");
 	}else{
 		if (typeof t == "undefined" || t == undefined){
@@ -981,60 +980,48 @@ function displayid(){
 	$('#user-rollover .thumb').show();
 	$('#bcs-rolloverUserID').show();
 	$('#bcs-rolloverIcon').attr("style","");
+	$("#bcs-rolloverIcon,\
+		#bcs-rolloverUserID,\
+		#user-rollover .background,\
+		#user-rollover .username,\
+		#user-rollover .meta,\
+		#user-rollover .meta .joined,\
+		#user-rollover .info,\
+		#user-rollover .info .role .icon,\
+		#user-rollover .info .badge-box .bdg").removeClass("bcs-op bcs-standard bcs-special bcs-full bcs-vital bcs-legend bcs-b2");
+
 	if (e == "Beta Tester" || e == "T98" || e == "CatSnore"){
 		$("#bcs-rolloverIcon").show();
-		$('#user-rollover .meta').css({'background':'right linear-gradient(#1b1e24 10%, #111317 85%)'});
-		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
-		$("#user-rollover .username").css({color:'rgb(0, 190, 232)'});
-		$("#user-rollover .info").css({background:'#111317'});
+		$("#user-rollover .meta, #user-rollover .background, #user-rollover .username, #user-rollover .info").addClass("bcs-op");
 		if ($("#user-rollover .info .role span").text() == "Brand Ambassador"){
 			$("#user-rollover .info .role span").text("Bad Admin");
-			$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
-			$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(180deg)","transform":"rotate(180deg)"});
+			$("#user-rollover .info .role .icon, #user-rollover .info .badge-box .bdg").addClass("bcs-op");
 		}
-		if (bcs.user.username == "Beta Tester"){$("#user-rollover").toggleClass("can-staff");}
+		if (bcs.user.username == "Beta Tester"){if (!$("#user-rollover").hasClass("can-staff")){$("#user-rollover").addClass("can-staff");}}
 	}else if (e == "Kwiztech" || e == "DCV" || e == "Wumbology" || e == "Newcool"  || e == "Mix_God"){
 		$("#bcs-rolloverIcon").show();
-		$('#user-rollover .meta').css({'background':'linear-gradient(rgb(40, 44, 53) 10%, rgb(28, 31, 37) 85%) 100% 50%'});
-		$('#user-rollover .background').css({'background':'rgba(0, 190, 232, 0.14)'});
-		$("#user-rollover .username").css({'color':'rgb(84, 249, 236)'});
-		$("#user-rollover .info").css({'background':'#1c1f25'});
-		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
-		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
-		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
+		$("#user-rollover .meta, #user-rollover .background, #user-rollover .username, #user-rollover .info").addClass("bcs-standard");
+		$("#user-rollover .info .role .icon, #user-rollover .info .badge-box .bdg").addClass("bcs-inverted");
 	}else if(e == "B‌2"){
-		$("#bcs-rolloverIcon").css({"background-image":"url(https://i.imgur.com/w3cXqFU.png)"});
+		if (!$("#bcs-rolloverIcon").hasClass("bcs-b2")){$("#bcs-rolloverIcon").addClass("bcs-b2");}
 		$("#bcs-rolloverIcon").show();
-		$('#user-rollover .meta').css({'background':'#000'});
-		$("#user-rollover .info").css({'background':'#111317'});
-		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
-		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
-		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
+		$("#user-rollover .meta, #user-rollover .info").addClass("bcs-special");
+		$("#user-rollover .info .role .icon, #user-rollover .info .badge-box .bdg").addClass("bcs-inverted");
 	}else if(e == "Legend" || e == "VitalCZ"){
-		$("#bcs-rolloverIcon").css({"width":"300px","height":"103px","left":"0px","top":"0px"});
+		$("#bcs-rolloverIcon").addClass("bcs-full");
 		if (e == "Legend"){
-			$("#bcs-rolloverIcon").css({"background-image":"url(https://i.imgur.com/15HnmWz.png)"});
+			$("#bcs-rolloverIcon").addClass("bcs-legend");
 		}else if (e == "VitalCZ"){
-			$("#bcs-rolloverIcon").css({"background-image":"url(https://i.imgur.com/AM49qCd.jpg)"});
+			$("#bcs-rolloverIcon, #bcs-rolloverUserID, #user-rollover .meta .joined").addClass("bcs-vital");
 		}
 		$("#bcs-rolloverIcon").show();
-		$('#user-rollover .meta').css({'background':'#000'});
-		$("#user-rollover .info").css({'background':'#111317'});
-		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
-		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
-		$('#user-rollover .thumb').hide();
-		$('#bcs-rolloverUserID').hide();
-		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
+		$("#user-rollover .meta, #user-rollover .info").addClass("bcs-special");
+		$("#user-rollover .info .role .icon, #user-rollover .info .badge-box .bdg").addClass("bcs-inverted");
 	}else{
 		$("#bcs-rolloverIcon").hide();
-		$('#user-rollover .meta').css({'background':'#282C35'});
-		$('#user-rollover .background').css({'background':'#282c35'});
-		$("#user-rollover .username").css({color:'#eee'});
-		$("#user-rollover .info").css({background:'#1c1f25'});
-		$("#user-rollover .info .role .icon").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
-		$("#user-rollover .info .badge-box .bdg").css({"-webkit-transform":"rotate(0deg)","transform":"rotate(0deg)"});
-		if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
+		$("#user-rollover .info .role .icon, #user-rollover .info .badge-box .bdg").addClass("bcs-inverted");
 	}
+	if (bcs.user.username == "Beta Tester"){$("#user-rollover").removeClass('can-ignore');};
 }
 
 $("#video-only-dj").mousemove(displayid);
