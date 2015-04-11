@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.18</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.18.0.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -1150,8 +1150,8 @@ function appendPerson(user){
 				' + thisrole + '\
 				<span class="name" title="Mention in chat" style="margin-left:' + indent + '; color:' + namecolor + ';">' + name + '</span>\
 				<br>\
-				<i class="icon icon-grab"></i>\
-				<i class="icon icon-meh"></i>\
+				<i class="icon icon-grab xlistgrabbed"></i>\
+				<i class="icon icon-meh xlistvoted"></i>\
 				<span class="details bcs-votelist-details">ID: ' + id + ' | Lv: ' + thislevel + wlpos + '</span>\
 			</div>\
 			<div class="xlistbreak" style="box-shadow: inset 0 1px 0 0 #555d70;height: 1px;"></div>');
@@ -1242,7 +1242,17 @@ function grabStuff(obj){
 	if (h < 10){h = "0" + h;}
 	if (m < 10){m = "0" + m;}
 	if (s < 10){s = "0" + s;}
-	if (grabmsg){bcs.addChat("<i class='icon icon-grab' style='left:5px;'></i> " + obj.user.username + " (ID " + obj.user.id + ") grabbed <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#c5e0ff");};
+	var userName = obj.user.username.split("<").join("&lt;").split(">").join("&gt;");
+	if (grabmsg){bcs.addChat("\
+		<span class='bcs-vote-log' username='" + userName + "'>\
+			<i class='icon icon-grab' style='left:5px;'></i>\
+			" + userName + " (ID " + obj.user.id + ") grabbed <br>\
+			<a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>\
+		</span>","#c5e0ff");};
+	//$(".bcs-vote-log").on("click",function(){
+	//	var thisUser = $($(this)[0]).attr("username");
+	//	$('#chat-input-field').val($('#chat-input-field').val() + "@" + thisUser + " ").focus();
+	// });
 }
 
 var readdcount = 0;
@@ -1460,7 +1470,13 @@ function voteStuff(obj){
 		if (h < 10){h = "0" + h;}
 		if (m < 10){m = "0" + m;}
 		if (s < 10){s = "0" + s;}
-		if (mehmsg){bcs.addChat("<i class='icon icon-meh' style='left:5px;'></i> " + obj.user.username + " (ID " + obj.user.id + ") meh'ed this <br><a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>","#ff8585");};
+		var userName = obj.user.username.split("<").join("&lt;").split(">").join("&gt;");
+		if (mehmsg){bcs.addChat("\
+			<span class='bcs-vote-log' username='" + userName + "'>\
+				<i class='icon icon-meh' style='left:5px;'></i>\
+				" + userName + " (ID " + obj.user.id + ") meh'ed this <br>\
+				<a style='color:#dddddd;font-size:11px;'>[" + h + ":" + m + ":" + s + "]</a>\
+			</span>","#ff8585");};
 	}
 	$("#woot .voteTop").text($("#woot .value").text());
 	$("#grab .voteTop").text($("#grab .value").text());
@@ -1824,6 +1840,8 @@ function lookfor(id,isityou,rooms){
 			case "admin-g":		bb = "Admin Badge (" + data.badge + ")"; break;
 			case "bt-g":		bb = "Beta Tester (" + data.badge + ")"; break;
 			case "ba-g":		bb = "Brand Ambassador (" + data.badge + ")"; break;
+			case "dragon-g01":	bb = "Dragon Badge (" + data.badge + ")"; break;
+			case "dragon-g02":	bb = "OP 100$ Badge (" + data.badge + ")"; break;
 			case "ea-g":		bb = "Early Adopter (" + data.badge + ")"; break;
 			case "og-g":		bb = "Original Gangster (" + data.badge + ")"; break;
 			case "plot-g":		bb = "Translator Badge (" + data.badge + ")"; break;
@@ -1848,8 +1866,6 @@ function lookfor(id,isityou,rooms){
 			case "animals-s01":	bb = "Wolf Badge (" + data.badge + ")"; break;
 			case "animals-s02":	bb = "Cat Badge (" + data.badge + ")"; break;
 			case "animals-s03":	bb = "Chicken Badge (" + data.badge + ")"; break;
-			case "dragon-s01":	bb = "Dragon Badge (" + data.badge + ")"; break;
-			case "dragon-s02":	bb = "OP 100$ Badge (" + data.badge + ")"; break;
 			case "food-s01":	bb = "Pizza Badge (" + data.badge + ")"; break;
 			case "food-s02":	bb = "Ice Cream Badge (" + data.badge + ")"; break;
 			case "food-s03":	bb = "Donut Badge (" + data.badge + ")"; break;
