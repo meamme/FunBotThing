@@ -2077,7 +2077,7 @@ function lookfor(id,isityou,rooms){
 
 //SUBSCRIBER
 		var subbed = "No (" + data.sub + ")";
-		if (data.sub == 1){subbed = "<a class='bcs-user-info-sub'>Yes</a> (" + data.sub + ")";}
+		if (data.sub > 0){subbed = "<a class='bcs-user-info-sub'>Yes</a> (" + data.sub + ")";}
 
 		bcs.addChat("<br>\
 		<a class='bcs-user-info-main'>Name:</a> "			+ data.username + "<br>\
