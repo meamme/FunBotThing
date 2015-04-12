@@ -51,21 +51,19 @@ API.on(API.CHAT_COMMAND, function(data){
 		case "deleteself":
 			bcs.c("/me  ");
 			if (API.getUser().role >= 2 && API.getUser().gRole == 0){
-				$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm[data-cid^=' + bcs.user.id + ']'});
-			//for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
-			//for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
+			for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
+			for (var i = 0; i < logged.length; i++){$.ajax({type: 'DELETE', url: '/_/chat/' + logged[i]});}
 				logged = [];
 			}else if (API.getUser().gRole == 3){
-				$.ajax({type: 'DELETE', url: '/_/chat/1-,.cm[data-cid^=' + bcs.user.id + ']'});
-			//var bamsg = document.getElementsByClassName('ambassador');
-			//for (var i = 0; i < bamsg.length; i++) {
-				//for (var j = 0; j < bamsg[i].classList.length; j++) {
-			//		if (bamsg[i].classList[j].indexOf('ambassador') != -1) {
-			//			var cid = $(bamsg[i]).parents(".cm").attr('data-cid');
-			//			$.ajax({type: 'DELETE', url: '/_/chat/' + cid});
-			//		}
-			//	}
-			//}
+			var bamsg = document.getElementsByClassName('ambassador');
+			for (var i = 0; i < bamsg.length; i++) {
+				for (var j = 0; j < bamsg[i].classList.length; j++) {
+					if (bamsg[i].classList[j].indexOf('ambassador') != -1) {
+						var cid = $(bamsg[i]).parents(".cm").attr('data-cid');
+						$.ajax({type: 'DELETE', url: '/_/chat/' + cid});
+					}
+				}
+			}
 				logged = [];
 			}else{
 				bcs.addChat("<b>Sorry, but you are not cool enough for this command.</b>","#FF3333");
@@ -109,6 +107,6 @@ function addChat(text, color, state, size) {
 }
 
 addChat("<a style='color:#ececec;'>Beta Tester's <a style='color:#42a5dc;'>deleteOwn</a> script initiated!</a><br>\
-	<a style='color:#eb9595;'>Beta v0.6</a><br>\
+	<a style='color:#eb9595;'>Beta v0.6.1</a><br>\
 	<a style='color:#ececec;'>Check commands with /cmd</a>","#CCCCCC");
 }
