@@ -1,5 +1,5 @@
 var bcs = {
-	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.18.0.1</em></a>",
+	version:"<a style='color:#ccc; font-size:10px'><em>Beta v0.19.0.1</em></a>",
 	resetAll:function(){
 			bcs.turnOff();
 			bcs = {};
@@ -761,7 +761,7 @@ if (betaWasOn){
 }else{
 
 bcs.addChat("<br>Beta's <a style='color:#99ffd7;'><b>Client Support Script</b></a> is now active!<br>" + bcs.version,"#ececec",true,true);
-bcs.addChat("<br>Updates! May have broken BCS c:","#ececec",false,true);
+bcs.addChat("<br><a style='color:#b8e0ff;' href='http://tetheu98.github.io/bcs' target='_blank'>Check our site out!</a><br><br>","#ececec",false,true);
 
 var betaWasOn = true;
 bcs.attemptRefresh = false;
